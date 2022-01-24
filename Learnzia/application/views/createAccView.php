@@ -54,7 +54,7 @@
 								</div>
 								<div class="custom-file">
 									<input type="file" class="custom-file-input" id="uploadImage" name="uploadImage" accept='image/*' required>
-									<label class="custom-file-label text-left" for="uploadImage">file size max 1 mb</label>
+									<label class="custom-file-label text-left" for="uploadImage">file size max 2 mb</label>
 								</div>
 							</div>
 						</div>
@@ -80,7 +80,11 @@
 						</div><br>
 						<div class="col-md-12">
 							<img src="http://localhost/Learnzia/assets/images/icon/Info.png" style="float: left;">
-							<p style="color: #F1C40F; font-size: 14px;">Password must have minimum 8 character, 1 capital, and 1 number.</p><br>
+							<p style="color: #F1C40F; font-size: 14px;">Password must have minimum 8 character, 1 capital, and 1 number.</p>
+							<!--Error Message-->
+							<?php if(isset($error_message)) { echo"
+								<p style='color:#f5363f;'>".$error_message."</p>";
+							} ?><br>
 						<!--Button submit.-->
 						<div class="form-group">
 							<button type="submit" class="form-control btn btn-primary" style="color:white;">Register</button>

@@ -20,45 +20,71 @@
 
 		<style>
 			body {background-color: #313436;}
+			footer  {background-color: #212121; color:whitesmoke; position: relative; bottom: 0; padding: 2rem;}
+			.navbar {position: fixed; width:100%; z-index:1;}
 			a {color:#F1C40F;}
 			.active {border-radius: 4px; border-bottom: 4.5px solid rgb(40, 207, 54); position: relative;bottom: 5%;}
-			img {height: 30px;width: 30px;}
+			img {height: 30px;width: 30px;} .form-control{color:whitesmoke; background:#212121; border-width: 0 0 3px; 
+				border-bottom: 3.5px solid #F1C40F;}
 			hr {background-color: #F1C40F;}
 			h4 {color:#F1C40F;} h5 {color:#F1C40F;}
 			#menu {background-color: #212121; border-radius:5px;}
+			.dropdown-menu{background-color: #212121; border-color:#F1C40F;} .dropdown-item{color:#F1C40F;}
 		</style>
     </head>
     <body>
 		<!--Main Navbar-->
 		<nav class="navbar navbar-expand-lg" style="background-color:#212121;">
 		<a class="nav-link" onclick="openNav()" type="button">
-		<img src="http://localhost/Learnzia/assets/images/icon/Message.png">
-		Message</a>
+		<img src="http://localhost/Learnzia/assets/images/icon/Message.png">Contact</a>
 		<!--Collapse Side Navbar-->
 			<div id="mySidebar" class="sidebar">
 				<img  onclick="closeNav()" href="javascript:void(0)" class="closebtn" src="http://localhost/Learnzia/assets/images/icon/Close.png"
 					style="top:2%;" type="button">	
 				<!--Searchbox-->
 				<form class="form-inline my-2 my-lg-0" action="">
-					<input class="form-control mr-sm-2" type="search" placeholder="Search" style="background:#212121; border-width: 0 0 3px; 
-						border-bottom: 3.5px solid #F1C40F; color:whitesmoke; margin-left:5%;" name="search" aria-label="Search">
-					<button class="btn btn-primary" style="color:whitesmoke; background-color:#e69627; border:none;" type="submit">Search</button>
+					<input class="form-control mr-sm-2" type="search" placeholder="Search" style="margin-left:5%;" name="search" aria-label="Search">
+					<button class="btn btn-primary" style="color:whitesmoke; background-color:#00a13e; border:none;" type="submit">Search</button>
 					<img  onclick="" href="" src="http://localhost/Learnzia/assets/images/icon/Add.png" style="margin-left:2%;" type="button"
 						data-toggle="modal" data-target="#messageModal">	
 				</form><hr>
 				<div class="container-fluid" width="200" style="">
 					<!--Message list-->
-					<?php foreach($dataMessage as $data){
+					<?php 
+						//$dump = array();
+						foreach($contacts as $data){
+						// if (in_array($data['username1'] , $dump)){
+						// 	continue;
+						// }
+						if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))){
 						echo "
-						<div class='card' type='button' style='border-bottom: 3.5px solid #F1C40F; background-color:#212121;'>
+						<div class='card' type='button' style='border-bottom: 3.5px solid #F1C40F; background-color:#212121;' 
+							data-toggle='modal' data-target='#message".$data['username2']."'>
 							<div class='card-header' style='width: 25rem; height:5rem;'>
-								<img src='http://localhost/Learnzia/assets/uploads/user_".$data['receiver'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
-									margin:3px;'>
-								<h5 style='font-size:15.5px; color:#F1C40F; margin-left:3%; float:left;'>".$data['receiver']."</h5>
-								<p style='font-size:9.5px; color:whitesmoke; margin-top:2%; float:left; font-style:italic;'>".$data['datetime']."</p><br><br>
-								<p style='font-size:12px; color:whitesmoke; margin-left:3%; margin-top:-4%; float:left;'>".$data['message']."</p>
+								<img src='http://localhost/Learnzia/assets/uploads/user_".$data['username2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
+									margin-right:5%'>
+								<h5 style='font-size:15.5px; color:#F1C40F;'>".$data['username2']."</h5>
+								<p style='font-size:14px; color:#00a13e;'>['last_online']".$data['id_social']."</p>
 							</div>
-						</div><br>";}
+						</div><br>";
+						//$dump[] = $data['username2'];
+						} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))){
+						echo "
+						<div class='card' type='button' style='border-bottom: 3.5px solid #F1C40F; background-color:#212121;' 
+							data-toggle='modal' data-target='#message".$data['username1']."'>
+							<div class='card-header' style='width: 25rem; height:5rem;'>
+								<img src='http://localhost/Learnzia/assets/uploads/user_".$data['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
+									margin-right:5%;'>
+								<h5 style='font-size:15.5px; color:#F1C40F;'>".$data['username1']."</h5>
+								<p style='font-size:14px; color:#00a13e;'>['last_online']".$data['id_social']."</p>
+							</div>
+						</div><br>";
+						//$dump[] = $data['username1'];
+						} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] != $this->session->userdata('userTrack'))){
+							//break;
+						}
+						
+						}
 					?>
 					
 				</div>
@@ -98,7 +124,8 @@
 		</nav>
 
 		<!--Content-->
-		<!--News feeds.-->
+		<br><br>
+		<!--Control Room.-->
         <br><h2 style="margin-left: 16%; color:whitesmoke;">Welcome, <?= $data = $this->session->userdata('userTrack'); ?></h2>
 		<div class="container" id="menu">
 			<br><h4 style="left:2%;">Control Room</h4>
@@ -133,31 +160,94 @@
 				<div class="col-md-12">
 					<div class="collapse show" id="multiCollapseExample1" data-parent="#accordion">
 						<div class="container">
-							<h5>Math</h5>
+							<h5>Math</h5><br>
+							<div class="container-fluid">
+							<?php 
+								$i = 1; 
+								$count = 0;
+								foreach($discMath as $data){	
+									echo"<div id='accordion2'>
+										<div class='card' style='border-radius:5px; border-bottom: 3.5px solid #F1C40F; background-color:#525252;'>
+										<div class='card-header' id='headingOne' style='border-bottom: 1px solid #858585;'>
+											<img src='assets/uploads/user_".$data['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; margin-top: -1%; 
+												margin-right:1%; float:left;'>";
+										if($data['sender'] == $this->session->userdata('userTrack')){
+											echo"<h5 style='font-size:20px; float:left;'>You</h5>";
+										} else {
+											echo"<h5 style='font-size:20px; float:left;'>".$data['sender']."</h5>";
+										} echo "
+											<p style='font-size:10px; padding-top:10px; float:left; font-style:italic; color:whitesmoke;'>".$data['datetime']."</p>
+											<h5 style='font-size:20px; float:right;'>".$data['subject']."</h5><br><hr>
+											<p style='font-size:14px; color:whitesmoke	;'>".$data['question']."</p>
+											<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$data['view']."</h6>
+												<img src='assets/Images/icon/View.png' style='width:25px; height:25px; float:right; margin-top:-5px; padding-left:5px;'>
+											<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$data['up']."</h6>
+												<img src='assets/Images/icon/Up.png' style='width:25px; height:22px; float:right; margin-top:-4px; padding-left:5px;'>
+											<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$data['comment']."</h6>
+												<img src='assets/Images/icon/Comment.png' style='width:25px; height:20px; float:right; margin-top:-2px; padding-left:5px;'>
+											<h5 style='font-size:15px; float:left; text-decoration:underline;' type='button' data-toggle='collapse' data-target='#collapse".$i."' 
+											aria-expanded='true' aria-controls='collapseOne''>See Reply
+												<img src='assets/Images/icon/Down.png' style='width:25px; height:20px; float:left; padding-left:3px;'></h5>
+										</div>
+										<!--Extend-->
+										<div id='collapse".$i."' class='collapse' aria-labelledby='headingOne' data-parent='#accordion2'>
+											<div class='card-body' style='background-color:#404040;'>";
+												foreach ($dataReply as $data2){
+												if ($data2['id_discussion'] == $data['id_discussion']){
+												echo"<div class='container'>
+													<img src='assets/uploads/user_".$data2['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
+														float:left; margin-right:1%;'>";
+													if($data2['sender'] == $this->session->userdata('userTrack')){
+														echo"<h5 style='font-size:20px; margin-left:15px;'>You</h5>";
+													} else {
+														echo"<h5 style='font-size:20px; margin-left:15px;'>".$data2['sender']."</h5>";
+													} echo "
+													<p style='font-size:14px; color:whitesmoke; margin-left:4%;'>".$data2['replytext']."</p>
+												</div>"; $count++;}} 
+												if($count == 0) {echo"<h5 style='font-size:15px; font-style:italic;'>This discussion hasn't been answered yet...</h5><br>";
+													} else {echo"<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." replies...</h5><br>";}
+												echo"<form method='post' action='homeCtrl/sendReply' class='form-inline'>
+													<input type='text' class='form-control' name='id_discussion' value='".$data['id_discussion']."' hidden>
+													<div class='container'>
+													<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
+													<input class='form-control' type='text' placeholder='Type your reply here...' style='width:80%; float:right; margin-right:1%;' name='replytext'>
+													</div>
+												</form>
+											</div>
+										</div>
+										</div>
+									</div><br>";
+									$count = 0;
+								$i++;
+							 }?>
+							</div>
+							<!--end of content-->
+
 						</div>
 					</div>
 				</div>
 				<div class="col-md-12">
 					<div class="collapse" id="multiCollapseExample2" data-parent="#accordion">
 						<div class="container">
-							<h5>Coding</h5>
+							<h5>Coding</h5><br>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-12">
 					<div class="collapse" id="multiCollapseExample3" data-parent="#accordion">
 						<div class="container">
-							<h5>Geography</h5>
+							<h5>Geography</h5><br>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-12">
 					<div class="collapse" id="multiCollapseExample4" data-parent="#accordion">
 						<div class="container">
-							<h5>Science</h5>
+							<h5>Science</h5><br>
 						</div>
 					</div>
 				</div>
+				<!--Histrory content-->
 				<div class="col-md-12">
 					<div class="collapse" id="multiCollapseExample5" data-parent="#accordion">
 						<div class="container">
@@ -165,43 +255,118 @@
 							<div class="container-fluid">
 							<?php 
 								$i = 1; 
-								foreach($dataDisc as $data){		
-									echo"
-									<div id='accordion2'>
+								$count = 0;
+								foreach($discHistory as $data){	
+									echo"<div id='accordion2'>
 										<div class='card' style='border-radius:5px; border-bottom: 3.5px solid #F1C40F; background-color:#525252;'>
 										<div class='card-header' id='headingOne' style='border-bottom: 1px solid #858585;'>
-											<img src='assets/uploads/user_".$data['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; margin-top: -1%; float:left;'>
-											<h5 style='font-size:20px; padding-left:15px; float:left;'>".$data['sender']."</h2>
+											<img src='assets/uploads/user_".$data['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; margin-top: -1%; 
+												margin-right:1%; float:left;'>";
+										if($data['sender'] == $this->session->userdata('userTrack')){
+											echo"<h5 style='font-size:20px; float:left;'>You</h5>";
+										} else {
+											echo"<h5 style='font-size:20px; float:left;'>".$data['sender']."</h5>";
+										} echo "
 											<p style='font-size:10px; padding-top:10px; float:left; font-style:italic; color:whitesmoke;'>".$data['datetime']."</p>
-											<h5 style='font-size:20px; float:right;'>".$data['category']."</h5><br><hr>
+											<h5 style='font-size:20px; float:right;'>".$data['subject']."</h5><br><hr>
 											<p style='font-size:14px; color:whitesmoke	;'>".$data['question']."</p>
-											<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>0</h6>
-												<img src='assets/View.png' style='width:25px; height:25px; float:right; margin-top:-5px; padding-left:5px;'>
-											<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>0</h6>
-												<img src='assets/Up.png' style='width:25px; height:22px; float:right; margin-top:-4px; padding-left:5px;'>
-											<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>0</h6>
-												<img src='assets/Comment.png' style='width:25px; height:20px; float:right; margin-top:-2px; padding-left:5px;'>
+											<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$data['view']."</h6>
+												<img src='assets/Images/icon/View.png' style='width:25px; height:25px; float:right; margin-top:-5px; padding-left:5px;'>
+											<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$data['up']."</h6>
+												<img src='assets/Images/icon/Up.png' style='width:25px; height:22px; float:right; margin-top:-4px; padding-left:5px;'>
+											<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$data['comment']."</h6>
+												<img src='assets/Images/icon/Comment.png' style='width:25px; height:20px; float:right; margin-top:-2px; padding-left:5px;'>
 											<h5 style='font-size:15px; float:left; text-decoration:underline;' type='button' data-toggle='collapse' data-target='#collapse".$i."' 
-											aria-expanded='true' aria-controls='collapseOne''>See Reply</h5>
+											aria-expanded='true' aria-controls='collapseOne''>See Reply
+												<img src='assets/Images/icon/Down.png' style='width:25px; height:20px; float:left; padding-left:3px;'></h5>
 										</div>
 										<!--Extend-->
 										<div id='collapse".$i."' class='collapse' aria-labelledby='headingOne' data-parent='#accordion2'>
-											<div class='card-body'>
-												
+											<div class='card-body' style='background-color:#404040;'>";
+												foreach ($dataReply as $data2){
+												if ($data2['id_discussion'] == $data['id_discussion']){
+												echo"<div class='container'>
+													<img src='assets/uploads/user_".$data2['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
+														float:left; margin-right:1%;'>";
+													if($data2['sender'] == $this->session->userdata('userTrack')){
+														echo"<h5 style='font-size:20px; margin-left:15px;'>You</h5>";
+													} else {
+														echo"<h5 style='font-size:20px; margin-left:15px;'>".$data2['sender']."</h5>";
+													} echo "
+													<p style='font-size:14px; color:whitesmoke; margin-left:4%;'>".$data2['replytext']."</p>
+												</div>"; $count++;}} 
+												if($count == 0) {echo"<h5 style='font-size:15px; font-style:italic;'>This discussion hasn't been answered yet...</h5><br>";
+													} else {echo"<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." replies...</h5><br>";}
+												echo"<form method='post' action='homeCtrl/sendReply' class='form-inline'>
+													<input type='text' class='form-control' name='id_discussion' value='".$data['id_discussion']."' hidden>
+													<div class='container'>
+													<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
+													<input class='form-control' type='text' placeholder='Type your reply here...' style='width:80%; float:right; margin-right:1%;' name='replytext'>
+													</div>
+												</form>
 											</div>
 										</div>
 										</div>
-									</div>
-								<br>";
+									</div><br>";
+									$count = 0;
 								$i++;
-							}?>
+							 }?>
 							</div>
-						</div>
-					</div>
-				</div>
-			<br>
-		</div>
+							<!--end of content-->
 
+						</div>
+					</div>	
+				</div>
+				</div>
+			</div>
+		</div><br>
+
+		<!-- Footer -->
+		<footer class="page-footer font-small teal pt-4 relative-bottom">
+			<div class="container-fluid text-center text-md-left">
+			<div class="row">
+				<!-- Grid column -->
+				<div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+				<h5 class="text-uppercase font-weight-bold">About us</h5>
+					<p>Learnzia is a platform like social media to discuss and learn together with various groups 
+						of users all around the globe.</p>
+				</div>
+				<!-- Grid column -->
+
+				<hr class="w-100 clearfix d-md-none">
+				<div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+				<h5 class="text-uppercase font-weight-bold">Follow us</h5>
+					<p>
+					<img src='assets/Images/icon/Instagram.png' style='width:25px; height:22px;'><a href="#!"> Intagram</a>
+					</p>
+					<p>
+					<img src='assets/Images/icon/Facebook.png' style='width:25px; height:22px;'><a href="#!"> Facebook</a>
+					</p>
+					<p>
+					<img src='assets/Images/icon/Twitter.png' style='width:25px; height:22px;'><a href="#!"> Twitter</a>
+					</p>
+				</div>
+
+				<hr class="w-100 clearfix d-md-none">
+				<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+				<h5 class="text-uppercase font-weight-bold">Contact us</h5>
+					<p>
+					<img src='assets/Images/icon/Profile.png' style='width:25px; height:22px;'> Leonardho R Sitanggang </p>
+					<p>
+					<img src='assets/Images/icon/Location.png' style='width:25px; height:22px;'> Bandung, Indonesia </p>
+					<p>
+					<img src='assets/Images/icon/Email.png' style='width:25px; height:22px;'> learnzia@gmail.com </p>
+					<p>
+					<img src='assets/Images/icon/Call.png' style='width:25px; height:22px;'> + 62 811 4882 001 </p>
+				</div>
+
+		</div>
+				<div class="footer-copyright text-center py-3">© 2022 Copyright:
+				<a href="https://learnzia.com/">www.learnzia.com</a>
+			</div>
+		</footer>
+
+		
 		<!-- Modal Add Message -->
 		<div class='modal fade' id='messageModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
 		<div class='modal-dialog' role='document'>
@@ -236,8 +401,7 @@
 				<div class='modal-header'>
 					<h5 class='modal-title' id='exampleModalLabel' style='color:#e69627; margin-top:1%;'>Category :</h5>
 					<div class="form-group mb-3">
-					<select class="form-control" name="category" style="background:#212121; border-width: 0 0 3px; 
-							border-bottom: 3.5px solid #F1C40F; color:whitesmoke; border-radius:5px; width:300px;">
+					<select class="form-control" name="category" style="width:300px;">
 						<option value='math'>Math</option>
 						<option value='coding'>Coding</option>
 						<option value='geography'>Geography</option>
@@ -250,13 +414,11 @@
 					<div class='modal-body'>
 						<div class="form-group mb-3">
 							<label class="label" for="text" style="color:#F1C40F;">Subject</label>
-							<input type="text" class="form-control" placeholder="Subject" style="background:#212121; border-width: 0 0 3px; 
-								border-bottom: 3.5px solid #F1C40F; color:whitesmoke;" name="subject" required>
+							<input type="text" class="form-control" placeholder="Subject" name="subject" required>
 						</div>
 						<div class="form-group mb-3">
 							<label class="label" for="text" style="color:#F1C40F;">Question</label>
-							<textarea rows="5" cols="60" name="question" style="background:#212121; border-width: 0 0 3px; 
-								border-bottom: 3.5px solid #F1C40F; color:whitesmoke; border-radius:5px;" required>Enter text here...</textarea>
+							<textarea rows="5" cols="60" name="question" class='form-control' required>Enter text here...</textarea>
 						</div>
 					</div>
 					<div class='modal-footer'>
@@ -267,6 +429,127 @@
 			</div>
 		</div>
 		</div>
+
+		<!-- Modal Message-->
+		<?php
+			$count = 0; 
+			foreach($contacts as $friend){
+			if (($friend['username2'] != $this->session->userdata('userTrack'))&&($friend['username1'] == $this->session->userdata('userTrack'))){
+			echo "
+		<div class='modal fade' id='message".$friend['username2']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+		<div class='modal-dialog' role='document' style='overflow-y: initial;'>
+			<form method='POST' action='<?php echo site_url().'homeCtrl/sendDisc'; ?>'>
+			<div class='modal-content' style='background-color:#313436;'>
+			<div class='modal-header'>
+				<div class='container'>
+					<img src='assets/uploads/user_".$friend['username2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
+					float:left; margin-right:2%;'>
+					<h5 style='font-size:20px;'>".$friend['username2']."</h5>
+					<p style='font-size:14px; color:#00a13e;'>['last_online']</p>
+				</div>
+				<img type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png'>	
+			</div>
+			<div class='modal-body' style='max-height: calc(80vh - 160px); overflow-y: auto;'>";
+				foreach($dataMessage as $data2){
+					if(($data2['sender']  == $friend['username2'])&&($data2['receiver']  == $this->session->userdata('userTrack'))){
+						echo "<div class='card' style='width:80%; float:left; border-radius:5px; border-bottom: 3.5px solid #F1C40F; 
+						margin-bottom:4%; background-color:#525252;'>
+							<div class='card-header'>
+								<p class='card-text' style='font-size:11px; color:whitesmoke; font-style:italic;'>".$data2['datetime']."</p>
+							</div>
+							<div class='card-body'>
+								<p class='card-text' style='font-size:15px; color:#F1C40F;'>".$data2['message']."</p>
+							</div>
+							</div>";
+						$count++;
+					} else if(($data2['receiver']  == $friend['username2']) &&($data2['sender']  == $this->session->userdata('userTrack'))){
+						echo "<div class='card' style='width:80%; float:right; border-radius:5px; border-bottom: 3.5px solid #F1C40F; 
+						margin-bottom:4%; background-color:#525252;'>
+							<div class='card-header'>
+								<p class='card-text' style='font-size:11px; color:whitesmoke; font-style:italic;'>".$data2['datetime']."</p>
+							</div>
+							<div class='card-body'>
+								<p class='card-text' style='font-size:15px; color:#F1C40F;'>".$data2['message']."</p>
+						  	</div>
+							</div>";
+						$count++;
+					} else {
+						//do nothing
+					}
+				}
+				if ($count == 0){echo"<h5 style='font-size:15px; font-style:italic;'>Chat is empty...</h5><br>";} else {
+					echo"<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." message... </h5><br>"; //I dont know this is important or not
+				}
+			echo "</div>
+			<div class='modal-footer'>
+				<div class='container'>
+				<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
+				<input class='form-control' type='text' placeholder='Type your message here...' style='width:80%; float:right; margin-right:1%;' name='replyMessage'>
+				</div>
+			</div>
+			</div>
+		</div>
+		</div>";
+		//second condition
+		} else if (($friend['username1'] != $this->session->userdata('userTrack'))&&($friend['username2'] == $this->session->userdata('userTrack'))){
+			echo "
+		<div class='modal fade' id='message".$friend['username1']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+		<div class='modal-dialog' role='document' style='overflow-y: initial;'>
+			<form method='POST' action='<?php echo site_url().'homeCtrl/sendDisc'; ?>'>
+			<div class='modal-content' style='background-color:#313436;'>
+			<div class='modal-header'>
+				<div class='container'>
+					<img src='assets/uploads/user_".$friend['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
+					float:left; margin-right:2%;'>
+					<h5 style='font-size:20px;'>".$friend['username1']."</h5>
+					<p style='font-size:14px; color:#00a13e;'>['last_online']</p>
+				</div>
+				<img type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png'>	
+			</div>
+			<div class='modal-body' style='max-height: calc(80vh - 160px); overflow-y: auto;'>";
+				foreach($dataMessage as $data2){
+					if(($data2['sender']  == $friend['username1'])&&($data2['receiver']  == $this->session->userdata('userTrack'))){
+						echo "<div class='card' style='width:80%; float:left; border-radius:5px; border-bottom: 3.5px solid #F1C40F; 
+						margin-bottom:4%; background-color:#525252;'>
+							<div class='card-header'>
+								<p class='card-text' style='font-size:11px; color:whitesmoke; font-style:italic;'>".$data2['datetime']."</p>
+							</div>
+							<div class='card-body'>
+								<p class='card-text' style='font-size:15px; color:#F1C40F;'>".$data2['message']."</p>
+							</div>
+							</div>";
+						$count++;
+					} else if(($data2['receiver']  == $friend['username1']) &&($data2['sender']  == $this->session->userdata('userTrack'))){
+						echo "<div class='card' style='width:80%; float:right; border-radius:5px; border-bottom: 3.5px solid #F1C40F; 
+						margin-bottom:4%; background-color:#525252;'>
+							<div class='card-header'>
+								<p class='card-text' style='font-size:11px; color:whitesmoke; font-style:italic;'>".$data2['datetime']."</p>
+							</div>
+							<div class='card-body'>
+								<p class='card-text' style='font-size:15px; color:#F1C40F;'>".$data2['message']."</p>
+						  	</div>
+							</div>";
+						$count++;
+					} else {
+						//do nothing
+					}
+				}
+				if ($count == 0){echo"<h5 style='font-size:15px; font-style:italic;'>Chat is empty...</h5><br>";} else {
+					echo"<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." message... </h5><br>"; //I dont know this is important or not
+				}
+			echo "</div>
+			<div class='modal-footer'>
+				<div class='container'>
+				<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
+				<input class='form-control' type='text' placeholder='Type your message here...' style='width:80%; float:right; margin-right:1%;' name='replyMessage'>
+				</div>
+			</div>
+			</div>
+		</div>
+		</div>";
+		}
+		$count = 0;
+		}?>
 
 		<script>
 			//Side navbar private message
@@ -391,7 +674,15 @@
 		}
 
 		/*An array containing all the country names in the world:*/
-		var countries = [<?php foreach($listUser as $data){echo "'"; echo $data['username']; echo "',";}?>]
+		var countries = [<?php foreach($contacts as $data){
+					if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))){
+						echo "'"; echo $data['username2']; echo "',";
+					} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))){
+						echo "'"; echo $data['username1']; echo "',";
+					} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] != $this->session->userdata('userTrack'))){
+						//do nothing
+					}
+				}?>]
 
 		/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
 		autocomplete(document.getElementById("myInput"), countries);

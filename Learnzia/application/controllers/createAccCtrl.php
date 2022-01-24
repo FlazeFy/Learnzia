@@ -16,7 +16,7 @@
 			$initialize = $this->upload->initialize(array(
 				"upload_path" => './assets/uploads',
 				"allowed_types" => 'jpg',
-				"max_size" => 1000,
+				"max_size" => 2000,
 				"remove_spaces" => TRUE,
 				"file_name" => 'user_' . $condition
 			));
@@ -31,6 +31,7 @@
 			);
 			if (!$this->upload->do_upload('uploadImage')) {
 				$error = array('error' => $this->upload->display_errors());
+				$data['error_message'] = "Error! your profile image is to big or not jpg";
 				redirect('createAccCtrl');
 			} else {
 				$this->createAccModel->new($data, 'user');
