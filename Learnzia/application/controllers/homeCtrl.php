@@ -10,6 +10,7 @@
 			$data = [];
 			$data['dataUser']= $this->homeModel->get_data_user();
 			$data['dataMessage']= $this->homeModel->get_all_message();
+			$data['dataDiscussion']= $this->homeModel->get_all_discussion();
 			$data['contacts']= $this->homeModel->get_only_contact();
 			$data['listUser']= $this->homeModel->get_list_user();
 			$data['discHistory']= $this->homeModel->get_all_history();
@@ -52,6 +53,23 @@
 			);
 			$this->homeModel->reply($data, 'reply');
 			redirect('homeCtrl');
+		}
+		//Send reply message
+		public function sendRMessage(){
+			$data = array(
+				'id_message' => 'NULL',
+				'sender' => $this->session->userdata('userTrack'),
+				'receiver' => $this->input->post('receiver'),
+				'message' => $this->input->post('replyMessage'),
+				'datetime' => date("Y/m/d h:i:sa")
+			);
+			$this->homeModel->replyMessage($data, 'message');
+			redirect('homeCtrl');
+		}
+
+		//Sign out
+		public function signOut(){
+			$this->homeModel->offstatus('user');
 		}
 	}
 ?>

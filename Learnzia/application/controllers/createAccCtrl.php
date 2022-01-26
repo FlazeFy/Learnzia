@@ -27,7 +27,8 @@
 				'email' => $this->input->post('email'),
 				'password' => $this->input->post('password'),
 				'description' => $this->input->post('description'),
-				'country' => $this->input->post('country')
+				'country' => $this->input->post('country'),
+				'status' => 'online'
 			);
 			if (!$this->upload->do_upload('uploadImage')) {
 				$error = array('error' => $this->upload->display_errors());

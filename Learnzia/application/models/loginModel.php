@@ -7,7 +7,7 @@
 		{
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
-
+			
 			//Acc validation.
 			$this->db->select('*');
 			$this->db->from('user');
@@ -15,6 +15,9 @@
 			$this->db->where($condition);
 			$userCheck = $this->db->get()->result();
 			if(count($userCheck) == 1){
+				$this->db->set('status', 'online');
+				$this->db->where('username', $data['username']);
+				$this->db->update('user');
 				$this->session->set_userdata('userTrack',$username);	
 				$this->session->set_userdata('lastLogin', date("Y/m/d h:i:sa"));
 				redirect('homeCtrl');

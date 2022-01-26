@@ -28,7 +28,7 @@
 				border-bottom: 3.5px solid #F1C40F;}
 			hr {background-color: #F1C40F;}
 			h4 {color:#F1C40F;} h5 {color:#F1C40F;}
-			#menu {background-color: #212121; border-radius:5px;}
+			#menu {background-color: #212121; border-radius:5px; margin-bottom:1%;}
 			.dropdown-menu{background-color: #212121; border-color:#F1C40F;} .dropdown-item{color:#F1C40F;}
 		</style>
     </head>
@@ -51,11 +51,7 @@
 				<div class="container-fluid" width="200" style="">
 					<!--Message list-->
 					<?php 
-						//$dump = array();
 						foreach($contacts as $data){
-						// if (in_array($data['username1'] , $dump)){
-						// 	continue;
-						// }
 						if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))){
 						echo "
 						<div class='card' type='button' style='border-bottom: 3.5px solid #F1C40F; background-color:#212121;' 
@@ -63,9 +59,14 @@
 							<div class='card-header' style='width: 25rem; height:5rem;'>
 								<img src='http://localhost/Learnzia/assets/uploads/user_".$data['username2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
 									margin-right:5%'>
-								<h5 style='font-size:15.5px; color:#F1C40F;'>".$data['username2']."</h5>
-								<p style='font-size:14px; color:#00a13e;'>['last_online']".$data['id_social']."</p>
-							</div>
+								<h5 style='font-size:15.5px; color:#F1C40F;'>".$data['username2']."</h5>";
+								//User login status
+								foreach($listUser as $user){
+								if(($user['status'] == 'online')&&($user['username']==$data['username2'])){echo "<p style='font-size:14px; color:#00a13e;'>".$user['status']."</p>";} 
+									else if(($user['status'] == 'offline')&&($user['username']==$data['username2'])) {
+									echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
+								}}
+							echo "</div>
 						</div><br>";
 						//$dump[] = $data['username2'];
 						} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))){
@@ -75,9 +76,14 @@
 							<div class='card-header' style='width: 25rem; height:5rem;'>
 								<img src='http://localhost/Learnzia/assets/uploads/user_".$data['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
 									margin-right:5%;'>
-								<h5 style='font-size:15.5px; color:#F1C40F;'>".$data['username1']."</h5>
-								<p style='font-size:14px; color:#00a13e;'>['last_online']".$data['id_social']."</p>
-							</div>
+								<h5 style='font-size:15.5px; color:#F1C40F;'>".$data['username1']."</h5>";
+								//User login status
+								foreach($listUser as $user){
+								if(($user['status'] == 'online')&&($user['username']==$data['username1'])){echo "<p style='font-size:14px; color:#00a13e;'>".$user['status']."</p>";} 
+									else if(($user['status'] == 'offline')&&($user['username']==$data['username1'])) {
+									echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
+								}}
+							echo "</div>
 						</div><br>";
 						//$dump[] = $data['username1'];
 						} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] != $this->session->userdata('userTrack'))){
@@ -119,14 +125,14 @@
 			</li>
 			</ul>
 			<button class="btn btn-primary" style="color:whitesmoke; margin-left:1%; background-color:#e62d27; border:none;" 
-				onclick="signOut()">Sign Out</button>
+				data-toggle="modal" data-target="#signOutModal">Sign Out</button>
 		</div>
 		</nav>
 
 		<!--Content-->
 		<br><br>
 		<!--Control Room.-->
-        <br><h2 style="margin-left: 16%; color:whitesmoke;">Welcome, <?= $data = $this->session->userdata('userTrack'); ?></h2>
+        <br><h2 style="margin-left: 13%; color:whitesmoke; font-size:20px;">Welcome, <?= $data = $this->session->userdata('userTrack'); ?></h2>
 		<div class="container" id="menu">
 			<br><h4 style="left:2%;">Control Room</h4>
 			<div class="dropdown" style="float:right; margin-top:-3%;">
@@ -138,12 +144,127 @@
 				</div>
 			</div>
 			<button class="btn btn-secondary" style="color:whitesmoke; background-color:#00a13e; border:none; margin-top:-3%; 
-				float:right; margin-right:1%;" data-toggle="modal" data-target="#discModal">Add Discussion</button>
+				float:right; margin-right:1%;" data-toggle="modal" data-target="#discModal">Post</button>
 			<br>
-		</div><br>
+		</div>
 
 		<div class="container" id="menu">
-			<br><h4 style="left:2%;">Post</h4>
+			<br><h4>Friend's Post</h4>
+			<div id="accordionF">
+		<?php 
+			$disFriendCount = 0;
+			foreach($contacts as $data){
+			foreach($dataDiscussion as $disFriend){
+				if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))
+					&&($data['username2'] == $disFriend['sender'])){
+					echo "
+						<button class='btn btn-primary' data-toggle='collapse' data-target='#disFriend".$disFriend['id_discussion']."' aria-expanded='false' 
+						aria-controls='multiCollapseExample2' style='background-color: #212121; border:none; margin-bottom:1%; max-width:120px; max-height:120px;'>
+							<img src='http://localhost/Learnzia/assets/uploads/user_".$data['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+								style='width:60px; height:60px; border: 2.5px solid #F1C40F;'>
+							<h5 style='font-size:14px;'>".$disFriend['subject']."</h5>
+						</button>
+					";
+					$disFriendCount++;
+				} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))
+					&&($data['username1'] == $disFriend['sender'])){
+					echo "
+						<button class='btn btn-primary' data-toggle='collapse' data-target='#disFriend".$disFriend['id_discussion']."' aria-expanded='false' 
+						aria-controls='multiCollapseExample2' style='background-color: #212121; border:none; margin-bottom:1%; max-width:120px; max-height:120px;'>
+							<img src='http://localhost/Learnzia/assets/uploads/user_".$data['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+								style='width:60px; height:60px; border: 2.5px solid #F1C40F;'>
+							<h5 style='font-size:14px;'>".$disFriend['subject']."</h5>
+						</button>
+					";
+					$disFriendCount++;
+				}
+			}
+			}
+			if ($disFriendCount == 0){echo "<h5 style='font-size:14px; font-style:italic; color:whitesmoke; margin-bottom:1%;'>There is no discussion from your friend in this week...</h5>";}
+		?>
+			<div class="row">
+				<?php
+				foreach($contacts as $data){
+				foreach($dataDiscussion as $disFriend){
+					if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))
+						&&($data['username2'] == $disFriend['sender'])){
+					echo"
+					<div class='col-md-12'>
+						<div class='collapse' id='disFriend".$disFriend['id_discussion']."' data-parent='#accordionF'>
+							<div class='container'>
+								<h5>Science</h5><br>
+							</div>
+						</div>
+					</div>";
+					} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))
+					&&($data['username1'] == $disFriend['sender'])){
+					echo"
+					<div class='col-md-12'>
+						<div class='collapse' id='disFriend".$disFriend['id_discussion']."' data-parent='#accordionF'>
+							<div class='container'>";
+							$i = 1; 
+							$count = 0;	
+								echo"<div id='accordion2'>
+									<div class='card' style='border-radius:5px; border-bottom: 3.5px solid #F1C40F; background-color:#525252;'>
+									<div class='card-header' id='headingOne' style='border-bottom: 1px solid #858585;'>
+										<img src='assets/uploads/user_".$disFriend['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; margin-top: -1%; 
+											margin-right:1%; float:left;'>
+										<h5 style='font-size:20px; float:left;'>".$disFriend['sender']."</h5>
+										<p style='font-size:10px; padding-top:10px; float:left; font-style:italic; color:whitesmoke;'>".$disFriend['datetime']."</p>
+										<h5 style='font-size:20px; float:right;'>".$disFriend['subject']."</h5><br><hr>
+										<p style='font-size:14px; color:whitesmoke	;'>".$disFriend['question']."</p>
+										<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$disFriend['view']."</h6>
+											<img src='assets/Images/icon/View.png' style='width:25px; height:25px; float:right; margin-top:-5px; padding-left:5px;'>
+										<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$disFriend['up']."</h6>
+											<img src='assets/Images/icon/Up.png' style='width:25px; height:22px; float:right; margin-top:-4px; padding-left:5px;'>
+										<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$disFriend['comment']."</h6>
+											<img src='assets/Images/icon/Comment.png' style='width:25px; height:20px; float:right; margin-top:-2px; padding-left:5px;'>
+										<h5 style='font-size:15px; float:left; text-decoration:underline;' type='button' data-toggle='collapse' data-target='#collapse_disFriend".$i."' 
+										aria-expanded='true' aria-controls='collapseOne''>See Reply
+											<img src='assets/Images/icon/Down.png' style='width:25px; height:20px; float:left; padding-left:3px;'></h5>
+									</div>
+									<!--Extend-->
+									<div id='collapse_disFriend".$i."' class='collapse' aria-labelledby='headingOne' data-parent='#accordion2'>
+										<div class='card-body' style='background-color:#404040;'>";
+											foreach ($dataReply as $data2){
+											if ($data2['id_discussion'] == $disFriend['id_discussion']){
+											echo"<div class='container'>
+												<img src='assets/uploads/user_".$data2['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
+													float:left; margin-right:1%;'>";
+												if($data2['sender'] == $this->session->userdata('userTrack')){
+													echo"<h5 style='font-size:20px; margin-left:15px;'>You</h5>";
+												} else {
+													echo"<h5 style='font-size:20px; margin-left:15px;'>".$data2['sender']."</h5>";
+												} echo "
+												<p style='font-size:14px; color:whitesmoke; margin-left:4%;'>".$data2['replytext']."</p>
+											</div>"; $count++;}} 
+											if($count == 0) {echo"<h5 style='font-size:15px; font-style:italic;'>This discussion hasn't been answered yet...</h5><br>";
+												} else {echo"<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." replies...</h5><br>";}
+											echo"<form method='post' action='homeCtrl/sendReply' class='form-inline'>
+												<input type='text' class='form-control' name='id_discussion' value='".$disFriend['id_discussion']."' hidden>
+												<div class='container'>
+												<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
+												<input class='form-control' type='text' placeholder='Type your reply here...' style='width:80%; float:right; margin-right:1%;' name='replytext'>
+												</div>
+											</form>
+										</div>
+									</div>
+									</div>
+								</div><br>";
+								$count = 0;
+							$i++;
+							echo "</div>
+						</div>
+					</div>";
+					}
+				}}
+				?>
+			</div>
+			</div>
+		</div>
+
+		<div class="container" id="menu">
+			<br><h4>All Post</h4>
 			<div id="accordion">
 				<button class="btn btn-primary" data-toggle="collapse" data-target="#multiCollapseExample1" aria-expanded="false" 
 					aria-controls="multiCollapseExample2" style="background-color:#7289da; border-width:0px;">Math</button>
@@ -319,7 +440,7 @@
 				</div>
 				</div>
 			</div>
-		</div><br>
+		</div>
 
 		<!-- Footer -->
 		<footer class="page-footer font-small teal pt-4 relative-bottom">
@@ -365,8 +486,24 @@
 				<a href="https://learnzia.com/">www.learnzia.com</a>
 			</div>
 		</footer>
-
 		
+		<!-- Sign out Modal -->
+		<div class="modal fade" id="signOutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content" style='background-color:#313436;'>
+			<div class="modal-header">
+				<h5 class="" style='margin-left:35%;'>Are you sure?...</h5>
+				<!--Good bye animation-->
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+				<form method='POST' action='<?php echo site_url().'homeCtrl/signOut'; ?>'>
+				<button type="submit" class="btn btn-primary" style='background-color:#e69627; border:none;'>Yes, Sign Out</button></form>
+			</div>			
+			</div>
+		</div>
+		</div>				
+
 		<!-- Modal Add Message -->
 		<div class='modal fade' id='messageModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
 		<div class='modal-dialog' role='document'>
@@ -438,15 +575,20 @@
 			echo "
 		<div class='modal fade' id='message".$friend['username2']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
 		<div class='modal-dialog' role='document' style='overflow-y: initial;'>
-			<form method='POST' action='<?php echo site_url().'homeCtrl/sendDisc'; ?>'>
+			<form method='POST' action='homeCtrl/sendRMessage'>
 			<div class='modal-content' style='background-color:#313436;'>
 			<div class='modal-header'>
 				<div class='container'>
 					<img src='assets/uploads/user_".$friend['username2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
 					float:left; margin-right:2%;'>
-					<h5 style='font-size:20px;'>".$friend['username2']."</h5>
-					<p style='font-size:14px; color:#00a13e;'>['last_online']</p>
-				</div>
+					<h5 style='font-size:20px;'>".$friend['username2']."</h5>";
+					//User login status
+					foreach($listUser as $user){
+					if(($user['status'] == 'online')&&($user['username']==$friend['username2'])){echo "<p style='font-size:14px; color:#00a13e;'>".$user['status']."</p>";} 
+						else if(($user['status'] == 'offline')&&($user['username']==$friend['username2'])) {
+						echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
+					}}
+				echo "</div>
 				<img type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png'>	
 			</div>
 			<div class='modal-body' style='max-height: calc(80vh - 160px); overflow-y: auto;'>";
@@ -464,7 +606,7 @@
 						$count++;
 					} else if(($data2['receiver']  == $friend['username2']) &&($data2['sender']  == $this->session->userdata('userTrack'))){
 						echo "<div class='card' style='width:80%; float:right; border-radius:5px; border-bottom: 3.5px solid #F1C40F; 
-						margin-bottom:4%; background-color:#525252;'>
+						margin-bottom:4%; background-color:#232323;'>
 							<div class='card-header'>
 								<p class='card-text' style='font-size:11px; color:whitesmoke; font-style:italic;'>".$data2['datetime']."</p>
 							</div>
@@ -477,15 +619,17 @@
 						//do nothing
 					}
 				}
-				if ($count == 0){echo"<h5 style='font-size:15px; font-style:italic;'>Chat is empty...</h5><br>";} else {
-					echo"<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." message... </h5><br>"; //I dont know this is important or not
+				if ($count == 0){echo"<h5 style='font-size:15px; font-style:italic; float:left;'>Chat is empty...</h5>";} else {
+					echo"<h5 style='font-size:15px; font-style:italic; float:left; margin-bottom:3%;'>Showing ".$count." message... </h5>"; //I dont know this is important or not
 				}
 			echo "</div>
 			<div class='modal-footer'>
-				<div class='container'>
-				<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
-				<input class='form-control' type='text' placeholder='Type your message here...' style='width:80%; float:right; margin-right:1%;' name='replyMessage'>
-				</div>
+					<div class='container'>
+					<input type='text' class='form-control' name='receiver' value='".$friend['username2']."' hidden>
+					<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
+					<input class='form-control' type='text' placeholder='Type your message here...' style='width:80%; float:right; margin-right:1%;' name='replyMessage'>
+					</div>
+				</form>
 			</div>
 			</div>
 		</div>
@@ -495,15 +639,20 @@
 			echo "
 		<div class='modal fade' id='message".$friend['username1']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
 		<div class='modal-dialog' role='document' style='overflow-y: initial;'>
-			<form method='POST' action='<?php echo site_url().'homeCtrl/sendDisc'; ?>'>
+			<form method='POST' action='homeCtrl/sendRMessage'>
 			<div class='modal-content' style='background-color:#313436;'>
 			<div class='modal-header'>
 				<div class='container'>
 					<img src='assets/uploads/user_".$friend['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
 					float:left; margin-right:2%;'>
-					<h5 style='font-size:20px;'>".$friend['username1']."</h5>
-					<p style='font-size:14px; color:#00a13e;'>['last_online']</p>
-				</div>
+					<h5 style='font-size:20px;'>".$friend['username1']."</h5>";
+					//User login status
+					foreach($listUser as $user){
+					if(($user['status'] == 'online')&&($user['username']==$friend['username1'])){echo "<p style='font-size:14px; color:#00a13e;'>".$user['status']."</p>";} 
+						else if(($user['status'] == 'offline')&&($user['username']==$friend['username1'])) {
+						echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
+					}}
+				echo "</div>
 				<img type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png'>	
 			</div>
 			<div class='modal-body' style='max-height: calc(80vh - 160px); overflow-y: auto;'>";
@@ -521,7 +670,7 @@
 						$count++;
 					} else if(($data2['receiver']  == $friend['username1']) &&($data2['sender']  == $this->session->userdata('userTrack'))){
 						echo "<div class='card' style='width:80%; float:right; border-radius:5px; border-bottom: 3.5px solid #F1C40F; 
-						margin-bottom:4%; background-color:#525252;'>
+						margin-bottom:4%; background-color:#232323;'>
 							<div class='card-header'>
 								<p class='card-text' style='font-size:11px; color:whitesmoke; font-style:italic;'>".$data2['datetime']."</p>
 							</div>
@@ -534,15 +683,17 @@
 						//do nothing
 					}
 				}
-				if ($count == 0){echo"<h5 style='font-size:15px; font-style:italic;'>Chat is empty...</h5><br>";} else {
-					echo"<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." message... </h5><br>"; //I dont know this is important or not
+				if ($count == 0){echo"<h5 style='font-size:15px; font-style:italic; float:left;'>Chat is empty...</h5>";} else {
+					echo"<h5 style='font-size:15px; font-style:italic; float:left; margin-bottom:3%;'>Showing ".$count." message... </h5>"; //I dont know this is important or not
 				}
 			echo "</div>
 			<div class='modal-footer'>
-				<div class='container'>
-				<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
-				<input class='form-control' type='text' placeholder='Type your message here...' style='width:80%; float:right; margin-right:1%;' name='replyMessage'>
-				</div>
+					<div class='container'>
+					<input type='text' class='form-control' name='receiver' value='".$friend['username1']."' hidden>
+					<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
+					<input class='form-control' type='text' placeholder='Type your message here...' style='width:80%; float:right; margin-right:1%;' name='replyMessage'>
+					</div>
+				</form>
 			</div>
 			</div>
 		</div>
@@ -563,15 +714,6 @@
 			function closeNav() {
 				document.getElementById("mySidebar").style.width = "0";
 				document.getElementById("main").style.marginLeft = "0";
-			}
-			function signOut(){
-				var pop = window.confirm("Are you sure?");
-				if(pop){
-					window.location.href = "http://localhost/Learnzia";
-					alert("Sign-out success");
-				} else {
-					alert("Sign-Out failed");
-				}
 			}
 		</script>
 
