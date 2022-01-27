@@ -68,7 +68,6 @@
 								}}
 							echo "</div>
 						</div><br>";
-						//$dump[] = $data['username2'];
 						} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))){
 						echo "
 						<div class='card' type='button' style='border-bottom: 3.5px solid #F1C40F; background-color:#212121;' 
@@ -85,9 +84,7 @@
 								}}
 							echo "</div>
 						</div><br>";
-						//$dump[] = $data['username1'];
 						} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] != $this->session->userdata('userTrack'))){
-							//break;
 						}
 						
 						}
@@ -110,7 +107,7 @@
 				<a class="nav-link" href="#">Global</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Profile</a>
+				<a class="nav-link" href="profileCtrl">Profile</a>
 			</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -134,23 +131,15 @@
 		<!--Control Room.-->
         <br><h2 style="margin-left: 13%; color:whitesmoke; font-size:20px;">Welcome, <?= $data = $this->session->userdata('userTrack'); ?></h2>
 		<div class="container" id="menu">
-			<br><h4 style="left:2%;">Control Room</h4>
-			<div class="dropdown" style="float:right; margin-top:-3%;">
-				<button class="btn btn-secondary dropdown-toggle" style="color:whitesmoke; background-color:#e69627; border:none;" 
-					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort By</button>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					<a class="dropdown-item" href="#">Recently</a>
-					<a class="dropdown-item" href="#">Most Liked</a>
-				</div>
-			</div>
-			<button class="btn btn-secondary" style="color:whitesmoke; background-color:#00a13e; border:none; margin-top:-3%; 
-				float:right; margin-right:1%;" data-toggle="modal" data-target="#discModal">Post</button>
-			<br>
-		</div>
-
-		<div class="container" id="menu">
 			<br><h4>Friend's Post</h4>
 			<div id="accordionF">
+		<!--Add post-->
+		<button class='btn btn-primary' data-toggle="modal" data-target="#discModal" aria-expanded='false' 
+		aria-controls='multiCollapseExample2' style='background-color: #00a13e; border:none; margin-bottom:1%; max-width:120px; max-height:120px;'>
+			<img src='http://localhost/Learnzia/assets/uploads/user_<?= $data = $this->session->userdata('userTrack'); ?>.jpg' alt='New Post' class='rounded-circle img-fluid' 
+				style='width:60px; height:60px;'>
+			<h5 style='font-size:14px; color:whitesmoke;'>New Post</h5>
+		</button>
 		<?php 
 			$disFriendCount = 0;
 			foreach($contacts as $data){
@@ -160,7 +149,7 @@
 					echo "
 						<button class='btn btn-primary' data-toggle='collapse' data-target='#disFriend".$disFriend['id_discussion']."' aria-expanded='false' 
 						aria-controls='multiCollapseExample2' style='background-color: #212121; border:none; margin-bottom:1%; max-width:120px; max-height:120px;'>
-							<img src='http://localhost/Learnzia/assets/uploads/user_".$data['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+							<img src='http://localhost/Learnzia/assets/uploads/user_".$data['username2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
 								style='width:60px; height:60px; border: 2.5px solid #F1C40F;'>
 							<h5 style='font-size:14px;'>".$disFriend['subject']."</h5>
 						</button>
@@ -188,14 +177,64 @@
 				foreach($dataDiscussion as $disFriend){
 					if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))
 						&&($data['username2'] == $disFriend['sender'])){
-					echo"
-					<div class='col-md-12'>
-						<div class='collapse' id='disFriend".$disFriend['id_discussion']."' data-parent='#accordionF'>
-							<div class='container'>
-								<h5>Science</h5><br>
+						echo"
+						<div class='col-md-12'>
+							<div class='collapse' id='disFriend".$disFriend['id_discussion']."' data-parent='#accordionF'>
+								<div class='container'>";
+								$i = 1; 
+								$count = 0;	
+									echo"<div id='accordion2'>
+										<div class='card' style='border-radius:5px; border-bottom: 3.5px solid #F1C40F; background-color:#525252;'>
+										<div class='card-header' id='headingOne' style='border-bottom: 1px solid #858585;'>
+											<img src='assets/uploads/user_".$disFriend['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; margin-top: -1%; 
+												margin-right:1%; float:left;'>
+											<h5 style='font-size:20px; float:left;'>".$disFriend['sender']."</h5>
+											<p style='font-size:10px; padding-top:10px; float:left; font-style:italic; color:whitesmoke;'>".$disFriend['datetime']."</p>
+											<h5 style='font-size:20px; float:right;'>".$disFriend['subject']."</h5><br><hr>
+											<p style='font-size:14px; color:whitesmoke	;'>".$disFriend['question']."</p>
+											<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$disFriend['view']."</h6>
+												<img src='assets/Images/icon/View.png' style='width:25px; height:25px; float:right; margin-top:-5px; padding-left:5px;'>
+											<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$disFriend['up']."</h6>
+												<img src='assets/Images/icon/Up.png' style='width:25px; height:22px; float:right; margin-top:-4px; padding-left:5px;'>
+											<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$disFriend['comment']."</h6>
+												<img src='assets/Images/icon/Comment.png' style='width:25px; height:20px; float:right; margin-top:-2px; padding-left:5px;'>
+											<h5 style='font-size:15px; float:left; text-decoration:underline;' type='button' data-toggle='collapse' data-target='#collapse_disFriend".$i."' 
+											aria-expanded='true' aria-controls='collapseOne''>See Reply
+												<img src='assets/Images/icon/Down.png' style='width:25px; height:20px; float:left; padding-left:3px;'></h5>
+										</div>
+										<!--Extend-->
+										<div id='collapse_disFriend".$i."' class='collapse' aria-labelledby='headingOne' data-parent='#accordion2'>
+											<div class='card-body' style='background-color:#404040;'>";
+												foreach ($dataReply as $data2){
+												if ($data2['id_discussion'] == $disFriend['id_discussion']){
+												echo"<div class='container'>
+													<img src='assets/uploads/user_".$data2['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
+														float:left; margin-right:1%;'>";
+													if($data2['sender'] == $this->session->userdata('userTrack')){
+														echo"<h5 style='font-size:20px; margin-left:15px;'>You</h5>";
+													} else {
+														echo"<h5 style='font-size:20px; margin-left:15px;'>".$data2['sender']."</h5>";
+													} echo "
+													<p style='font-size:14px; color:whitesmoke; margin-left:4%;'>".$data2['replytext']."</p>
+												</div>"; $count++;}} 
+												if($count == 0) {echo"<h5 style='font-size:15px; font-style:italic;'>This discussion hasn't been answered yet...</h5><br>";
+													} else {echo"<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." replies...</h5><br>";}
+												echo"<form method='post' action='homeCtrl/sendReply' class='form-inline'>
+													<input type='text' class='form-control' name='id_discussion' value='".$disFriend['id_discussion']."' hidden>
+													<div class='container'>
+													<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
+													<input class='form-control' type='text' placeholder='Type your reply here...' style='width:80%; float:right; margin-right:1%;' name='replytext'>
+													</div>
+												</form>
+											</div>
+										</div>
+										</div>
+									</div><br>";
+									$count = 0;
+								$i++;
+								echo "</div>
 							</div>
-						</div>
-					</div>";
+						</div>";
 					} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))
 					&&($data['username1'] == $disFriend['sender'])){
 					echo"
@@ -266,6 +305,7 @@
 		<div class="container" id="menu">
 			<br><h4>All Post</h4>
 			<div id="accordion">
+				<h5 style='color:whitesmoke; font-size:16px;'>Filter By</h5>
 				<button class="btn btn-primary" data-toggle="collapse" data-target="#multiCollapseExample1" aria-expanded="false" 
 					aria-controls="multiCollapseExample2" style="background-color:#7289da; border-width:0px;">Math</button>
 				<button class="btn btn-primary" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" 
@@ -276,7 +316,17 @@
 					aria-controls="multiCollapseExample2" style="background-color:#7289da; border-width:0px;">Science</button>
 				<button class="btn btn-primary" data-toggle="collapse" data-target="#multiCollapseExample5" aria-expanded="false" 
 					aria-controls="multiCollapseExample2" style="background-color:#7289da; border-width:0px;">History</button>
+
+			<div class="dropdown" style="float:right;">
+				<button class="btn btn-secondary dropdown-toggle" style="color:whitesmoke; background-color:#e69627; border:none;" 
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort By</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					<a class="dropdown-item" href="#">Recently</a>
+					<a class="dropdown-item" href="#">Most Liked</a>
+				</div>
+			</div>
 				<hr>
+
 				<div class="row">
 				<div class="col-md-12">
 					<div class="collapse show" id="multiCollapseExample1" data-parent="#accordion">
