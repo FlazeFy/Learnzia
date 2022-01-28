@@ -28,6 +28,7 @@
 				'password' => $this->input->post('password'),
 				'description' => $this->input->post('description'),
 				'country' => $this->input->post('country'),
+				'datejoin' => date("Y/m/d"),
 				'status' => 'online'
 			);
 			if (!$this->upload->do_upload('uploadImage')) {

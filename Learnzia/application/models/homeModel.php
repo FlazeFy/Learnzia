@@ -39,6 +39,7 @@
 			$this->db->insert('message',$data);	
 			redirect('homeCtrl');
 		}
+		//Post discussion
 		public function uploadDisc($data){
 			$this->db->insert('discussion',$data);	
 			redirect('homeCtrl');

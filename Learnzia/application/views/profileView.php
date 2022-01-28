@@ -16,7 +16,7 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 		<!--Source file-->
-		<link rel="stylesheet" type="text/css" href="http://localhost/Learnzia/assets/css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="http://localhost/Learnzia/assets/css/main_style.css"/>
 
 		<style>
 			body {background-color: #313436;}
@@ -24,29 +24,30 @@
 			.navbar {position: fixed; width:100%; z-index:1;}
 			a {color:#F1C40F;}
 			.active {border-radius: 4px; border-bottom: 4.5px solid rgb(40, 207, 54); position: relative;bottom: 5%;}
-			img {height: 30px;width: 30px;} .form-control{color:whitesmoke; background:#212121; border-width: 0 0 3px; 
+			#icon {height: 30px;width: 30px;} .form-control{color:whitesmoke; background:#212121; border-width: 0 0 3px; 
 				border-bottom: 3.5px solid #F1C40F;}
-			hr {background-color: #F1C40F;}
+			hr {background-color: whitesmoke;}
 			h4 {color:#F1C40F;} h5 {color:#F1C40F;}
 			#menu {background-color: #212121; border-radius:5px; margin-bottom:1%;}
 			.dropdown-menu{background-color: #212121; border-color:#F1C40F;} .dropdown-item{color:#F1C40F;}
 			.nav-tabs .nav-link.active{background-color:#e69627; color:whitesmoke; border:none; margin-top:2%;}
+			.tab-pane.active{border:none;}
 		</style>
     </head>
     <body>
 		<!--Main Navbar-->
 		<nav class="navbar navbar-expand-lg" style="background-color:#212121;">
 		<a class="nav-link" onclick="openNav()" type="button">
-		<img src="http://localhost/Learnzia/assets/images/icon/Message.png">Contact</a>
+		<img id='icon' src="http://localhost/Learnzia/assets/images/icon/Message.png">Contact</a>
 		<!--Collapse Side Navbar-->
 			<div id="mySidebar" class="sidebar">
-				<img  onclick="closeNav()" href="javascript:void(0)" class="closebtn" src="http://localhost/Learnzia/assets/images/icon/Close.png"
+				<img  id='icon' onclick="closeNav()" href="javascript:void(0)" class="closebtn" src="http://localhost/Learnzia/assets/images/icon/Close.png"
 					style="top:2%;" type="button">	
 				<!--Searchbox-->
 				<form class="form-inline my-2 my-lg-0" action="">
 					<input class="form-control mr-sm-2" type="search" placeholder="Search" style="margin-left:5%;" name="search" aria-label="Search">
 					<button class="btn btn-primary" style="color:whitesmoke; background-color:#00a13e; border:none;" type="submit">Search</button>
-					<img  onclick="" href="" src="http://localhost/Learnzia/assets/images/icon/Add.png" style="margin-left:2%;" type="button"
+					<img id='icon' onclick="" href="" src="http://localhost/Learnzia/assets/images/icon/Add.png" style="margin-left:2%;" type="button"
 						data-toggle="modal" data-target="#messageModal">	
 				</form><hr>
 				<div class="container-fluid" width="200" style="">
@@ -58,7 +59,7 @@
 						<div class='card' type='button' style='border-bottom: 3.5px solid #F1C40F; background-color:#212121;' 
 							data-toggle='modal' data-target='#message".$data['username2']."'>
 							<div class='card-header' style='width: 25rem; height:5rem;'>
-								<img src='http://localhost/Learnzia/assets/uploads/user_".$data['username2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
+								<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$data['username2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
 									margin-right:5%'>
 								<h5 style='font-size:15.5px; color:#F1C40F;'>".$data['username2']."</h5>";
 								//User login status
@@ -74,7 +75,7 @@
 						<div class='card' type='button' style='border-bottom: 3.5px solid #F1C40F; background-color:#212121;' 
 							data-toggle='modal' data-target='#message".$data['username1']."'>
 							<div class='card-header' style='width: 25rem; height:5rem;'>
-								<img src='http://localhost/Learnzia/assets/uploads/user_".$data['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
+								<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$data['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
 									margin-right:5%;'>
 								<h5 style='font-size:15.5px; color:#F1C40F;'>".$data['username1']."</h5>";
 								//User login status
@@ -136,7 +137,7 @@
                     <div class="col-lg-4 col-xlg-3 col-md-5">
                         <div class="card" style='border-radius:5px; border: 3px solid #F1C40F; background-color:#525252; margin-bottom:5%;'>
                             <div class="card-block little-profile text-center">
-								<img src='http://localhost/Learnzia/assets/uploads/user_<?php foreach ($dataUser as $data) {echo $data['username'];} ?>.jpg' alt='New Post' class='rounded-circle img-fluid' 
+								<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_<?php foreach ($dataUser as $data) {echo $data['username'];} ?>.jpg' alt='New Post' class='rounded-circle img-fluid' 
 								style='width:120px; height:120px; margin-top:5%;'>
                                 <h3 class="m-b-0"></h3>
                                 <h4 style=''><?php foreach ($dataUser as $data) {echo $data['username'];} ?></h4>
@@ -177,7 +178,7 @@
 							echo "
 							<div class='card' type='button' style='border: none; background-color:#515151; margin:1%;'>
 								<div class='card-header' style='height:5rem;'>
-									<img src='http://localhost/Learnzia/assets/uploads/user_".$data['username2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
+									<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$data['username2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
 										margin-right:5%'>
 									<h5 style='font-size:15.5px; color:#F1C40F;'>".$data['username2']."</h5>";
 									//User login status
@@ -192,7 +193,7 @@
 							echo "
 							<div class='card' type='button' style='border:none; background-color:#515151; margin:1%;'>
 								<div class='card-header' style='height:5rem;'>
-									<img src='http://localhost/Learnzia/assets/uploads/user_".$data['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
+									<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$data['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
 										margin-right:5%;'>
 									<h5 style='font-size:15.5px; color:#F1C40F;'>".$data['username1']."</h5>";
 									//User login status
@@ -234,12 +235,13 @@
                                     <div class="container" style='max-height: calc(160vh - 120px); overflow-y: auto;'>
 										<?php 
 										$i = 1; 
+										$total = 0;
 										$count = 0;
 										foreach($dataDiscussion as $data){	
 											echo"<div id='accordion2'>
 												<div class='card' style='border-radius:5px; border-bottom: 3.5px solid #F1C40F; background-color:#525252; margin:2%;'>
 												<div class='card-header' id='headingOne' style='border-bottom: 1px solid #858585;'>
-													<img src='assets/uploads/user_".$data['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; margin-top: -1%; 
+													<img id='icon' src='assets/uploads/user_".$data['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; margin-top: -1%; 
 														margin-right:1%; float:left;'>";
 												if($data['sender'] == $this->session->userdata('userTrack')){
 													echo"<h5 style='font-size:20px; float:left;'>You</h5>";
@@ -247,17 +249,28 @@
 													echo"<h5 style='font-size:20px; float:left;'>".$data['sender']."</h5>";
 												} echo "
 													<p style='font-size:10px; padding-top:10px; float:left; font-style:italic; color:whitesmoke;'>".$data['datetime']."</p>
-													<h5 style='font-size:20px; float:right;'>".$data['subject']."</h5><br><hr>
-													<p style='font-size:14px; color:whitesmoke	;'>".$data['question']."</p>
-													<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$data['view']."</h6>
-														<img src='assets/Images/icon/View.png' style='width:25px; height:25px; float:right; margin-top:-5px; padding-left:5px;'>
+													<h5 style='font-size:20px; float:right;'>".$data['subject']."</h5><br><hr>";
+													//Image w/ question
+													if ($data['image'] == 'yes'){
+														echo"<div class='row' style='margin-bottom:1%;'>
+														<div class='col-md-4 border-right'>
+															<img id='icon' src='http://localhost/Learnzia/assets/uploads/discussion_".$data['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
+															alt='' data-toggle='modal' data-target='#zoom".$data['id_discussion']."'>
+														</div>
+														<div class='col-md-6' style=''>
+														<p style='font-size:14px; color:whitesmoke	;'>".$data['question']."</p>
+														</div>
+													</div>";
+													} else { echo"<p style='font-size:14px; color:whitesmoke;'>".$data['question']."</p>";}
+													echo "<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$data['view']."</h6>
+														<img id='icon' src='assets/Images/icon/View.png' style='width:25px; height:25px; float:right; margin-top:-5px; padding-left:5px;'>
 													<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$data['up']."</h6>
-														<img src='assets/Images/icon/Up.png' style='width:25px; height:22px; float:right; margin-top:-4px; padding-left:5px;'>
+														<img id='icon' src='assets/Images/icon/Up.png' style='width:25px; height:22px; float:right; margin-top:-4px; padding-left:5px;'>
 													<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$data['comment']."</h6>
-														<img src='assets/Images/icon/Comment.png' style='width:25px; height:20px; float:right; margin-top:-2px; padding-left:5px;'>
+														<img id='icon' src='assets/Images/icon/Comment.png' style='width:25px; height:20px; float:right; margin-top:-2px; padding-left:5px;'>
 													<h5 style='font-size:15px; float:left; text-decoration:underline;' type='button' data-toggle='collapse' data-target='#collapse".$i."' 
 													aria-expanded='true' aria-controls='collapseOne''>See Reply
-														<img src='assets/Images/icon/Down.png' style='width:25px; height:20px; float:left; padding-left:3px;'></h5>
+														<img id='icon' src='assets/Images/icon/Down.png' style='width:25px; height:20px; float:left; padding-left:3px;'></h5>
 												</div>
 												<!--Extend-->
 												<div id='collapse".$i."' class='collapse' aria-labelledby='headingOne' data-parent='#accordion2'>
@@ -265,7 +278,7 @@
 														foreach ($dataReply as $data2){
 														if ($data2['id_discussion'] == $data['id_discussion']){
 														echo"<div class='container'>
-															<img src='assets/uploads/user_".$data2['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
+															<img id='icon' src='assets/uploads/user_".$data2['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
 																float:left; margin-right:1%;'>";
 															if($data2['sender'] == $this->session->userdata('userTrack')){
 																echo"<h5 style='font-size:20px; margin-left:15px;'>You</h5>";
@@ -274,7 +287,13 @@
 															} echo "
 															<p style='font-size:14px; color:whitesmoke; margin-left:4%;'>".$data2['replytext']."</p>
 														</div>"; $count++;}} 
-														if($count == 0) {echo"<h5 style='font-size:15px; font-style:italic;'>This discussion hasn't been answered yet...</h5><br>";
+														if($count == 0) {
+															echo "<div class='container' style='margin-top:1%; margin-bottom:2%;'>
+																<h4 style='font-style:italic; text-align:center;'>Sorry, your discussion isn't been answered yet</h4>
+																<img src='http://localhost/Learnzia/assets/images/Sorry.png' alt='Sorry.png' style='display: block;
+																	margin-left: auto; margin-right: auto; width: 15%; height: 15%;'>
+																<p style='font-style:italic; text-align:center; font-size:18px; color:#7289da;'>But dont worry, its only matter of time.</p>
+															</div>";
 															} else {echo"<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." replies...</h5><br>";}
 														echo"<form method='post' action='homeCtrl/sendReply' class='form-inline'>
 															<input type='text' class='form-control' name='id_discussion' value='".$data['id_discussion']."' hidden>
@@ -282,14 +301,25 @@
 															<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
 															<input class='form-control' type='text' placeholder='Type your reply here...' style='width:80%; float:right; margin-right:1%;' name='replytext'>
 															</div>
-														</form>
+															</form>
+														</div>
 													</div>
-												</div>
-												</div>
+													</div>
+												</div>";
+												$count = 0;
+											$i++;
+											$total++;
+										}								
+										if ($total == 0) {
+											echo "<div class='container' style='margin-top:5%; margin-bottom:5%;'>
+												<h4 style='font-style:italic; text-align:center;'>You haven't post any discussion yet...</h4>
+												<img src='http://localhost/Learnzia/assets/images/Error404.png' alt='Error404.png' style='display: block;
+													margin-left: auto; margin-right: auto; width: 30%; height: 30%;'>
+												<p style='font-style:italic; text-align:center; font-size:18px; color:#7289da;'>Lets discuss with other people by create a discussion in 
+												<a style='text-decoration:underline; font-size:18px; color:#F1C40F;' href='homeCtrl'>Home </a> menu.</p>
 											</div>";
-											$count = 0;
-										$i++;
-									}?>
+										}
+										?>
 
                                     </div>
                                 </div>
@@ -316,7 +346,7 @@
                                         </div>
                                         <hr>
                                         <p style='color:whitesmoke;'><?php foreach ($dataUser as $data) {echo $data['description'];} ?></p>
-                                        <h4 class="font-medium m-t-30">Skill Set</h4>
+                                        <h4 class="font-medium m-t-30">Specialization</h4>
                                         
                                     </div>
                                 </div>
@@ -385,13 +415,13 @@
 				<div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
 				<h5 class="text-uppercase font-weight-bold">Follow us</h5>
 					<p>
-					<img src='assets/Images/icon/Instagram.png' style='width:25px; height:22px;'><a href="#!"> Intagram</a>
+					<img id='icon' src='assets/Images/icon/Instagram.png' style='width:25px; height:22px;'><a href="#!"> Intagram</a>
 					</p>
 					<p>
-					<img src='assets/Images/icon/Facebook.png' style='width:25px; height:22px;'><a href="#!"> Facebook</a>
+					<img id='icon' src='assets/Images/icon/Facebook.png' style='width:25px; height:22px;'><a href="#!"> Facebook</a>
 					</p>
 					<p>
-					<img src='assets/Images/icon/Twitter.png' style='width:25px; height:22px;'><a href="#!"> Twitter</a>
+					<img id='icon' src='assets/Images/icon/Twitter.png' style='width:25px; height:22px;'><a href="#!"> Twitter</a>
 					</p>
 				</div>
 
@@ -399,13 +429,13 @@
 				<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
 				<h5 class="text-uppercase font-weight-bold">Contact us</h5>
 					<p>
-					<img src='assets/Images/icon/Profile.png' style='width:25px; height:22px;'> Leonardho R Sitanggang </p>
+					<img id='icon' src='assets/Images/icon/Profile.png' style='width:25px; height:22px;'> Leonardho R Sitanggang </p>
 					<p>
-					<img src='assets/Images/icon/Location.png' style='width:25px; height:22px;'> Bandung, Indonesia </p>
+					<img id='icon' src='assets/Images/icon/Location.png' style='width:25px; height:22px;'> Bandung, Indonesia </p>
 					<p>
-					<img src='assets/Images/icon/Email.png' style='width:25px; height:22px;'> learnzia@gmail.com </p>
+					<img id='icon' src='assets/Images/icon/Email.png' style='width:25px; height:22px;'> learnzia@gmail.com </p>
 					<p>
-					<img src='assets/Images/icon/Call.png' style='width:25px; height:22px;'> + 62 811 4882 001 </p>
+					<img id='icon' src='assets/Images/icon/Call.png' style='width:25px; height:22px;'> + 62 811 4882 001 </p>
 				</div>
 
 		</div>
@@ -414,6 +444,25 @@
 			</div>
 		</footer>
 		
+		<!-- Zoom discussion image Modal -->
+		<?php foreach($dataDiscussion as $data){
+		if ($data['image'] == 'yes'){
+		echo"<div class='modal fade' id='zoom".$data['id_discussion']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+		<div class='modal-dialog modal-xl' role='document'>
+			<div class='modal-content' style='background-color:#313436;'>
+			<div class='modal-header'>
+				<p style='color:whitesmoke;'>".$data['question']."</p>
+				<img id='icon' type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png'>
+			</div>
+			<div class='modal-footer'>
+				<img id='icon' src='http://localhost/Learnzia/assets/uploads/discussion_".$data['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
+					alt='' data-toggle='modal' data-target='#zoom".$data['id_discussion']."'>
+			</div>			
+			</div>
+		</div>
+		</div>";	
+		}}?>
+
 		<!-- Sign out Modal -->
 		<div class="modal fade" id="signOutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -441,7 +490,7 @@
 					<div class="autocomplete" style="width:300px;">
 						<input id="myInput" type="text" name="receiver" placeholder="Username" required>
 					</div>
-					<img  class="closebtn" src="http://localhost/Learnzia/assets/images/icon/Close.png"
+					<img id='icon'  class="closebtn" src="http://localhost/Learnzia/assets/images/icon/Close.png"
 					style="margin-top:2%;" type="button" data-dismiss='modal' aria-label='Close'>
 				</div>
 					<div class='modal-body'>
@@ -469,7 +518,7 @@
 			<div class='modal-content' style='background-color:#313436;'>
 			<div class='modal-header'>
 				<div class='container'>
-					<img src='assets/uploads/user_".$friend['username2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
+					<img id='icon' src='assets/uploads/user_".$friend['username2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
 					float:left; margin-right:2%;'>
 					<h5 style='font-size:20px;'>".$friend['username2']."</h5>";
 					//User login status
@@ -479,7 +528,7 @@
 						echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
 					}}
 				echo "</div>
-				<img type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png'>	
+				<img id='icon' type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png'>	
 			</div>
 			<div class='modal-body' style='max-height: calc(80vh - 160px); overflow-y: auto;'>";
 				foreach($dataMessage as $data2){
@@ -533,7 +582,7 @@
 			<div class='modal-content' style='background-color:#313436;'>
 			<div class='modal-header'>
 				<div class='container'>
-					<img src='assets/uploads/user_".$friend['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
+					<img id='icon' src='assets/uploads/user_".$friend['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
 					float:left; margin-right:2%;'>
 					<h5 style='font-size:20px;'>".$friend['username1']."</h5>";
 					//User login status
@@ -543,7 +592,7 @@
 						echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
 					}}
 				echo "</div>
-				<img type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png'>	
+				<img id='icon' type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png'>	
 			</div>
 			<div class='modal-body' style='max-height: calc(80vh - 160px); overflow-y: auto;'>";
 				foreach($dataMessage as $data2){

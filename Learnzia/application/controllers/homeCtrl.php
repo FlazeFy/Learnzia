@@ -31,16 +31,40 @@
 			redirect('homeCtrl');
 		}
 		public function sendDisc(){
+			if($this->input->post('imageSwitch') == 'on'){
+				$switch = 'yes';
+				$date = date("Ymdhis");
+				$username = $this->session->userdata('userTrack');
+				$imageURL = $username. '' .$date;
+			} else {
+				$switch = 'no'; 
+				$imageURL = 'NULL';
+			}
+			$initialize = $this->upload->initialize(array(
+				"upload_path" => './assets/uploads',
+				"allowed_types" => 'jpg',
+				"max_size" => 2000,
+				"remove_spaces" => TRUE,
+				"file_name" => 'discussion_' . $imageURL
+			));
 			$data = array(
 				'id_discussion' => 'NULL',
 				'sender' => $this->session->userdata('userTrack'),
 				'category' => $this->input->post('category'),
 				'subject' => $this->input->post('subject'),
 				'question' => $this->input->post('question'),
-				'datetime' => date("Y/m/d h:i:sa")
+				'datetime' => date("Y/m/d h:i:sa"),
+				'image' => $switch,
+				'imageURL' => $imageURL
 			);
-			$this->homeModel->uploadDisc($data, 'discussion');
-			redirect('homeCtrl');
+			
+			if (!$this->upload->do_upload('uploadImage')) {
+				$error = array('error' => $this->upload->display_errors());
+				$data['error_message'] = "Error! your image is to big or not jpg";
+				redirect('homeCtrl');
+			} else {
+				$this->homeModel->uploadDisc($data, 'discussion');
+			}
 		}
 		//Reply discussion
 		public function sendReply(){

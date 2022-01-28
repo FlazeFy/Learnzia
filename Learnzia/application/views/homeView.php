@@ -16,7 +16,7 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 		<!--Source file-->
-		<link rel="stylesheet" type="text/css" href="http://localhost/Learnzia/assets/css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="http://localhost/Learnzia/assets/css/main_style.css"/>
 
 		<style>
 			body {background-color: #313436;}
@@ -190,9 +190,20 @@
 												margin-right:1%; float:left;'>
 											<h5 style='font-size:20px; float:left;'>".$disFriend['sender']."</h5>
 											<p style='font-size:10px; padding-top:10px; float:left; font-style:italic; color:whitesmoke;'>".$disFriend['datetime']."</p>
-											<h5 style='font-size:20px; float:right;'>".$disFriend['subject']."</h5><br><hr>
-											<p style='font-size:14px; color:whitesmoke	;'>".$disFriend['question']."</p>
-											<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$disFriend['view']."</h6>
+											<h5 style='font-size:20px; float:right;'>".$disFriend['subject']."</h5><br><hr>";
+											//Image w/ question
+											if ($disFriend['image'] == 'yes'){
+												echo"<div class='row' style='margin-bottom:1%;'>
+												<div class='col-md-4 border-right'>
+													<img src='http://localhost/Learnzia/assets/uploads/discussion_".$disFriend['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
+													alt='' data-toggle='modal' data-target='#zoom".$disFriend['id_discussion']."'>
+												</div>
+												<div class='col-md-6' style=''>
+												<p style='font-size:14px; color:whitesmoke	;'>".$disFriend['question']."</p>
+												</div>
+											</div>";
+											} else { echo"<p style='font-size:14px; color:whitesmoke;'>".$disFriend['question']."</p>";}
+											echo "<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$disFriend['view']."</h6>
 												<img src='assets/Images/icon/View.png' style='width:25px; height:25px; float:right; margin-top:-5px; padding-left:5px;'>
 											<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$disFriend['up']."</h6>
 												<img src='assets/Images/icon/Up.png' style='width:25px; height:22px; float:right; margin-top:-4px; padding-left:5px;'>
@@ -209,16 +220,25 @@
 												if ($data2['id_discussion'] == $disFriend['id_discussion']){
 												echo"<div class='container'>
 													<img src='assets/uploads/user_".$data2['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
-														float:left; margin-right:1%;'>";
-													if($data2['sender'] == $this->session->userdata('userTrack')){
-														echo"<h5 style='font-size:20px; margin-left:15px;'>You</h5>";
-													} else {
-														echo"<h5 style='font-size:20px; margin-left:15px;'>".$data2['sender']."</h5>";
-													} echo "
+														float:left; margin-right:1%;'>
+														<h5 style='font-size:20px; margin-left:15px;'>".$data2['sender']."</h5>
 													<p style='font-size:14px; color:whitesmoke; margin-left:4%;'>".$data2['replytext']."</p>
 												</div>"; $count++;}} 
-												if($count == 0) {echo"<h5 style='font-size:15px; font-style:italic;'>This discussion hasn't been answered yet...</h5><br>";
-													} else {echo"<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." replies...</h5><br>";}
+												if(($count == 0) &&($data2['sender'] == $this->session->userdata('userTrack'))) {
+													echo "<div class='container' style='margin-top:1%; margin-bottom:2%;'>
+													<h4 style='font-style:italic; text-align:center;'>Sorry, your discussion isn't been answered yet</h4>
+													<img src='http://localhost/Learnzia/assets/images/Sorry.png' alt='Sorry.png' style='display: block;
+														margin-left: auto; margin-right: auto; width: 15%; height: 15%;'>
+													<p style='font-style:italic; text-align:center; font-size:18px; color:#7289da;'>But dont worry, its only matter of time.</p>
+												</div>";
+												} else if (($count == 0) &&($data2['sender'] != $this->session->userdata('userTrack'))){
+													echo "<div class='container' style='margin-top:1%; margin-bottom:2%;'>
+													<h4 style='font-style:italic; text-align:center;'>This discussion hasn't been answered yet</h4>
+													<img src='http://localhost/Learnzia/assets/images/Error404.png' alt='Error404.png' style='display: block;
+														margin-left: auto; margin-right: auto; width: 15%; height: 15%;'>
+													<p style='font-style:italic; text-align:center; font-size:18px; color:#7289da;'>Let's be the first one.</p>
+													</div>";
+												} else if ($count > 0) {echo"<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." replies...</h5><br>";}
 												echo"<form method='post' action='homeCtrl/sendReply' class='form-inline'>
 													<input type='text' class='form-control' name='id_discussion' value='".$disFriend['id_discussion']."' hidden>
 													<div class='container'>
@@ -250,9 +270,20 @@
 											margin-right:1%; float:left;'>
 										<h5 style='font-size:20px; float:left;'>".$disFriend['sender']."</h5>
 										<p style='font-size:10px; padding-top:10px; float:left; font-style:italic; color:whitesmoke;'>".$disFriend['datetime']."</p>
-										<h5 style='font-size:20px; float:right;'>".$disFriend['subject']."</h5><br><hr>
-										<p style='font-size:14px; color:whitesmoke	;'>".$disFriend['question']."</p>
-										<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$disFriend['view']."</h6>
+										<h5 style='font-size:20px; float:right;'>".$disFriend['subject']."</h5><br><hr>";
+										//Image w/ question
+										if ($disFriend['image'] == 'yes'){
+											echo"<div class='row' style='margin-bottom:1%;'>
+											<div class='col-md-4 border-right'>
+												<img src='http://localhost/Learnzia/assets/uploads/discussion_".$disFriend['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
+												alt='' data-toggle='modal' data-target='#zoom".$disFriend['id_discussion']."'>
+											</div>
+											<div class='col-md-6' style=''>
+											<p style='font-size:14px; color:whitesmoke	;'>".$disFriend['question']."</p>
+											</div>
+										</div>";
+										} else { echo"<p style='font-size:14px; color:whitesmoke;'>".$disFriend['question']."</p>";}
+										echo"<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$disFriend['view']."</h6>
 											<img src='assets/Images/icon/View.png' style='width:25px; height:25px; float:right; margin-top:-5px; padding-left:5px;'>
 										<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$disFriend['up']."</h6>
 											<img src='assets/Images/icon/Up.png' style='width:25px; height:22px; float:right; margin-top:-4px; padding-left:5px;'>
@@ -269,16 +300,25 @@
 											if ($data2['id_discussion'] == $disFriend['id_discussion']){
 											echo"<div class='container'>
 												<img src='assets/uploads/user_".$data2['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
-													float:left; margin-right:1%;'>";
-												if($data2['sender'] == $this->session->userdata('userTrack')){
-													echo"<h5 style='font-size:20px; margin-left:15px;'>You</h5>";
-												} else {
-													echo"<h5 style='font-size:20px; margin-left:15px;'>".$data2['sender']."</h5>";
-												} echo "
+													float:left; margin-right:1%;'>
+													<h5 style='font-size:20px; margin-left:15px;'>".$data2['sender']."</h5>
 												<p style='font-size:14px; color:whitesmoke; margin-left:4%;'>".$data2['replytext']."</p>
 											</div>"; $count++;}} 
-											if($count == 0) {echo"<h5 style='font-size:15px; font-style:italic;'>This discussion hasn't been answered yet...</h5><br>";
-												} else {echo"<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." replies...</h5><br>";}
+											if(($count == 0) &&($data2['sender'] == $this->session->userdata('userTrack'))) {
+												echo "<div class='container' style='margin-top:1%; margin-bottom:2%;'>
+												<h4 style='font-style:italic; text-align:center;'>Sorry, your discussion isn't been answered yet</h4>
+												<img src='http://localhost/Learnzia/assets/images/Sorry.png' alt='Sorry.png' style='display: block;
+													margin-left: auto; margin-right: auto; width: 15%; height: 15%;'>
+												<p style='font-style:italic; text-align:center; font-size:18px; color:#7289da;'>But dont worry, its only matter of time.</p>
+											</div>";
+											} else if (($count == 0) &&($data2['sender'] != $this->session->userdata('userTrack'))){
+												echo "<div class='container' style='margin-top:1%; margin-bottom:2%;'>
+												<h4 style='font-style:italic; text-align:center;'>This discussion hasn't been answered yet</h4>
+												<img src='http://localhost/Learnzia/assets/images/Error404.png' alt='Error404.png' style='display: block;
+													margin-left: auto; margin-right: auto; width: 15%; height: 15%;'>
+												<p style='font-style:italic; text-align:center; font-size:18px; color:#7289da;'>Let's be the first one.</p>
+												</div>";
+											} else if ($count > 0) {echo"<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." replies...</h5><br>";}
 											echo"<form method='post' action='homeCtrl/sendReply' class='form-inline'>
 												<input type='text' class='form-control' name='id_discussion' value='".$disFriend['id_discussion']."' hidden>
 												<div class='container'>
@@ -348,9 +388,20 @@
 											echo"<h5 style='font-size:20px; float:left;'>".$data['sender']."</h5>";
 										} echo "
 											<p style='font-size:10px; padding-top:10px; float:left; font-style:italic; color:whitesmoke;'>".$data['datetime']."</p>
-											<h5 style='font-size:20px; float:right;'>".$data['subject']."</h5><br><hr>
-											<p style='font-size:14px; color:whitesmoke	;'>".$data['question']."</p>
-											<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$data['view']."</h6>
+											<h5 style='font-size:20px; float:right;'>".$data['subject']."</h5><br><hr>";
+											//Image w/ question
+											if ($data['image'] == 'yes'){
+												echo"<div class='row' style='margin-bottom:1%;'>
+												<div class='col-md-4 border-right'>
+													<img src='http://localhost/Learnzia/assets/uploads/discussion_".$data['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
+													alt='' data-toggle='modal' data-target='#zoom".$data['id_discussion']."'>
+												</div>
+												<div class='col-md-6' style=''>
+												<p style='font-size:14px; color:whitesmoke	;'>".$data['question']."</p>
+												</div>
+											</div>";
+											} else { echo"<p style='font-size:14px; color:whitesmoke;'>".$data['question']."</p>";}
+											echo "<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$data['view']."</h6>
 												<img src='assets/Images/icon/View.png' style='width:25px; height:25px; float:right; margin-top:-5px; padding-left:5px;'>
 											<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$data['up']."</h6>
 												<img src='assets/Images/icon/Up.png' style='width:25px; height:22px; float:right; margin-top:-4px; padding-left:5px;'>
@@ -375,8 +426,21 @@
 													} echo "
 													<p style='font-size:14px; color:whitesmoke; margin-left:4%;'>".$data2['replytext']."</p>
 												</div>"; $count++;}} 
-												if($count == 0) {echo"<h5 style='font-size:15px; font-style:italic;'>This discussion hasn't been answered yet...</h5><br>";
-													} else {echo"<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." replies...</h5><br>";}
+												if(($count == 0) &&($data2['sender'] == $this->session->userdata('userTrack'))) {
+													echo "<div class='container' style='margin-top:1%; margin-bottom:2%;'>
+													<h4 style='font-style:italic; text-align:center;'>Sorry, your discussion isn't been answered yet</h4>
+													<img src='http://localhost/Learnzia/assets/images/Sorry.png' alt='Sorry.png' style='display: block;
+														margin-left: auto; margin-right: auto; width: 15%; height: 15%;'>
+													<p style='font-style:italic; text-align:center; font-size:18px; color:#7289da;'>But dont worry, its only matter of time.</p>
+												</div>";
+												} else if (($count == 0) &&($data2['sender'] != $this->session->userdata('userTrack'))){
+													echo "<div class='container' style='margin-top:1%; margin-bottom:2%;'>
+													<h4 style='font-style:italic; text-align:center;'>This discussion hasn't been answered yet</h4>
+													<img src='http://localhost/Learnzia/assets/images/Error404.png' alt='Error404.png' style='display: block;
+														margin-left: auto; margin-right: auto; width: 15%; height: 15%;'>
+													<p style='font-style:italic; text-align:center; font-size:18px; color:#7289da;'>Let's be the first one.</p>
+													</div>";
+												} else if ($count > 0) {echo"<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." replies...</h5><br>";}
 												echo"<form method='post' action='homeCtrl/sendReply' class='form-inline'>
 													<input type='text' class='form-control' name='id_discussion' value='".$data['id_discussion']."' hidden>
 													<div class='container'>
@@ -439,9 +503,20 @@
 											echo"<h5 style='font-size:20px; float:left;'>".$data['sender']."</h5>";
 										} echo "
 											<p style='font-size:10px; padding-top:10px; float:left; font-style:italic; color:whitesmoke;'>".$data['datetime']."</p>
-											<h5 style='font-size:20px; float:right;'>".$data['subject']."</h5><br><hr>
-											<p style='font-size:14px; color:whitesmoke	;'>".$data['question']."</p>
-											<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$data['view']."</h6>
+											<h5 style='font-size:20px; float:right;'>".$data['subject']."</h5><br><hr>";
+											//Image w/ question
+											if ($data['image'] == 'yes'){
+												echo"<div class='row' style='margin-bottom:1%;'>
+												<div class='col-md-4 border-right'>
+													<img src='http://localhost/Learnzia/assets/uploads/discussion_".$data['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
+													alt='' data-toggle='modal' data-target='#zoom".$data['id_discussion']."'>
+												</div>
+												<div class='col-md-6' style=''>
+												<p style='font-size:14px; color:whitesmoke	;'>".$data['question']."</p>
+												</div>
+											</div>";
+											} else { echo"<p style='font-size:14px; color:whitesmoke;'>".$data['question']."</p>";}
+											echo"<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$data['view']."</h6>
 												<img src='assets/Images/icon/View.png' style='width:25px; height:25px; float:right; margin-top:-5px; padding-left:5px;'>
 											<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$data['up']."</h6>
 												<img src='assets/Images/icon/Up.png' style='width:25px; height:22px; float:right; margin-top:-4px; padding-left:5px;'>
@@ -466,8 +541,21 @@
 													} echo "
 													<p style='font-size:14px; color:whitesmoke; margin-left:4%;'>".$data2['replytext']."</p>
 												</div>"; $count++;}} 
-												if($count == 0) {echo"<h5 style='font-size:15px; font-style:italic;'>This discussion hasn't been answered yet...</h5><br>";
-													} else {echo"<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." replies...</h5><br>";}
+												if(($count == 0) &&($data2['sender'] == $this->session->userdata('userTrack'))) {
+													echo "<div class='container' style='margin-top:1%; margin-bottom:2%;'>
+													<h4 style='font-style:italic; text-align:center;'>Sorry, your discussion isn't been answered yet</h4>
+													<img src='http://localhost/Learnzia/assets/images/Sorry.png' alt='Sorry.png' style='display: block;
+														margin-left: auto; margin-right: auto; width: 15%; height: 15%;'>
+													<p style='font-style:italic; text-align:center; font-size:18px; color:#7289da;'>But dont worry, its only matter of time.</p>
+												</div>";
+												} else if (($count == 0) &&($data2['sender'] != $this->session->userdata('userTrack'))){
+													echo "<div class='container' style='margin-top:1%; margin-bottom:2%;'>
+													<h4 style='font-style:italic; text-align:center;'>This discussion hasn't been answered yet</h4>
+													<img src='http://localhost/Learnzia/assets/images/Error404.png' alt='Error404.png' style='display: block;
+														margin-left: auto; margin-right: auto; width: 15%; height: 15%;'>
+													<p style='font-style:italic; text-align:center; font-size:18px; color:#7289da;'>Let's be the first one.</p>
+													</div>";
+												} else if ($count > 0) {echo"<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." replies...</h5><br>";}
 												echo"<form method='post' action='homeCtrl/sendReply' class='form-inline'>
 													<input type='text' class='form-control' name='id_discussion' value='".$data['id_discussion']."' hidden>
 													<div class='container'>
@@ -583,7 +671,7 @@
 		<!-- Modal Add Discussion -->
 		<div class='modal fade' id='discModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
 		<div class='modal-dialog' role='document'>
-			<form method='POST' action='<?php echo site_url().'homeCtrl/sendDisc'; ?>' autocomplete="off">
+			<form method='POST' action='<?php echo site_url().'homeCtrl/sendDisc'; ?>' autocomplete="off" enctype="multipart/form-data">
 				<div class='modal-content' style='background-color:#313436;'>
 				<div class='modal-header'>
 					<h5 class='modal-title' id='exampleModalLabel' style='color:#e69627; margin-top:1%;'>Category :</h5>
@@ -606,6 +694,28 @@
 						<div class="form-group mb-3">
 							<label class="label" for="text" style="color:#F1C40F;">Question</label>
 							<textarea rows="5" cols="60" name="question" class='form-control' required>Enter text here...</textarea>
+						</div>
+						<!-- Rounded switch -->
+						<label class="switch" style='float:left; margin-right:2%;'>
+						<input type="checkbox" name='imageSwitch'>
+							<span class="slider round"></span>
+						</label>
+						<p style="color:whitesmoke;">Upload discussion with image</p>
+						<!--Upload file.-->
+						<div class="form-group mb-3">
+						<div class="container" style=''>
+							<label class="label" for="text" style="color:#F1C40F;">Add Discussion Image</label>
+							<div class="input-group mb-3" style="background-color:#212121; border-width: 0 0 3px; border-bottom: 3.5px solid #F1C40F; 
+								border-radius:5px;">
+								<div class="input-group-prepend">
+									<span class="input-group-text">jpg</span>
+								</div>
+								<div class="custom-file">
+									<input type="file" class="custom-file-input" id="uploadImage" name="uploadImage" accept='image/*'>
+									<label class="custom-file-label text-left" for="uploadImage">file size max 2 mb</label>
+								</div>
+							</div>
+						</div>
 						</div>
 					</div>
 					<div class='modal-footer'>
@@ -752,6 +862,25 @@
 		$count = 0;
 		}?>
 
+		<!-- Zoom discussion image Modal -->
+		<?php foreach($dataDiscussion as $data){
+		if ($data['image'] == 'yes'){
+		echo"<div class='modal fade' id='zoom".$data['id_discussion']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+		<div class='modal-dialog modal-xl' role='document'>
+			<div class='modal-content' style='background-color:#313436;'>
+			<div class='modal-header'>
+				<p style='color:whitesmoke;'>".$data['question']."</p>
+				<img type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png'>
+			</div>
+			<div class='modal-footer'>
+				<img src='http://localhost/Learnzia/assets/uploads/discussion_".$data['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
+					alt='' data-toggle='modal' data-target='#zoom".$data['id_discussion']."'>
+			</div>			
+			</div>
+		</div>
+		</div>";	
+		}}?>
+
 		<script>
 			//Side navbar private message
 			/* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
@@ -885,5 +1014,13 @@
 		<!--Ajax for json-->
 		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>  
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-    </body>
+		
+		<!--JQuery Upload-->
+		<script>
+		$('.custom-file-input').on('change', function() { 
+			let fileName = $(this).val().split('\\').pop(); 
+			$(this).next('.custom-file-label').addClass("selected").html(fileName); 
+		});
+		</script>
+	</body>
 </html>
