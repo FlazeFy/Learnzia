@@ -18,6 +18,11 @@
 		<!--Source file-->
 		<link rel="stylesheet" type="text/css" href="http://localhost/Learnzia/assets/css/main_style.css"/>
 
+		 <!-- chartist CSS -->
+		<link href="http://localhost/Learnzia/assets/css/chartist-js/dist/chartist.min.css" rel="stylesheet">
+		<link href="http://localhost/Learnzia/assets/css/chartist-js/dist/chartist-init.css" rel="stylesheet">
+		<link href="http://localhost/Learnzia/assets/css/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
+
 		<style>
 			body {background-color: #313436;}
 			footer  {background-color: #212121; color:whitesmoke; position: relative; bottom: 0; padding: 2rem;}
@@ -53,6 +58,7 @@
 				<div class="container-fluid" width="200" style="">
 					<!--Message list-->
 					<?php 
+						$count = 0;
 						foreach($contacts as $data){
 						if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))){
 						echo "
@@ -69,7 +75,7 @@
 									echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
 								}}
 							echo "</div>
-						</div><br>";
+						</div><br>"; $count++;
 						} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))){
 						echo "
 						<div class='card' type='button' style='border-bottom: 3.5px solid #F1C40F; background-color:#212121;' 
@@ -85,11 +91,18 @@
 									echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
 								}}
 							echo "</div>
-						</div><br>";
+						</div><br>"; $count++;
 						} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] != $this->session->userdata('userTrack'))){
 							//break;
 						}
 						
+						}
+						if ($count == 0){
+							echo "<div class='container' style='margin-top:2%;'>
+								<img src='http://localhost/Learnzia/assets/images/Friends.png' alt='Friends.png' style='display: block;
+									margin-left: auto; margin-right: auto; width: 30%; height: 30%;'>
+								<h5 style='font-size:15.5px; color:#F1C40F; text-align:center;'>You dont have a friend yet</h5>
+							</div>";
 						}
 					?>
 					
@@ -173,6 +186,7 @@
 							<div class="container" style="max-height: calc(80vh - 120px); max-width:auto; overflow-y: auto;">
 						<!--Contact list-->
 						<?php 
+							$count = 0;
 							foreach($contacts as $data){
 							if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))){
 							echo "
@@ -188,7 +202,7 @@
 										echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
 									}}
 								echo "</div>
-							</div>";
+							</div>"; $count++;
 							} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))){
 							echo "
 							<div class='card' type='button' style='border:none; background-color:#515151; margin:1%;'>
@@ -203,10 +217,19 @@
 										echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
 									}}
 								echo "</div>
-							</div>";
+							</div>"; $count++;
 							} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] != $this->session->userdata('userTrack'))){
 							}
-							
+								//do nothing
+							}
+							if ($count == 0){
+								echo "<div class='container' style='margin-top:2%;'>
+									<img src='http://localhost/Learnzia/assets/images/Friends.png' alt='Friends.png' style='display: block;
+										margin-left: auto; margin-right: auto; width: 30%; height: 30%;'>
+									<h5 style='font-size:15.5px; color:#F1C40F; text-align:center;'>You dont have a friend yet</h5>
+									<p style='font-style:italic; text-align:center; font-size:18px; color:#7289da;'>Lets find a new friend in 
+									<a style='text-decoration:underline; font-size:18px; color:#F1C40F;' href=''>Global </a> menu.</p>
+								</div>";
 							}
 						?>
 						</div>
@@ -282,11 +305,19 @@
 																float:left; margin-right:1%;'>";
 															if($data2['sender'] == $this->session->userdata('userTrack')){
 																echo"<h5 style='font-size:20px; margin-left:15px;'>You</h5>";
-															} else {
-																echo"<h5 style='font-size:20px; margin-left:15px;'>".$data2['sender']."</h5>";
-															} echo "
-															<p style='font-size:14px; color:whitesmoke; margin-left:4%;'>".$data2['replytext']."</p>
-														</div>"; $count++;}} 
+															}
+															if($data2['image'] == 'yes'){
+																echo"<div class='row' style='margin-bottom:1%;'>
+																<div class='col-md-4 border-right'>
+																	<img id='icon' src='http://localhost/Learnzia/assets/uploads/reply/reply_".$data2['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
+																	alt='' data-toggle='modal' data-target='#zoom".$data2['imageURL']."'>
+																</div>
+																<div class='col-md-6' style=''>
+																<p style='font-size:14px; color:whitesmoke	;'>".$data2['replytext']."</p>
+																</div>
+															</div>";
+															} else { echo"<p style='font-size:14px; color:whitesmoke;'>".$data2['replytext']."</p>";}
+														echo "</div>"; $count++;}} 
 														if($count == 0) {
 															echo "<div class='container' style='margin-top:1%; margin-bottom:2%;'>
 																<h4 style='font-style:italic; text-align:center;'>Sorry, your discussion isn't been answered yet</h4>
@@ -312,9 +343,9 @@
 										}								
 										if ($total == 0) {
 											echo "<div class='container' style='margin-top:5%; margin-bottom:5%;'>
-												<h4 style='font-style:italic; text-align:center;'>You haven't post any discussion yet...</h4>
 												<img src='http://localhost/Learnzia/assets/images/Error404.png' alt='Error404.png' style='display: block;
 													margin-left: auto; margin-right: auto; width: 30%; height: 30%;'>
+												<h4 style='font-style:italic; text-align:center;'>You haven't post any discussion yet...</h4>
 												<p style='font-style:italic; text-align:center; font-size:18px; color:#7289da;'>Lets discuss with other people by create a discussion in 
 												<a style='text-decoration:underline; font-size:18px; color:#F1C40F;' href='homeCtrl'>Home </a> menu.</p>
 											</div>";
@@ -348,6 +379,35 @@
                                         <p style='color:whitesmoke;'><?php foreach ($dataUser as $data) {echo $data['description'];} ?></p>
                                         <h4 class="font-medium m-t-30">Specialization</h4>
                                         
+										<!--Chart-->
+										<div class="container-fluid">
+										<div class="row" style='background-color:#525252; border:none;'>
+											<div class="col-md-9 border-right">
+												<h4 class="card-title" style='text-align:center;'>Discussion</h4>
+												<div id="discussion" style="height:290px; width:100%;"></div>
+											</div>
+											<div class='col-md-3'>
+												<div class="container text-center" style='margin-top:2%;'>
+												<h4 class="card-title" style='text-align:center;'>Category</h4>
+													<ul class="list-inline m-b-0">
+														<li>
+															<p style='color:whitesmoke;'><i class="fa fa-circle font-10 m-r-10" style='color:#12c447; margin-right:2%;'></i>Math</p></li>
+														<li>
+															<p style='color:whitesmoke;'><i class="fa fa-circle font-10 m-r-10" style='color:#c49212; margin-right:2%;'></i>Coding</p></li>
+														<li>
+															<p style='color:whitesmoke;'><i class="fa fa-circle font-10 m-r-10" style='color:#c43012; margin-right:2%;'></i>Design</p></li>
+														<li>
+															<p style='color:whitesmoke;'><i class="fa fa-circle font-10 m-r-10" style='color:#11bfbc; margin-right:2%;'></i>Science</p></li>
+														<li>
+															<p style='color:whitesmoke;'><i class="fa fa-circle font-10 m-r-10" style='color:#bf11a8; margin-right:2%;'></i>History</p></li>
+													</ul>
+												</div>
+											</div>
+											<hr class="m-t-0 m-b-0">
+											
+										</div>
+									</div>
+
                                     </div>
                                 </div>
 
@@ -457,6 +517,24 @@
 			<div class='modal-footer'>
 				<img id='icon' src='http://localhost/Learnzia/assets/uploads/discussion_".$data['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
 					alt='' data-toggle='modal' data-target='#zoom".$data['id_discussion']."'>
+			</div>			
+			</div>
+		</div>
+		</div>";	
+		}}?>
+
+		<?php foreach($dataReply as $data){
+		if ($data['image'] == 'yes'){
+		echo"<div class='modal fade' id='zoom".$data['imageURL']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+		<div class='modal-dialog modal-xl' role='document'>
+			<div class='modal-content' style='background-color:#313436;'>
+			<div class='modal-header'>
+				<p style='color:whitesmoke;'>".$data['replytext']."</p>
+				<img id='icon' type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png'>
+			</div>
+			<div class='modal-footer'>
+				<img id='icon' src='http://localhost/Learnzia/assets/uploads/reply/reply_".$data['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
+					alt='' data-toggle='modal' data-target='#zoom".$data['imageURL']."'>
 			</div>			
 			</div>
 		</div>
@@ -775,11 +853,100 @@
 		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>  
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 		
+		<!-- chartist chart -->
+		<script src="assets/js/chartist-js/dist/chartist.min.js"></script>
+		<script src="assets/js/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
+		<!--c3 JavaScript -->
+		<script src="assets/js/d3/d3.min.js"></script>
+		<script src="assets/js/c3-master/c3.min.js"></script>
+
 		<!--JQuery Upload-->
 		<script>
 			$('.custom-file-input').on('change', function() { 
 				let fileName = $(this).val().split('\\').pop(); 
 				$(this).next('.custom-file-label').addClass("selected").html(fileName); 
+			});
+			$(function() {
+				"use strict";
+				var chart2 = new Chartist.Bar('.amp-pxl', {
+				}, {
+					axisX: {
+						position: 'end',
+						showGrid: false
+					},
+					axisY: {
+						position: 'start'
+					},
+					high: '12',
+					low: '0',
+					plugins: [
+						Chartist.plugins.tooltip()
+					]
+				});
+
+				var chart = [chart2];
+
+				for (var i = 0; i < chart.length; i++) {
+					chart[i].on('draw', function(data) {
+						if (data.type === 'line' || data.type === 'area') {
+							data.element.animate({
+								d: {
+									begin: 500 * data.index,
+									dur: 500,
+									from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+									to: data.path.clone().stringify(),
+									easing: Chartist.Svg.Easing.easeInOutElastic
+								}
+							});
+						}
+						if (data.type === 'bar') {
+							data.element.animate({
+								y2: {
+									dur: 500,
+									from: data.y1,
+									to: data.y2,
+									easing: Chartist.Svg.Easing.easeInOutElastic
+								},
+								opacity: {
+									dur: 500,
+									from: 0,
+									to: 1,
+									easing: Chartist.Svg.Easing.easeInOutElastic
+								}
+							});
+						}
+					});
+				}
+
+				var chart = c3.generate({
+					bindto: '#discussion',
+					data: {
+						columns: [
+							['Math', <?php $count = 0; foreach($dataDiscussion as $data){ if($data['category'] == 'math'){$count++;}} echo $count;?>],
+							['Coding', 0],
+							['Design', 0],
+							['Science', 0],
+							['History', <?php $count = 0; foreach($dataDiscussion as $data){ if($data['category'] == 'history'){$count++;}} echo $count;?>],
+						],
+
+						type: 'donut',
+						onclick: function(d, i) { console.log("onclick", d, i); },
+						onmouseover: function(d, i) { console.log("onmouseover", d, i); },
+						onmouseout: function(d, i) { console.log("onmouseout", d, i); }
+					},
+					donut: {
+						label: {
+							show: false
+						},
+						width: 35,
+					},
+					legend: {
+						hide: true
+					},
+					color: {
+						pattern: ['#12c447', '#c49212', '#c43012', '#11bfbc', '#bf11a8']
+					}
+				});
 			});
 		</script>
 

@@ -51,6 +51,7 @@
 				<div class="container-fluid" width="200" style="">
 					<!--Message list-->
 					<?php 
+						$count = 0;
 						foreach($contacts as $data){
 						if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))){
 						echo "
@@ -67,7 +68,7 @@
 									echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
 								}}
 							echo "</div>
-						</div><br>";
+						</div><br>"; $count++;
 						} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))){
 						echo "
 						<div class='card' type='button' style='border-bottom: 3.5px solid #F1C40F; background-color:#212121;' 
@@ -83,10 +84,17 @@
 									echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
 								}}
 							echo "</div>
-						</div><br>";
+						</div><br>"; $count++;
 						} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] != $this->session->userdata('userTrack'))){
 						}
 						
+						}
+						if ($count == 0){
+							echo "<div class='container' style='margin-top:2%;'>
+								<img src='http://localhost/Learnzia/assets/images/Friends.png' alt='Friends.png' style='display: block;
+									margin-left: auto; margin-right: auto; width: 30%; height: 30%;'>
+								<h5 style='font-size:15.5px; color:#F1C40F; text-align:center;'>You dont have a friend yet</h5>
+							</div>";
 						}
 					?>
 					
@@ -169,7 +177,11 @@
 				}
 			}
 			}
-			if ($disFriendCount == 0){echo "<h5 style='font-size:14px; font-style:italic; color:whitesmoke; margin-bottom:1%;'>There is no discussion from your friend in this week...</h5>";}
+			if ($disFriendCount == 0){
+				echo "<img src='http://localhost/Learnzia/assets/images/Error404.png' alt='Error404.png' style='display: block;
+				margin-left: auto; margin-right: auto; width: 10%; height: 10%; margin-top:-10%;'>
+				<h5 style='font-size:14px; font-style:italic; color:#F1C40F; margin-bottom:1%;
+				text-align:center;'>There is no discussion from your friend in this week...</h5>";}
 		?>
 			<div class="row">
 				<?php
@@ -221,9 +233,19 @@
 												echo"<div class='container'>
 													<img src='assets/uploads/user_".$data2['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
 														float:left; margin-right:1%;'>
-														<h5 style='font-size:20px; margin-left:15px;'>".$data2['sender']."</h5>
-													<p style='font-size:14px; color:whitesmoke; margin-left:4%;'>".$data2['replytext']."</p>
-												</div>"; $count++;}} 
+														<h5 style='font-size:20px; margin-left:15px;'>".$data2['sender']."</h5>";
+														if ($data2['image'] == 'yes'){
+															echo"<div class='row' style='margin-bottom:1%;'>
+															<div class='col-md-4 border-right'>
+																<img id='icon' src='http://localhost/Learnzia/assets/uploads/reply/reply_".$data2['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
+																alt='' data-toggle='modal' data-target='#zoom".$data2['imageURL']."'>
+															</div>
+															<div class='col-md-6' style=''>
+															<p style='font-size:14px; color:whitesmoke	;'>".$data2['replytext']."</p>
+															</div>
+														</div>";
+														} else { echo"<p style='font-size:14px; color:whitesmoke;'>".$data2['replytext']."</p>";}
+												echo"</div>"; $count++;}} 
 												if(($count == 0) &&($data2['sender'] == $this->session->userdata('userTrack'))) {
 													echo "<div class='container' style='margin-top:1%; margin-bottom:2%;'>
 													<h4 style='font-style:italic; text-align:center;'>Sorry, your discussion isn't been answered yet</h4>
@@ -239,11 +261,30 @@
 													<p style='font-style:italic; text-align:center; font-size:18px; color:#7289da;'>Let's be the first one.</p>
 													</div>";
 												} else if ($count > 0) {echo"<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." replies...</h5><br>";}
-												echo"<form method='post' action='homeCtrl/sendReply' class='form-inline'>
+												echo"<form method='post' action='homeCtrl/sendReply' class='form-inline' enctype='multipart/form-data'>
 													<input type='text' class='form-control' name='id_discussion' value='".$disFriend['id_discussion']."' hidden>
-													<div class='container'>
-													<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
-													<input class='form-control' type='text' placeholder='Type your reply here...' style='width:80%; float:right; margin-right:1%;' name='replytext'>
+													<div class='container'><hr>
+														<label class='switch' style='float:left; margin-right:1%;'>
+														<input type='checkbox' name='imageSwitchR'>
+															<span class='slider round' type='button' data-toggle='collapse' data-target='#collapseImage'></span>
+														</label>
+														<a style='color:whitesmoke; float:left;'>Image</a>
+														<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
+														<input class='form-control' type='text' placeholder='Type your reply here...' style='width:40%; float:right; margin-right:1%;' name='replytext'>
+														<div class='collapse' id='collapseImage'>
+															<div class='container' style='width:40%; float:left;'>
+																<div class='input-group mb-3' style='background-color:#212121; border-width: 0 0 3px; border-bottom: 3.5px solid #F1C40F; 
+																	border-radius:5px;'>
+																	<div class='input-group-prepend'>
+																		<span class='input-group-text'>jpg</span>
+																	</div>
+																	<div class='custom-file'>
+																		<input type='file' class='custom-file-input' id='uploadImage' name='uploadImageR' accept='image/*'>
+																		<label class='custom-file-label text-left' for='uploadImage'>file size max 2 mb</label>
+																	</div>
+																</div>
+															</div>
+														</div>
 													</div>
 												</form>
 											</div>
@@ -301,9 +342,19 @@
 											echo"<div class='container'>
 												<img src='assets/uploads/user_".$data2['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
 													float:left; margin-right:1%;'>
-													<h5 style='font-size:20px; margin-left:15px;'>".$data2['sender']."</h5>
-												<p style='font-size:14px; color:whitesmoke; margin-left:4%;'>".$data2['replytext']."</p>
-											</div>"; $count++;}} 
+													<h5 style='font-size:20px; margin-left:15px;'>".$data2['sender']."</h5>";
+													if ($data2['image'] == 'yes'){
+														echo"<div class='row' style='margin-bottom:1%;'>
+														<div class='col-md-4 border-right'>
+															<img id='icon' src='http://localhost/Learnzia/assets/uploads/reply/reply_".$data2['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
+															alt='' data-toggle='modal' data-target='#zoom".$data2['imageURL']."'>
+														</div>
+														<div class='col-md-6' style=''>
+														<p style='font-size:14px; color:whitesmoke	;'>".$data2['replytext']."</p>
+														</div>
+													</div>";
+													} else { echo"<p style='font-size:14px; color:whitesmoke;'>".$data2['replytext']."</p>";}
+											echo "</div>"; $count++;}} 
 											if(($count == 0) &&($data2['sender'] == $this->session->userdata('userTrack'))) {
 												echo "<div class='container' style='margin-top:1%; margin-bottom:2%;'>
 												<h4 style='font-style:italic; text-align:center;'>Sorry, your discussion isn't been answered yet</h4>
@@ -319,11 +370,30 @@
 												<p style='font-style:italic; text-align:center; font-size:18px; color:#7289da;'>Let's be the first one.</p>
 												</div>";
 											} else if ($count > 0) {echo"<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." replies...</h5><br>";}
-											echo"<form method='post' action='homeCtrl/sendReply' class='form-inline'>
+											echo"<form method='post' action='homeCtrl/sendReply' class='form-inline' enctype='multipart/form-data'>
 												<input type='text' class='form-control' name='id_discussion' value='".$disFriend['id_discussion']."' hidden>
-												<div class='container'>
-												<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
-												<input class='form-control' type='text' placeholder='Type your reply here...' style='width:80%; float:right; margin-right:1%;' name='replytext'>
+												<div class='container'><hr>
+													<label class='switch' style='float:left; margin-right:1%;'>
+													<input type='checkbox' name='imageSwitchR'>
+														<span class='slider round' type='button' data-toggle='collapse' data-target='#collapseImage'></span>
+													</label>
+													<a style='color:whitesmoke; float:left;'>Image</a>
+													<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
+													<input class='form-control' type='text' placeholder='Type your reply here...' style='width:40%; float:right; margin-right:1%;' name='replytext'>
+													<div class='collapse' id='collapseImage'>
+														<div class='container' style='width:40%; float:left;'>
+															<div class='input-group mb-3' style='background-color:#212121; border-width: 0 0 3px; border-bottom: 3.5px solid #F1C40F; 
+																border-radius:5px;'>
+																<div class='input-group-prepend'>
+																	<span class='input-group-text'>jpg</span>
+																</div>
+																<div class='custom-file'>
+																	<input type='file' class='custom-file-input' id='uploadImage' name='uploadImageR' accept='image/*'>
+																	<label class='custom-file-label text-left' for='uploadImage'>file size max 2 mb</label>
+																</div>
+															</div>
+														</div>
+													</div>
 												</div>
 											</form>
 										</div>
@@ -351,7 +421,7 @@
 				<button class="btn btn-primary" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" 
 					aria-controls="multiCollapseExample2" style="background-color:#7289da; border-width:0px;">Coding</button>
 				<button class="btn btn-primary" data-toggle="collapse" data-target="#multiCollapseExample3" aria-expanded="false" 
-					aria-controls="multiCollapseExample2" style="background-color:#7289da; border-width:0px;">Geography</button>
+					aria-controls="multiCollapseExample2" style="background-color:#7289da; border-width:0px;">Design</button>
 				<button class="btn btn-primary" data-toggle="collapse" data-target="#multiCollapseExample4" aria-expanded="false" 
 					aria-controls="multiCollapseExample2" style="background-color:#7289da; border-width:0px;">Science</button>
 				<button class="btn btn-primary" data-toggle="collapse" data-target="#multiCollapseExample5" aria-expanded="false" 
@@ -423,9 +493,18 @@
 														echo"<h5 style='font-size:20px; margin-left:15px;'>You</h5>";
 													} else {
 														echo"<h5 style='font-size:20px; margin-left:15px;'>".$data2['sender']."</h5>";
-													} echo "
-													<p style='font-size:14px; color:whitesmoke; margin-left:4%;'>".$data2['replytext']."</p>
-												</div>"; $count++;}} 
+													} if ($data2['image'] == 'yes'){
+														echo"<div class='row' style='margin-bottom:1%;'>
+														<div class='col-md-4 border-right'>
+															<img id='icon' src='http://localhost/Learnzia/assets/uploads/reply/reply_".$data2['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
+															alt='' data-toggle='modal' data-target='#zoom".$data2['imageURL']."'>
+														</div>
+														<div class='col-md-6' style=''>
+														<p style='font-size:14px; color:whitesmoke	;'>".$data2['replytext']."</p>
+														</div>
+													</div>";
+													} else { echo"<p style='font-size:14px; color:whitesmoke;'>".$data2['replytext']."</p>";}
+												echo "</div>"; $count++;}} 
 												if(($count == 0) &&($data2['sender'] == $this->session->userdata('userTrack'))) {
 													echo "<div class='container' style='margin-top:1%; margin-bottom:2%;'>
 													<h4 style='font-style:italic; text-align:center;'>Sorry, your discussion isn't been answered yet</h4>
@@ -441,11 +520,30 @@
 													<p style='font-style:italic; text-align:center; font-size:18px; color:#7289da;'>Let's be the first one.</p>
 													</div>";
 												} else if ($count > 0) {echo"<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." replies...</h5><br>";}
-												echo"<form method='post' action='homeCtrl/sendReply' class='form-inline'>
+												echo"<form method='post' action='homeCtrl/sendReply' class='form-inline' enctype='multipart/form-data'>
 													<input type='text' class='form-control' name='id_discussion' value='".$data['id_discussion']."' hidden>
-													<div class='container'>
-													<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
-													<input class='form-control' type='text' placeholder='Type your reply here...' style='width:80%; float:right; margin-right:1%;' name='replytext'>
+													<div class='container'><hr>
+														<label class='switch' style='float:left; margin-right:1%;'>
+														<input type='checkbox' name='imageSwitchR'>
+															<span class='slider round' type='button' data-toggle='collapse' data-target='#collapseImage'></span>
+														</label>
+														<a style='color:whitesmoke; float:left;'>Image</a>
+														<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
+														<input class='form-control' type='text' placeholder='Type your reply here...' style='width:40%; float:right; margin-right:1%;' name='replytext'>
+														<div class='collapse' id='collapseImage'>
+															<div class='container' style='width:40%; float:left;'>
+																<div class='input-group mb-3' style='background-color:#212121; border-width: 0 0 3px; border-bottom: 3.5px solid #F1C40F; 
+																	border-radius:5px;'>
+																	<div class='input-group-prepend'>
+																		<span class='input-group-text'>jpg</span>
+																	</div>
+																	<div class='custom-file'>
+																		<input type='file' class='custom-file-input' id='uploadImage' name='uploadImageR' accept='image/*'>
+																		<label class='custom-file-label text-left' for='uploadImage'>file size max 2 mb</label>
+																	</div>
+																</div>
+															</div>
+														</div>
 													</div>
 												</form>
 											</div>
@@ -471,7 +569,7 @@
 				<div class="col-md-12">
 					<div class="collapse" id="multiCollapseExample3" data-parent="#accordion">
 						<div class="container">
-							<h5>Geography</h5><br>
+							<h5>design</h5><br>
 						</div>
 					</div>
 				</div>
@@ -538,9 +636,19 @@
 														echo"<h5 style='font-size:20px; margin-left:15px;'>You</h5>";
 													} else {
 														echo"<h5 style='font-size:20px; margin-left:15px;'>".$data2['sender']."</h5>";
-													} echo "
-													<p style='font-size:14px; color:whitesmoke; margin-left:4%;'>".$data2['replytext']."</p>
-												</div>"; $count++;}} 
+													} 
+													if ($data2['image'] == 'yes'){
+														echo"<div class='row' style='margin-bottom:1%;'>
+														<div class='col-md-4 border-right'>
+															<img id='icon' src='http://localhost/Learnzia/assets/uploads/reply/reply_".$data2['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
+															alt='' data-toggle='modal' data-target='#zoom".$data2['imageURL']."'>
+														</div>
+														<div class='col-md-6' style=''>
+														<p style='font-size:14px; color:whitesmoke	;'>".$data2['replytext']."</p>
+														</div>
+													</div>";
+													} else { echo"<p style='font-size:14px; color:whitesmoke;'>".$data2['replytext']."</p>";}
+													echo "</div>"; $count++;}} 
 												if(($count == 0) &&($data2['sender'] == $this->session->userdata('userTrack'))) {
 													echo "<div class='container' style='margin-top:1%; margin-bottom:2%;'>
 													<h4 style='font-style:italic; text-align:center;'>Sorry, your discussion isn't been answered yet</h4>
@@ -556,11 +664,30 @@
 													<p style='font-style:italic; text-align:center; font-size:18px; color:#7289da;'>Let's be the first one.</p>
 													</div>";
 												} else if ($count > 0) {echo"<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." replies...</h5><br>";}
-												echo"<form method='post' action='homeCtrl/sendReply' class='form-inline'>
+												echo"<form method='post' action='homeCtrl/sendReply' class='form-inline' enctype='multipart/form-data'>
 													<input type='text' class='form-control' name='id_discussion' value='".$data['id_discussion']."' hidden>
-													<div class='container'>
-													<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
-													<input class='form-control' type='text' placeholder='Type your reply here...' style='width:80%; float:right; margin-right:1%;' name='replytext'>
+													<div class='container'><hr>
+														<label class='switch' style='float:left; margin-right:1%;'>
+														<input type='checkbox' name='imageSwitchR'>
+															<span class='slider round' type='button' data-toggle='collapse' data-target='#collapseImage'></span>
+														</label>
+														<a style='color:whitesmoke; float:left;'>Image</a>
+														<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
+														<input class='form-control' type='text' placeholder='Type your reply here...' style='width:40%; float:right; margin-right:1%;' name='replytext'>
+														<div class='collapse' id='collapseImage'>
+															<div class='container' style='width:40%; float:left;'>
+																<div class='input-group mb-3' style='background-color:#212121; border-width: 0 0 3px; border-bottom: 3.5px solid #F1C40F; 
+																	border-radius:5px;'>
+																	<div class='input-group-prepend'>
+																		<span class='input-group-text'>jpg</span>
+																	</div>
+																	<div class='custom-file'>
+																		<input type='file' class='custom-file-input' id='uploadImage' name='uploadImageR' accept='image/*'>
+																		<label class='custom-file-label text-left' for='uploadImage'>file size max 2 mb</label>
+																	</div>
+																</div>
+															</div>
+														</div>
 													</div>
 												</form>
 											</div>
@@ -679,7 +806,7 @@
 					<select class="form-control" name="category" style="width:300px;">
 						<option value='math'>Math</option>
 						<option value='coding'>Coding</option>
-						<option value='geography'>Geography</option>
+						<option value='design'>Design</option>
 						<option value='science'>Science</option>
 						<option value='history'>History</option>
 					</select></div>
@@ -698,24 +825,26 @@
 						<!-- Rounded switch -->
 						<label class="switch" style='float:left; margin-right:2%;'>
 						<input type="checkbox" name='imageSwitch'>
-							<span class="slider round"></span>
+							<span class="slider round" data-toggle="collapse" data-target="#uploadDiscImg"></span>
 						</label>
 						<p style="color:whitesmoke;">Upload discussion with image</p>
 						<!--Upload file.-->
-						<div class="form-group mb-3">
-						<div class="container" style=''>
-							<label class="label" for="text" style="color:#F1C40F;">Add Discussion Image</label>
-							<div class="input-group mb-3" style="background-color:#212121; border-width: 0 0 3px; border-bottom: 3.5px solid #F1C40F; 
-								border-radius:5px;">
-								<div class="input-group-prepend">
-									<span class="input-group-text">jpg</span>
-								</div>
-								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="uploadImage" name="uploadImage" accept='image/*'>
-									<label class="custom-file-label text-left" for="uploadImage">file size max 2 mb</label>
+						<div class="collapse" id="uploadDiscImg">
+							<div class="form-group mb-3">
+							<div class="container" style=''>
+								<label class="label" for="text" style="color:#F1C40F;">Add Discussion Image</label>
+								<div class="input-group mb-3" style="background-color:#212121; border-width: 0 0 3px; border-bottom: 3.5px solid #F1C40F; 
+									border-radius:5px;">
+									<div class="input-group-prepend">
+										<span class="input-group-text">jpg</span>
+									</div>
+									<div class="custom-file">
+										<input type="file" class="custom-file-input" id="uploadImage" name="uploadImage" accept='image/*'>
+										<label class="custom-file-label text-left" for="uploadImage">file size max 2 mb</label>
+									</div>
 								</div>
 							</div>
-						</div>
+							</div>
 						</div>
 					</div>
 					<div class='modal-footer'>
@@ -875,6 +1004,24 @@
 			<div class='modal-footer'>
 				<img src='http://localhost/Learnzia/assets/uploads/discussion_".$data['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
 					alt='' data-toggle='modal' data-target='#zoom".$data['id_discussion']."'>
+			</div>			
+			</div>
+		</div>
+		</div>";	
+		}}?>
+
+		<?php foreach($dataReply as $data){
+		if ($data['image'] == 'yes'){
+		echo"<div class='modal fade' id='zoom".$data['imageURL']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+		<div class='modal-dialog modal-xl' role='document'>
+			<div class='modal-content' style='background-color:#313436;'>
+			<div class='modal-header'>
+				<p style='color:whitesmoke;'>".$data['replytext']."</p>
+				<img id='icon' type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png'>
+			</div>
+			<div class='modal-footer'>
+				<img id='icon' src='http://localhost/Learnzia/assets/uploads/reply/reply_".$data['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
+					alt='' data-toggle='modal' data-target='#zoom".$data['imageURL']."'>
 			</div>			
 			</div>
 		</div>

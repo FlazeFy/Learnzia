@@ -30,6 +30,7 @@
 			$this->homeModel->posting($data, 'message');
 			redirect('homeCtrl');
 		}
+		//New discussion
 		public function sendDisc(){
 			if($this->input->post('imageSwitch') == 'on'){
 				$switch = 'yes';
@@ -38,7 +39,7 @@
 				$imageURL = $username. '' .$date;
 			} else {
 				$switch = 'no'; 
-				$imageURL = 'NULL';
+				$imageURL = 'null';
 			}
 			$initialize = $this->upload->initialize(array(
 				"upload_path" => './assets/uploads',
@@ -58,25 +59,57 @@
 				'imageURL' => $imageURL
 			);
 			
-			if (!$this->upload->do_upload('uploadImage')) {
-				$error = array('error' => $this->upload->display_errors());
-				$data['error_message'] = "Error! your image is to big or not jpg";
-				redirect('homeCtrl');
+			if($this->input->post('imageSwitch') == 'on'){
+				if (!$this->upload->do_upload('uploadImage')) {
+					$error = array('error' => $this->upload->display_errors());
+					$data['error_message'] = "Error! your image is to big or not jpg";
+					redirect('homeCtrl');
+				} else {
+					$this->homeModel->uploadDisc($data, 'discussion');
+				}
 			} else {
 				$this->homeModel->uploadDisc($data, 'discussion');
-			}
+			} 
 		}
 		//Reply discussion
 		public function sendReply(){
+			if($this->input->post('imageSwitchR') == 'on'){
+				$switch = 'yes';
+				$date = date("Ymdhis");
+				$username = $this->session->userdata('userTrack');
+				$imageURL = $username. '' .$date;
+			} else {
+				$switch = 'no'; 
+				$imageURL = 'null';
+			}
+			$initialize = $this->upload->initialize(array(
+				"upload_path" => './assets/uploads/reply',
+				"allowed_types" => 'jpg',
+				"max_size" => 2000,
+				"remove_spaces" => TRUE,
+				"file_name" => 'reply_' . $imageURL
+			));
 			$data = array(
 				'id_reply' => 'NULL',
 				'id_discussion' => $this->input->post('id_discussion'),
 				'sender' => $this->session->userdata('userTrack'),
 				'replytext' => $this->input->post('replytext'),
-				'datetime' => date("Y/m/d h:i:sa")
+				'datetime' => date("Y/m/d h:i:sa"),
+				'image' => $switch,
+				'imageURL' => $imageURL
 			);
-			$this->homeModel->reply($data, 'reply');
-			redirect('homeCtrl');
+			
+			if($this->input->post('imageSwitchR') == 'on'){
+				if (!$this->upload->do_upload('uploadImageR')) {
+					$error = array('error' => $this->upload->display_errors());
+					$data['error_message'] = "Error! your image is to big or not jpg";
+					redirect('homeCtrl');
+				} else {
+					$this->homeModel->reply($data, 'reply');
+				}
+			} else {
+				$this->homeModel->reply($data, 'reply');
+			}
 		}
 		//Send reply message
 		public function sendRMessage(){
