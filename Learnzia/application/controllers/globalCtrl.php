@@ -1,23 +1,24 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access alowed');
 
-	class profileCtrl extends CI_Controller {
+	class globalCtrl extends CI_Controller {
 		function __construct(){
 			parent::__construct();
-			$this->load->model('profileModel');
+			$this->load->model('globalModel');
 		}	 
 		public function index(){
 			$data = [];
-			$data['dataUser']= $this->profileModel->get_data_user();
-			$data['dataMessage']= $this->profileModel->get_all_message();
-			$data['dataDiscussion']= $this->profileModel->get_my_discussion();
-			$data['contacts']= $this->profileModel->get_only_contact();
-			$data['listUser']= $this->profileModel->get_list_user();
-			$data['discHistory']= $this->profileModel->get_all_history();
-			$data['discMath']= $this->profileModel->get_all_math();
-			$data['dataReply']= $this->profileModel->get_all_reply();
-			$data['dataReplyWCat']= $this->profileModel->get_all_replyWCat();
-			$this->load->view('profileView', $data);
+			$data['dataUser']= $this->globalModel->get_data_user();
+			$data['dataMessage']= $this->globalModel->get_all_message();
+			$data['dataDiscussion']= $this->globalModel->get_my_discussion();
+			$data['contacts']= $this->globalModel->get_only_contact();
+			$data['listUser']= $this->globalModel->get_list_user();
+			$data['listClass']= $this->globalModel->get_list_class();
+			$data['discHistory']= $this->globalModel->get_all_history();
+			$data['discMath']= $this->globalModel->get_all_math();
+			$data['dataReply']= $this->globalModel->get_all_reply();
+			$data['dataReplyWCat']= $this->globalModel->get_all_replyWCat();
+			$this->load->view('globalView', $data);
 		}
 		//Send new message
 		public function sendMessage(){
@@ -28,8 +29,8 @@
 				'message' => $this->input->post('message'),
 				'datetime' => date("Y/m/d h:i:sa")
 			);
-			$this->profileModel->posting($data, 'message');
-			redirect('profileCtrl');
+			$this->globalModel->posting($data, 'message');
+			redirect('globalCtrl');
 		}
 		public function sendDisc(){
 			$data = array(
@@ -40,8 +41,8 @@
 				'question' => $this->input->post('question'),
 				'datetime' => date("Y/m/d h:i:sa")
 			);
-			$this->profileModel->uploadDisc($data, 'discussion');
-			redirect('profileCtrl');
+			$this->globalModel->uploadDisc($data, 'discussion');
+			redirect('globalCtrl');
 		}
 		//Reply discussion
 		public function sendReply(){
@@ -77,10 +78,10 @@
 					$data['error_message'] = "Error! your image is to big or not jpg";
 					redirect('homeCtrl');
 				} else {
-					$this->profileModel->reply($data, 'reply');
+					$this->globalModel->reply($data, 'reply');
 				}
 			} else {
-				$this->profileModel->reply($data, 'reply');
+				$this->globalModel->reply($data, 'reply');
 			}
 		}
 		//Send reply message
@@ -92,13 +93,13 @@
 				'message' => $this->input->post('replyMessage'),
 				'datetime' => date("Y/m/d h:i:sa")
 			);
-			$this->profileModel->replyMessage($data, 'message');
-			redirect('profileCtrl');
+			$this->globalModel->replyMessage($data, 'message');
+			redirect('globalCtrl');
 		}
 
 		//Sign out
 		public function signOut(){
-			$this->profileModel->offstatus('user');
+			$this->globalModel->offstatus('user');
 		}
 	}
 ?>

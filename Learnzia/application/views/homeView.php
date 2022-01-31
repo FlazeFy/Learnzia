@@ -109,10 +109,10 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 			<li class="nav-item active">
-				<a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="homeCtrl">Home<span class="sr-only">(current)</span></a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Global</a>
+				<a class="nav-link" href="globalCtrl">Global</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="profileCtrl">Profile</a>
@@ -136,7 +136,7 @@
 
 		<!--Content-->
 		<br><br>
-		<!--Control Room.-->
+		<!--Friend's post.-->
         <br><h2 style="margin-left: 13%; color:whitesmoke; font-size:20px;">Welcome, <?= $data = $this->session->userdata('userTrack'); ?></h2>
 		<div class="container" id="menu">
 			<br><h4>Friend's Post</h4>
@@ -266,12 +266,12 @@
 													<div class='container'><hr>
 														<label class='switch' style='float:left; margin-right:1%;'>
 														<input type='checkbox' name='imageSwitchR'>
-															<span class='slider round' type='button' data-toggle='collapse' data-target='#collapseImage'></span>
+															<span class='slider round' type='button' data-toggle='collapse' data-target='#collapseImage".$i."'></span>
 														</label>
 														<a style='color:whitesmoke; float:left;'>Image</a>
 														<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
 														<input class='form-control' type='text' placeholder='Type your reply here...' style='width:40%; float:right; margin-right:1%;' name='replytext'>
-														<div class='collapse' id='collapseImage'>
+														<div class='collapse' id='collapseImage".$i."'>
 															<div class='container' style='width:40%; float:left;'>
 																<div class='input-group mb-3' style='background-color:#212121; border-width: 0 0 3px; border-bottom: 3.5px solid #F1C40F; 
 																	border-radius:5px;'>
@@ -375,12 +375,12 @@
 												<div class='container'><hr>
 													<label class='switch' style='float:left; margin-right:1%;'>
 													<input type='checkbox' name='imageSwitchR'>
-														<span class='slider round' type='button' data-toggle='collapse' data-target='#collapseImage'></span>
+														<span class='slider round' type='button' data-toggle='collapse' data-target='#collapseImage".$i."'></span>
 													</label>
 													<a style='color:whitesmoke; float:left;'>Image</a>
 													<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
 													<input class='form-control' type='text' placeholder='Type your reply here...' style='width:40%; float:right; margin-right:1%;' name='replytext'>
-													<div class='collapse' id='collapseImage'>
+													<div class='collapse' id='collapseImage".$i."'>
 														<div class='container' style='width:40%; float:left;'>
 															<div class='input-group mb-3' style='background-color:#212121; border-width: 0 0 3px; border-bottom: 3.5px solid #F1C40F; 
 																border-radius:5px;'>
@@ -525,12 +525,12 @@
 													<div class='container'><hr>
 														<label class='switch' style='float:left; margin-right:1%;'>
 														<input type='checkbox' name='imageSwitchR'>
-															<span class='slider round' type='button' data-toggle='collapse' data-target='#collapseImage'></span>
+															<span class='slider round' type='button' data-toggle='collapse' data-target='#collapseImage".$i."'></span>
 														</label>
 														<a style='color:whitesmoke; float:left;'>Image</a>
 														<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
 														<input class='form-control' type='text' placeholder='Type your reply here...' style='width:40%; float:right; margin-right:1%;' name='replytext'>
-														<div class='collapse' id='collapseImage'>
+														<div class='collapse' id='collapseImage".$i."'>
 															<div class='container' style='width:40%; float:left;'>
 																<div class='input-group mb-3' style='background-color:#212121; border-width: 0 0 3px; border-bottom: 3.5px solid #F1C40F; 
 																	border-radius:5px;'>
@@ -669,12 +669,12 @@
 													<div class='container'><hr>
 														<label class='switch' style='float:left; margin-right:1%;'>
 														<input type='checkbox' name='imageSwitchR'>
-															<span class='slider round' type='button' data-toggle='collapse' data-target='#collapseImage'></span>
+															<span class='slider round' type='button' data-toggle='collapse' data-target='#collapseImage".$i."'></span>
 														</label>
 														<a style='color:whitesmoke; float:left;'>Image</a>
 														<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
 														<input class='form-control' type='text' placeholder='Type your reply here...' style='width:40%; float:right; margin-right:1%;' name='replytext'>
-														<div class='collapse' id='collapseImage'>
+														<div class='collapse' id='collapseImage".$i."'>
 															<div class='container' style='width:40%; float:left;'>
 																<div class='input-group mb-3' style='background-color:#212121; border-width: 0 0 3px; border-bottom: 3.5px solid #F1C40F; 
 																	border-radius:5px;'>
@@ -777,7 +777,7 @@
 				<div class='modal-header'>
 					<h5 class='modal-title' id='exampleModalLabel' style='color:#e69627; margin-top:1%;'>Send to :</h5>
 					<div class="autocomplete" style="width:300px;">
-						<input id="myInput" type="text" name="receiver" placeholder="Username" required>
+						<input id="mycontacts" type="text" name="receiver" placeholder="Username" required>
 					</div>
 					<img  class="closebtn" src="http://localhost/Learnzia/assets/images/icon/Close.png"
 					style="margin-top:2%;" type="button" data-dismiss='modal' aria-label='Close'>
@@ -1142,7 +1142,7 @@
 		}
 
 		/*An array containing all the country names in the world:*/
-		var countries = [<?php foreach($contacts as $data){
+		var contacts = [<?php foreach($contacts as $data){
 					if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))){
 						echo "'"; echo $data['username2']; echo "',";
 					} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))){
@@ -1152,8 +1152,8 @@
 					}
 				}?>]
 
-		/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-		autocomplete(document.getElementById("myInput"), countries);
+		/*initiate the autocomplete function on the "mycontacts" element, and pass along the contacts array as possible autocomplete values:*/
+		autocomplete(document.getElementById("mycontacts"), contacts);
 		</script>
 
 		<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->

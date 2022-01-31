@@ -24,7 +24,7 @@
 		<link href="http://localhost/Learnzia/assets/css/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
 
 		<style>
-			body {background-color: #313436;}
+			body {background-color: #313436; color:whitesmoke;}
 			footer  {background-color: #212121; color:whitesmoke; position: relative; bottom: 0; padding: 2rem;}
 			.navbar {position: fixed; width:100%; z-index:1;}
 			a {color:#F1C40F;}
@@ -35,7 +35,7 @@
 			h4 {color:#F1C40F;} h5 {color:#F1C40F;}
 			#menu {background-color: #212121; border-radius:5px; margin-bottom:1%;}
 			.dropdown-menu{background-color: #212121; border-color:#F1C40F;} .dropdown-item{color:#F1C40F;}
-			.nav-tabs .nav-link.active{background-color:#e69627; color:whitesmoke; border:none; margin-top:2%;}
+			.nav-tabs .nav-link.active{background-color:#7289da; color:whitesmoke; border:none; margin-top:2%;}
 			.tab-pane.active{border:none;}
 		</style>
     </head>
@@ -120,10 +120,10 @@
 				<a class="nav-link" href="homeCtrl">Home</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Global</a>
+				<a class="nav-link" href="globalCtrl">Global</a>
 			</li>
 			<li class="nav-item  active">
-				<a class="nav-link" href="#">Profile<span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="profileCtrl">Profile<span class="sr-only">(current)</span></a>
 			</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -158,7 +158,7 @@
                                     <div class="col-lg-4 col-md-4 m-t-20">
                                         <h4><?php $count = 0; foreach ($dataReply as $reply){ foreach ($dataUser as $data) {
 											if ($reply['sender'] == $data['username']){$count++;}}} echo $count; ?></h4>
-											<small style='color:whitesmoke;'>Answers</small></div>
+											<small style='color:whitesmoke;'>Replies</small></div>
                                     <div class="col-lg-4 col-md-4 m-t-20">
                                         <h4><?php $count = 0; foreach ($dataDiscussion as $disc){ foreach ($dataUser as $data) {
 											if ($disc['sender'] == $data['username']){$count++;}}} echo $count; ?></h4>
@@ -305,6 +305,8 @@
 																float:left; margin-right:1%;'>";
 															if($data2['sender'] == $this->session->userdata('userTrack')){
 																echo"<h5 style='font-size:20px; margin-left:15px;'>You</h5>";
+															} else {
+																echo"<h5 style='font-size:20px; margin-left:15px;'>".$data2['sender']."</h5>";
 															}
 															if($data2['image'] == 'yes'){
 																echo"<div class='row' style='margin-bottom:1%;'>
@@ -326,11 +328,30 @@
 																<p style='font-style:italic; text-align:center; font-size:18px; color:#7289da;'>But dont worry, its only matter of time.</p>
 															</div>";
 															} else {echo"<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." replies...</h5><br>";}
-														echo"<form method='post' action='homeCtrl/sendReply' class='form-inline'>
+														echo"<form method='post' action='profileCtrl/sendReply' class='form-inline' enctype='multipart/form-data'>
 															<input type='text' class='form-control' name='id_discussion' value='".$data['id_discussion']."' hidden>
-															<div class='container'>
-															<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
-															<input class='form-control' type='text' placeholder='Type your reply here...' style='width:80%; float:right; margin-right:1%;' name='replytext'>
+															<div class='container'><hr>
+																<label class='switch' style='float:left; margin-right:1%;'>
+																<input type='checkbox' name='imageSwitchR'>
+																	<span class='slider round' type='button' data-toggle='collapse' data-target='#collapseImage".$i."'></span>
+																</label>
+																<a style='color:whitesmoke; float:left;'>Image</a>
+																<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
+																<input class='form-control' type='text' placeholder='Type your reply here...' style='width:50%; float:right; margin-right:1%;' name='replytext'>
+																<div class='collapse' id='collapseImage".$i."'>
+																	<div class='container' style='width:65%; float:right; margin-top:2%; margin-right:-2%;'>
+																		<div class='input-group mb-3' style='background-color:#212121; border-width: 0 0 3px; border-bottom: 3.5px solid #F1C40F; 
+																			border-radius:5px;'>
+																			<div class='input-group-prepend'>
+																				<span class='input-group-text'>jpg</span>
+																			</div>
+																			<div class='custom-file'>
+																				<input type='file' class='custom-file-input' id='uploadImage' name='uploadImageR' accept='image/*'>
+																				<label class='custom-file-label text-left' for='uploadImage'>file size max 2 mb</label>
+																			</div>
+																		</div>
+																	</div>
+																</div>
 															</div>
 															</form>
 														</div>
@@ -358,19 +379,19 @@
                                 <div class="tab-pane active" id="profile" role="tabpanel">
                                     <div class="container">
                                         <div class="row">
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong>Full Name</strong>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong style='color:#F1C40F;'>Full Name</strong>
                                                 <br>
                                                 <p style='color:whitesmoke;'><?php foreach ($dataUser as $data) {echo $data['fullname'];} ?></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong>Country</strong>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong style='color:#F1C40F;'>Country</strong>
                                                 <br>
                                                 <p style='color:whitesmoke;'><?php foreach ($dataUser as $data) {echo $data['country'];} ?></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong>Email</strong>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong style='color:#F1C40F;'>Email</strong>
                                                 <br>
                                                 <p style='color:whitesmoke;'><?php foreach ($dataUser as $data) {echo $data['email'];} ?></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6"> <strong>Date Join</strong>
+                                            <div class="col-md-3 col-xs-6"> <strong style='color:#F1C40F;'>Date Join</strong>
                                                 <br>
                                                 <p style='color:whitesmoke;'><?php foreach ($dataUser as $data) {echo $data['datejoin'];} ?></p>
                                             </div>
@@ -385,6 +406,12 @@
 											<div class="col-md-9 border-right">
 												<h4 class="card-title" style='text-align:center;'>Discussion</h4>
 												<div id="discussion" style="height:290px; width:100%;"></div>
+												<?php $count = 0; foreach($dataDiscussion as $data){$count++;} 
+												if ($count == 0){echo"<p style='text-align:center; color:whitesmoke; margin-top:-50%;'>You haven't post any discussion yet...</p>";}?>
+												<h4 class="card-title" style='text-align:center;'>Replies</h4>
+												<?php $count = 0; foreach($dataReplyWCat as $data){$count++;} 
+												if ($count == 0){echo"<p style='text-align:center; color:whitesmoke; margin-top:-50%;'>You haven't reply any discussion yet...</p>";}?>
+												<div id="reply" style="height:290px; width:100%;"></div>
 											</div>
 											<div class='col-md-3'>
 												<div class="container text-center" style='margin-top:2%;'>
@@ -566,7 +593,7 @@
 				<div class='modal-header'>
 					<h5 class='modal-title' id='exampleModalLabel' style='color:#e69627; margin-top:1%;'>Send to :</h5>
 					<div class="autocomplete" style="width:300px;">
-						<input id="myInput" type="text" name="receiver" placeholder="Username" required>
+						<input id="mycontacts" type="text" name="receiver" placeholder="Username" required>
 					</div>
 					<img id='icon'  class="closebtn" src="http://localhost/Learnzia/assets/images/icon/Close.png"
 					style="margin-top:2%;" type="button" data-dismiss='modal' aria-label='Close'>
@@ -833,18 +860,18 @@
 		}
 
 		/*An array containing all the country names in the world:*/
-		var countries = [<?php foreach($contacts as $data){
-					if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))){
-						echo "'"; echo $data['username2']; echo "',";
-					} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))){
-						echo "'"; echo $data['username1']; echo "',";
-					} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] != $this->session->userdata('userTrack'))){
-						//do nothing
-					}
-				}?>]
+		var contacts = [<?php foreach($contacts as $data){
+			if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))){
+				echo "'"; echo $data['username2']; echo "',";
+			} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))){
+				echo "'"; echo $data['username1']; echo "',";
+			} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] != $this->session->userdata('userTrack'))){
+				//do nothing
+			}
+		}?>]
 
-		/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-		autocomplete(document.getElementById("myInput"), countries);
+		/*initiate the autocomplete function on the "mycontacts" element, and pass along the contacts array as possible autocomplete values:*/
+		autocomplete(document.getElementById("mycontacts"), contacts);
 		</script>
 
 		<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
@@ -866,6 +893,7 @@
 				let fileName = $(this).val().split('\\').pop(); 
 				$(this).next('.custom-file-label').addClass("selected").html(fileName); 
 			});
+			//Statistic
 			$(function() {
 				"use strict";
 				var chart2 = new Chartist.Bar('.amp-pxl', {
@@ -885,6 +913,7 @@
 				});
 
 				var chart = [chart2];
+				var replyChart = [chart2];
 
 				for (var i = 0; i < chart.length; i++) {
 					chart[i].on('draw', function(data) {
@@ -923,10 +952,72 @@
 					data: {
 						columns: [
 							['Math', <?php $count = 0; foreach($dataDiscussion as $data){ if($data['category'] == 'math'){$count++;}} echo $count;?>],
-							['Coding', 0],
-							['Design', 0],
-							['Science', 0],
+							['Coding', <?php $count = 0; foreach($dataDiscussion as $data){ if($data['category'] == 'coding'){$count++;}} echo $count;?>],
+							['Design', <?php $count = 0; foreach($dataDiscussion as $data){ if($data['category'] == 'design'){$count++;}} echo $count;?>],
+							['Science', <?php $count = 0; foreach($dataDiscussion as $data){ if($data['category'] == 'science'){$count++;}} echo $count;?>],
 							['History', <?php $count = 0; foreach($dataDiscussion as $data){ if($data['category'] == 'history'){$count++;}} echo $count;?>],
+						],
+
+						type: 'donut',
+						onclick: function(d, i) { console.log("onclick", d, i); },
+						onmouseover: function(d, i) { console.log("onmouseover", d, i); },
+						onmouseout: function(d, i) { console.log("onmouseout", d, i); }
+					},
+					donut: {
+						label: {
+							show: false
+						},
+						width: 35,
+					},
+					legend: {
+						hide: true
+					},
+					color: {
+						pattern: ['#12c447', '#c49212', '#c43012', '#11bfbc', '#bf11a8']
+					}
+				});
+
+				for (var i = 0; i < replyChart.length; i++) {
+					replyChart[i].on('draw', function(data) {
+						if (data.type === 'line' || data.type === 'area') {
+							data.element.animate({
+								d: {
+									begin: 500 * data.index,
+									dur: 500,
+									from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+									to: data.path.clone().stringify(),
+									easing: Chartist.Svg.Easing.easeInOutElastic
+								}
+							});
+						}
+						if (data.type === 'bar') {
+							data.element.animate({
+								y2: {
+									dur: 500,
+									from: data.y1,
+									to: data.y2,
+									easing: Chartist.Svg.Easing.easeInOutElastic
+								},
+								opacity: {
+									dur: 500,
+									from: 0,
+									to: 1,
+									easing: Chartist.Svg.Easing.easeInOutElastic
+								}
+							});
+						}
+					});
+				}
+
+				var replyChart = c3.generate({
+					bindto: '#reply',
+					data: {
+						columns: [
+							['Math', <?php $count = 0; foreach($dataReplyWCat as $data){ if($data['category'] == 'math'){$count++;}} echo $count;?>],
+							['Coding', <?php $count = 0; foreach($dataReplyWCat as $data){ if($data['category'] == 'coding'){$count++;}} echo $count;?>],
+							['Design', <?php $count = 0; foreach($dataReplyWCat as $data){ if($data['category'] == 'design'){$count++;}} echo $count;?>],
+							['Science', <?php $count = 0; foreach($dataReplyWCat as $data){ if($data['category'] == 'science'){$count++;}} echo $count;?>],
+							['History', <?php $count = 0; foreach($dataReplyWCat as $data){ if($data['category'] == 'history'){$count++;}} echo $count;?>],
 						],
 
 						type: 'donut',

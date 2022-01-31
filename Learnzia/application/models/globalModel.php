@@ -1,7 +1,7 @@
 <?php 
 	defined('BASEPATH') OR exit('No direct script access alowed');
 
-	class homeModel extends CI_Model 
+	class globalModel extends CI_Model 
 	{
 		public function get_data_user(){
 			$this->db->select('*');
@@ -31,22 +31,29 @@
 			$this->db->order_by('datetime','ASC');
 			return $data = $this->db->get()->result_array();
 		}
+		//For searching
 		public function get_list_user(){
 			$data = $this->db->get('user');
+			return $data->result_array();
+		}
+		public function get_list_class(){
+			$data = $this->db->get('classroom');
 			return $data->result_array();
 		}
 		public function posting($data){
 			$this->db->insert('message',$data);	
 			redirect('homeCtrl');
 		}
-		//Post discussion
 		public function uploadDisc($data){
 			$this->db->insert('discussion',$data);	
 			redirect('homeCtrl');
 		}
-		public function get_all_discussion(){
-			$data = $this->db->get('discussion');
-			return $data->result_array();
+		public function get_my_discussion(){
+			$this->db->select('*');
+			$this->db->from('discussion');
+			$this->db->where('sender', $this->session->userdata('userTrack'));
+			$this->db->order_by('datetime','DESC');
+			return $data = $this->db->get()->result_array();
 		}
 		public function get_all_history(){
 			$this->db->select('*');
@@ -71,14 +78,21 @@
 		//reply discussion
 		public function reply($data){
 			$this->db->insert('reply',$data);	
-			redirect('homeCtrl');
+			redirect('globalCtrl');
 		}
 		//reply message
 		public function replyMessage($data){
 			$this->db->insert('message',$data);	
-			redirect('homeCtrl');
+			redirect('globalCtrl');
 		}
-
+		//reply with discussion category
+		public function get_all_replyWCat(){
+			$this->db->select('*');
+			$this->db->from('reply');
+			$this->db->join('discussion', 'reply.id_discussion = discussion.id_discussion');
+			$this->db->where('reply.sender', $this->session->userdata('userTrack'));
+			return $data = $this->db->get()->result_array();
+		}
 		//Sign out
 		public function offstatus(){
 			$this->db->set('status', 'offline');

@@ -80,8 +80,14 @@
 			$this->db->insert('message',$data);	
 			redirect('profileCtrl');
 		}
-
-
+		//reply with discussion category
+		public function get_all_replyWCat(){
+			$this->db->select('*');
+			$this->db->from('reply');
+			$this->db->join('discussion', 'reply.id_discussion = discussion.id_discussion');
+			$this->db->where('reply.sender', $this->session->userdata('userTrack'));
+			return $data = $this->db->get()->result_array();
+		}
 		//Sign out
 		public function offstatus(){
 			$this->db->set('status', 'offline');
