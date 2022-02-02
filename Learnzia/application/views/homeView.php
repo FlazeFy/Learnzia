@@ -179,7 +179,7 @@
 			}
 			if ($disFriendCount == 0){
 				echo "<img src='http://localhost/Learnzia/assets/images/Error404.png' alt='Error404.png' style='display: block;
-				margin-left: auto; margin-right: auto; width: 10%; height: 10%; margin-top:-10%;'>
+				margin-left: auto; margin-right: auto; width: 140px; height: 140px; margin-top:-10%;'>
 				<h5 style='font-size:14px; font-style:italic; color:#F1C40F; margin-bottom:1%;
 				text-align:center;'>There is no discussion from your friend in this week...</h5>";}
 		?>

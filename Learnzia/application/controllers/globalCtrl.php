@@ -14,6 +14,7 @@
 			$data['contacts']= $this->globalModel->get_only_contact();
 			$data['listUser']= $this->globalModel->get_list_user();
 			$data['listClass']= $this->globalModel->get_list_class();
+			$data['listRel']= $this->globalModel->get_list_relation();
 			$data['discHistory']= $this->globalModel->get_all_history();
 			$data['discMath']= $this->globalModel->get_all_math();
 			$data['dataReply']= $this->globalModel->get_all_reply();
@@ -95,6 +96,56 @@
 			);
 			$this->globalModel->replyMessage($data, 'message');
 			redirect('globalCtrl');
+		}
+		//New class
+		public function newClass(){
+			if($this->input->post('typeSwitch') == 'on'){
+				$type = 'private';
+			} else {
+				$type = 'public';
+			}
+		
+			if($this->input->post('imageSwitchC') == 'on'){
+				$date = date("Ymdhis");
+				$username = $this->session->userdata('userTrack');
+				$imageURL = $username. '' .$date;
+			} else {
+				$imageURL = 'null';
+			}
+			$initialize = $this->upload->initialize(array(
+				"upload_path" => './assets/uploads/classroom',
+				"allowed_types" => 'jpg',
+				"max_size" => 2000,
+				"remove_spaces" => TRUE,
+				"file_name" => 'classroom_' . $imageURL
+			));
+			$data = array(
+				'id_classroom' => 'NULL',
+				'classname' => $this->input->post('classname'),
+				'category' => $this->input->post('category'),
+				'description' => $this->input->post('description'),
+				'type' => $type,
+				'date' => date("Y/m/d"),
+				'imageURL' => $imageURL
+			);
+			$data2 = array(
+				'id_relation' => 'NULL',
+				'username' => $this->session->userdata('userTrack'),
+				'classname' => $this->input->post('classname'),	
+				'typeRelation' => 'founder'
+			);
+			
+			if($this->input->post('imageSwitchC') == 'on'){
+				if (!$this->upload->do_upload('uploadClassProfil')) {
+					$error = array('error' => $this->upload->display_errors());
+					$data['error_message'] = "Error! your image is to big or not jpg";
+					redirect('globalCtrl');
+				} else {
+					$this->globalModel->insertClass($data, $data2);
+				}
+			} else {
+				$this->globalModel->insertClass($data, $data2);
+			}
 		}
 
 		//Sign out

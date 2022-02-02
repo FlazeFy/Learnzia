@@ -146,7 +146,7 @@
 		<br><br>
 		<br><h2 style="margin-left: 13%; color:whitesmoke; font-size:20px;">Welcome, <?= $data = $this->session->userdata('userTrack'); ?></h2>
 		<div class="container" id="menu">
-			<br><h4>Browse The World</h4>
+			<br><h4>Browse the World</h4>
 			<form class="form-inline my-2 my-lg-0" action="">
 			<div class="autocomplete" style="width:50%; margin-bottom:2%;">
 				<input id="allClassAndUser" type="text" name="receiver" class="form-control mr-sm-2" placeholder="username, /classroom" style="float:left;
@@ -161,14 +161,31 @@
 			<br><h4>My Classroom</h4>
 			<div id="accordionC">
 			<!--New Class-->
-			<button class='btn btn-primary' data-toggle="modal" data-target="#newclassModal" aria-expanded='false' 
-			aria-controls='multiCollapseExample2' style='background-color: #7289da; border:none; margin-bottom:1%; width:22%; max-height:120px;'>
-				<div class='row'><div class='col-md-6'>
-				<img src='http://localhost/Learnzia/assets/images/classroom.png' alt='New Post' style='width:80px; height:80px;'></div>
-				<div class='col-md-5' style='display: block; margin-top: auto; margin-bottom: auto;'>
-				<h5 style='font-size:16px; color:whitesmoke;'>New Class</h5></div></div>
+			<button class='btn btn-primary' data-toggle="modal" data-target="#newClassModal" aria-expanded='false' 
+			aria-controls='multiCollapseExample2' style='background-color: #00a13e; border:none; margin-bottom:1%; max-width:120px; max-height:120px;'>
+				<img src='http://localhost/Learnzia/assets/images/classroom.png' alt='New Post' style='width:60px; height:60px;'>
+				<h5 style='font-size:14px; color:whitesmoke;'>New Class</h5>
 			</button>
-			
+			<!--My Class-->
+			<?php $i = 0; foreach ($listClass as $data){ 
+				foreach ($listRel as $data2) {
+				if (($data['classname'] == $data2['classname'])&& ($data2['username']== $this->session->userdata('userTrack'))){
+				echo "<button class='btn btn-primary' data-toggle='modal' data-target='#classModal".$data['classname']."' aria-expanded='false' 
+					aria-controls='multiCollapseExample2' style='background-color: #212121; border:none; margin-bottom:1%; max-width:120px; max-height:120px;'>
+					<img src='http://localhost/Learnzia/assets/uploads/classroom/classroom_".$data['imageURL'].".jpg' alt='Card image cap' style='width:60px; 
+						height:60px; border: 2.5px solid #F1C40F; border-radius:8px;'>
+					<h5 style='font-size:14px;'>/".$data['classname']."</h5>
+					<h6 style='font-size:14px; margin-top:-6%; color:#7289da;'>".$data['category']."</h6>
+				</button>"; $i++;
+				}
+			}}
+				if($i == 0){
+				echo "<img src='http://localhost/Learnzia/assets/images/Error404.png' alt='Error404.png' style='display: block;
+				margin-left: auto; margin-right: auto; width: 140px; height: 140px; margin-top:-10%;'>
+				<h5 style='font-size:14px; font-style:italic; color:#F1C40F; margin-bottom:1%;
+				text-align:center;'>You haven't join any classroom yet...</h5><br>";
+				}
+			?>
 			</div>
 		</div>
 
@@ -217,6 +234,96 @@
 			</div>
 		</footer>
 		
+		
+		<!-- My Classroom modal. -->
+		<?php foreach ($listClass as $class){ 
+			foreach ($listRel as $rel) {
+			if (($rel['classname'] == $class['classname'])&& ($rel['username']== $this->session->userdata('userTrack'))){
+				echo"<div class='modal fade' id='classModal".$class['classname']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+				<div class='modal-dialog modal-lg' role='document'>
+					<div class='modal-content' style='background-color:#313436; overflow-y: initial;'>
+					<div class='modal-header'>
+						<h4 style='color:#F1C40F;'>/".$class['classname']."</h4>
+						<img type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png' id='icon'>	
+					</div>
+					<div class='modal-body' style='max-height: calc(98vh - 160px); overflow-y: auto;'>
+					<div class='row'>
+						<div class='col-lg-4 col-xlg-3 col-md-5' style='overflow-y: initial;'>
+							<img src='http://localhost/Learnzia/assets/uploads/classroom/classroom_".$class['imageURL'].".jpg' alt='Card image cap' style='width:225px; 
+							height:225px; border: 2.5px solid #F1C40F; border-radius:8px; margin-bottom:2%;'>
+							<h5 style='color:#F1C40F;'>Member</h5>
+							<div class='card' style='border-radius:5px; border: 3px solid #F1C40F; background-color:#525252; margin-bottom:3%; width:225px; 
+							height:225px; max-height: calc(80vh - 120px); max-width:auto; overflow-y: auto;'>";
+							foreach ($listRel as $rel2){
+							foreach ($listUser as $user){
+								if(($rel2['username'] == $user['username']) &&($rel2['classname'] == $class['classname'])){
+								echo "<div class='card' type='button' style='border: none; background-color:#515151; margin:1%;'>
+									<div class='card-header' style='height:5rem;'>
+										<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+											style='width:50px; height:50px; float:left; margin-right:5%'>";
+											if ($user['username'] == $this->session->userdata('userTrack')){
+												echo "<h5 style='font-size:15.5px; color:#F1C40F;'>You</h5>";
+											} else {
+												echo "<h5 style='font-size:15.5px; color:#F1C40F;'>".$user['username']."</h5>";}
+										if($rel2['typeRelation'] == 'founder'){echo"<p style='font-size:14px; color:#7289da; font-weight:bold;'>".$rel2['typeRelation']."</p>";}
+										else if($rel2['typeRelation'] == 'co-founder') {echo"<p style='font-size:14px; color:#00a13e;'>".$rel2['typeRelation']."</p>";}
+										else{echo"<p style='font-size:14px; color:whitesmoke;'>".$rel2['typeRelation']."</p>";}
+									echo"</div>
+								</div>";
+								} 
+							}}
+							echo"</div>
+						</div>
+						
+						<div class='col-lg-8 col-xlg-9 col-md-7'>
+							<h5 style='color:#F1C40F;'>About this Class</h5>
+							<div class='card' style='border-radius:5px; border: 3px solid #F1C40F; background-color:#525252; margin-bottom:5%;
+								height:40%;'>
+								<p>".$class['description']."</p>
+							</div>
+							<div class='card' style='border-radius:5px; border: 3px solid #F1C40F; background-color:#525252; margin-bottom:5%;'>
+								<div class='row text-center m-t-20' style='margin-top:1%;'>
+									<div class='col-lg-4 col-md-4 m-t-20'>
+										<h4 style='font-size:20px;'>"; $count =0; foreach ($listRel as $rel2){foreach ($listUser as $user){
+										if(($rel2['username'] == $user['username'])&&($rel2['classname'] == $class['classname'])){$count++;}}} echo $count; echo" </h4>
+										<small style='color:whitesmoke;'>Member</small>
+									</div>
+									<div class='col-lg-4 col-md-4 m-t-20'>
+										<h4 style='font-size:20px;'>";echo $class['category'];
+										echo "</h4><small style='color:whitesmoke;'>Category</small>
+									</div>
+									<div class='col-lg-4 col-md-4 m-t-20'>
+										<h4 style='font-size:20px;'>";echo $class['type'];
+										echo "</h4><small style='color:whitesmoke;'>Type</small>
+									</div>
+								</div>
+								<div class='container'>
+									<h4 style='font-size:20px;'>Founded By</h4>";
+									foreach ($listRel as $rel2){foreach ($listUser as $user){if(($rel2['username'] == $user['username'])&&($rel2['classname'] == $class['classname'])){if($rel2['typeRelation'] == 'founder'){
+									echo "<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+										style='width:50px; height:50px; float:left; margin-right:5%'>";
+									if ($user['username'] == $this->session->userdata('userTrack')){
+										echo "<h5 style='font-size:15.5px; color:#7289da;'>You</h5>";
+									} else {
+										echo "<h5 style='font-size:15.5px; color:#7289da;'>".$user['username']."</h5>";}
+									echo "<p style='font-size:13px; color:whitesmoke; font-style:italic;'>".$class['date']."</p>";
+									}}}}
+							echo "</div>
+							</div>
+							<div class='container-fluid'>
+								<button type='submit' class='btn btn-danger' style='color:white; margin:1%;'>Leave this Class</button>	
+							</div>
+						</div>
+					</div>
+					</div>	
+					<div class='modal-footer'>
+						<button class='btn btn-primary' style='color:white; background-color:#e69627; border:none;'>Invite a New Member</button>							
+						<button class='btn btn-primary' style='color:white; background-color:#00a13e; border:none;'>Open Class</button>							
+					</div>			
+					</div>
+				</div>
+				</div>";	
+		}}}?>
 
 		<!-- Sign out Modal -->
 		<div class="modal fade" id="signOutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -395,6 +502,76 @@
 		}
 		$count = 0;
 		}?>
+
+		<!-- Modal New Classroom -->
+		<div class='modal fade' id='newClassModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+		<div class='modal-dialog' role='document'>
+			<form method='POST' action='<?php echo site_url().'globalCtrl/newClass'; ?>' enctype='multipart/form-data'>
+				<div class='modal-content' style='background-color:#313436;'>
+				<div class='modal-header'>
+					<h5 class='modal-title' id='newClassModal' style='color:#e69627; margin-top:1%;'>Category :</h5>
+					<div class="form-group mb-3">
+					<select class="form-control" name="category" style="width:300px;">
+						<option value='math'>Math</option>
+						<option value='coding'>Coding</option>
+						<option value='design'>Design</option>
+						<option value='science'>Science</option>
+						<option value='history'>History</option>
+						<option value='multi'>Multi</option>
+					</select></div>
+					<img  class="closebtn" id="icon" src="http://localhost/Learnzia/assets/images/icon/Close.png"
+					style="margin-top:2%;" type="button" data-dismiss='modal' aria-label='Close'>
+				</div>
+					<div class='modal-body'>
+						<div class="form-group mb-3">
+							<label class="label" for="text" style="color:#F1C40F;">Class Name</label>
+							<input type="text" class="form-control" placeholder="Class Name" name="classname" required>
+						</div>
+						<div class="form-group mb-3">
+							<label class="label" for="text" style="color:#F1C40F;">Description</label>
+							<textarea rows="5" cols="60" name="description" class='form-control' required>Type description about your classroom and some rules...</textarea>
+						</div>
+						<label class="switch" style='float:left; margin-right:2%;'>
+						<input type="checkbox" name='typeSwitch'>
+							<span class="slider round"></span>
+						</label>
+						<p style="color:whitesmoke;">Private Class</p>
+						<img id='icon' src='http://localhost/Learnzia/assets/images/icon/Info.png' style='float:left;'>
+						<p style="color:#F1C40F; font-size:14px;">If you set the class's type to Private. People must request first, before they want to join. You 
+							still can change this feature in the future.</p>
+						<!-- Rounded switch -->
+						<label class="switch" style='float:left; margin-right:2%;'>
+						<input type="checkbox" name='imageSwitchC'>
+							<span class="slider round" data-toggle="collapse" data-target="#uploadClassProfil"></span>
+						</label>
+						<p style="color:whitesmoke;">Set Class's Image</p>
+						<!--Upload file.-->
+						<div class="collapse" id="uploadClassProfil">
+							<div class="form-group mb-3">
+							<div class="container" style=''>
+								<label class="label" for="text" style="color:#F1C40F;">Add Discussion Image</label>
+								<div class="input-group mb-3" style="background-color:#212121; border-width: 0 0 3px; border-bottom: 3.5px solid #F1C40F; 
+									border-radius:5px;">
+									<div class="input-group-prepend">
+										<span class="input-group-text">jpg</span>
+									</div>
+									<div class="custom-file">
+										<input type="file" class="custom-file-input" id="uploadImage" name="uploadClassProfil" accept='image/*'>
+										<label class="custom-file-label text-left" for="uploadImage">file size max 2 mb</label>
+									</div>
+								</div>
+							</div>
+							</div>
+						</div>
+					</div>
+					<div class='modal-footer'>
+						<button type='submit' style='color:whitesmoke; background-color:#e69627; border:none;' 
+							class='btn btn-primary'>Create new Class</button>
+					</div>
+			</form>
+			</div>
+		</div>
+		</div>
 
 		<script>
 			//Side navbar private message

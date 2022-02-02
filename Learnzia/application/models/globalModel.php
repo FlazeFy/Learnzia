@@ -40,6 +40,11 @@
 			$data = $this->db->get('classroom');
 			return $data->result_array();
 		}
+		public function get_list_relation()
+		{
+			$data = $this->db->get('relation');
+			return $data->result_array();
+		}
 		public function posting($data){
 			$this->db->insert('message',$data);	
 			redirect('homeCtrl');
@@ -99,6 +104,12 @@
 			$this->db->where('username', $this->session->userdata('userTrack'));
 			$this->db->update('user');
 			redirect('http://localhost/Learnzia');
+		}
+		//New class
+		public function insertClass($data, $data2){
+			$this->db->insert('classroom',$data);
+			$this->db->insert('relation',$data2);	
+			redirect('globalCtrl');
 		}
 	}
 ?>
