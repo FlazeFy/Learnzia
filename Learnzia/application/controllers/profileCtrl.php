@@ -13,6 +13,8 @@
 			$data['dataDiscussion']= $this->profileModel->get_my_discussion();
 			$data['contacts']= $this->profileModel->get_only_contact();
 			$data['listUser']= $this->profileModel->get_list_user();
+			$data['listClass']= $this->profileModel->get_list_class();
+			$data['listRel']= $this->profileModel->get_list_relation();
 			$data['discHistory']= $this->profileModel->get_all_history();
 			$data['discMath']= $this->profileModel->get_all_math();
 			$data['dataReply']= $this->profileModel->get_all_reply();

@@ -17,7 +17,7 @@
 			$condition = $this->session->userdata('userTrack');
 			$condition2 = array('username1' == $condition OR 'username2' == $condition);
 			$this->db->where($condition2);
-			$this->db->group_by('username1','username2');
+			//$this->db->group_by('username1','username2');
 			//$this->db->limit(1);
 			return $data = $this->db->get()->result_array();
 		}
@@ -109,6 +109,11 @@
 		public function insertClass($data, $data2){
 			$this->db->insert('classroom',$data);
 			$this->db->insert('relation',$data2);	
+			redirect('globalCtrl');
+		}
+		//send invitation
+		public function insertInvitation($data){
+			$this->db->insert('invitation',$data);	
 			redirect('globalCtrl');
 		}
 	}

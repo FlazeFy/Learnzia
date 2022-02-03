@@ -147,6 +147,17 @@
 				$this->globalModel->insertClass($data, $data2);
 			}
 		}
+		//Send Invitation
+		public function sendInvitation(){
+			$data = array(
+				'id_invitation' => 'NULL',
+				'sender' => $this->session->userdata('userTrack'),
+				'receiver' => $this->input->post('receiver'),
+				'type' => $this->input->post('typeInvitation'),
+				'datetime' => date("Y/m/d h:i:sa")
+			);
+			$this->globalModel->insertInvitation($data, 'invitation');
+		}
 
 		//Sign out
 		public function signOut(){

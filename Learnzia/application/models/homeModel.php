@@ -17,7 +17,7 @@
 			$condition = $this->session->userdata('userTrack');
 			$condition2 = array('username1' == $condition OR 'username2' == $condition);
 			$this->db->where($condition2);
-			$this->db->group_by('username1','username2');
+			//$this->db->group_by('username1','username2');
 			//$this->db->limit(1);
 			return $data = $this->db->get()->result_array();
 		}

@@ -37,6 +37,8 @@
 			.dropdown-menu{background-color: #212121; border-color:#F1C40F;} .dropdown-item{color:#F1C40F;}
 			.nav-tabs .nav-link.active{background-color:#7289da; color:whitesmoke; border:none; margin-top:2%;}
 			.tab-pane.active{border:none;}
+			a.nav-link:hover{color:#7289da; border:none;}
+			.dropdown-item:hover{color:whitesmoke; background-color:#7289da;}
 		</style>
     </head>
     <body>
@@ -62,7 +64,7 @@
 						foreach($contacts as $data){
 						if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))){
 						echo "
-						<div class='card' type='button' style='border-bottom: 3.5px solid #F1C40F; background-color:#212121;' 
+						<div class='card' type='button' style='margin-bottom:2%; background-color:#212121;' 
 							data-toggle='modal' data-target='#message".$data['username2']."'>
 							<div class='card-header' style='width: 25rem; height:5rem;'>
 								<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$data['username2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
@@ -75,10 +77,10 @@
 									echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
 								}}
 							echo "</div>
-						</div><br>"; $count++;
+						</div>"; $count++;
 						} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))){
 						echo "
-						<div class='card' type='button' style='border-bottom: 3.5px solid #F1C40F; background-color:#212121;' 
+						<div class='card' type='button' style='margin-bottom:2%; background-color:#212121;' 
 							data-toggle='modal' data-target='#message".$data['username1']."'>
 							<div class='card-header' style='width: 25rem; height:5rem;'>
 								<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$data['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
@@ -91,7 +93,7 @@
 									echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
 								}}
 							echo "</div>
-						</div><br>"; $count++;
+						</div>"; $count++;
 						} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] != $this->session->userdata('userTrack'))){
 							//break;
 						}
@@ -157,20 +159,24 @@
                                 <div class="row text-center m-t-20">
                                     <div class="col-lg-4 col-md-4 m-t-20">
                                         <h4><?php $count = 0; foreach ($dataReply as $reply){ foreach ($dataUser as $data) {
-											if ($reply['sender'] == $data['username']){$count++;}}} echo $count; ?></h4>
-											<small style='color:whitesmoke;'>Replies</small></div>
+										if ($reply['sender'] == $data['username']){$count++;}}} echo $count; ?></h4>
+										<small style='color:whitesmoke;'>Replies</small></div>
                                     <div class="col-lg-4 col-md-4 m-t-20">
                                         <h4><?php $count = 0; foreach ($dataDiscussion as $disc){ foreach ($dataUser as $data) {
-											if ($disc['sender'] == $data['username']){$count++;}}} echo $count; ?></h4>
+										if ($disc['sender'] == $data['username']){$count++;}}} echo $count; ?></h4>
 										<small style='color:whitesmoke;'>Discussion</small></div>
                                     <div class="col-lg-4 col-md-4 m-t-20">
                                         <h4><?php $count = 0; foreach ($contacts as $friend){ foreach ($dataUser as $data) {
-											if (($friend['username2'] != $data['username'])&& ($friend['username1'] == $data['username'])){$count++;}
-											else if (($friend['username1'] != $data['username'])&& ($friend['username2'] == $data['username'])){$count++;}
-											}} echo $count; ?></h4>
-											<small style='color:whitesmoke;'>Friends</small></div>
+										if (($friend['username2'] != $data['username'])&& ($friend['username1'] == $data['username'])){$count++;}
+										else if (($friend['username1'] != $data['username'])&& ($friend['username2'] == $data['username'])){$count++;}
+										}} echo $count; ?></h4>
+										<small style='color:whitesmoke;'>Friends</small></div>
 									<div class="col-lg-4 col-md-4 m-t-20">
-                                        <h4>-</h4><small style='color:whitesmoke;'>Classroom</small></div>
+                                        <h4><?php  $count = 0; foreach ($listClass as $data){foreach ($listRel as $data2) {
+										if(($data['classname'] == $data2['classname'])&& ($data2['username']== $this->session->userdata('userTrack'))){$count++;}}}
+										echo $count;
+										?></h4>
+										<small style='color:whitesmoke;'>Classroom</small></div>
 									<div class="col-lg-4 col-md-4 m-t-20">
                                         <h4 style='font-size:16px;'>
 										<?php foreach ($dataUser as $data) {echo $data['country'];} ?></h4>
@@ -183,7 +189,7 @@
                     
 						<h4>Friends</h4>
                         <div class="card" style='border-radius:5px; border: 3px solid #F1C40F; background-color:#525252; margin-bottom:5%; overflow-y: initial;'>
-							<div class="container" style="max-height: calc(80vh - 120px); max-width:auto; overflow-y: auto;">
+							<div class="container" style="max-height: calc(60vh - 120px); max-width:auto; overflow-y: auto;">
 						<!--Contact list-->
 						<?php 
 							$count = 0;
@@ -228,7 +234,7 @@
 										margin-left: auto; margin-right: auto; width: 30%; height: 30%;'>
 									<h5 style='font-size:15.5px; color:#F1C40F; text-align:center;'>You dont have a friend yet</h5>
 									<p style='font-style:italic; text-align:center; font-size:18px; color:#7289da;'>Lets find a new friend in 
-									<a style='text-decoration:underline; font-size:18px; color:#F1C40F;' href=''>Global </a> menu.</p>
+									<a style='text-decoration:underline; font-size:18px; color:#F1C40F;' href='globalCtrl'>Global </a> menu.</p>
 								</div>";
 							}
 						?>
@@ -238,8 +244,32 @@
 					
 					<h4>Classroom</h4>
                         <div class="card" style='border-radius:5px; border: 3px solid #F1C40F; background-color:#525252; overflow-y: initial;'>
-							<div class="container" style="max-height: calc(80vh - 120px); max-width:auto; overflow-y: auto;">
-						
+							<div class="container" style="max-height: calc(60vh - 120px); max-width:auto; overflow-y: auto;">
+							<!--Class list-->
+							<?php 
+								$count = 0;
+								foreach ($listClass as $data){foreach ($listRel as $data2){
+								if (($data['classname'] == $data2['classname'])&& ($data2['username']== $this->session->userdata('userTrack'))){
+								echo "
+								<div class='card' type='button' style='border: none; background-color:#515151; margin:1%;'>
+									<div class='card-header' style='height:5rem;'>
+										<img id='icon' src='http://localhost/Learnzia/assets/uploads/classroom/classroom_".$data['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
+											margin-right:5%'>
+										<h5 style='font-size:15.5px; color:#F1C40F;'>/".$data['classname']."</h5>
+										<p style='font-size:14px; color:#7289da;'>".$data['category']."</p>
+									</div>
+								</div>"; $count++;
+								}}} 
+								if ($count == 0){
+									echo "<div class='container' style='margin-top:2%;'>
+										<img src='http://localhost/Learnzia/assets/images/Classroom.png' alt='Friends.png' style='display: block;
+											margin-left: auto; margin-right: auto; width: 30%; height: 30%;'>
+										<h5 style='font-size:15.5px; color:#F1C40F; text-align:center;'>You dont have join a class yet...</h5>
+										<p style='font-style:italic; text-align:center; font-size:18px; color:#7289da;'>Lets join or create a class in 
+										<a style='text-decoration:underline; font-size:18px; color:#F1C40F;' href='globalCtrl'>Global </a> menu.</p>
+									</div>";
+								}
+							?>
 						</div>
 					</div>
 
@@ -251,6 +281,7 @@
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#profile" role="tab">About me</a> </li>
 								<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#edit" role="tab">Edit Profile</a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#activity" role="tab">Activity</a> </li>
+								<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#invitation" role="tab">Invitation</a> </li>
                             </ul>
                             <!-- Tab panes -->
                             <div class="tab-content">
@@ -479,6 +510,13 @@
                                         </form>
                                     </div>
                                 </div>
+
+								<div class="tab-pane" id="invitation" role="tabpanel" style='overflow-y: initial;'>
+                                    <div class="container" style='max-height: calc(160vh - 120px); overflow-y: auto;'>
+
+									</div>
+								</div>
+
                             </div>
                         </div>
                     </div>

@@ -17,7 +17,7 @@
 			$condition = $this->session->userdata('userTrack');
 			$condition2 = array('username1' == $condition OR 'username2' == $condition);
 			$this->db->where($condition2);
-			$this->db->group_by('username1','username2');
+			//$this->db->group_by('username1','username2');
 			//$this->db->limit(1);
 			return $data = $this->db->get()->result_array();
 		}
@@ -33,6 +33,15 @@
 		}
 		public function get_list_user(){
 			$data = $this->db->get('user');
+			return $data->result_array();
+		}
+		public function get_list_class(){
+			$data = $this->db->get('classroom');
+			return $data->result_array();
+		}
+		public function get_list_relation()
+		{
+			$data = $this->db->get('relation');
 			return $data->result_array();
 		}
 		public function posting($data){

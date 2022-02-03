@@ -37,6 +37,8 @@
 			.dropdown-menu{background-color: #212121; border-color:#F1C40F;} .dropdown-item{color:#F1C40F;}
 			.nav-tabs .nav-link.active{background-color:#e69627; color:whitesmoke; border:none; margin-top:2%;}
 			.tab-pane.active{border:none;}
+			a.nav-link:hover{color:#7289da;}
+			.dropdown-item:hover{color:whitesmoke; background-color:#7289da;}
 		</style>
     </head>
     <body>
@@ -62,7 +64,7 @@
 						foreach($contacts as $data){
 						if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))){
 						echo "
-						<div class='card' type='button' style='border-bottom: 3.5px solid #F1C40F; background-color:#212121;' 
+						<div class='card' type='button' style='margin-bottom:2%; background-color:#212121;' 
 							data-toggle='modal' data-target='#message".$data['username2']."'>
 							<div class='card-header' style='width: 25rem; height:5rem;'>
 								<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$data['username2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
@@ -75,10 +77,10 @@
 									echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
 								}}
 							echo "</div>
-						</div><br>"; $count++;
+						</div>"; $count++;
 						} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))){
 						echo "
-						<div class='card' type='button' style='border-bottom: 3.5px solid #F1C40F; background-color:#212121;' 
+						<div class='card' type='button' style='margin-bottom:2%; background-color:#212121;' 
 							data-toggle='modal' data-target='#message".$data['username1']."'>
 							<div class='card-header' style='width: 25rem; height:5rem;'>
 								<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$data['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
@@ -91,7 +93,7 @@
 									echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
 								}}
 							echo "</div>
-						</div><br>"; $count++;
+						</div>"; $count++;
 						} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] != $this->session->userdata('userTrack'))){
 							//break;
 						}
@@ -147,12 +149,11 @@
 		<br><h2 style="margin-left: 13%; color:whitesmoke; font-size:20px;">Welcome, <?= $data = $this->session->userdata('userTrack'); ?></h2>
 		<div class="container" id="menu">
 			<br><h4>Browse the World</h4>
-			<form class="form-inline my-2 my-lg-0" action="">
-			<div class="autocomplete" style="width:50%; margin-bottom:2%;">
-				<input id="allClassAndUser" type="text" name="receiver" class="form-control mr-sm-2" placeholder="username, /classroom" style="float:left;
-					width:70%;" required>
-				<button class="form-control mr-sm-2" style="color:whitesmoke; background-color:#00a13e; border:none;" style="float:right;" type="submit">Search</button>
+			<form method='post' action="" autocomplete='off'>
+			<div class="autocomplete" style="width:30%; margin-bottom:2%;" >
+				<input id="allClassAndUser" type="search" name="receiver" class='form-control mr-sm-2' placeholder="username, /classroom" required>
 			</div>
+			<button class="btn btn-primary" style="color:whitesmoke; background-color:#00a13e; border:none;" style="float:right;" type="submit">Search</button>
 			</form>
 		</div>
 
@@ -239,7 +240,7 @@
 		<?php foreach ($listClass as $class){ 
 			foreach ($listRel as $rel) {
 			if (($rel['classname'] == $class['classname'])&& ($rel['username']== $this->session->userdata('userTrack'))){
-				echo"<div class='modal fade' id='classModal".$class['classname']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+			echo"<div class='modal fade' id='classModal".$class['classname']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
 				<div class='modal-dialog modal-lg' role='document'>
 					<div class='modal-content' style='background-color:#313436; overflow-y: initial;'>
 					<div class='modal-header'>
@@ -272,16 +273,14 @@
 								</div>";
 								} 
 							}}
-							echo"</div>
+						echo"</div>
 						</div>
 						
 						<div class='col-lg-8 col-xlg-9 col-md-7'>
 							<h5 style='color:#F1C40F;'>About this Class</h5>
 							<div class='card' style='border-radius:5px; border: 3px solid #F1C40F; background-color:#525252; margin-bottom:5%;
-								height:40%;'>
+								'>
 								<p>".$class['description']."</p>
-							</div>
-							<div class='card' style='border-radius:5px; border: 3px solid #F1C40F; background-color:#525252; margin-bottom:5%;'>
 								<div class='row text-center m-t-20' style='margin-top:1%;'>
 									<div class='col-lg-4 col-md-4 m-t-20'>
 										<h4 style='font-size:20px;'>"; $count =0; foreach ($listRel as $rel2){foreach ($listUser as $user){
@@ -309,16 +308,40 @@
 									echo "<p style='font-size:13px; color:whitesmoke; font-style:italic;'>".$class['date']."</p>";
 									}}}}
 							echo "</div>
-							</div>
-							<div class='container-fluid'>
-								<button type='submit' class='btn btn-danger' style='color:white; margin:1%;'>Leave this Class</button>	
-							</div>
-						</div>
+							</div>";
+							if ((($rel['typeRelation'] == 'founder')||($rel['typeRelation'] == 'co-founder'))&&($class['type']=='private')){
+							echo"<h4 style='font-size:20px;'>Send Invitation</h4>						
+							<form method='post' action='globalCtrl/sendInvitation' autocomplete='off'>
+								<input type='text' class='form-control' name='typeInvitation' value='".$class['classname']."' hidden>
+								<div class='autocomplete' style='width:70%;'>
+									<input id='available4".$class['classname']."' class='form-control mr-sm-2' type='search' name='receiver' placeholder='Username' required>
+								</div>
+								<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; border:none;' type='submit'><img
+								src='http://localhost/Learnzia/assets/images/icon/Email_W.png' id='icon'> Invite</button>
+								<br><br><img id='icon' src='http://localhost/Learnzia/assets/images/icon/Info.png' style='float:left;'>
+								<p style='color:#F1C40F; font-size:14px;'>You can only invite new members who are already friends with you.</p>
+							</form>";} 
+							else if (($rel['typeRelation'] == 'member')&&($class['type']=='private')){
+							echo"<img id='icon' src='http://localhost/Learnzia/assets/images/icon/Info.png' style='float:left;'>
+								<p style='color:#F1C40F; font-size:14px;'>Sorry but, member can't invite in private class mode.</p>";
+							} else if ($class['type']=='public'){
+							echo"<h4 style='font-size:20px;'>Send Invitation</h4>						
+							<form method='post' action='globalCtrl/sendInvitation' autocomplete='off'>
+								<input type='text' class='form-control' name='typeInvitation' value='".$class['classname']."' hidden>
+								<div class='autocomplete' style='width:70%;'>
+									<input id='available4".$class['classname']."' class='form-control mr-sm-2' type='search' name='receiver' placeholder='Username' required>
+								</div>
+								<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; border:none;' type='submit'><img
+								src='http://localhost/Learnzia/assets/images/icon/Email_W.png' id='icon'> Invite</button>
+								<br><br><img id='icon' src='http://localhost/Learnzia/assets/images/icon/Info.png' style='float:left;'>
+								<p style='color:#F1C40F; font-size:14px;'>You can only invite new members who are already friends with you.</p>
+							</form>";} 
+					echo"</div>
 					</div>
 					</div>	
 					<div class='modal-footer'>
-						<button class='btn btn-primary' style='color:white; background-color:#e69627; border:none;'>Invite a New Member</button>							
-						<button class='btn btn-primary' style='color:white; background-color:#00a13e; border:none;'>Open Class</button>							
+						<button class='btn btn-danger' style='color:white; margin:1%;'>Leave Class</button>
+						<button class='btn btn-primary' style='color:white; float:right; background-color:#00a13e; margin-left:1%; border:none;'>Open Class</button>	
 					</div>			
 					</div>
 				</div>
@@ -350,7 +373,7 @@
 				<div class='modal-header'>
 					<h5 class='modal-title' id='exampleModalLabel' style='color:#e69627; margin-top:1%;'>Send to :</h5>
 					<div class="autocomplete" style="width:300px;">
-						<input id="mycontacts" type="text" name="receiver" placeholder="Username" required>
+						<input class="form-control mr-sm-2" id="mycontacts" type="search" name="receiver" placeholder="Username" required>
 					</div>
 					<img id='icon'  class="closebtn" src="http://localhost/Learnzia/assets/images/icon/Close.png"
 					style="margin-top:2%;" type="button" data-dismiss='modal' aria-label='Close'>
@@ -687,6 +710,7 @@
 		}
 
 		/*An array containing all the country names in the world:*/
+		//List friends.
 		var contacts = [<?php foreach($contacts as $data){
 			if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))){
 				echo "'"; echo $data['username2']; echo "',";
@@ -697,6 +721,37 @@
 			}
 		}?>]
 
+		//List friends who doesnt join specific classroom.
+		<?php 
+			foreach ($listRel as $rel){foreach ($listClass as $class) {
+				if (($class['classname'] == $rel['classname'])&& ($rel['username']== $this->session->userdata('userTrack'))){
+					echo "var list".$class['classname']."= [";
+					$i = 0; $j = 0;
+					foreach($contacts as $data){
+					if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))){
+						foreach ($listRel as $rel2){
+							if (($rel2['username'] == $data['username2'])&&($rel2['classname'] == $class['classname'])){
+							$i++;
+							
+						}}
+						//break;
+						if ($i == 0){echo "'"; echo $data['username2']; echo "',";} 
+					} 
+					else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))){
+						foreach ($listRel as $rel2){
+							if (($rel2['username'] == $data['username1'])&&($rel2['classname'] == $class['classname'])){
+								$j++;
+						}}
+						//break;
+						if ($j == 0){echo "'"; echo $data['username1']; echo "',";} 
+					}  
+				}
+				echo"]";
+			}	
+			}}	
+		?>
+
+		//List All user and class.
 		var classAndUser = [<?php foreach($listUser as $data){
 			echo "'"; echo $data['username']; echo "',";
 		} foreach($listClass as $data2){ 
@@ -706,6 +761,12 @@
 		/*initiate the autocomplete function on the "mycontacts" element, and pass along the contacts array as possible autocomplete values:*/
 		autocomplete(document.getElementById("mycontacts"), contacts);
 		autocomplete(document.getElementById("allClassAndUser"), classAndUser);
+		<?php 
+			foreach ($listClass as $class){foreach ($listRel as $rel) {
+				if (($rel['classname'] == $class['classname'])&& ($rel['username']== $this->session->userdata('userTrack'))){
+					echo"autocomplete(document.getElementById('available4".$class['classname']."'), list".$class['classname'].");";
+			}}}
+		?>
 		</script>
 
 		<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->

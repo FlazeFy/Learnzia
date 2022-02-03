@@ -30,6 +30,8 @@
 			h4 {color:#F1C40F;} h5 {color:#F1C40F;}
 			#menu {background-color: #212121; border-radius:5px; margin-bottom:1%;}
 			.dropdown-menu{background-color: #212121; border-color:#F1C40F;} .dropdown-item{color:#F1C40F;}
+			a.nav-link:hover{color:#7289da;}
+			.dropdown-item:hover{color:whitesmoke; background-color:#7289da;}
 		</style>
     </head>
     <body>
@@ -55,7 +57,7 @@
 						foreach($contacts as $data){
 						if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))){
 						echo "
-						<div class='card' type='button' style='border-bottom: 3.5px solid #F1C40F; background-color:#212121;' 
+						<div class='card' type='button' style='margin-bottom:2%; background-color:#212121;' 
 							data-toggle='modal' data-target='#message".$data['username2']."'>
 							<div class='card-header' style='width: 25rem; height:5rem;'>
 								<img src='http://localhost/Learnzia/assets/uploads/user_".$data['username2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
@@ -68,10 +70,10 @@
 									echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
 								}}
 							echo "</div>
-						</div><br>"; $count++;
+						</div>"; $count++;
 						} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))){
 						echo "
-						<div class='card' type='button' style='border-bottom: 3.5px solid #F1C40F; background-color:#212121;' 
+						<div class='card' type='button' style='margin-bottom:2%; background-color:#212121;' 
 							data-toggle='modal' data-target='#message".$data['username1']."'>
 							<div class='card-header' style='width: 25rem; height:5rem;'>
 								<img src='http://localhost/Learnzia/assets/uploads/user_".$data['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
@@ -84,7 +86,7 @@
 									echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
 								}}
 							echo "</div>
-						</div><br>"; $count++;
+						</div>"; $count++;
 						} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] != $this->session->userdata('userTrack'))){
 						}
 						
