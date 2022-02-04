@@ -59,6 +59,14 @@
 			$this->db->order_by('datetime','DESC');
 			return $data = $this->db->get()->result_array();
 		}
+		//Get friend and class invitation.
+		public function get_my_invitation(){
+			$this->db->select('*');
+			$this->db->from('invitation');
+			$this->db->where('receiver', $this->session->userdata('userTrack'));
+			$this->db->order_by('datetime','DESC');
+			return $data = $this->db->get()->result_array();
+		}
 		public function get_all_history(){
 			$this->db->select('*');
 			$this->db->from('discussion');
@@ -96,6 +104,20 @@
 			$this->db->join('discussion', 'reply.id_discussion = discussion.id_discussion');
 			$this->db->where('reply.sender', $this->session->userdata('userTrack'));
 			return $data = $this->db->get()->result_array();
+		}
+		//reject invitation
+		public function deleteInvitation($id){
+			$this->db->where('id_invitation', $id);
+			$this->db->delete('invitation');
+			redirect('profileCtrl');
+		}
+		//accept invitation
+		public function acceptInvitation($data, $id){
+			$this->db->where('id_invitation', $id);
+			$this->db->delete('invitation');
+
+			$this->db->insert('relation',$data);
+			redirect('profileCtrl');
 		}
 		//Sign out
 		public function offstatus(){

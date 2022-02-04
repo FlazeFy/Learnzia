@@ -11,6 +11,7 @@
 			$data['dataUser']= $this->profileModel->get_data_user();
 			$data['dataMessage']= $this->profileModel->get_all_message();
 			$data['dataDiscussion']= $this->profileModel->get_my_discussion();
+			$data['dataInvitation']= $this->profileModel->get_my_invitation();
 			$data['contacts']= $this->profileModel->get_only_contact();
 			$data['listUser']= $this->profileModel->get_list_user();
 			$data['listClass']= $this->profileModel->get_list_class();
@@ -85,7 +86,7 @@
 				$this->profileModel->reply($data, 'reply');
 			}
 		}
-		//Send reply message
+		//Send reply message.
 		public function sendRMessage(){
 			$data = array(
 				'id_message' => 'NULL',
@@ -96,6 +97,22 @@
 			);
 			$this->profileModel->replyMessage($data, 'message');
 			redirect('profileCtrl');
+		}
+		//Reject Invitation.
+		public function rejectInvit(){
+			$id = $this->input->post('id_invitation');
+			$this->profileModel->deleteInvitation($id, 'invitation');
+		}
+		//Accept Invitation.
+		public function accInvit(){
+			$data = array(
+				'id_relation' => 'NULL',
+				'username' => $this->session->userdata('userTrack'),
+				'classname' => $this->input->post('classname'),
+				'typeRelation' => 'member'
+			);
+			$id = $this->input->post('id_invitation');
+			$this->profileModel->acceptInvitation($data, $id);
 		}
 
 		//Sign out

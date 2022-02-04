@@ -196,7 +196,7 @@
 							foreach($contacts as $data){
 							if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))){
 							echo "
-							<div class='card' type='button' style='border: none; background-color:#515151; margin:1%;'>
+							<div class='card' type='button' style='border: none; background-color:#3b3b3b; margin:1%;'>
 								<div class='card-header' style='height:5rem;'>
 									<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$data['username2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
 										margin-right:5%'>
@@ -211,7 +211,7 @@
 							</div>"; $count++;
 							} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))){
 							echo "
-							<div class='card' type='button' style='border:none; background-color:#515151; margin:1%;'>
+							<div class='card' type='button' style='border:none; background-color:#3b3b3b; margin:1%;'>
 								<div class='card-header' style='height:5rem;'>
 									<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$data['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
 										margin-right:5%;'>
@@ -243,7 +243,7 @@
 
 					
 					<h4>Classroom</h4>
-                        <div class="card" style='border-radius:5px; border: 3px solid #F1C40F; background-color:#525252; overflow-y: initial;'>
+                        <div class="card" style='border-radius:5px; border: 3px solid #F1C40F; background-color:#525252; overflow-y: initial; margin-bottom:4%;'>
 							<div class="container" style="max-height: calc(60vh - 120px); max-width:auto; overflow-y: auto;">
 							<!--Class list-->
 							<?php 
@@ -251,12 +251,13 @@
 								foreach ($listClass as $data){foreach ($listRel as $data2){
 								if (($data['classname'] == $data2['classname'])&& ($data2['username']== $this->session->userdata('userTrack'))){
 								echo "
-								<div class='card' type='button' style='border: none; background-color:#515151; margin:1%;'>
+								<div class='card' type='button' style='border: none; background-color:#3b3b3b; margin:1%;' 
+									data-toggle='modal' data-target='#classModal".$data['classname']."'>
 									<div class='card-header' style='height:5rem;'>
 										<img id='icon' src='http://localhost/Learnzia/assets/uploads/classroom/classroom_".$data['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
 											margin-right:5%'>
 										<h5 style='font-size:15.5px; color:#F1C40F;'>/".$data['classname']."</h5>
-										<p style='font-size:14px; color:#7289da;'>".$data['category']."</p>
+										<h5 style='font-size:14px; color:#7289da;'>".$data['category']."</h5>
 									</div>
 								</div>"; $count++;
 								}}} 
@@ -274,7 +275,7 @@
 					</div>
 
                     </div>
-                    <div class="col-lg-8 col-xlg-9 col-md-7">
+                    <div class="col-lg-8 col-xlg-9 col-md-7" style='margin-bottom:2%;'>
                         <div class="card" style='border-radius:5px; background-color:#525252;'>
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs profile-tab" role="tablist">
@@ -293,7 +294,7 @@
 										$count = 0;
 										foreach($dataDiscussion as $data){	
 											echo"<div id='accordion2'>
-												<div class='card' style='border-radius:5px; border-bottom: 3.5px solid #F1C40F; background-color:#525252; margin:2%;'>
+												<div class='card' style='border-radius:5px; border-bottom: 3.5px solid #F1C40F; background-color:#3b3b3b; margin:2%;'>
 												<div class='card-header' id='headingOne' style='border-bottom: 1px solid #858585;'>
 													<img id='icon' src='assets/uploads/user_".$data['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; margin-top: -1%; 
 														margin-right:1%; float:left;'>";
@@ -328,7 +329,7 @@
 												</div>
 												<!--Extend-->
 												<div id='collapse".$i."' class='collapse' aria-labelledby='headingOne' data-parent='#accordion2'>
-													<div class='card-body' style='background-color:#404040;'>";
+													<div class='card-body' style='background-color:#424242;'>";
 														foreach ($dataReply as $data2){
 														if ($data2['id_discussion'] == $data['id_discussion']){
 														echo"<div class='container'>
@@ -397,9 +398,9 @@
 											echo "<div class='container' style='margin-top:5%; margin-bottom:5%;'>
 												<img src='http://localhost/Learnzia/assets/images/Error404.png' alt='Error404.png' style='display: block;
 													margin-left: auto; margin-right: auto; width: 30%; height: 30%;'>
-												<h4 style='font-style:italic; text-align:center;'>You haven't post any discussion yet...</h4>
-												<p style='font-style:italic; text-align:center; font-size:18px; color:#7289da;'>Lets discuss with other people by create a discussion in 
-												<a style='text-decoration:underline; font-size:18px; color:#F1C40F;' href='homeCtrl'>Home </a> menu.</p>
+												<h4 style='font-style:italic; text-align:center; font-size:18px;'>You haven't post any discussion yet...</h4>
+												<p style='font-style:italic; text-align:center; font-size:16px; color:#7289da;'>Lets discuss with other people by create a discussion in 
+												<a style='text-decoration:underline; font-size:16px; color:#F1C40F;' href='homeCtrl'>Home </a> menu.</p>
 											</div>";
 										}
 										?>
@@ -513,7 +514,53 @@
 
 								<div class="tab-pane" id="invitation" role="tabpanel" style='overflow-y: initial;'>
                                     <div class="container" style='max-height: calc(160vh - 120px); overflow-y: auto;'>
+										<?php $count=0; 
+										foreach($dataInvitation as $invitation){
+											if($invitation['type'] != 'friend'){
+												foreach ($listClass as $class){
+												if($invitation['type'] == $class['classname']){
+												echo "
+												<div class='card' style='border: none; background-color:#3b3b3b; margin:1%; border-radius:5px;'>
+													<div class='card-header' style=''>
+														<h5 style='font-size:17px; color:whitesmoke;'>".$invitation['sender']." invite you to join a class</h5>
+														<p style='font-size:12px; color:#whitesmoke; font-style:italic;'>Since ".$invitation['datetime']."</p>
+														<h5 style='font-size:15px; float:left; text-decoration:underline;' type='button' data-toggle='collapse' data-target='#collapse".$count."' 
+															aria-expanded='true' aria-controls='collapseOne''>See Detail
+														<img id='icon' src='assets/Images/icon/Down.png' style='width:25px; height:20px; float:left; padding-left:3px;'></h5>
+														<form method='post' action='profileCtrl/rejectInvit'>
+															<input type='text' class='form-control' name='id_invitation' value='".$invitation['id_invitation']."' hidden>
+															<button class='btn btn-danger' type='submit' style='border:none; float:right; margin-top:-5px;'>Reject</button>
+														</form>
+														<form method='post' action='profileCtrl/accInvit'>
+															<input type='text' class='form-control' name='id_invitation' value='".$invitation['id_invitation']."' hidden>
+															<input type='text' class='form-control' name='classname' value='".$invitation['type']."' hidden>
+															<button class='btn btn-success' type='submit' style='border:none; float:right; margin-top:-5px; margin-right:2%;'>Accept</button>
+														</form>
+													</div>
+													<div id='collapse".$count."'  class='collapse'>
+														<div class='card-body' style='background-color:#424242; border-radius:5px;'>
+															<img id='icon' src='http://localhost/Learnzia/assets/uploads/classroom/classroom_".$class['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
+																margin-right:5%'>
+															<h5 style='font-size:15.5px; color:#F1C40F;'>/".$invitation['type']."</h5>
+															<h5 style='font-size:15.5px; color:#7289da;'>".$class['category']."</h5>
+															<button class='btn btn-primary' style='border:none; background-color:#e69627; float:right; margin-top:-40px;' data-toggle='modal' 
+																data-target='#seeClassModal".$class['classname']."'>See Class</button>
+														</div>
+													</div>
+												</div>"; $count++;
+												} /*break;*/}
+											} //else {
 
+											//}
+										}
+										if ($count == 0){
+											echo "<div class='container' style='margin-top:5%; margin-bottom:5%;'>
+												<img src='http://localhost/Learnzia/assets/images/Invitation.png' alt='Error404.png' style='display: block;
+													margin-left: auto; margin-right: auto; width: 25%; height: 25%;'>
+												<h4 style='font-style:italic; text-align:center; font-size:18px;'>You don't have any incoming invitation...</h4>
+											</div>";
+										}
+										?>
 									</div>
 								</div>
 
@@ -569,6 +616,194 @@
 			</div>
 		</footer>
 		
+		<!-- My Classroom modal. -->
+		<?php foreach ($listClass as $class){ 
+			foreach ($listRel as $rel) {
+			if (($rel['classname'] == $class['classname'])&& ($rel['username']== $this->session->userdata('userTrack'))){
+			echo"<div class='modal fade' id='classModal".$class['classname']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+				<div class='modal-dialog modal-lg' role='document'>
+					<div class='modal-content' style='background-color:#313436; overflow-y: initial;'>
+					<div class='modal-header'>
+						<h4 style='color:#F1C40F;'>/".$class['classname']."</h4>
+						<img type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png' id='icon'>	
+					</div>
+					<div class='modal-body' style='max-height: calc(98vh - 160px); overflow-y: auto;'>
+					<div class='row'>
+						<div class='col-lg-4 col-xlg-3 col-md-5' style='overflow-y: initial;'>
+							<img src='http://localhost/Learnzia/assets/uploads/classroom/classroom_".$class['imageURL'].".jpg' alt='Card image cap' style='width:225px; 
+							height:225px; border: 2.5px solid #F1C40F; border-radius:8px; margin-bottom:2%;'>
+							<h5 style='color:#F1C40F;'>Member</h5>
+							<div class='card' style='border-radius:5px; border: 3px solid #F1C40F; background-color:#525252; margin-bottom:3%; width:225px; 
+							height:225px; max-height: calc(80vh - 120px); max-width:auto; overflow-y: auto;'>";
+							foreach ($listRel as $rel2){
+							foreach ($listUser as $user){
+								if(($rel2['username'] == $user['username']) &&($rel2['classname'] == $class['classname'])){
+								echo "<div class='card' type='button' style='border: none; background-color:#515151; margin:1%;'>
+									<div class='card-header' style='height:5rem;'>
+										<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+											style='width:50px; height:50px; float:left; margin-right:5%'>";
+											if ($user['username'] == $this->session->userdata('userTrack')){
+												echo "<h5 style='font-size:15.5px; color:#F1C40F;'>You</h5>";
+											} else {
+												echo "<h5 style='font-size:15.5px; color:#F1C40F;'>".$user['username']."</h5>";}
+										if($rel2['typeRelation'] == 'founder'){echo"<p style='font-size:14px; color:#7289da; font-weight:bold;'>".$rel2['typeRelation']."</p>";}
+										else if($rel2['typeRelation'] == 'co-founder') {echo"<p style='font-size:14px; color:#00a13e;'>".$rel2['typeRelation']."</p>";}
+										else{echo"<p style='font-size:14px; color:whitesmoke;'>".$rel2['typeRelation']."</p>";}
+									echo"</div>
+								</div>";
+								} 
+							}}
+						echo"</div>
+						</div>
+						
+						<div class='col-lg-8 col-xlg-9 col-md-7'>
+							<h5 style='color:#F1C40F;'>About this Class</h5>
+							<div class='card' style='border-radius:5px; border: 3px solid #F1C40F; background-color:#525252; margin-bottom:5%;
+								'>
+								<p>".$class['description']."</p>
+								<div class='row text-center m-t-20' style='margin-top:1%;'>
+									<div class='col-lg-4 col-md-4 m-t-20'>
+										<h4 style='font-size:20px;'>"; $count =0; foreach ($listRel as $rel2){foreach ($listUser as $user){
+										if(($rel2['username'] == $user['username'])&&($rel2['classname'] == $class['classname'])){$count++;}}} echo $count; echo" </h4>
+										<small style='color:whitesmoke;'>Member</small>
+									</div>
+									<div class='col-lg-4 col-md-4 m-t-20'>
+										<h4 style='font-size:20px;'>";echo $class['category'];
+										echo "</h4><small style='color:whitesmoke;'>Category</small>
+									</div>
+									<div class='col-lg-4 col-md-4 m-t-20'>
+										<h4 style='font-size:20px;'>";echo $class['type'];
+										echo "</h4><small style='color:whitesmoke;'>Type</small>
+									</div>
+								</div>
+								<div class='container'>
+									<h4 style='font-size:20px;'>Founded By</h4>";
+									foreach ($listRel as $rel2){foreach ($listUser as $user){if(($rel2['username'] == $user['username'])&&($rel2['classname'] == $class['classname'])){if($rel2['typeRelation'] == 'founder'){
+									echo "<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+										style='width:50px; height:50px; float:left; margin-right:5%'>";
+									if ($user['username'] == $this->session->userdata('userTrack')){
+										echo "<h5 style='font-size:15.5px; color:#7289da;'>You</h5>";
+									} else {
+										echo "<h5 style='font-size:15.5px; color:#7289da;'>".$user['username']."</h5>";}
+									echo "<p style='font-size:13px; color:whitesmoke; font-style:italic;'>".$class['date']."</p>";
+									}}}}
+							echo "</div>
+							</div>";
+							if ((($rel['typeRelation'] == 'founder')||($rel['typeRelation'] == 'co-founder'))&&($class['type']=='private')){
+							echo"<h4 style='font-size:20px;'>Send Invitation</h4>						
+							<form method='post' action='globalCtrl/sendInvitation' autocomplete='off'>
+								<input type='text' class='form-control' name='typeInvitation' value='".$class['classname']."' hidden>
+								<div class='autocomplete' style='width:70%;'>
+									<input id='available4".$class['classname']."' class='form-control mr-sm-2' type='search' name='receiver' placeholder='Username' required>
+								</div>
+								<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; border:none;' type='submit'><img
+								src='http://localhost/Learnzia/assets/images/icon/Email_W.png' id='icon'> Invite</button>
+								<br><br><img id='icon' src='http://localhost/Learnzia/assets/images/icon/Info.png' style='float:left;'>
+								<p style='color:#F1C40F; font-size:14px;'>You can only invite new members who are already friends with you.</p>
+							</form>";} 
+							else if (($rel['typeRelation'] == 'member')&&($class['type']=='private')){
+							echo"<img id='icon' src='http://localhost/Learnzia/assets/images/icon/Info.png' style='float:left;'>
+								<p style='color:#F1C40F; font-size:14px;'>Sorry but, member can't invite in private class mode.</p>";
+							} else if ($class['type']=='public'){
+							echo"<h4 style='font-size:20px;'>Send Invitation</h4>						
+							<form method='post' action='globalCtrl/sendInvitation' autocomplete='off'>
+								<input type='text' class='form-control' name='typeInvitation' value='".$class['classname']."' hidden>
+								<div class='autocomplete' style='width:70%;'>
+									<input id='available4".$class['classname']."' class='form-control mr-sm-2' type='search' name='receiver' placeholder='Username' required>
+								</div>
+								<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; border:none;' type='submit'><img
+								src='http://localhost/Learnzia/assets/images/icon/Email_W.png' id='icon'> Invite</button>
+								<br><br><img id='icon' src='http://localhost/Learnzia/assets/images/icon/Info.png' style='float:left;'>
+								<p style='color:#F1C40F; font-size:14px;'>You can only invite new members who are already friends with you.</p>
+							</form>";} 
+					echo"</div>
+					</div>
+					</div>	
+					<div class='modal-footer'>
+						<button class='btn btn-danger' style='color:white; margin:1%;'>Leave Class</button>
+						<button class='btn btn-primary' style='color:white; float:right; background-color:#00a13e; margin-left:1%; border:none;'>Open Class</button>	
+					</div>			
+					</div>
+				</div>
+				</div>";	
+		}}}?>
+
+		<!-- Preview Class invitation modal. -->
+		<?php foreach ($listClass as $class){ 
+			echo"<div class='modal fade' id='seeClassModal".$class['classname']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+				<div class='modal-dialog modal-lg' role='document'>
+					<div class='modal-content' style='background-color:#313436; overflow-y: initial;'>
+					<div class='modal-header'>
+						<h4 style='color:#F1C40F;'>/".$class['classname']."</h4>
+						<img type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png' id='icon'>	
+					</div>
+					<div class='modal-body' style='max-height: calc(98vh - 160px); overflow-y: auto;'>
+					<div class='row'>
+						<div class='col-lg-4 col-xlg-3 col-md-5' style='overflow-y: initial;'>
+							<img src='http://localhost/Learnzia/assets/uploads/classroom/classroom_".$class['imageURL'].".jpg' alt='Card image cap' style='width:225px; 
+							height:225px; border: 2.5px solid #F1C40F; border-radius:8px; margin-bottom:2%;'>
+							<h5 style='color:#F1C40F;'>Member</h5>
+							<div class='card' style='border-radius:5px; border: 3px solid #F1C40F; background-color:#525252; margin-bottom:3%; width:225px; 
+							height:225px; max-height: calc(80vh - 120px); max-width:auto; overflow-y: auto;'>";
+							foreach ($listRel as $rel2){
+							foreach ($listUser as $user){
+								if(($rel2['username'] == $user['username']) &&($rel2['classname'] == $class['classname'])){
+								echo "<div class='card' type='button' style='border: none; background-color:#515151; margin:1%;'>
+									<div class='card-header' style='height:5rem;'>
+										<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+											style='width:50px; height:50px; float:left; margin-right:5%'>";
+											if ($user['username'] == $this->session->userdata('userTrack')){
+												echo "<h5 style='font-size:15.5px; color:#F1C40F;'>You</h5>";
+											} else {
+												echo "<h5 style='font-size:15.5px; color:#F1C40F;'>".$user['username']."</h5>";}
+										if($rel2['typeRelation'] == 'founder'){echo"<p style='font-size:14px; color:#7289da; font-weight:bold;'>".$rel2['typeRelation']."</p>";}
+										else if($rel2['typeRelation'] == 'co-founder') {echo"<p style='font-size:14px; color:#00a13e;'>".$rel2['typeRelation']."</p>";}
+										else{echo"<p style='font-size:14px; color:whitesmoke;'>".$rel2['typeRelation']."</p>";}
+									echo"</div>
+								</div>";
+								} 
+							}}
+						echo"</div>
+						</div>
+						
+						<div class='col-lg-8 col-xlg-9 col-md-7'>
+							<h5 style='color:#F1C40F;'>About this Class</h5>
+							<div class='card' style='border-radius:5px; border: 3px solid #F1C40F; background-color:#525252; margin-bottom:5%;
+								'>
+								<p>".$class['description']."</p>
+								<div class='row text-center m-t-20' style='margin-top:1%;'>
+									<div class='col-lg-4 col-md-4 m-t-20'>
+										<h4 style='font-size:20px;'>"; $count =0; foreach ($listRel as $rel2){foreach ($listUser as $user){
+										if(($rel2['username'] == $user['username'])&&($rel2['classname'] == $class['classname'])){$count++;}}} echo $count; echo" </h4>
+										<small style='color:whitesmoke;'>Member</small>
+									</div>
+									<div class='col-lg-4 col-md-4 m-t-20'>
+										<h4 style='font-size:20px;'>";echo $class['category'];
+										echo "</h4><small style='color:whitesmoke;'>Category</small>
+									</div>
+									<div class='col-lg-4 col-md-4 m-t-20'>
+										<h4 style='font-size:20px;'>";echo $class['type'];
+										echo "</h4><small style='color:whitesmoke;'>Type</small>
+									</div>
+								</div>
+								<div class='container'>
+									<h4 style='font-size:20px;'>Founded By</h4>";
+									foreach ($listRel as $rel2){foreach ($listUser as $user){if(($rel2['username'] == $user['username'])&&($rel2['classname'] == $class['classname'])){if($rel2['typeRelation'] == 'founder'){
+									echo "<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+										style='width:50px; height:50px; float:left; margin-right:5%'>";
+										echo "<h5 style='font-size:15.5px; color:#7289da;'>".$user['username']."</h5>
+										<p style='font-size:13px; color:whitesmoke; font-style:italic;'>".$class['date']."</p>";
+									}}}}
+							echo"</div>
+							</div>
+						</div>
+					</div>
+					</div>			
+					</div>
+				</div>
+				</div>";	
+		}?>
+
 		<!-- Zoom discussion image Modal -->
 		<?php foreach($dataDiscussion as $data){
 		if ($data['image'] == 'yes'){
