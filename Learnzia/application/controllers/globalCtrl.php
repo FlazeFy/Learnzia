@@ -156,7 +156,21 @@
 				'type' => $this->input->post('typeInvitation'),
 				'datetime' => date("Y/m/d h:i:sa")
 			);
-			$this->globalModel->insertInvitation($data, 'invitation');
+			$this->db->select('*');
+			$this->db->from('relation');
+			$this->db->where('classname', $this->input->post('typeInvitation'));
+			$this->db->where('username', $this->input->post('receiver'));
+			$userCheck = $this->db->get()->result();
+			if(count($userCheck) == 0){
+				$this->globalModel->insertInvitation($data, 'invitation');
+				$data['success_messageInvitation1'] =  $this->input->post('receiver');
+				$this->index();
+				$this->load->view('globalView', $data);
+			} else {
+				$data['error_messageInvitation1'] =  $this->input->post('receiver');
+				$this->index();
+				$this->load->view('globalView', $data);
+			}
 		}
 
 		//Sign out

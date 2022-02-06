@@ -113,6 +113,9 @@
 			);
 			$id = $this->input->post('id_invitation');
 			$this->profileModel->acceptInvitation($data, $id);
+			$data['success_join'] =  $this->input->post('classname');
+			$this->index();
+			$this->load->view('profileView', $data);
 		}
 
 		//Sign out

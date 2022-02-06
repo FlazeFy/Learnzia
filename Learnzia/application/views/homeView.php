@@ -200,7 +200,7 @@
 									echo"<div id='accordion2'>
 										<div class='card' style='border-radius:5px; border-bottom: 3.5px solid #F1C40F; background-color:#525252;'>
 										<div class='card-header' id='headingOne' style='border-bottom: 1px solid #858585;'>
-											<img src='assets/uploads/user_".$disFriend['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; margin-top: -1%; 
+											<img src='http://localhost/Learnzia/assets/uploads/user_".$disFriend['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; margin-top: -1%; 
 												margin-right:1%; float:left;'>
 											<h5 style='font-size:20px; float:left;'>".$disFriend['sender']."</h5>
 											<p style='font-size:10px; padding-top:10px; float:left; font-style:italic; color:whitesmoke;'>".$disFriend['datetime']."</p>
@@ -218,14 +218,14 @@
 											</div>";
 											} else { echo"<p style='font-size:14px; color:whitesmoke;'>".$disFriend['question']."</p>";}
 											echo "<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$disFriend['view']."</h6>
-												<img src='assets/Images/icon/View.png' style='width:25px; height:25px; float:right; margin-top:-5px; padding-left:5px;'>
+												<img src='http://localhost/Learnzia/assets/Images/icon/View.png' style='width:25px; height:25px; float:right; margin-top:-5px; padding-left:5px;'>
 											<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$disFriend['up']."</h6>
-												<img src='assets/Images/icon/Up.png' style='width:25px; height:22px; float:right; margin-top:-4px; padding-left:5px;'>
+												<img src='http://localhost/Learnzia/assets/Images/icon/Up.png' style='width:25px; height:22px; float:right; margin-top:-4px; padding-left:5px;'>
 											<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$disFriend['comment']."</h6>
-												<img src='assets/Images/icon/Comment.png' style='width:25px; height:20px; float:right; margin-top:-2px; padding-left:5px;'>
+												<img src='http://localhost/Learnzia/assets/Images/icon/Comment.png' style='width:25px; height:20px; float:right; margin-top:-2px; padding-left:5px;'>
 											<h5 style='font-size:15px; float:left; text-decoration:underline;' type='button' data-toggle='collapse' data-target='#collapse_disFriend".$i."' 
 											aria-expanded='true' aria-controls='collapseOne''>See Reply
-												<img src='assets/Images/icon/Down.png' style='width:25px; height:20px; float:left; padding-left:3px;'></h5>
+												<img src='http://localhost/Learnzia/assets/Images/icon/Down.png' style='width:25px; height:20px; float:left; padding-left:3px;'></h5>
 										</div>
 										<!--Extend-->
 										<div id='collapse_disFriend".$i."' class='collapse' aria-labelledby='headingOne' data-parent='#accordion2'>
@@ -233,7 +233,7 @@
 												foreach ($dataReply as $data2){
 												if ($data2['id_discussion'] == $disFriend['id_discussion']){
 												echo"<div class='container'>
-													<img src='assets/uploads/user_".$data2['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
+													<img src='http://localhost/Learnzia/assets/uploads/user_".$data2['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
 														float:left; margin-right:1%;'>
 														<h5 style='font-size:20px; margin-left:15px;'>".$data2['sender']."</h5>";
 														if ($data2['image'] == 'yes'){
@@ -309,7 +309,7 @@
 								echo"<div id='accordion2'>
 									<div class='card' style='border-radius:5px; border-bottom: 3.5px solid #F1C40F; background-color:#525252;'>
 									<div class='card-header' id='headingOne' style='border-bottom: 1px solid #858585;'>
-										<img src='assets/uploads/user_".$disFriend['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; margin-top: -1%; 
+										<img src='http://localhost/Learnzia/assets/uploads/user_".$disFriend['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; margin-top: -1%; 
 											margin-right:1%; float:left;'>
 										<h5 style='font-size:20px; float:left;'>".$disFriend['sender']."</h5>
 										<p style='font-size:10px; padding-top:10px; float:left; font-style:italic; color:whitesmoke;'>".$disFriend['datetime']."</p>
@@ -327,14 +327,14 @@
 										</div>";
 										} else { echo"<p style='font-size:14px; color:whitesmoke;'>".$disFriend['question']."</p>";}
 										echo"<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$disFriend['view']."</h6>
-											<img src='assets/Images/icon/View.png' style='width:25px; height:25px; float:right; margin-top:-5px; padding-left:5px;'>
+											<img src='http://localhost/Learnzia/assets/Images/icon/View.png' style='width:25px; height:25px; float:right; margin-top:-5px; padding-left:5px;'>
 										<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$disFriend['up']."</h6>
-											<img src='assets/Images/icon/Up.png' style='width:25px; height:22px; float:right; margin-top:-4px; padding-left:5px;'>
+											<img src='http://localhost/Learnzia/assets/Images/icon/Up.png' style='width:25px; height:22px; float:right; margin-top:-4px; padding-left:5px;'>
 										<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$disFriend['comment']."</h6>
-											<img src='assets/Images/icon/Comment.png' style='width:25px; height:20px; float:right; margin-top:-2px; padding-left:5px;'>
+											<img src='http://localhost/Learnzia/assets/Images/icon/Comment.png' style='width:25px; height:20px; float:right; margin-top:-2px; padding-left:5px;'>
 										<h5 style='font-size:15px; float:left; text-decoration:underline;' type='button' data-toggle='collapse' data-target='#collapse_disFriend".$i."' 
 										aria-expanded='true' aria-controls='collapseOne''>See Reply
-											<img src='assets/Images/icon/Down.png' style='width:25px; height:20px; float:left; padding-left:3px;'></h5>
+											<img src='http://localhost/Learnzia/assets/Images/icon/Down.png' style='width:25px; height:20px; float:left; padding-left:3px;'></h5>
 									</div>
 									<!--Extend-->
 									<div id='collapse_disFriend".$i."' class='collapse' aria-labelledby='headingOne' data-parent='#accordion2'>
@@ -342,7 +342,7 @@
 											foreach ($dataReply as $data2){
 											if ($data2['id_discussion'] == $disFriend['id_discussion']){
 											echo"<div class='container'>
-												<img src='assets/uploads/user_".$data2['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
+												<img src='http://localhost/Learnzia/assets/uploads/user_".$data2['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
 													float:left; margin-right:1%;'>
 													<h5 style='font-size:20px; margin-left:15px;'>".$data2['sender']."</h5>";
 													if ($data2['image'] == 'yes'){
@@ -452,7 +452,7 @@
 									echo"<div id='accordion2'>
 										<div class='card' style='border-radius:5px; border-bottom: 3.5px solid #F1C40F; background-color:#525252;'>
 										<div class='card-header' id='headingOne' style='border-bottom: 1px solid #858585;'>
-											<img src='assets/uploads/user_".$data['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; margin-top: -1%; 
+											<img src='http://localhost/Learnzia/assets/uploads/user_".$data['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; margin-top: -1%; 
 												margin-right:1%; float:left;'>";
 										if($data['sender'] == $this->session->userdata('userTrack')){
 											echo"<h5 style='font-size:20px; float:left;'>You</h5>";
@@ -474,14 +474,14 @@
 											</div>";
 											} else { echo"<p style='font-size:14px; color:whitesmoke;'>".$data['question']."</p>";}
 											echo "<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$data['view']."</h6>
-												<img src='assets/Images/icon/View.png' style='width:25px; height:25px; float:right; margin-top:-5px; padding-left:5px;'>
+												<img src='http://localhost/Learnzia/assets/Images/icon/View.png' style='width:25px; height:25px; float:right; margin-top:-5px; padding-left:5px;'>
 											<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$data['up']."</h6>
-												<img src='assets/Images/icon/Up.png' style='width:25px; height:22px; float:right; margin-top:-4px; padding-left:5px;'>
+												<img src='http://localhost/Learnzia/assets/Images/icon/Up.png' style='width:25px; height:22px; float:right; margin-top:-4px; padding-left:5px;'>
 											<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$data['comment']."</h6>
-												<img src='assets/Images/icon/Comment.png' style='width:25px; height:20px; float:right; margin-top:-2px; padding-left:5px;'>
+												<img src='http://localhost/Learnzia/assets/Images/icon/Comment.png' style='width:25px; height:20px; float:right; margin-top:-2px; padding-left:5px;'>
 											<h5 style='font-size:15px; float:left; text-decoration:underline;' type='button' data-toggle='collapse' data-target='#collapse".$i."' 
 											aria-expanded='true' aria-controls='collapseOne''>See Reply
-												<img src='assets/Images/icon/Down.png' style='width:25px; height:20px; float:left; padding-left:3px;'></h5>
+												<img src='http://localhost/Learnzia/assets/Images/icon/Down.png' style='width:25px; height:20px; float:left; padding-left:3px;'></h5>
 										</div>
 										<!--Extend-->
 										<div id='collapse".$i."' class='collapse' aria-labelledby='headingOne' data-parent='#accordion2'>
@@ -489,7 +489,7 @@
 												foreach ($dataReply as $data2){
 												if ($data2['id_discussion'] == $data['id_discussion']){
 												echo"<div class='container'>
-													<img src='assets/uploads/user_".$data2['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
+													<img src='http://localhost/Learnzia/assets/uploads/user_".$data2['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
 														float:left; margin-right:1%;'>";
 													if($data2['sender'] == $this->session->userdata('userTrack')){
 														echo"<h5 style='font-size:20px; margin-left:15px;'>You</h5>";
@@ -595,7 +595,7 @@
 									echo"<div id='accordion2'>
 										<div class='card' style='border-radius:5px; border-bottom: 3.5px solid #F1C40F; background-color:#525252;'>
 										<div class='card-header' id='headingOne' style='border-bottom: 1px solid #858585;'>
-											<img src='assets/uploads/user_".$data['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; margin-top: -1%; 
+											<img src='http://localhost/Learnzia/assets/uploads/user_".$data['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; margin-top: -1%; 
 												margin-right:1%; float:left;'>";
 										if($data['sender'] == $this->session->userdata('userTrack')){
 											echo"<h5 style='font-size:20px; float:left;'>You</h5>";
@@ -617,14 +617,14 @@
 											</div>";
 											} else { echo"<p style='font-size:14px; color:whitesmoke;'>".$data['question']."</p>";}
 											echo"<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$data['view']."</h6>
-												<img src='assets/Images/icon/View.png' style='width:25px; height:25px; float:right; margin-top:-5px; padding-left:5px;'>
+												<img src='http://localhost/Learnzia/assets/Images/icon/View.png' style='width:25px; height:25px; float:right; margin-top:-5px; padding-left:5px;'>
 											<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$data['up']."</h6>
-												<img src='assets/Images/icon/Up.png' style='width:25px; height:22px; float:right; margin-top:-4px; padding-left:5px;'>
+												<img src='http://localhost/Learnzia/assets/Images/icon/Up.png' style='width:25px; height:22px; float:right; margin-top:-4px; padding-left:5px;'>
 											<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$data['comment']."</h6>
-												<img src='assets/Images/icon/Comment.png' style='width:25px; height:20px; float:right; margin-top:-2px; padding-left:5px;'>
+												<img src='http://localhost/Learnzia/assets/Images/icon/Comment.png' style='width:25px; height:20px; float:right; margin-top:-2px; padding-left:5px;'>
 											<h5 style='font-size:15px; float:left; text-decoration:underline;' type='button' data-toggle='collapse' data-target='#collapse".$i."' 
 											aria-expanded='true' aria-controls='collapseOne''>See Reply
-												<img src='assets/Images/icon/Down.png' style='width:25px; height:20px; float:left; padding-left:3px;'></h5>
+												<img src='http://localhost/Learnzia/assets/Images/icon/Down.png' style='width:25px; height:20px; float:left; padding-left:3px;'></h5>
 										</div>
 										<!--Extend-->
 										<div id='collapse".$i."' class='collapse' aria-labelledby='headingOne' data-parent='#accordion2'>
@@ -632,7 +632,7 @@
 												foreach ($dataReply as $data2){
 												if ($data2['id_discussion'] == $data['id_discussion']){
 												echo"<div class='container'>
-													<img src='assets/uploads/user_".$data2['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
+													<img src='http://localhost/Learnzia/assets/uploads/user_".$data2['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
 														float:left; margin-right:1%;'>";
 													if($data2['sender'] == $this->session->userdata('userTrack')){
 														echo"<h5 style='font-size:20px; margin-left:15px;'>You</h5>";
@@ -725,13 +725,13 @@
 				<div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
 				<h5 class="text-uppercase font-weight-bold">Follow us</h5>
 					<p>
-					<img src='assets/Images/icon/Instagram.png' style='width:25px; height:22px;'><a href="#!"> Intagram</a>
+					<img src='http://localhost/Learnzia/assets/Images/icon/Instagram.png' style='width:25px; height:22px;'><a href="#!"> Intagram</a>
 					</p>
 					<p>
-					<img src='assets/Images/icon/Facebook.png' style='width:25px; height:22px;'><a href="#!"> Facebook</a>
+					<img src='http://localhost/Learnzia/assets/Images/icon/Facebook.png' style='width:25px; height:22px;'><a href="#!"> Facebook</a>
 					</p>
 					<p>
-					<img src='assets/Images/icon/Twitter.png' style='width:25px; height:22px;'><a href="#!"> Twitter</a>
+					<img src='http://localhost/Learnzia/assets/Images/icon/Twitter.png' style='width:25px; height:22px;'><a href="#!"> Twitter</a>
 					</p>
 				</div>
 
@@ -739,13 +739,13 @@
 				<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
 				<h5 class="text-uppercase font-weight-bold">Contact us</h5>
 					<p>
-					<img src='assets/Images/icon/Profile.png' style='width:25px; height:22px;'> Leonardho R Sitanggang </p>
+					<img src='http://localhost/Learnzia/assets/Images/icon/Profile.png' style='width:25px; height:22px;'> Leonardho R Sitanggang </p>
 					<p>
-					<img src='assets/Images/icon/Location.png' style='width:25px; height:22px;'> Bandung, Indonesia </p>
+					<img src='http://localhost/Learnzia/assets/Images/icon/Location.png' style='width:25px; height:22px;'> Bandung, Indonesia </p>
 					<p>
-					<img src='assets/Images/icon/Email.png' style='width:25px; height:22px;'> learnzia@gmail.com </p>
+					<img src='http://localhost/Learnzia/assets/Images/icon/Email.png' style='width:25px; height:22px;'> learnzia@gmail.com </p>
 					<p>
-					<img src='assets/Images/icon/Call.png' style='width:25px; height:22px;'> + 62 811 4882 001 </p>
+					<img src='http://localhost/Learnzia/assets/Images/icon/Call.png' style='width:25px; height:22px;'> + 62 811 4882 001 </p>
 				</div>
 
 		</div>
@@ -870,7 +870,7 @@
 			<div class='modal-content' style='background-color:#313436;'>
 			<div class='modal-header'>
 				<div class='container'>
-					<img src='assets/uploads/user_".$friend['username2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
+					<img src='http://localhost/Learnzia/assets/uploads/user_".$friend['username2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
 					float:left; margin-right:2%;'>
 					<h5 style='font-size:20px;'>".$friend['username2']."</h5>";
 					//User login status
@@ -934,7 +934,7 @@
 			<div class='modal-content' style='background-color:#313436;'>
 			<div class='modal-header'>
 				<div class='container'>
-					<img src='assets/uploads/user_".$friend['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
+					<img src='http://localhost/Learnzia/assets/uploads/user_".$friend['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
 					float:left; margin-right:2%;'>
 					<h5 style='font-size:20px;'>".$friend['username1']."</h5>";
 					//User login status

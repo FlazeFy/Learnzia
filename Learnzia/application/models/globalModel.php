@@ -112,9 +112,8 @@
 			redirect('globalCtrl');
 		}
 		//send invitation
-		public function insertInvitation($data){
-			$this->db->insert('invitation',$data);	
-			redirect('globalCtrl');
+		public function insertInvitation($data){			
+			$this->db->insert('invitation',$data);
 		}
 	}
 ?>

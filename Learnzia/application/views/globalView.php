@@ -206,13 +206,13 @@
 				<div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
 				<h5 class="text-uppercase font-weight-bold">Follow us</h5>
 					<p>
-					<img id='icon' src='assets/Images/icon/Instagram.png' style='width:25px; height:22px;'><a href="#!"> Intagram</a>
+					<img id='icon' src='http://localhost/Learnzia/assets/Images/icon/Instagram.png' style='width:25px; height:22px;'><a href="#!"> Intagram</a>
 					</p>
 					<p>
-					<img id='icon' src='assets/Images/icon/Facebook.png' style='width:25px; height:22px;'><a href="#!"> Facebook</a>
+					<img id='icon' src='http://localhost/Learnzia/assets/Images/icon/Facebook.png' style='width:25px; height:22px;'><a href="#!"> Facebook</a>
 					</p>
 					<p>
-					<img id='icon' src='assets/Images/icon/Twitter.png' style='width:25px; height:22px;'><a href="#!"> Twitter</a>
+					<img id='icon' src='http://localhost/Learnzia/assets/Images/icon/Twitter.png' style='width:25px; height:22px;'><a href="#!"> Twitter</a>
 					</p>
 				</div>
 
@@ -220,13 +220,13 @@
 				<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
 				<h5 class="text-uppercase font-weight-bold">Contact us</h5>
 					<p>
-					<img id='icon' src='assets/Images/icon/Profile.png' style='width:25px; height:22px;'> Leonardho R Sitanggang </p>
+					<img id='icon' src='http://localhost/Learnzia/assets/Images/icon/Profile.png' style='width:25px; height:22px;'> Leonardho R Sitanggang </p>
 					<p>
-					<img id='icon' src='assets/Images/icon/Location.png' style='width:25px; height:22px;'> Bandung, Indonesia </p>
+					<img id='icon' src='http://localhost/Learnzia/assets/Images/icon/Location.png' style='width:25px; height:22px;'> Bandung, Indonesia </p>
 					<p>
-					<img id='icon' src='assets/Images/icon/Email.png' style='width:25px; height:22px;'> learnzia@gmail.com </p>
+					<img id='icon' src='http://localhost/Learnzia/assets/Images/icon/Email.png' style='width:25px; height:22px;'> learnzia@gmail.com </p>
 					<p>
-					<img id='icon' src='assets/Images/icon/Call.png' style='width:25px; height:22px;'> + 62 811 4882 001 </p>
+					<img id='icon' src='http://localhost/Learnzia/assets/Images/icon/Call.png' style='width:25px; height:22px;'> + 62 811 4882 001 </p>
 				</div>
 
 		</div>
@@ -596,6 +596,46 @@
 		</div>
 		</div>
 
+		<!-- Error invite Modal -->
+		<?php if(isset($error_messageInvitation1)) { echo"
+		<div class='modal fade' id='errorModalInvit' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+		<div class='modal-dialog' role='document'>
+			<div class='modal-content' style='background-color:#313436;'>
+			<div class='modal-header'>
+				<h5 class='modal-title'>Invitation Error</h5>
+				<img id='icon'  class='closebtn' src='http://localhost/Learnzia/assets/images/icon/Close.png'
+					type='button' data-dismiss='modal' aria-label='Close' onClick='refreshMessage()'>
+			</div>
+			<div class='modal-body'>
+				<img src='http://localhost/Learnzia/assets/images/Hello.gif' alt='Hello.gif' style='display: block;
+					margin-left: auto; margin-right: auto; width: 70%; height: 70%;'>
+				<h5 class='' style='text-align:center; font-color:whitesmoke;'>".$error_messageInvitation1." already join in your classroom</h5>
+			</div>		
+			</div>
+		</div>
+		</div>";}	
+		?>
+
+		<!-- Success invite Modal -->
+		<?php if(isset($success_messageInvitation1)) { echo"
+		<div class='modal fade' id='errorModalInvit' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+		<div class='modal-dialog' role='document'>
+			<div class='modal-content' style='background-color:#313436;'>
+			<div class='modal-header'>
+				<h5 class='modal-title'>Invitation Sended</h5>
+				<img id='icon'  class='closebtn' src='http://localhost/Learnzia/assets/images/icon/Close.png'
+					type='button' data-dismiss='modal' aria-label='Close' onClick='refreshMessage()'>
+			</div>
+			<div class='modal-body'>
+				<img src='http://localhost/Learnzia/assets/images/Sended.gif' alt='Sended.gif' style='display: block;
+					margin-left: auto; margin-right: auto; width: 70%; height: 70%;'>
+				<h5 class='' style='text-align:center; font-color:whitesmoke;'>".$success_messageInvitation1." has been invited</h5>
+			</div>		
+			</div>
+		</div>
+		</div>";}	
+		?>
+
 		<script>
 			//Side navbar private message
 			/* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
@@ -608,6 +648,9 @@
 			function closeNav() {
 				document.getElementById("mySidebar").style.width = "0";
 				document.getElementById("main").style.marginLeft = "0";
+			}
+			function refreshMessage() {
+				window.location.href="http://localhost/Learnzia/globalCtrl";  
 			}
 		</script>
 
@@ -782,13 +825,16 @@
 		<script src="assets/js/d3/d3.min.js"></script>
 		<script src="assets/js/c3-master/c3.min.js"></script>
 
-		<!--JQuery Upload-->
 		<script>
+			//Upload file name 
 			$('.custom-file-input').on('change', function() { 
 				let fileName = $(this).val().split('\\').pop(); 
 				$(this).next('.custom-file-label').addClass("selected").html(fileName); 
 			});
 			
+			$(window).on('load', function() {
+				$('#errorModalInvit').modal('show');
+			});
 		</script>
 
 	</body>

@@ -117,7 +117,6 @@
 			$this->db->delete('invitation');
 
 			$this->db->insert('relation',$data);
-			redirect('profileCtrl');
 		}
 		//Sign out
 		public function offstatus(){
