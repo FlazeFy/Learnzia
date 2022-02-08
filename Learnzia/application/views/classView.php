@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Learnzia || Global</title>
+        <title>Learnzia || Global >> Classroom</title>
 		<link rel="icon" type="image/png" href="http://localhost/Learnzia/assets/images/icon/Logo.png"/>
         <!--Meta tags-->
         <meta charset="utf-8">
@@ -35,9 +35,9 @@
 			h4 {color:#F1C40F;} h5 {color:#F1C40F;}
 			#menu {background-color: #212121; border-radius:5px; margin-bottom:1%;}
 			.dropdown-menu{background-color: #212121; border-color:#F1C40F;} .dropdown-item{color:#F1C40F;}
-			.nav-tabs .nav-link.active{background-color:#e69627; color:whitesmoke; border:none; margin-top:2%;}
-			.tab-pane.active{border:none;}
-			a.nav-link:hover{color:#7289da;}
+			.nav-tabs .nav-link.active{background-color:#7289da; color:whitesmoke; border:none; margin-top:2%;}
+			.tab-pane.active{border:none;} #channel {color: whitesmoke; width:100%;}
+			a.nav-link:hover{color:#7289da;} 
 			.dropdown-item:hover{color:whitesmoke; background-color:#7289da;}
 		</style>
     </head>
@@ -145,50 +145,163 @@
 		</nav>
 
 		<!--Content-->
-		<br><br>
-		<br><h2 style="margin-left: 13%; color:whitesmoke; font-size:20px;">Welcome, <?= $data = $this->session->userdata('userTrack'); ?></h2>
+		<br><br><br>
+		<h2 style='margin-left: 13%; color:whitesmoke; font-size:20px;'><a style='color:whitesmoke; font-size:20px;' href='globalCtrl'>Global </a> 
+			>> <a><?= $data = $this->session->userdata('classTrack');?></a></h2>
 		<div class="container" id="menu">
-			<br><h4>Browse the World</h4>
-			<form method='post' action="" autocomplete='off'>
-			<div class="autocomplete" style="width:30%; margin-bottom:2%;" >
-				<input id="allClassAndUser" type="search" name="receiver" class='form-control mr-sm-2' placeholder="username, /classroom" required>
+			<!-- Nav tabs -->
+			<ul class="nav nav-tabs profile-tab" role="tablist">
+				<li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#forum" role="tab">Forum</a> </li>
+				<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#activity" role="tab">Activity</a> </li>
+				<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#member" role="tab">Member</a> </li>
+				<?php foreach ($listRel as $rel){
+					if (($rel['classname'] == $this->session->userdata('classTrack'))&&(($rel['typeRelation']=='founder')||($rel['typeRelation']=='co-founder'))
+						&&($rel['username']== $this->session->userdata('userTrack'))){
+						echo "<li class='nav-item'> <a class='nav-link' data-toggle='tab' href='#classProfilEdit' role='tab'>Class Profil</a> </li>";
+					} else if (($rel['classname'] == $this->session->userdata('classTrack'))&&($rel['typeRelation']=='member')
+						&&($rel['username']== $this->session->userdata('userTrack'))){
+						echo "<li class='nav-item'> <a class='nav-link' data-toggle='tab' href='#classProfil' role='tab'>Class Profil</a> </li>";
+					}
+				}
+				?>
+			</ul>
+			<!-- Tab panes -->
+			<div class="tab-content">
+				<div class="tab-pane active" id="forum" role="tabpanel">
+					<div class="container">
+						<div class="row">
+							<div class="col-2">
+								<div class='container-fluid' style='overflow-y: initial; width:120%; min-width:120px; margin-left:-20%; margin-top:10%;'>
+								<!-- Tab navs -->
+								<div class="nav nav-tabs text-center" id="v-tabs-tab" role="tablist" aria-orientation="vertical"
+									style='max-height: calc(90vh - 150px); max-width:auto; overflow-y: auto;'>
+								<a class="nav-link" data-toggle="tab" href="#manageChannel" role="tab" aria-controls="v-tabs-Main"
+									aria-selected="false" style='width:100%; color:whitesmoke; background:#00a13e;'>All Channel</a>
+								<a class="nav-link active" data-toggle="tab"  href="#MainChannel" role="tab" aria-controls="v-tabs-profile" 
+									aria-selected="false" id='channel'>#Main</a>
+								</div>
+								<!-- Tab navs -->
+								</div>
+							</div>
+
+							<div class="col-9">
+							<!-- Tab content -->
+							<div class="tab-content" >
+								<!-- Manage Channel -->
+								<div class="tab-pane" id="manageChannel" role="tabpanel" >
+									<div class="container-fluid" style='max-height: calc(160vh - 120px); overflow-y: auto; margin-top:1%;'>
+										<h4 style='color:whitesmoke;'>test activity</h4>
+									</div>
+								</div>
+
+								<!-- Main Channel -->
+								<div class='tab-pane active' id='mainChannel' role='tabpanel' >
+									<div class='container-fluid' style='margin-top:1%;'>
+										<img id='icon' src='http://localhost/Learnzia/assets/images/icon/Info.png' style='float:left;'>
+										<p style='color:#F1C40F; font-size:14px;'>This is your classroom default channel where everyone can talk freely without any class rules. 
+											This channel can't be edited or deleted</p>
+									</div>
+													
+									<div class="imessage" style='max-height: calc(80vh - 160px); max-width:auto; overflow-y: auto; height:800px;'>
+									<?php foreach($dataClassForumMsg as $chat){
+										if (($chat['sender'] != $this->session->userdata('userTrack'))&&($chat['classname']==$this->session->userdata('classTrack'))&&($chat['channel']== 'main')){
+										echo"<p class='from-them'>";
+											if($chat['imageURL'] != 'null'){
+												echo"<img src='http://localhost/Learnzia/assets/uploads/channel/main_".$chat['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
+												margin:1%; border-radius:6px;'>";
+											}
+											echo"<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$chat['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; float:left;
+											margin-right:2%'>".$chat['text']."<br><a style='color:#e69627; font-size:13.5px; font-style:italic;'>~ ".$chat['sender']." on ".$chat['datetime']."</a>
+										</p>";
+										} else if(($chat['sender'] == $this->session->userdata('userTrack'))&&($chat['classname']==$this->session->userdata('classTrack'))&&($chat['channel']== 'main')){
+										echo"<p class='from-me'>";
+											if($chat['imageURL'] != 'null'){
+												echo"<img src='http://localhost/Learnzia/assets/uploads/channel/main_".$chat['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
+												margin:1%; border-radius:6px;'>";
+											}
+											echo"<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$this->session->userdata('userTrack').".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; float:right;
+											margin-left:2%'>".$chat['text']."<br><a style='color:#212121; font-size:13.5px; font-style:italic;'>~ You on ".$chat['datetime']."</a>
+										</p>";
+										}}
+									?>
+									</div>
+								
+									<div class='container' style='min-width:110%; margin-bottom:2%;'>
+									<form method='post' action='classCtrl/sendMainChat' class='form-inline' enctype='multipart/form-data'>
+										<input type='text' class='form-control' name='channel' value='main' hidden>
+										<div class='container'>
+											<label class='switch' style='float:left; margin-right:1%;'>
+											<input type='checkbox' name='imageSwitchMain'>
+												<span class='slider round' type='button' data-toggle='collapse' data-target='#collapseImageMain'></span>
+											</label>
+											<a style='color:whitesmoke; float:left;'>Image</a>
+											<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
+											<input class='form-control' type='text' placeholder='Type your message here...' style='width:50%; float:right; margin-right:1%;' name='messagetext'>
+											<div class='collapse' id='collapseImageMain'>
+												<div class='container' style='width:50%; float:right; margin-top:2%; margin-right:-2%;'>
+													<div class='input-group mb-3' style='background-color:#212121; border-width: 0 0 3px; border-bottom: 3.5px solid #F1C40F; 
+														border-radius:5px;'>
+														<div class='input-group-prepend'>
+															<span class='input-group-text'>jpg</span>
+														</div>
+														<div class='custom-file'>
+															<input type='file' class='custom-file-input' id='uploadImage' name='uploadImageMainChat' accept='image/*'>
+															<label class='custom-file-label text-left' for='uploadImage'>file size max 2 mb</label>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+									</div>
+
+								</div>
+							</div>
+							<!-- Tab content -->
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="tab-pane" id="activity" role="tabpanel" style='overflow-y: initial;'>
+					<div class="container" style='max-height: calc(160vh - 120px); overflow-y: auto;'>
+						<h4>test activity</h4>
+					</div>
+				</div>
+
+				<div class="tab-pane" id="member" role="tabpanel" style='overflow-y: initial;'>
+					<div class="container" style='max-height: calc(160vh - 120px); overflow-y: auto;'>
+						<h4>test member</h4>
+					</div>
+				</div>
+
+				<div class="tab-pane" id="member" role="tabpanel" style='overflow-y: initial;'>
+					<div class="container" style='max-height: calc(160vh - 120px); overflow-y: auto;'>
+						<h4>test member</h4>
+					</div>
+				</div>
+
+				<?php foreach ($listRel as $rel){
+					if (($rel['classname'] == $this->session->userdata('classTrack'))&&(($rel['typeRelation']=='founder')||($rel['typeRelation']=='co-founder'))
+						&&($rel['username']== $this->session->userdata('userTrack'))){
+						echo "<div class='tab-pane' id='classProfilEdit' role='tabpanel' style='overflow-y: initial;'>
+						<div class='container' style='max-height: calc(160vh - 120px); overflow-y: auto;'>
+							<h4>Show & Edit Profile</h4>
+						</div>
+					</div>";
+					} else if (($rel['classname'] == $this->session->userdata('classTrack'))&&($rel['typeRelation']=='member')
+						&&($rel['username']== $this->session->userdata('userTrack'))){
+						echo "<div class='tab-pane' id='classProfil' role='tabpanel' style='overflow-y: initial;'>
+						<div class='container' style='max-height: calc(160vh - 120px); overflow-y: auto;'>
+							<h4>Show Profile</h4>
+						</div>
+					</div>";
+					}
+				}
+				?>
 			</div>
-			<button class="btn btn-primary" style="color:whitesmoke; background-color:#00a13e; border:none;" style="float:right;" type="submit">Search</button>
-			</form>
 		</div>
 
-		<!--My classroom.-->
-		<div class="container" id="menu">
-			<br><h4>My Classroom</h4>
-			<div id="accordionC">
-			<!--New Class-->
-			<button class='btn btn-primary' data-toggle="modal" data-target="#newClassModal" aria-expanded='false' 
-			aria-controls='multiCollapseExample2' style='background-color: #00a13e; border:none; margin-bottom:1%; max-width:120px; max-height:120px;'>
-				<img src='http://localhost/Learnzia/assets/images/classroom.png' alt='New Post' style='width:60px; height:60px;'>
-				<h5 style='font-size:14px; color:whitesmoke;'>New Class</h5>
-			</button>
-			<!--My Class-->
-			<?php $i = 0; foreach ($listClass as $data){ 
-				foreach ($listRel as $data2) {
-				if (($data['classname'] == $data2['classname'])&& ($data2['username']== $this->session->userdata('userTrack'))){
-				echo "<button class='btn btn-primary' data-toggle='modal' data-target='#classModal".$data['classname']."' aria-expanded='false' 
-					aria-controls='multiCollapseExample2' style='background-color: #212121; border:none; margin-bottom:1%; max-width:120px; max-height:120px;'>
-					<img src='http://localhost/Learnzia/assets/uploads/classroom/classroom_".$data['imageURL'].".jpg' alt='Card image cap' style='width:60px; 
-						height:60px; border: 2.5px solid #F1C40F; border-radius:8px;'>
-					<h5 style='font-size:14px;'>/".$data['classname']."</h5>
-					<h6 style='font-size:14px; margin-top:-6%; color:#7289da;'>".$data['category']."</h6>
-				</button>"; $i++;
-				}
-			}}
-				if($i == 0){
-				echo "<img src='http://localhost/Learnzia/assets/images/Error404.png' alt='Error404.png' style='display: block;
-				margin-left: auto; margin-right: auto; width: 140px; height: 140px; margin-top:-10%;'>
-				<h5 style='font-size:14px; font-style:italic; color:#F1C40F; margin-bottom:1%;
-				text-align:center;'>You haven't join any classroom yet...</h5><br>";
-				}
-			?>
-			</div>
-		</div>
 
 		<!-- Footer -->
 		<footer class="page-footer font-small teal pt-4 relative-bottom">
@@ -235,122 +348,6 @@
 			</div>
 		</footer>
 		
-		
-		<!-- My Classroom modal. -->
-		<?php foreach ($listClass as $class){ 
-			foreach ($listRel as $rel) {
-			if (($rel['classname'] == $class['classname'])&& ($rel['username']== $this->session->userdata('userTrack'))){
-			echo"<div class='modal fade' id='classModal".$class['classname']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
-				<div class='modal-dialog modal-lg' role='document'>
-					<div class='modal-content' style='background-color:#313436; overflow-y: initial;'>
-					<div class='modal-header'>
-						<h4 style='color:#F1C40F;'>/".$class['classname']."</h4>
-						<img type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png' id='icon'>	
-					</div>
-					<div class='modal-body' style='max-height: calc(98vh - 160px); overflow-y: auto;'>
-					<div class='row'>
-						<div class='col-lg-4 col-xlg-3 col-md-5' style='overflow-y: initial;'>
-							<img src='http://localhost/Learnzia/assets/uploads/classroom/classroom_".$class['imageURL'].".jpg' alt='Card image cap' style='width:225px; 
-							height:225px; border: 2.5px solid #F1C40F; border-radius:8px; margin-bottom:2%;'>
-							<h5 style='color:#F1C40F;'>Member</h5>
-							<div class='card' style='border-radius:5px; border: 3px solid #F1C40F; background-color:#525252; margin-bottom:3%; width:225px; 
-							height:225px; max-height: calc(80vh - 120px); max-width:auto; overflow-y: auto;'>";
-							foreach ($listRel as $rel2){
-							foreach ($listUser as $user){
-								if(($rel2['username'] == $user['username']) &&($rel2['classname'] == $class['classname'])){
-								echo "<div class='card' type='button' style='border: none; background-color:#515151; margin:1%;'>
-									<div class='card-header' style='height:5rem;'>
-										<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
-											style='width:50px; height:50px; float:left; margin-right:5%'>";
-											if ($user['username'] == $this->session->userdata('userTrack')){
-												echo "<h5 style='font-size:15.5px; color:#F1C40F;'>You</h5>";
-											} else {
-												echo "<h5 style='font-size:15.5px; color:#F1C40F;'>".$user['username']."</h5>";}
-										if($rel2['typeRelation'] == 'founder'){echo"<p style='font-size:14px; color:#7289da; font-weight:bold;'>".$rel2['typeRelation']."</p>";}
-										else if($rel2['typeRelation'] == 'co-founder') {echo"<p style='font-size:14px; color:#00a13e;'>".$rel2['typeRelation']."</p>";}
-										else{echo"<p style='font-size:14px; color:whitesmoke;'>".$rel2['typeRelation']."</p>";}
-									echo"</div>
-								</div>";
-								} 
-							}}
-						echo"</div>
-						</div>
-						
-						<div class='col-lg-8 col-xlg-9 col-md-7'>
-							<h5 style='color:#F1C40F;'>About this Class</h5>
-							<div class='card' style='border-radius:5px; border: 3px solid #F1C40F; background-color:#525252; margin-bottom:5%;
-								'>
-								<p>".$class['description']."</p>
-								<div class='row text-center m-t-20' style='margin-top:1%;'>
-									<div class='col-lg-4 col-md-4 m-t-20'>
-										<h4 style='font-size:20px;'>"; $count =0; foreach ($listRel as $rel2){foreach ($listUser as $user){
-										if(($rel2['username'] == $user['username'])&&($rel2['classname'] == $class['classname'])){$count++;}}} echo $count; echo" </h4>
-										<small style='color:whitesmoke;'>Member</small>
-									</div>
-									<div class='col-lg-4 col-md-4 m-t-20'>
-										<h4 style='font-size:20px;'>";echo $class['category'];
-										echo "</h4><small style='color:whitesmoke;'>Category</small>
-									</div>
-									<div class='col-lg-4 col-md-4 m-t-20'>
-										<h4 style='font-size:20px;'>";echo $class['type'];
-										echo "</h4><small style='color:whitesmoke;'>Type</small>
-									</div>
-								</div>
-								<div class='container'>
-									<h4 style='font-size:20px;'>Founded By</h4>";
-									foreach ($listRel as $rel2){foreach ($listUser as $user){if(($rel2['username'] == $user['username'])&&($rel2['classname'] == $class['classname'])){if($rel2['typeRelation'] == 'founder'){
-									echo "<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
-										style='width:50px; height:50px; float:left; margin-right:5%'>";
-									if ($user['username'] == $this->session->userdata('userTrack')){
-										echo "<h5 style='font-size:15.5px; color:#7289da;'>You</h5>";
-									} else {
-										echo "<h5 style='font-size:15.5px; color:#7289da;'>".$user['username']."</h5>";}
-									echo "<p style='font-size:13px; color:whitesmoke; font-style:italic;'>".$class['date']."</p>";
-									}}}}
-							echo "</div>
-							</div>";
-							if ((($rel['typeRelation'] == 'founder')||($rel['typeRelation'] == 'co-founder'))&&($class['type']=='private')){
-							echo"<h4 style='font-size:20px;'>Send Invitation</h4>						
-							<form method='post' action='globalCtrl/sendInvitation' autocomplete='off'>
-								<input type='text' class='form-control' name='typeInvitation' value='".$class['classname']."' hidden>
-								<div class='autocomplete' style='width:70%;'>
-									<input id='available4".$class['classname']."' class='form-control mr-sm-2' type='search' name='receiver' placeholder='Username' required>
-								</div>
-								<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; border:none;' type='submit'><img
-								src='http://localhost/Learnzia/assets/images/icon/Email_W.png' id='icon'> Invite</button>
-								<br><br><img id='icon' src='http://localhost/Learnzia/assets/images/icon/Info.png' style='float:left;'>
-								<p style='color:#F1C40F; font-size:14px;'>You can only invite new members who are already friends with you.</p>
-							</form>";} 
-							else if (($rel['typeRelation'] == 'member')&&($class['type']=='private')){
-							echo"<img id='icon' src='http://localhost/Learnzia/assets/images/icon/Info.png' style='float:left;'>
-								<p style='color:#F1C40F; font-size:14px;'>Sorry but, member can't invite in private class mode.</p>";
-							} else if ($class['type']=='public'){
-							echo"<h4 style='font-size:20px;'>Send Invitation</h4>						
-							<form method='post' action='globalCtrl/sendInvitation' autocomplete='off'>
-								<input type='text' class='form-control' name='typeInvitation' value='".$class['classname']."' hidden>
-								<div class='autocomplete' style='width:70%;'>
-									<input id='available4".$class['classname']."' class='form-control mr-sm-2' type='search' name='receiver' placeholder='Username' required>
-								</div>
-								<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; border:none;' type='submit'><img
-								src='http://localhost/Learnzia/assets/images/icon/Email_W.png' id='icon'> Invite</button>
-								<br><br><img id='icon' src='http://localhost/Learnzia/assets/images/icon/Info.png' style='float:left;'>
-								<p style='color:#F1C40F; font-size:14px;'>You can only invite new members who are already friends with you.</p>
-							</form>";} 
-					echo"</div>
-					</div>
-					</div>	
-					<div class='modal-footer'>
-						<button class='btn btn-danger' style='color:white; margin:1%;'>Leave Class</button>
-						<form method='post' action='globalCtrl/openClass'>
-							<input type='text' class='form-control' name='visitClass' value='".$class['classname']."' hidden>
-							<button class='btn btn-primary' style='color:white; float:right; background-color:#00a13e; margin-left:1%; border:none;' type='submit'>Open</button>	
-						</form>
-					</div>			
-					</div>
-				</div>
-				</div>";	
-		}}}?>
-
 		<!-- Sign out Modal -->
 		<div class="modal fade" id="signOutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -361,7 +358,7 @@
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-danger" data-dismiss="modal">Cancel</button>
-				<form method='POST' action='<?php echo site_url().'profileCtrl/signOut'; ?>'>
+				<form method='POST' action='<?php echo site_url().'classCtrl/signOut'; ?>'>
 				<button type="submit" class="btn btn-primary" style='background-color:#e69627; border:none;'>Yes, Sign Out</button></form>
 			</div>			
 			</div>
@@ -371,7 +368,7 @@
 		<!-- Modal Add Message -->
 		<div class='modal fade' id='messageModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
 		<div class='modal-dialog' role='document'>
-			<form method='POST' action='<?php echo site_url().'profileCtrl/sendMessage'; ?>' autocomplete="off">
+			<form method='POST' action='<?php echo site_url().'classCtrl/sendMessage'; ?>' autocomplete="off">
 				<div class='modal-content' style='background-color:#313436;'>
 				<div class='modal-header'>
 					<h5 class='modal-title' id='exampleModalLabel' style='color:#e69627; margin-top:1%;'>Send to :</h5>
@@ -402,7 +399,7 @@
 			echo "
 		<div class='modal fade' id='message".$friend['username2']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
 		<div class='modal-dialog' role='document' style='overflow-y: initial;'>
-			<form method='POST' action='globalCtrl/sendRMessage' enctype='multipart/form-data'>
+			<form method='POST' action='classCtrl/sendRMessage' enctype='multipart/form-data'>
 			<div class='modal-content' style='background-color:#313436;'>
 			<div class='modal-header'>
 				<div class='container'>
@@ -481,7 +478,7 @@
 			echo "
 		<div class='modal fade' id='message".$friend['username1']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
 		<div class='modal-dialog' role='document' style='overflow-y: initial;'>
-			<form method='POST' action='globalCtrl/sendRMessage' enctype='multipart/form-data'>
+			<form method='POST' action='classCtrl/sendRMessage' enctype='multipart/form-data'>
 			<div class='modal-content' style='background-color:#313436;'>
 			<div class='modal-header'>
 				<div class='container'>
@@ -558,76 +555,6 @@
 		}
 		$count = 0;
 		}?>
-
-		<!-- Modal New Classroom -->
-		<div class='modal fade' id='newClassModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
-		<div class='modal-dialog' role='document'>
-			<form method='POST' action='<?php echo site_url().'globalCtrl/newClass'; ?>' enctype='multipart/form-data'>
-				<div class='modal-content' style='background-color:#313436;'>
-				<div class='modal-header'>
-					<h5 class='modal-title' id='newClassModal' style='color:#e69627; margin-top:1%;'>Category :</h5>
-					<div class="form-group mb-3">
-					<select class="form-control" name="category" style="width:300px;">
-						<option value='math'>Math</option>
-						<option value='coding'>Coding</option>
-						<option value='design'>Design</option>
-						<option value='science'>Science</option>
-						<option value='history'>History</option>
-						<option value='multi'>Multi</option>
-					</select></div>
-					<img  class="closebtn" id="icon" src="http://localhost/Learnzia/assets/images/icon/Close.png"
-					style="margin-top:2%;" type="button" data-dismiss='modal' aria-label='Close'>
-				</div>
-					<div class='modal-body'>
-						<div class="form-group mb-3">
-							<label class="label" for="text" style="color:#F1C40F;">Class Name</label>
-							<input type="text" class="form-control" placeholder="Class Name" name="classname" required>
-						</div>
-						<div class="form-group mb-3">
-							<label class="label" for="text" style="color:#F1C40F;">Description</label>
-							<textarea rows="5" cols="60" name="description" class='form-control' required>Type description about your classroom and some rules...</textarea>
-						</div>
-						<label class="switch" style='float:left; margin-right:2%;'>
-						<input type="checkbox" name='typeSwitch'>
-							<span class="slider round"></span>
-						</label>
-						<p style="color:whitesmoke;">Private Class</p>
-						<img id='icon' src='http://localhost/Learnzia/assets/images/icon/Info.png' style='float:left;'>
-						<p style="color:#F1C40F; font-size:14px;">If you set the class's type to Private. People must request first, before they want to join. You 
-							still can change this feature in the future.</p>
-						<!-- Rounded switch -->
-						<label class="switch" style='float:left; margin-right:2%;'>
-						<input type="checkbox" name='imageSwitchC'>
-							<span class="slider round" data-toggle="collapse" data-target="#uploadClassProfil"></span>
-						</label>
-						<p style="color:whitesmoke;">Set Class's Image</p>
-						<!--Upload file.-->
-						<div class="collapse" id="uploadClassProfil">
-							<div class="form-group mb-3">
-							<div class="container" style=''>
-								<label class="label" for="text" style="color:#F1C40F;">Add Discussion Image</label>
-								<div class="input-group mb-3" style="background-color:#212121; border-width: 0 0 3px; border-bottom: 3.5px solid #F1C40F; 
-									border-radius:5px;">
-									<div class="input-group-prepend">
-										<span class="input-group-text">jpg</span>
-									</div>
-									<div class="custom-file">
-										<input type="file" class="custom-file-input" id="uploadImage" name="uploadClassProfil" accept='image/*'>
-										<label class="custom-file-label text-left" for="uploadImage">file size max 2 mb</label>
-									</div>
-								</div>
-							</div>
-							</div>
-						</div>
-					</div>
-					<div class='modal-footer'>
-						<button type='submit' style='color:whitesmoke; background-color:#e69627; border:none;' 
-							class='btn btn-primary'>Create new Class</button>
-					</div>
-			</form>
-			</div>
-		</div>
-		</div>
 
 		<!-- Error invite Modal -->
 		<?php if(isset($error_messageInvitation1)) { echo"

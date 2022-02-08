@@ -16,15 +16,18 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <!--Source file-->
-        <link rel="stylesheet" type="text/css" href="http://localhost/Learnzia/assets/css/login.css"/>
-		<style>
-			body {background-color: #313436; overflow: hidden;}
-		</style>
+        <link rel="stylesheet" type="text/css" href="http://localhost/Learnzia/assets/css/login1.css"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+		
     </head>
-    <body>
+    <body style='background-color: #000000;'>
+	<link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+	<div id='stars'></div>
+	<div id='stars2'></div>
+	<div id='stars3'></div>
 	<section class="ftco-section">
 		<div class="container">
-		<div class="row justify-content-center" >
+		<div class="row justify-content-center">
 			<div class="col-md-12 col-lg-10">
 				<div class="wrap d-md-flex" style="background:#212121; border-radius:10px; margin-top:-6%;">
 					<div class="img" style="background-image: url(http://localhost/Learnzia/assets/images/Logo.png);">
@@ -79,5 +82,7 @@
 		</div>
 		</div>
 	</section>
+	<!-- partial -->
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script  src="./script.js"></script>
     </body>
 </html>

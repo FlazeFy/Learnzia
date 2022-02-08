@@ -88,15 +88,40 @@
 		}
 		//Send reply message.
 		public function sendRMessage(){
+			if($this->input->post('imageSwitchMsg') == 'on'){
+				$date = date("Ymdhis");
+				$username = $this->session->userdata('userTrack');
+				$imageURL = $username. '' .$date;
+			} else {
+				$imageURL = 'null';
+			}
+			$initialize = $this->upload->initialize(array(
+				"upload_path" => './assets/uploads/message',
+				"allowed_types" => 'jpg',
+				"max_size" => 2000,
+				"remove_spaces" => TRUE,
+				"file_name" => 'message_' . $imageURL
+			));
 			$data = array(
 				'id_message' => 'NULL',
 				'sender' => $this->session->userdata('userTrack'),
 				'receiver' => $this->input->post('receiver'),
 				'message' => $this->input->post('replyMessage'),
+				'imageURL' => $imageURL,
 				'datetime' => date("Y/m/d h:i:sa")
 			);
-			$this->profileModel->replyMessage($data, 'message');
-			redirect('profileCtrl');
+			
+			if($this->input->post('imageSwitchMsg') == 'on'){
+				if (!$this->upload->do_upload('uploadImageMsg')) {
+					$error = array('error' => $this->upload->display_errors());
+					$data['error_message'] = "Error! your image is to big or not jpg";
+					redirect('profileCtrl');
+				} else {
+					$this->profileModel->replyMessage($data, 'message');
+				}
+			} else {
+				$this->profileModel->replyMessage($data, 'message');
+			}
 		}
 		//Reject Invitation.
 		public function rejectInvit(){

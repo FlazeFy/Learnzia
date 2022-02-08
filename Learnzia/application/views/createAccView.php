@@ -16,16 +16,21 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <!--Source file-->
-        <link rel="stylesheet" type="text/css" href="http://localhost/Learnzia/assets/css/login.css"/>
+        <link rel="stylesheet" type="text/css" href="http://localhost/Learnzia/assets/css/login1.css"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 		<style>
-			body {background-color: #313436; overflow:hidden;}
 			img {height: 30px;width: 30px;}
+			
 		</style>
     </head>
-    <body>
+    <body style='background-color: #000000;'>
+	<link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+	<div id='stars'></div>
+	<div id='stars2'></div>
+	<div id='stars3'></div>
 	<section class="ftco-section">
 	<form method="post" action="<?php echo site_url().'createAccCtrl/checkUser'; ?>" autocomplete="off" enctype="multipart/form-data">
-		<div class="container" style=" margin-top: -4%; background-color: #212121; border-radius:10px;">
+		<div class="container" style="margin-top: -4%; background: rgb(33, 33, 33); border-radius:10px;"> <!--bg still visible-->
 			<div class="row">
 				<div class="col-md-6 border-right">
 					<div class="p-3 py-4">
@@ -89,7 +94,7 @@
 						<div class="form-group">
 							<button type="submit" class="form-control btn btn-primary" style="color:white;">Register</button>
 						</div>
-						<p class="text-center">Already have an account? <a href="loginCtrl" style="color:#F1C40F; text-decoration: underline;">Sign In</a></p>
+						<p class="text-center" style='color:whitesmoke;'>Already have an account? <a href="loginCtrl" style="color:#F1C40F; text-decoration: underline;">Sign In</a></p>
 					</div>
 				</div>
 			</div>
@@ -208,7 +213,7 @@
 	<!--Ajax for json-->
 	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>  
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script  src="./script.js"></script>
 	
 	<!--JQuery Upload-->
 	<script>

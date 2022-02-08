@@ -16,7 +16,7 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 		<!--Source file-->
-		<link rel="stylesheet" type="text/css" href="http://localhost/Learnzia/assets/css/main_style.css"/>
+		<link rel="stylesheet" type="text/css" href="http://localhost/Learnzia/assets/css/mainStyle2.css"/>
 
 		<style>
 			body {background-color: #313436;}
@@ -866,7 +866,7 @@
 			echo "
 		<div class='modal fade' id='message".$friend['username2']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
 		<div class='modal-dialog' role='document' style='overflow-y: initial;'>
-			<form method='POST' action='homeCtrl/sendRMessage'>
+			<form method='POST' action='homeCtrl/sendRMessage' enctype='multipart/form-data'>
 			<div class='modal-content' style='background-color:#313436;'>
 			<div class='modal-header'>
 				<div class='container'>
@@ -882,30 +882,26 @@
 				echo "</div>
 				<img type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png'>	
 			</div>
-			<div class='modal-body' style='max-height: calc(80vh - 160px); overflow-y: auto;'>";
+			<div class='imessage' style='max-height: calc(80vh - 160px); max-width:auto; overflow-y: auto; height:800px; min-width:100%;'>";
 				foreach($dataMessage as $data2){
 					if(($data2['sender']  == $friend['username2'])&&($data2['receiver']  == $this->session->userdata('userTrack'))){
-						echo "<div class='card' style='width:80%; float:left; border-radius:5px; border-bottom: 3.5px solid #F1C40F; 
-						margin-bottom:4%; background-color:#525252;'>
-							<div class='card-header'>
-								<p class='card-text' style='font-size:11px; color:whitesmoke; font-style:italic;'>".$data2['datetime']."</p>
-							</div>
-							<div class='card-body'>
-								<p class='card-text' style='font-size:15px; color:#F1C40F;'>".$data2['message']."</p>
-							</div>
-							</div>";
+						echo "<p class='from-them'>";
+							if($data2['imageURL'] != 'null'){
+								echo"<img src='http://localhost/Learnzia/assets/uploads/message/message_".$data2['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
+								margin:1%; border-radius:6px;'>";
+							}
+							echo "".$data2['message']."<br><a style='color:#e69627; font-size:13.5px; font-style:italic;'>~ on ".$data2['datetime']."</a>
+							</p>";
 						$count++;
 					} else if(($data2['receiver']  == $friend['username2']) &&($data2['sender']  == $this->session->userdata('userTrack'))){
-						echo "<div class='card' style='width:80%; float:right; border-radius:5px; border-bottom: 3.5px solid #F1C40F; 
-						margin-bottom:4%; background-color:#232323;'>
-							<div class='card-header'>
-								<p class='card-text' style='font-size:11px; color:whitesmoke; font-style:italic;'>".$data2['datetime']."</p>
-							</div>
-							<div class='card-body'>
-								<p class='card-text' style='font-size:15px; color:#F1C40F;'>".$data2['message']."</p>
-						  	</div>
-							</div>";
-						$count++;
+						echo "<p class='from-me'>";
+							if($data2['imageURL'] != 'null'){
+								echo"<img src='http://localhost/Learnzia/assets/uploads/message/message_".$data2['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
+								margin:1%; border-radius:6px;'>";
+							}
+							echo "".$data2['message']."<br><a style='color:#212121; font-size:13.5px; font-style:italic;'>~ on ".$data2['datetime']."</a>
+							</p>";
+							$count++;
 					} else {
 						//do nothing
 					}
@@ -917,8 +913,27 @@
 			<div class='modal-footer'>
 					<div class='container'>
 					<input type='text' class='form-control' name='receiver' value='".$friend['username2']."' hidden>
-					<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
+					<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; margin-right:-5%; border:none;' type='submit'>Send</button>
 					<input class='form-control' type='text' placeholder='Type your message here...' style='width:80%; float:right; margin-right:1%;' name='replyMessage'>
+					<label class='switch' style='float:left; margin-left:-5%;'>
+						<input type='checkbox' name='imageSwitchMsg'>
+							<span class='slider round' type='button' data-toggle='collapse' data-target='#collapseImageMain'></span>
+						</label>
+					<br><a style='color:whitesmoke; float:left; margin-left:-9%;'>Image</a>
+					<div class='collapse' id='collapseImageMain'>
+						<div class='container-fluid' style='width:90%; float:right; margin-top:2%; margin-right:-9%;'>
+							<div class='input-group mb-3' style='background-color:#212121; border-width: 0 0 3px; border-bottom: 3.5px solid #F1C40F; 
+								border-radius:5px;'>
+								<div class='input-group-prepend'>
+									<span class='input-group-text'>jpg</span>
+								</div>
+								<div class='custom-file'>
+									<input type='file' class='custom-file-input' id='uploadImage' name='uploadImageMsg' accept='image/*'>
+									<label class='custom-file-label text-left' for='uploadImage'>file size max 2 mb</label>
+								</div>
+							</div>
+						</div>
+					</div>
 					</div>
 				</form>
 			</div>
@@ -930,7 +945,7 @@
 			echo "
 		<div class='modal fade' id='message".$friend['username1']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
 		<div class='modal-dialog' role='document' style='overflow-y: initial;'>
-			<form method='POST' action='homeCtrl/sendRMessage'>
+			<form method='POST' action='homeCtrl/sendRMessage' enctype='multipart/form-data'>
 			<div class='modal-content' style='background-color:#313436;'>
 			<div class='modal-header'>
 				<div class='container'>
@@ -946,29 +961,25 @@
 				echo "</div>
 				<img type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png'>	
 			</div>
-			<div class='modal-body' style='max-height: calc(80vh - 160px); overflow-y: auto;'>";
+			<div class='imessage' style='max-height: calc(80vh - 160px); max-width:auto; overflow-y: auto; height:800px; min-width:100%;'>";
 				foreach($dataMessage as $data2){
 					if(($data2['sender']  == $friend['username1'])&&($data2['receiver']  == $this->session->userdata('userTrack'))){
-						echo "<div class='card' style='width:80%; float:left; border-radius:5px; border-bottom: 3.5px solid #F1C40F; 
-						margin-bottom:4%; background-color:#525252;'>
-							<div class='card-header'>
-								<p class='card-text' style='font-size:11px; color:whitesmoke; font-style:italic;'>".$data2['datetime']."</p>
-							</div>
-							<div class='card-body'>
-								<p class='card-text' style='font-size:15px; color:#F1C40F;'>".$data2['message']."</p>
-							</div>
-							</div>";
+						echo "<p class='from-them'>";
+							if($data2['imageURL'] != 'null'){
+								echo"<img src='http://localhost/Learnzia/assets/uploads/message/message_".$data2['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
+								margin:1%; border-radius:6px;'>";
+							}
+							echo "".$data2['message']."<br><a style='color:#e69627; font-size:13.5px; font-style:italic;'>~ on ".$data2['datetime']."</a>
+							</p>";
 						$count++;
 					} else if(($data2['receiver']  == $friend['username1']) &&($data2['sender']  == $this->session->userdata('userTrack'))){
-						echo "<div class='card' style='width:80%; float:right; border-radius:5px; border-bottom: 3.5px solid #F1C40F; 
-						margin-bottom:4%; background-color:#232323;'>
-							<div class='card-header'>
-								<p class='card-text' style='font-size:11px; color:whitesmoke; font-style:italic;'>".$data2['datetime']."</p>
-							</div>
-							<div class='card-body'>
-								<p class='card-text' style='font-size:15px; color:#F1C40F;'>".$data2['message']."</p>
-						  	</div>
-							</div>";
+						echo "<p class='from-me'>";
+							if($data2['imageURL'] != 'null'){
+								echo"<img src='http://localhost/Learnzia/assets/uploads/message/message_".$data2['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
+								margin:1%; border-radius:6px;'>";
+							}
+							echo "".$data2['message']."<br><a style='color:#212121; font-size:13.5px; font-style:italic;'>~ on ".$data2['datetime']."</a>
+							</p>";
 						$count++;
 					} else {
 						//do nothing
@@ -981,8 +992,27 @@
 			<div class='modal-footer'>
 					<div class='container'>
 					<input type='text' class='form-control' name='receiver' value='".$friend['username1']."' hidden>
-					<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; border:none;' type='submit'>Send</button>
+					<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; margin-right:-5%; border:none;' type='submit'>Send</button>
 					<input class='form-control' type='text' placeholder='Type your message here...' style='width:80%; float:right; margin-right:1%;' name='replyMessage'>
+					<label class='switch' style='float:left; margin-left:-5%;'>
+						<input type='checkbox' name='imageSwitchMsg'>
+							<span class='slider round' type='button' data-toggle='collapse' data-target='#collapseImageMain'></span>
+						</label>
+					<br><a style='color:whitesmoke; float:left; margin-left:-9%;'>Image</a>
+					<div class='collapse' id='collapseImageMain'>
+						<div class='container-fluid' style='width:90%; float:right; margin-top:2%; margin-right:-9%;'>
+							<div class='input-group mb-3' style='background-color:#212121; border-width: 0 0 3px; border-bottom: 3.5px solid #F1C40F; 
+								border-radius:5px;'>
+								<div class='input-group-prepend'>
+									<span class='input-group-text'>jpg</span>
+								</div>
+								<div class='custom-file'>
+									<input type='file' class='custom-file-input' id='uploadImage' name='uploadImageMsg' accept='image/*'>
+									<label class='custom-file-label text-left' for='uploadImage'>file size max 2 mb</label>
+								</div>
+							</div>
+						</div>
+					</div>
 					</div>
 				</form>
 			</div>
