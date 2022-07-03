@@ -1268,7 +1268,7 @@
 						if ($j == 0){echo "'"; echo $data['username1']; echo "',";} 
 					}  
 				}
-				echo"]";
+				echo"];";
 			}	
 			}}	
 		?>

@@ -376,7 +376,7 @@
 				<div class='modal-header'>
 					<h5 class='modal-title' id='exampleModalLabel' style='color:#e69627; margin-top:1%;'>Send to :</h5>
 					<div class="autocomplete" style="width:300px;">
-						<input class="form-control mr-sm-2" id="mycontacts" type="search" name="receiver" placeholder="Username" required>
+						<input class="form-control mr-sm-2" id="mycontacts" type="text" name="receiver" placeholder="Username" required>
 					</div>
 					<img id='icon'  class="closebtn" src="http://localhost/Learnzia/assets/images/icon/Close.png"
 					style="margin-top:2%;" type="button" data-dismiss='modal' aria-label='Close'>
@@ -801,7 +801,7 @@
 		<?php 
 			foreach ($listRel as $rel){foreach ($listClass as $class) {
 				if (($class['classname'] == $rel['classname'])&& ($rel['username']== $this->session->userdata('userTrack'))){
-					echo "var list".$class['classname']."= [";
+					echo "var list".$class['classname']." = [";
 					$i = 0; $j = 0;
 					foreach($contacts as $data){
 					if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))){
@@ -822,7 +822,7 @@
 						if ($j == 0){echo "'"; echo $data['username1']; echo "',";} 
 					}  
 				}
-				echo"]";
+				echo"];";
 			}	
 			}}	
 		?>
