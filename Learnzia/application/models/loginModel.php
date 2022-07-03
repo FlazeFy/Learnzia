@@ -3,28 +3,25 @@
 
 	class loginModel extends CI_Model 
 	{
-		function validator($data)
-		{
+		function new($data){
 			$username = $this->input->post('username');
-			$password = $this->input->post('password');
-			
+
 			//Acc validation.
 			$this->db->select('*');
 			$this->db->from('user');
-			$condition = array('username' => $data['username'], 'password' => $data['password']);
+			$condition = array('username' => $this->input->post('username'));
 			$this->db->where($condition);
 			$userCheck = $this->db->get()->result();
-			if(count($userCheck) == 1){
-				$this->db->set('status', 'online');
-				$this->db->where('username', $data['username']);
-				$this->db->update('user');
+			if(count($userCheck) == 0){
+				$this->db->insert('user',$data);
 				$this->session->set_userdata('userTrack',$username);	
 				$this->session->set_userdata('lastLogin', date("Y/m/d h:i:sa"));
 				redirect('homeCtrl');
 			}else{
-				$data['error_message'] = "Username or Password Incorrect!";
+				$data['error_message'] = "Username already been taken";
+				$this->index();
 				$this->load->view('loginView', $data);
 			}
-		}	
+		}
 	}
 ?>
