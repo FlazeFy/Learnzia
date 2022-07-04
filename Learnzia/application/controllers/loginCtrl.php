@@ -4,7 +4,6 @@
 	class loginCtrl extends CI_Controller {
 		function __construct(){
 			parent::__construct();
-			$this->load->model('loginModel');
 		}
 		 
 		public function index(){
@@ -44,7 +43,7 @@
 			$initialize = $this->upload->initialize(array(
 				"upload_path" => './assets/uploads',
 				"allowed_types" => 'jpg',
-				"max_size" => 2000,
+				"max_size" => 5000,
 				"remove_spaces" => TRUE,
 				"file_name" => 'user_' . $condition
 			));
@@ -59,14 +58,31 @@
 				'datejoin' => date("Y/m/d"),
 				'status' => 'online'
 			);
-			if (!$this->upload->do_upload('uploadImage')) {
-				$error = array('error' => $this->upload->display_errors());
-				$data['error_message'] = "Error! your profile image is to big or not jpg";
+
+			//Acc validation.
+			$this->db->select('*');
+			$this->db->from('user');
+			$condition = array('username' => $this->input->post('username'));
+			$this->db->where($condition);
+			$userCheck = $this->db->get()->result();
+			if(count($userCheck) == 0){
+				if (!$this->upload->do_upload('uploadImage')) {
+					$error = array('error' => $this->upload->display_errors());
+					$data['error_message'] = "Error! your profile image is to big or not jpg";
+					$this->index();
+					$this->load->view('loginView', $data);
+				} else {
+					$this->db->insert('user',$data);
+					$this->session->set_userdata('userTrack',$username);	
+					$this->session->set_userdata('lastLogin', date("Y/m/d h:i:sa"));
+					redirect('homeCtrl');
+				}
+			} else {
+				$data['error_message'] = "Username already been taken";
 				$this->index();
 				$this->load->view('loginView', $data);
-			} else {
-				$this->loginModel->new($data, 'user');
 			}
+			
 		}
 	}
 ?>

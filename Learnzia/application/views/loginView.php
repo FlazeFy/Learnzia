@@ -296,7 +296,7 @@ input[type=submit] {
 					</div>
 					<div class="col-md">
 						<div id="accordion">
-							<div class="collapse show" id="loginForm" data-parent="#accordion">
+							<div class="collapse show w-75" id="loginForm" data-parent="#accordion">
 								<form method="post" class="signin-form" action="loginCtrl/checkUser">
 								<div class="form-group mb-3">
 									<label class="label" for="name" style="color:#F1C40F;">Username</label>
@@ -310,7 +310,6 @@ input[type=submit] {
 								</div>
 								<div class="form-group">
 									<button type="submit" class="form-control btn btn-primary" style="color:white;">Sign In</button>
-									
 								</div>
 								</form>
 								<div class="form-group d-md-flex">
@@ -324,11 +323,9 @@ input[type=submit] {
 										<a href="#" style="color:#F1C40F; text-decoration: underline;">Forgot Password</a>
 									</div>
 								</div>
-								</form>
 							</div>
 
 							<div class="collapse" id="createAccForm" data-parent="#accordion">
-								<form method="post" action="loginCtrl/createAcc" autocomplete="off" enctype="multipart/form-data">
 								<div class="container bg-transparent rounded">
 								<div class="accordion" id="accordionExample">
 									<div class="steps">
@@ -361,6 +358,7 @@ input[type=submit] {
 											</div>
 										</div>
 									</div>
+									<form method="post" action="loginCtrl/createAcc" autocomplete="off" enctype="multipart/form-data">
 
 									<div class="card border-0" style="background: rgb(33, 33, 33);">
 										<div  id="headingOne">
@@ -369,10 +367,21 @@ input[type=submit] {
 										<div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
 											data-parent="#accordionExample">
 											<div class="card-body border-0">
-												
+												<!--Steps control-->
+												<div class="row mt-3">
+													<div class="col-md-5">
+													</div>
+													<div class="col-md-2">
+													</div>
+													<div class="col-md-5">
+														<a type="button" class="btn btn-success w-100 m-2" data-toggle="collapse"
+                                                            data-target="#collapseTwo">Next <i class="fa-solid fa-arrow-right"></i></a>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
+
 									<div class="card border-0" style="background: rgb(33, 33, 33);">
 										<div  id="headingTwo">
 
@@ -412,8 +421,8 @@ input[type=submit] {
 																	<span class="input-group-text">jpg</span>
 																</div>
 																<div class="custom-file">
-																	<input type="file" class="custom-file-input" id="uploadImage" name="uploadImage" accept='image/*' required>
-																	<label class="custom-file-label text-left" for="uploadImage">size max 2 mb</label>
+																	<input type="file" class="custom-file-input" id="formFileCreateAcc" onchange="previewCreateAcc()" name="uploadImage" accept="image/png, image/jpg, image/jpeg" required>
+																	<label class="custom-file-label text-left" for="uploadImage">size max 5 mb</label>
 																</div>
 															</div>
 														</div>
@@ -422,23 +431,42 @@ input[type=submit] {
 															<input type="username" class="form-control" placeholder="Username" style="background:#212121; border-width: 0 0 3px; 
 																border-bottom: 3.5px solid #F1C40F; color:whitesmoke;" name="username" required>
 														</div>
+														<div class="form-group mb-3">
+															<label class="label" for="email" style="color:#F1C40F;">Email</label>
+															<input type="email" class="form-control" placeholder="Email" style="background:#212121; border-width: 0 0 3px; 
+																border-bottom: 3.5px solid #F1C40F; color:whitesmoke;" name="email" required>
+														</div>
 													</div>
 													<div class="col-md-5">
 														<img id="frame" src="http://localhost/Learnzia/assets/images/icon/NoImage.png" class="img-fluid bg-transparent" style="width:200px;"/>
-														<a onclick="clearImageCreateAcc()" class="btn btn-danger mt-3 w-50"><i class="fa-solid fa-trash"></i> Reset</a>
+														<a type="button" onclick="clearImageCreateAcc()" class="btn btn-danger mt-3 w-100"><i class="fa-solid fa-trash"></i> Reset</a>
 													</div>
 												</div>
-												<div class="form-group mb-3">
-													<label class="label" for="email" style="color:#F1C40F;">Email</label>
-													<input type="email" class="form-control" placeholder="Email" style="background:#212121; border-width: 0 0 3px; 
-															border-bottom: 3.5px solid #F1C40F; color:whitesmoke;" name="email" required>
+												<div class="row">
+													<div class="col-md-7">
+														<div class="form-group mb-3">
+															<label class="label" for="password" style="color:#F1C40F;">Password</label>
+															<input type="password" class="form-control" placeholder="Password" style="background:#212121; border-width: 0 0 3px; 
+																border-bottom: 3.5px solid #F1C40F; color:whitesmoke;" name="password" required>
+														</div>
+													</div>
+													<div class="col-md-5">
+														<p style="color: #F1C40F; font-size: 14px;"><i class="fa-solid fa-circle-info"></i> Password must have minimum 8 character, 1 capital, and 1 number.</p><br>
+													</div>
 												</div>
-												<div class="form-group mb-3">
-													<label class="label" for="password" style="color:#F1C40F;">Password</label>
-													<input type="password" class="form-control" placeholder="Password" style="background:#212121; border-width: 0 0 3px; 
-															border-bottom: 3.5px solid #F1C40F; color:whitesmoke;" name="password" required>
+												<!--Steps control-->
+												<div class="row mt-3">
+													<div class="col-md-5">
+														<a type="button" class="btn btn-success w-100 m-2"  data-toggle="collapse"
+															data-target="#collapseOne"><i class="fa-solid fa-arrow-left"></i> Previous</a>
+													</div>
+													<div class="col-md-2">
+													</div>
+													<div class="col-md-5">
+														<a type="button" class="btn btn-success w-100 m-2"  data-toggle="collapse"
+															data-target="#collapseThree">Next <i class="fa-solid fa-arrow-right"></i></a>
+													</div>
 												</div>
-												<p style="color: #F1C40F; font-size: 14px;"><i class="fa-solid fa-circle-info"></i> Password must have minimum 8 character, 1 capital, and 1 number.</p><br>
 											</div>
 										</div>
 									</div>
@@ -449,15 +477,27 @@ input[type=submit] {
 										<div id="collapseThree" class="collapse" aria-labelledby="headingThree"
 											data-parent="#accordionExample">
 											<div class="card-body">
-												<div class="form-group">
-													<button type="submit" class="form-control btn btn-primary" style="color:white;">Register</button>
+												<p class="text-center" style="color: #E0B315;">We have sent a verification code to your email</p>
+
+												<p class="text-center" style="color: #E0B315;">Did not receive code ?, <a type="button" class="btn btn-info" >Resend</a></p>
+												<!--Steps control-->
+												<div class="row mt-3">
+													<div class="col-md-5">
+														<a type="button" class="btn btn-success w-100 m-2"  data-toggle="collapse"
+															data-target="#collapseTwo"><i class="fa-solid fa-arrow-left"></i> Previous</a>
+													</div>
+													<div class="col-md-2">
+													</div>
+													<div class="col-md-5">
+														<button type="submit" class="form-control btn btn-primary m-2" style="color:white;">Register</button>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
+									</form>
 									</div>
 								</div>
-								</form>
 							</div>
 						</div>
 					</div>
@@ -467,7 +507,7 @@ input[type=submit] {
 		
 		<section>
 			<div class="container" style="margin-top:12%;">
-				<header class="section-header"><h1 class="text-white text-center mt-5">Our Feature</h1></header>
+				<header class="section-header"><h2 class="text-white text-center mt-5">OUR FEATURE</h2></header>
 				<div class="row">
 					<div class="col-lg-4">
 						<div class="card bg-transparent">
@@ -492,6 +532,102 @@ input[type=submit] {
 							<p class="text-secondary">Quam rem vitae est autem molestias explicabo debitis sint. Vero aliquid quidem commodi.</p>
 						</div>
 					</div>
+				</div>
+			</div>
+		</section>
+
+		<section>
+			<div class="container" style="margin-top:12%;">
+				<header class="section-header"><h2 class="text-white text-center mt-5">FREQUENTLY ASKED QUESTIONS</h2></header>
+				<div class="row">
+					<div class="col-lg-6">
+						<div id="accordionFAQ">
+							<div class="card bg-transparent border-0">
+								<div class="card-header" id="headingOne" style='border:none;'>
+									<a data-toggle="collapse" href="#collapseA1" role="button" aria-expanded="false" aria-controls="collapseExample">
+										<h6 class="text-white">Why use Learnzia?
+										<img src="http://localhost/Learnzia/assets/images/icon/Down.png" style="width: 28px; float: right;"></h6>
+									</a>
+								</div>
+								<div id="collapseA1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionFAQ">
+									<div class="card-body text-secondary">
+										Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+									</div>
+								</div>
+							</div>
+							<div class="card bg-transparent border-0">
+								<div class="card-header" id="headingTwo" style='border:none;'>
+									<a data-toggle="collapse" href="#collapseA2" role="button" aria-expanded="false" aria-controls="collapseExample">
+										<h6 class="text-white">Are Learnzia ensure security of user data?
+										<img  src="http://localhost/Learnzia/assets/images/icon/Down.png" style="width: 28px; float: right;"></h6>
+									</a>
+								</div>
+								<div id="collapseA2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionFAQ">
+									<div class="card-body text-secondary">
+										Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+									</div>
+								</div>
+							</div>
+							<div class="card bg-transparent border-0">
+								<div class="card-header" id="headingThree" style='border:none;'>
+									<a data-toggle="collapse" href="#collapseA3" role="button" aria-expanded="false" aria-controls="collapseExample">
+										<h6 class="text-white">Are all of post and answer in Learnzia relevant and trusted?
+										<img  src="http://localhost/Learnzia/assets/images/icon/Down.png" style="width: 28px; float: right;"></h6>
+									</a>
+								</div>
+								<div id="collapseA3" class="collapse" aria-labelledby="headingThree" data-parent="#accordionFAQ">
+									<div class="card-body text-secondary">
+										Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-6">
+						<div id="accordion2">
+							<div class="card bg-transparent border-0">
+								<div class="card-header" id="headingOne" style='border:none;'>
+									<a data-toggle="collapse" href="#collapseB1" role="button" aria-expanded="false" aria-controls="collapseExample">
+										<h6 class="text-white">The difference between Learnzia and others similiar Apps?
+										<img  src="http://localhost/Learnzia/assets/images/icon/Down.png" style="width: 28px; float: right;"></h6>
+									</a>
+								</div>
+								<div id="collapseB1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion2">
+									<div class="card-body text-secondary">
+										Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+									</div>
+								</div>
+							</div>
+							<div class="card bg-transparent border-0">
+								<div class="card-header" id="headingTwo" style='border:none;'>
+									<a data-toggle="collapse" href="#collapseB2" role="button" aria-expanded="false" aria-controls="collapseExample">
+										<h6 class="text-white">Can Learnzia be used for free?
+										<img  src="http://localhost/Learnzia/assets/images/icon/Down.png" style="width: 28px; float: right;"></h6>
+									</a>
+								</div>
+								<div id="collapseB2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion2">
+									<div class="card-body text-secondary">
+										Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+									</div>
+								</div>
+							</div>
+							<div class="card bg-transparent border-0">
+								<div class="card-header" id="headingThree" style='border:none;'>
+									<a data-toggle="collapse" href="#collapseB3" role="button" aria-expanded="false" aria-controls="collapseExample">
+										<h6 class="text-white">When we use Learnzia?
+										<img  src="http://localhost/Learnzia/assets/images/icon/Down.png" style="width: 28px; float: right;"></h6>
+									</a>
+								</div>
+								<div id="collapseB3" class="collapse" aria-labelledby="headingThree" data-parent="#accordion2">
+									<div class="card-body text-secondary">
+										Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</section>
@@ -547,12 +683,10 @@ input[type=submit] {
 				echo"
 				<div class='modal fade' id='errorModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
 				<div class='modal-dialog' role='document'>
-					<div class='modal-content' style='background-color:#313436;'>
-					<div class='modal-header'>
-						<h7 class='text-white' style='margin-left:35%;'>".$error_message."</h7>
-						<i class='fa-solid fa-xmark' class='closebtn' type='button' data-dismiss='modal' aria-label='Close' onClick='refreshMessage()'></i>
-					</div>
-						<img src='http://localhost/Learnzia/assets/images/icon/Wrong.png' width='250' class='img-fluid'>
+					<div class='modal-content p-3' style='background-color:#313436;'>
+						<i class='fa-solid fa-xmark text-white float-right' type='button' data-dismiss='modal' aria-label='Close' onClick='refreshMessage()'></i>
+						<img src='http://localhost/Learnzia/assets/images/icon/Wrong.png' width='200' style='display:block; margin-left:auto; margin-right:auto;' class='img-fluid'>
+						<h7 class='text-white text-center'>".$error_message."</h7>
 					</div>
 				</div>
 				</div>";
@@ -560,6 +694,16 @@ input[type=submit] {
 		?>
 
 		<script type="text/javascript">
+			//Image upload preview.
+			function previewCreateAcc() {
+                frame.src = URL.createObjectURL(event.target.files[0]);
+            }
+            function clearImageCreateAcc() {
+                document.getElementById('formFileCreateAcc').value = null;
+                frame.src = "http://localhost/Learnzia/assets/images/icon/NoImage.png";
+            }
+
+			//Stepper.
 			const stepButtons = document.querySelectorAll('.step-button');
 			const progress = document.querySelector('#progress');
 
@@ -657,7 +801,6 @@ input[type=submit] {
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>  
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
 
 		<script>
 			//Modal setting.
