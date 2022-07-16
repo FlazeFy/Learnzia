@@ -45,49 +45,53 @@
 					style="top:2%;" type="button">	
 				<!--Searchbox-->
 				<form class="form-inline my-2 my-lg-0" action="">
-					<input class="form-control mr-sm-2" type="search" placeholder="Search" style="margin-left:5%;" name="search" aria-label="Search">
+					<input class="form-control mr-sm-2" type="search" placeholder="Search" id="searchListContact" style="margin-left:5%;" name="search" aria-label="Search">
 					<button class="btn btn-primary" style="color:whitesmoke; background-color:#00a13e; border:none;" type="submit">Search</button>
 					<img  onclick="" href="" src="http://localhost/Learnzia/assets/images/icon/Add.png" style="margin-left:2%;" type="button"
 						data-toggle="modal" data-target="#messageModal">	
 				</form><hr>
-				<div class="container-fluid" width="200" style="">
-					<!--Message list-->
+				<ul class="list-group" width="200" id="listContact">
+					<!--Contact list-->
 					<?php 
 						$count = 0;
 						foreach($contacts as $data){
-						if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))){
-						echo "
-						<div class='card' type='button' style='margin-bottom:2%; background-color:#212121;' 
-							data-toggle='modal' data-target='#message".$data['username2']."'>
-							<div class='card-header' style='width: 25rem; height:5rem;'>
-								<img src='http://localhost/Learnzia/assets/uploads/user_".$data['username2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
-									margin-right:5%'>
-								<h5 style='font-size:15.5px; color:#F1C40F;'>".$data['username2']."</h5>";
-								//User login status
-								foreach($listUser as $user){
-								if(($user['status'] == 'online')&&($user['username']==$data['username2'])){echo "<p style='font-size:14px; color:#00a13e;'>".$user['status']."</p>";} 
-									else if(($user['status'] == 'offline')&&($user['username']==$data['username2'])) {
-									echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
-								}}
-							echo "</div>
-						</div>"; $count++;
-						} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))){
-						echo "
-						<div class='card' type='button' style='margin-bottom:2%; background-color:#212121;' 
-							data-toggle='modal' data-target='#message".$data['username1']."'>
-							<div class='card-header' style='width: 25rem; height:5rem;'>
-								<img src='http://localhost/Learnzia/assets/uploads/user_".$data['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
-									margin-right:5%;'>
-								<h5 style='font-size:15.5px; color:#F1C40F;'>".$data['username1']."</h5>";
-								//User login status
-								foreach($listUser as $user){
-								if(($user['status'] == 'online')&&($user['username']==$data['username1'])){echo "<p style='font-size:14px; color:#00a13e;'>".$user['status']."</p>";} 
-									else if(($user['status'] == 'offline')&&($user['username']==$data['username1'])) {
-									echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
-								}}
-							echo "</div>
-						</div>"; $count++;
-						} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] != $this->session->userdata('userTrack'))){
+							if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))){
+								echo "
+								<li class='list-group-item mx-3 my-1 p-0' type='button' style='background-color:#212121;' 
+									data-toggle='modal' data-target='#message".$data['username2']."'>
+									<div class='card-header' style='width: 25rem; height:5rem;'>
+										<img src='http://localhost/Learnzia/assets/uploads/user_".$data['username2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
+											margin-right:5%'>
+										<h5 style='font-size:15.5px; color:#F1C40F;'>".$data['username2']."</h5>";
+										//User login status
+										foreach($listUser as $user){
+										if(($user['status'] == 'online')&&($user['username']==$data['username2'])){echo "<p style='font-size:14px; color:#00a13e;'>".$user['status']."</p>";} 
+											else if(($user['status'] == 'offline')&&($user['username']==$data['username2'])) {
+											echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
+										}}
+									echo "
+									</div>
+								</li>"; 
+								$count++;
+							} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))){
+								echo "
+								<li class='list-group-item mx-3 my-1 p-0' type='button' style='background-color:#212121;' 
+									data-toggle='modal' data-target='#message".$data['username1']."'>
+									<div class='card-header' style='width: 25rem; height:5rem;'>
+										<img src='http://localhost/Learnzia/assets/uploads/user_".$data['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
+											margin-right:5%;'>
+										<h5 style='font-size:15.5px; color:#F1C40F;'>".$data['username1']."</h5>";
+										//User login status
+										foreach($listUser as $user){
+										if(($user['status'] == 'online')&&($user['username']==$data['username1'])){echo "<p style='font-size:14px; color:#00a13e;'>".$user['status']."</p>";} 
+											else if(($user['status'] == 'offline')&&($user['username']==$data['username1'])) {
+											echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
+										}}
+									echo "
+									</div>
+								</li>"; 
+								$count++;
+							} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] != $this->session->userdata('userTrack'))){
 						}
 						
 						}
@@ -100,7 +104,7 @@
 						}
 					?>
 					
-				</div>
+				</ul>  
 			</div>
 	
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
@@ -853,6 +857,7 @@
 						<button type='submit' style='color:whitesmoke; background-color:#e69627; border:none;' 
 							class='btn btn-primary'>Send</button>
 					</div>
+				</div>
 			</form>
 			</div>
 		</div>
@@ -862,330 +867,296 @@
 		<?php
 			$count = 0; 
 			foreach($contacts as $friend){
-			if (($friend['username2'] != $this->session->userdata('userTrack'))&&($friend['username1'] == $this->session->userdata('userTrack'))){
-			echo "
-		<div class='modal fade' id='message".$friend['username2']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
-		<div class='modal-dialog' role='document' style='overflow-y: initial;'>
-			<form method='POST' action='homeCtrl/sendRMessage' enctype='multipart/form-data'>
-			<div class='modal-content' style='background-color:#313436;'>
-			<div class='modal-header'>
-				<div class='container'>
-					<img src='http://localhost/Learnzia/assets/uploads/user_".$friend['username2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
-					float:left; margin-right:2%;'>
-					<h5 style='font-size:20px;'>".$friend['username2']."</h5>";
-					//User login status
-					foreach($listUser as $user){
-					if(($user['status'] == 'online')&&($user['username']==$friend['username2'])){echo "<p style='font-size:14px; color:#00a13e;'>".$user['status']."</p>";} 
-						else if(($user['status'] == 'offline')&&($user['username']==$friend['username2'])) {
-						echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
-					}}
-				echo "</div>
-				<img type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png'>	
-			</div>
-			<div class='imessage' style='max-height: calc(80vh - 160px); max-width:auto; overflow-y: auto; height:800px; min-width:100%;'>";
-				foreach($dataMessage as $data2){
-					if(($data2['sender']  == $friend['username2'])&&($data2['receiver']  == $this->session->userdata('userTrack'))){
-						echo "<p class='from-them'>";
-							if($data2['imageURL'] != 'null'){
-								echo"<img src='http://localhost/Learnzia/assets/uploads/message/message_".$data2['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
-								margin:1%; border-radius:6px;'>";
+				if (($friend['username2'] != $this->session->userdata('userTrack'))&&($friend['username1'] == $this->session->userdata('userTrack'))){
+					echo "
+					<div class='modal fade' id='message".$friend['username2']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+					<div class='modal-dialog' role='document' style='overflow-y: initial;'>
+						<form method='POST' action='homeCtrl/sendRMessage' enctype='multipart/form-data'>
+						<div class='modal-content' style='background-color:#313436;'>
+						<div class='modal-header'>
+							<div class='container'>
+								<img src='http://localhost/Learnzia/assets/uploads/user_".$friend['username2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
+								float:left; margin-right:2%;'>
+								<h5 style='font-size:20px;'>".$friend['username2']."</h5>";
+								//User login status
+								foreach($listUser as $user){
+								if(($user['status'] == 'online')&&($user['username']==$friend['username2'])){echo "<p style='font-size:14px; color:#00a13e;'>".$user['status']."</p>";} 
+									else if(($user['status'] == 'offline')&&($user['username']==$friend['username2'])) {
+									echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
+								}}
+							echo "</div>
+							<img type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png'>	
+						</div>
+						<div class='imessage' style='max-height: calc(80vh - 160px); max-width:auto; overflow-y: auto; height:800px; min-width:100%;'>";
+							foreach($dataMessage as $data2){
+								if(($data2['sender']  == $friend['username2'])&&($data2['receiver']  == $this->session->userdata('userTrack'))){
+									echo "<p class='from-them'>";
+										if($data2['imageURL'] != 'null'){
+											echo"<img src='http://localhost/Learnzia/assets/uploads/message/message_".$data2['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
+											margin:1%; border-radius:6px;'>";
+										}
+										echo "".$data2['message']."<br><a style='color:#e69627; font-size:13.5px; font-style:italic;'>~ on ".$data2['datetime']."</a>
+										</p>";
+									$count++;
+								} else if(($data2['receiver']  == $friend['username2']) &&($data2['sender']  == $this->session->userdata('userTrack'))){
+									echo "<p class='from-me'>";
+										if($data2['imageURL'] != 'null'){
+											echo"<img src='http://localhost/Learnzia/assets/uploads/message/message_".$data2['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
+											margin:1%; border-radius:6px;'>";
+										}
+										echo "".$data2['message']."<br><a style='color:#212121; font-size:13.5px; font-style:italic;'>~ on ".$data2['datetime']."</a>
+										</p>";
+										$count++;
+								} else {
+									//do nothing
+								}
 							}
-							echo "".$data2['message']."<br><a style='color:#e69627; font-size:13.5px; font-style:italic;'>~ on ".$data2['datetime']."</a>
-							</p>";
-						$count++;
-					} else if(($data2['receiver']  == $friend['username2']) &&($data2['sender']  == $this->session->userdata('userTrack'))){
-						echo "<p class='from-me'>";
-							if($data2['imageURL'] != 'null'){
-								echo"<img src='http://localhost/Learnzia/assets/uploads/message/message_".$data2['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
-								margin:1%; border-radius:6px;'>";
+							if ($count == 0){echo"<h5 style='font-size:15px; font-style:italic; float:left;'>Chat is empty...</h5>";} else {
+								echo"<h5 style='font-size:15px; font-style:italic; float:left; margin-bottom:3%;'>Showing ".$count." message... </h5>"; //I dont know this is important or not
 							}
-							echo "".$data2['message']."<br><a style='color:#212121; font-size:13.5px; font-style:italic;'>~ on ".$data2['datetime']."</a>
-							</p>";
-							$count++;
-					} else {
-						//do nothing
-					}
-				}
-				if ($count == 0){echo"<h5 style='font-size:15px; font-style:italic; float:left;'>Chat is empty...</h5>";} else {
-					echo"<h5 style='font-size:15px; font-style:italic; float:left; margin-bottom:3%;'>Showing ".$count." message... </h5>"; //I dont know this is important or not
-				}
-			echo "</div>
-			<div class='modal-footer'>
-					<div class='container'>
-					<input type='text' class='form-control' name='receiver' value='".$friend['username2']."' hidden>
-					<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; margin-right:-5%; border:none;' type='submit'>Send</button>
-					<input class='form-control' type='text' placeholder='Type your message here...' style='width:80%; float:right; margin-right:1%;' name='replyMessage'>
-					<label class='switch' style='float:left; margin-left:-5%;'>
-						<input type='checkbox' name='imageSwitchMsg'>
-							<span class='slider round' type='button' data-toggle='collapse' data-target='#collapseImageMain'></span>
-						</label>
-					<br><a style='color:whitesmoke; float:left; margin-left:-9%;'>Image</a>
-					<div class='collapse' id='collapseImageMain'>
-						<div class='container-fluid' style='width:90%; float:right; margin-top:2%; margin-right:-9%;'>
-							<div class='input-group mb-3' style='background-color:#212121; border-width: 0 0 3px; border-bottom: 3.5px solid #F1C40F; 
-								border-radius:5px;'>
-								<div class='input-group-prepend'>
-									<span class='input-group-text'>jpg</span>
+						echo "</div>
+						<div class='modal-footer'>
+								<div class='container'>
+								<input type='text' class='form-control' name='receiver' value='".$friend['username2']."' hidden>
+								<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; margin-right:-5%; border:none;' type='submit'>Send</button>
+								<input class='form-control' type='text' placeholder='Type your message here...' style='width:80%; float:right; margin-right:1%;' name='replyMessage'>
+								<label class='switch' style='float:left; margin-left:-5%;'>
+									<input type='checkbox' name='imageSwitchMsg'>
+										<span class='slider round' type='button' data-toggle='collapse' data-target='#collapseImageMain'></span>
+									</label>
+								<br><a style='color:whitesmoke; float:left; margin-left:-9%;'>Image</a>
+								<div class='collapse' id='collapseImageMain'>
+									<div class='container-fluid' style='width:90%; float:right; margin-top:2%; margin-right:-9%;'>
+										<div class='input-group mb-3' style='background-color:#212121; border-width: 0 0 3px; border-bottom: 3.5px solid #F1C40F; 
+											border-radius:5px;'>
+											<div class='input-group-prepend'>
+												<span class='input-group-text'>jpg</span>
+											</div>
+											<div class='custom-file'>
+												<input type='file' class='custom-file-input' id='uploadImage' name='uploadImageMsg' accept='image/*'>
+												<label class='custom-file-label text-left' for='uploadImage'>file size max 2 mb</label>
+											</div>
+										</div>
+									</div>
 								</div>
-								<div class='custom-file'>
-									<input type='file' class='custom-file-input' id='uploadImage' name='uploadImageMsg' accept='image/*'>
-									<label class='custom-file-label text-left' for='uploadImage'>file size max 2 mb</label>
 								</div>
-							</div>
+							</form>
+						</div>
 						</div>
 					</div>
-					</div>
-				</form>
-			</div>
-			</div>
-		</div>
-		</div>";
-		//second condition
-		} else if (($friend['username1'] != $this->session->userdata('userTrack'))&&($friend['username2'] == $this->session->userdata('userTrack'))){
-			echo "
-		<div class='modal fade' id='message".$friend['username1']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
-		<div class='modal-dialog' role='document' style='overflow-y: initial;'>
-			<form method='POST' action='homeCtrl/sendRMessage' enctype='multipart/form-data'>
-			<div class='modal-content' style='background-color:#313436;'>
-			<div class='modal-header'>
-				<div class='container'>
-					<img src='http://localhost/Learnzia/assets/uploads/user_".$friend['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
-					float:left; margin-right:2%;'>
-					<h5 style='font-size:20px;'>".$friend['username1']."</h5>";
-					//User login status
-					foreach($listUser as $user){
-					if(($user['status'] == 'online')&&($user['username']==$friend['username1'])){echo "<p style='font-size:14px; color:#00a13e;'>".$user['status']."</p>";} 
-						else if(($user['status'] == 'offline')&&($user['username']==$friend['username1'])) {
-						echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
-					}}
-				echo "</div>
-				<img type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png'>	
-			</div>
-			<div class='imessage' style='max-height: calc(80vh - 160px); max-width:auto; overflow-y: auto; height:800px; min-width:100%;'>";
-				foreach($dataMessage as $data2){
-					if(($data2['sender']  == $friend['username1'])&&($data2['receiver']  == $this->session->userdata('userTrack'))){
-						echo "<p class='from-them'>";
-							if($data2['imageURL'] != 'null'){
-								echo"<img src='http://localhost/Learnzia/assets/uploads/message/message_".$data2['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
-								margin:1%; border-radius:6px;'>";
+					</div>";
+					//second condition
+					} else if (($friend['username1'] != $this->session->userdata('userTrack'))&&($friend['username2'] == $this->session->userdata('userTrack'))){
+						echo "
+					<div class='modal fade' id='message".$friend['username1']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+					<div class='modal-dialog' role='document' style='overflow-y: initial;'>
+						<form method='POST' action='homeCtrl/sendRMessage' enctype='multipart/form-data'>
+						<div class='modal-content' style='background-color:#313436;'>
+						<div class='modal-header'>
+							<div class='container'>
+								<img src='http://localhost/Learnzia/assets/uploads/user_".$friend['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
+								float:left; margin-right:2%;'>
+								<h5 style='font-size:20px;'>".$friend['username1']."</h5>";
+								//User login status
+								foreach($listUser as $user){
+								if(($user['status'] == 'online')&&($user['username']==$friend['username1'])){echo "<p style='font-size:14px; color:#00a13e;'>".$user['status']."</p>";} 
+									else if(($user['status'] == 'offline')&&($user['username']==$friend['username1'])) {
+									echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
+								}}
+							echo "</div>
+							<img type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png'>	
+						</div>
+						<div class='imessage' style='max-height: calc(80vh - 160px); max-width:auto; overflow-y: auto; height:800px; min-width:100%;'>";
+							foreach($dataMessage as $data2){
+								if(($data2['sender']  == $friend['username1'])&&($data2['receiver']  == $this->session->userdata('userTrack'))){
+									echo "<p class='from-them'>";
+										if($data2['imageURL'] != 'null'){
+											echo"<img src='http://localhost/Learnzia/assets/uploads/message/message_".$data2['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
+											margin:1%; border-radius:6px;'>";
+										}
+										echo "".$data2['message']."<br><a style='color:#e69627; font-size:13.5px; font-style:italic;'>~ on ".$data2['datetime']."</a>
+										</p>";
+									$count++;
+								} else if(($data2['receiver']  == $friend['username1']) &&($data2['sender']  == $this->session->userdata('userTrack'))){
+									echo "<p class='from-me'>";
+										if($data2['imageURL'] != 'null'){
+											echo"<img src='http://localhost/Learnzia/assets/uploads/message/message_".$data2['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
+											margin:1%; border-radius:6px;'>";
+										}
+										echo "".$data2['message']."<br><a style='color:#212121; font-size:13.5px; font-style:italic;'>~ on ".$data2['datetime']."</a>
+										</p>";
+									$count++;
+								} else {
+									//do nothing
+								}
 							}
-							echo "".$data2['message']."<br><a style='color:#e69627; font-size:13.5px; font-style:italic;'>~ on ".$data2['datetime']."</a>
-							</p>";
-						$count++;
-					} else if(($data2['receiver']  == $friend['username1']) &&($data2['sender']  == $this->session->userdata('userTrack'))){
-						echo "<p class='from-me'>";
-							if($data2['imageURL'] != 'null'){
-								echo"<img src='http://localhost/Learnzia/assets/uploads/message/message_".$data2['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
-								margin:1%; border-radius:6px;'>";
+							if ($count == 0){echo"<h5 style='font-size:15px; font-style:italic; float:left;'>Chat is empty...</h5>";} else {
+								echo"<h5 style='font-size:15px; font-style:italic; float:left; margin-bottom:3%;'>Showing ".$count." message... </h5>"; //I dont know this is important or not
 							}
-							echo "".$data2['message']."<br><a style='color:#212121; font-size:13.5px; font-style:italic;'>~ on ".$data2['datetime']."</a>
-							</p>";
-						$count++;
-					} else {
-						//do nothing
-					}
-				}
-				if ($count == 0){echo"<h5 style='font-size:15px; font-style:italic; float:left;'>Chat is empty...</h5>";} else {
-					echo"<h5 style='font-size:15px; font-style:italic; float:left; margin-bottom:3%;'>Showing ".$count." message... </h5>"; //I dont know this is important or not
-				}
-			echo "</div>
-			<div class='modal-footer'>
-					<div class='container'>
-					<input type='text' class='form-control' name='receiver' value='".$friend['username1']."' hidden>
-					<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; margin-right:-5%; border:none;' type='submit'>Send</button>
-					<input class='form-control' type='text' placeholder='Type your message here...' style='width:80%; float:right; margin-right:1%;' name='replyMessage'>
-					<label class='switch' style='float:left; margin-left:-5%;'>
-						<input type='checkbox' name='imageSwitchMsg'>
-							<span class='slider round' type='button' data-toggle='collapse' data-target='#collapseImageMain'></span>
-						</label>
-					<br><a style='color:whitesmoke; float:left; margin-left:-9%;'>Image</a>
-					<div class='collapse' id='collapseImageMain'>
-						<div class='container-fluid' style='width:90%; float:right; margin-top:2%; margin-right:-9%;'>
-							<div class='input-group mb-3' style='background-color:#212121; border-width: 0 0 3px; border-bottom: 3.5px solid #F1C40F; 
-								border-radius:5px;'>
-								<div class='input-group-prepend'>
-									<span class='input-group-text'>jpg</span>
+						echo "</div>
+						<div class='modal-footer'>
+								<div class='container'>
+								<input type='text' class='form-control' name='receiver' value='".$friend['username1']."' hidden>
+								<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; margin-right:-5%; border:none;' type='submit'>Send</button>
+								<input class='form-control' type='text' placeholder='Type your message here...' style='width:80%; float:right; margin-right:1%;' name='replyMessage'>
+								<label class='switch' style='float:left; margin-left:-5%;'>
+									<input type='checkbox' name='imageSwitchMsg'>
+										<span class='slider round' type='button' data-toggle='collapse' data-target='#collapseImageMain'></span>
+									</label>
+								<br><a style='color:whitesmoke; float:left; margin-left:-9%;'>Image</a>
+								<div class='collapse' id='collapseImageMain'>
+									<div class='container-fluid' style='width:90%; float:right; margin-top:2%; margin-right:-9%;'>
+										<div class='input-group mb-3' style='background-color:#212121; border-width: 0 0 3px; border-bottom: 3.5px solid #F1C40F; 
+											border-radius:5px;'>
+											<div class='input-group-prepend'>
+												<span class='input-group-text'>jpg</span>
+											</div>
+											<div class='custom-file'>
+												<input type='file' class='custom-file-input' id='uploadImage' name='uploadImageMsg' accept='image/*'>
+												<label class='custom-file-label text-left' for='uploadImage'>file size max 2 mb</label>
+											</div>
+										</div>
+									</div>
 								</div>
-								<div class='custom-file'>
-									<input type='file' class='custom-file-input' id='uploadImage' name='uploadImageMsg' accept='image/*'>
-									<label class='custom-file-label text-left' for='uploadImage'>file size max 2 mb</label>
 								</div>
-							</div>
+							</form>
+						</div>
 						</div>
 					</div>
-					</div>
-				</form>
-			</div>
-			</div>
-		</div>
-		</div>";
-		}
-		$count = 0;
-		}?>
+					</div>";
+				}
+				$count = 0;
+			}
+		?>
 
 		<!-- Zoom discussion image Modal -->
-		<?php foreach($dataDiscussion as $data){
-		if ($data['image'] == 'yes'){
-		echo"<div class='modal fade' id='zoom".$data['id_discussion']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
-		<div class='modal-dialog modal-xl' role='document'>
-			<div class='modal-content' style='background-color:#313436;'>
-			<div class='modal-header'>
-				<p style='color:whitesmoke;'>".$data['question']."</p>
-				<img type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png'>
-			</div>
-			<div class='modal-footer'>
-				<img src='http://localhost/Learnzia/assets/uploads/discussion_".$data['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
-					alt='' data-toggle='modal' data-target='#zoom".$data['id_discussion']."'>
-			</div>			
-			</div>
-		</div>
-		</div>";	
-		}}?>
+		<?php 
+			foreach($dataDiscussion as $data){
+				if ($data['image'] == 'yes'){
+				echo"<div class='modal fade' id='zoom".$data['id_discussion']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+				<div class='modal-dialog modal-xl' role='document'>
+					<div class='modal-content' style='background-color:#313436;'>
+					<div class='modal-header'>
+						<p style='color:whitesmoke;'>".$data['question']."</p>
+						<img type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png'>
+					</div>
+					<div class='modal-footer'>
+						<img src='http://localhost/Learnzia/assets/uploads/discussion_".$data['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
+							alt='' data-toggle='modal' data-target='#zoom".$data['id_discussion']."'>
+					</div>			
+					</div>
+				</div>
+				</div>";	
+				}
+			}
+		?>
 
-		<?php foreach($dataReply as $data){
-		if ($data['image'] == 'yes'){
-		echo"<div class='modal fade' id='zoom".$data['imageURL']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
-		<div class='modal-dialog modal-xl' role='document'>
-			<div class='modal-content' style='background-color:#313436;'>
-			<div class='modal-header'>
-				<p style='color:whitesmoke;'>".$data['replytext']."</p>
-				<img id='icon' type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png'>
-			</div>
-			<div class='modal-footer'>
-				<img id='icon' src='http://localhost/Learnzia/assets/uploads/reply/reply_".$data['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
-					alt='' data-toggle='modal' data-target='#zoom".$data['imageURL']."'>
-			</div>			
-			</div>
-		</div>
-		</div>";	
-		}}?>
+		<?php 
+			foreach($dataReply as $data){
+				if ($data['image'] == 'yes'){
+					echo"<div class='modal fade' id='zoom".$data['imageURL']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+					<div class='modal-dialog modal-xl' role='document'>
+						<div class='modal-content' style='background-color:#313436;'>
+						<div class='modal-header'>
+							<p style='color:whitesmoke;'>".$data['replytext']."</p>
+							<img id='icon' type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png'>
+						</div>
+						<div class='modal-footer'>
+							<img id='icon' src='http://localhost/Learnzia/assets/uploads/reply/reply_".$data['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
+								alt='' data-toggle='modal' data-target='#zoom".$data['imageURL']."'>
+						</div>			
+						</div>
+					</div>
+					</div>";	
+				}
+			}
+		?>
 
 		<script>
-			//Side navbar private message
-			/* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
 			function openNav() {
 				document.getElementById("mySidebar").style.width = "360px";
-				document.getElementById("main").style.marginLeft = "360px";
 			}
 
-			/* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
 			function closeNav() {
 				document.getElementById("mySidebar").style.width = "0";
-				document.getElementById("main").style.marginLeft = "0";
 			}
-		</script>
 
-		<script>
-		function autocomplete(inp, arr) {
-		/*the autocomplete function takes two arguments,
-		the text field element and an array of possible autocompleted values:*/
-		var currentFocus;
-		/*execute a function when someone writes in the text field:*/
-		inp.addEventListener("input", function(e) {
-			var a, b, i, val = this.value;
-			/*close any already open lists of autocompleted values*/
-			closeAllLists();
-			if (!val) { return false;}
-			currentFocus = -1;
-			/*create a DIV element that will contain the items (values):*/
-			a = document.createElement("DIV");
-			a.setAttribute("id", this.id + "autocomplete-list");
-			a.setAttribute("class", "autocomplete-items");
-			/*append the DIV element as a child of the autocomplete container:*/
-			this.parentNode.appendChild(a);
-			/*for each item in the array...*/
-			for (i = 0; i < arr.length; i++) {
-				/*check if the item starts with the same letters as the text field value:*/
-				if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-				/*create a DIV element for each matching element:*/
-				b = document.createElement("DIV");
-				/*make the matching letters bold:*/
-				b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-				b.innerHTML += arr[i].substr(val.length);
-				/*insert a input field that will hold the current array item's value:*/
-				b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-				/*execute a function when someone clicks on the item value (DIV element):*/
-				b.addEventListener("click", function(e) {
-					/*insert the value for the autocomplete text field:*/
-					inp.value = this.getElementsByTagName("input")[0].value;
-					/*close the list of autocompleted values,
-					(or any other open lists of autocompleted values:*/
-					closeAllLists();
-				});
-				a.appendChild(b);
-				}
-			}
-		});
-		/*execute a function presses a key on the keyboard:*/
-		inp.addEventListener("keydown", function(e) {
-			var x = document.getElementById(this.id + "autocomplete-list");
-			if (x) x = x.getElementsByTagName("div");
-			if (e.keyCode == 40) {
-				/*If the arrow DOWN key is pressed,
-				increase the currentFocus variable:*/
-				currentFocus++;
-				/*and and make the current item more visible:*/
-				addActive(x);
-			} else if (e.keyCode == 38) { //up
-				/*If the arrow UP key is pressed,
-				decrease the currentFocus variable:*/
-				currentFocus--;
-				/*and and make the current item more visible:*/
-				addActive(x);
-			} else if (e.keyCode == 13) {
-				/*If the ENTER key is pressed, prevent the form from being submitted,*/
-				e.preventDefault();
-				if (currentFocus > -1) {
-				/*and simulate a click on the "active" item:*/
-				if (x) x[currentFocus].click();
-				}
-			}
-		});
-		function addActive(x) {
-			/*a function to classify an item as "active":*/
-			if (!x) return false;
-			/*start by removing the "active" class on all items:*/
-			removeActive(x);
-			if (currentFocus >= x.length) currentFocus = 0;
-			if (currentFocus < 0) currentFocus = (x.length - 1);
-			/*add class "autocomplete-active":*/
-			x[currentFocus].classList.add("autocomplete-active");
-		}
-		function removeActive(x) {
-			/*a function to remove the "active" class from all autocomplete items:*/
-			for (var i = 0; i < x.length; i++) {
-			x[i].classList.remove("autocomplete-active");
-			}
-		}
-		function closeAllLists(elmnt) {
-			/*close all autocomplete lists in the document,
-			except the one passed as an argument:*/
-			var x = document.getElementsByClassName("autocomplete-items");
-			for (var i = 0; i < x.length; i++) {
-			if (elmnt != x[i] && elmnt != inp) {
-				x[i].parentNode.removeChild(x[i]);
-			}
-			}
-		}
-		/*execute a function when someone clicks in the document:*/
-		document.addEventListener("click", function (e) {
-			closeAllLists(e.target);
-		});
-		}
-
-		/*An array containing all the country names in the world:*/
-		var contacts = [<?php foreach($contacts as $data){
-					if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))){
-						echo "'"; echo $data['username2']; echo "',";
-					} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))){
-						echo "'"; echo $data['username1']; echo "',";
-					} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] != $this->session->userdata('userTrack'))){
-						//do nothing
+			function autocomplete(inp, arr) {
+				var currentFocus;
+				inp.addEventListener("input", function(e) {
+				var a, b, i, val = this.value;
+				closeAllLists();
+				if (!val) { return false;}
+				currentFocus = -1;
+				a = document.createElement("DIV");
+				a.setAttribute("id", this.id + "autocomplete-list");
+				a.setAttribute("class", "autocomplete-items");
+				this.parentNode.appendChild(a);
+				for (i = 0; i < arr.length; i++) {
+					if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+					b = document.createElement("DIV");
+					b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+					b.innerHTML += arr[i].substr(val.length);
+					b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+					b.addEventListener("click", function(e) {
+						inp.value = this.getElementsByTagName("input")[0].value;
+						closeAllLists();
+					});
+					a.appendChild(b);
 					}
-				}?>]
+				}
+			});
+			inp.addEventListener("keydown", function(e) {
+				var x = document.getElementById(this.id + "autocomplete-list");
+				if (x) x = x.getElementsByTagName("div");
+				if (e.keyCode == 40) {
+					currentFocus++;
+					addActive(x);
+				} else if (e.keyCode == 38) {
+					currentFocus--;
+					addActive(x);
+				} else if (e.keyCode == 13) {
+					e.preventDefault();
+					if (currentFocus > -1) {
+					if (x) x[currentFocus].click();
+					}
+				}
+			});
+			function addActive(x) {
+				if (!x) return false;
+				removeActive(x);
+				if (currentFocus >= x.length) currentFocus = 0;
+				if (currentFocus < 0) currentFocus = (x.length - 1);
+				x[currentFocus].classList.add("autocomplete-active");
+			}
+			function removeActive(x) {
+				for (var i = 0; i < x.length; i++) {
+				x[i].classList.remove("autocomplete-active");
+				}
+			}
+			function closeAllLists(elmnt) {
+				var x = document.getElementsByClassName("autocomplete-items");
+				for (var i = 0; i < x.length; i++) {
+				if (elmnt != x[i] && elmnt != inp) {
+					x[i].parentNode.removeChild(x[i]);
+				}
+				}
+			}
+			document.addEventListener("click", function (e) {
+				closeAllLists(e.target);
+			});
+			}
 
-		/*initiate the autocomplete function on the "mycontacts" element, and pass along the contacts array as possible autocomplete values:*/
-		autocomplete(document.getElementById("mycontacts"), contacts);
+			var contacts = [<?php foreach($contacts as $data){
+				if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))){
+					echo "'"; echo $data['username2']; echo "',";
+				} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))){
+					echo "'"; echo $data['username1']; echo "',";
+				} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] != $this->session->userdata('userTrack'))){
+					//do nothing
+				}
+			}?>]
+			autocomplete(document.getElementById("mycontacts"), contacts);
 		</script>
 
 		<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
@@ -1193,13 +1164,25 @@
 		<!--Ajax for json-->
 		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>  
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-		
-		<!--JQuery Upload-->
+		<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
 		<script>
-		$('.custom-file-input').on('change', function() { 
-			let fileName = $(this).val().split('\\').pop(); 
-			$(this).next('.custom-file-label').addClass("selected").html(fileName); 
-		});
+			//JQuery Upload
+			$('.custom-file-input').on('change', function() { 
+				let fileName = $(this).val().split('\\').pop(); 
+				$(this).next('.custom-file-label').addClass("selected").html(fileName); 
+			});
+
+			$(document).ready(function(){
+				$("#searchListContact").on("keyup", function() {
+					var value = $(this).val().toLowerCase();
+					$("#listContact li").filter(function() {
+					$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+					});
+				});
+			});
 		</script>
 	</body>
 </html>
