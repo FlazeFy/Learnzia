@@ -199,7 +199,18 @@
 		}
 		//Open class.
 		public function openClass(){
+			$this->db->select('id_classroom');
+			$this->db->from('classroom');
+			$this->db->where('classname', $this->input->post('visitClass'));
+			$query = $this->db->get();
+
+			foreach ($query->result() as $row)
+			{
+				$id = $row->id_classroom;
+			}
+
 			$this->session->set_userdata('classTrack', $this->input->post('visitClass'));
+			$this->session->set_userdata('classIdTrack', $id);
 			redirect("classCtrl");
 		}
 

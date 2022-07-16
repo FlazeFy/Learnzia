@@ -25,8 +25,8 @@
 		<link href="http://localhost/Learnzia/assets/css/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
 
 		<style>
-			body {background-color: #313436; color:whitesmoke;}
-			footer  {background-color: #212121; color:whitesmoke; position: relative; bottom: 0; padding: 2rem;}
+			body {background-color: #0A0C10; color:whitesmoke;}
+			footer  {background-color: #0A0C10; color:whitesmoke; position: relative; bottom: 0; padding: 2rem;}
 			.navbar {position: fixed; width:100%; z-index:1;}
 			a {color:#F1C40F;}
 			.active {border-radius: 4px; border-bottom: 4.5px solid rgb(40, 207, 54); position: relative;bottom: 5%;}

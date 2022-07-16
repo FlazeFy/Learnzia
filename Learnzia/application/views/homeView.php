@@ -19,7 +19,7 @@
 		<link rel="stylesheet" type="text/css" href="http://localhost/Learnzia/assets/css/mainStyle2.css"/>
 
 		<style>
-			body {background-color: #313436;}
+			body {background-color: #0A0C10;}
 			footer  {background-color: #212121; color:whitesmoke; position: relative; bottom: 0; padding: 2rem;}
 			.navbar {position: fixed; width:100%; z-index:1;}
 			a {color:#F1C40F;}
@@ -1157,6 +1157,7 @@
 				}
 			}?>]
 			autocomplete(document.getElementById("mycontacts"), contacts);
+
 		</script>
 
 		<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->

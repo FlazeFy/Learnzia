@@ -31,6 +31,14 @@
 			$this->db->order_by('datetime','ASC');
 			return $data = $this->db->get()->result_array();
 		}
+		public function get_list_channel()
+		{
+			$this->db->select('*');
+			$this->db->from('channel');
+			$this->db->where('id_classroom', $this->session->userdata("classIdTrack"));
+			$this->db->order_by('datetime','ASC');
+			return $data = $this->db->get()->result_array();
+		}
 		//For searching
 		public function get_list_user(){
 			$data = $this->db->get('user');
@@ -54,50 +62,10 @@
 			$this->db->insert('message',$data);	
 			redirect('homeCtrl');
 		}
-		public function get_my_discussion(){
-			$this->db->select('*');
-			$this->db->from('discussion');
-			$this->db->where('sender', $this->session->userdata('userTrack'));
-			$this->db->order_by('datetime','DESC');
-			return $data = $this->db->get()->result_array();
-		}
-		public function get_all_history(){
-			$this->db->select('*');
-			$this->db->from('discussion');
-			$this->db->where('category', 'history');
-			$this->db->order_by('datetime','DESC');
-			return $data = $this->db->get()->result_array();
-		}
-		public function get_all_math(){
-			$this->db->select('*');
-			$this->db->from('discussion');
-			$this->db->where('category', 'math');
-			$this->db->order_by('datetime','DESC');
-			return $data = $this->db->get()->result_array();
-		}
-		public function get_all_reply(){
-			$this->db->select('*');
-			$this->db->from('reply');
-			$this->db->order_by('datetime','ASC');
-			return $data = $this->db->get()->result_array();
-		}
-		//reply discussion
-		public function reply($data){
-			$this->db->insert('reply',$data);	
-			redirect('classCtrl');
-		}
 		//reply message
 		public function replyMessage($data){
 			$this->db->insert('message',$data);	
 			redirect('classCtrl');
-		}
-		//reply with discussion category
-		public function get_all_replyWCat(){
-			$this->db->select('*');
-			$this->db->from('reply');
-			$this->db->join('discussion', 'reply.id_discussion = discussion.id_discussion');
-			$this->db->where('reply.sender', $this->session->userdata('userTrack'));
-			return $data = $this->db->get()->result_array();
 		}
 		//Sign out
 		public function offstatus(){
@@ -106,14 +74,19 @@
 			$this->db->update('user');
 			redirect('http://localhost/Learnzia');
 		}
-		//send invitation
-		public function insertInvitation($data){			
-			$this->db->insert('invitation',$data);
-		}
 		//reply discussion
 		public function insertMainMsg($data){
 			$this->db->insert('classforummessage',$data);	
 			redirect('classCtrl');
+		}
+
+		//Create channel
+		public function insertChannel($data){			
+			$this->db->insert('channel',$data);
+		}
+		//Create classroom activity
+		public function insertActivity($data2){			
+			$this->db->insert('classroom-activity',$data2);
 		}
 	}
 ?>

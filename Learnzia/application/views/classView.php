@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<script src="https://kit.fontawesome.com/12801238e9.js" crossorigin="anonymous"></script>
 
 		<!--Source file-->
 		<link rel="stylesheet" type="text/css" href="http://localhost/Learnzia/assets/css/mainStyle2.css"/>
@@ -24,7 +25,7 @@
 		<link href="http://localhost/Learnzia/assets/css/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
 
 		<style>
-			body {background-color: #313436; color:whitesmoke;}
+			body {background-color: #0A0C10; color:whitesmoke;}
 			footer  {background-color: #212121; color:whitesmoke; position: relative; bottom: 0; padding: 2rem;}
 			.navbar {position: fixed; width:100%; z-index:1;}
 			a {color:#F1C40F;}
@@ -186,6 +187,17 @@
 										<button class="nav-link active w-100" type="submit">#Main</button>
 									</form>
 								</div>
+								<?php
+									foreach($listChannel as $channel){
+										echo"
+										<div class='container-fluid m-0'>
+											<form action='classCtrl/selectChannel' method='POST'>
+												<input name='id_channel' value='0' hidden></input>
+												<button class='nav-link active w-100' type='submit'>#".$channel['channel_name']."</button>
+											</form>
+										</div>";
+									}
+								?>
 							</div>
 							<!-- Tab navs -->
 							</div>
@@ -199,15 +211,65 @@
 								if($this->session->userdata('set_id_channel') == "manage"){
 									echo"
 									<div class='tab-pane active'>
-										<div class='container-fluid'>
-											<h4 style='color:whitesmoke;'>test activity</h4>
+										<div class='container-fluid p-2'>";
+											$i = 0;
+											foreach($listRel as $lr){
+												if(($this->session->userdata('userTrack') == $lr['username'])&&($lr['typeRelation'] != 'member')&&($this->session->userdata('classTrack') == $lr['classname'])){
+													$i = 1;
+													echo"
+														<div class='row my-3'>
+															<div class='col-md'>
+																<div class='container-fluid p-0'>
+																	<h4 class='text-white my-2'>Create New Channel ".$this->session->userdata("classIdTrack")."</h4>
+																	<form method='post' action='classCtrl/createChannel'>
+																	<label class='label' for='name' style='color:#F1C40F;'>Channel Name</label>
+																	<input class='form-control mb-2' name='channel_name' type='text' style='background:#303335;' required>
+																	<label class='label' for='name' style='color:#F1C40F;'>Channel Description</label>
+																	<textarea class='form-control mb-2' name='channel_description' type='text' style='background:#303335;' rows='3' required></textarea>
+																	<button class='btn btn-success my-2 d-block' type='submit'><i class='fa-solid fa-plus'></i> Create</button>
+																	</form>
+																</div>
+
+																<br><hr>
+																<div class='container-fluid p-0'>
+																	<h4 class='text-white my-2'>List Channel</h4>
+																	<div class='container-fluid m-2 p-3 rounded' style='background:#313436;'>
+																		<div class='row'>
+																			<div class='col-md-8'>
+																				<h7 class='text-white my-auto'>#lorem</h7><br>
+																				<a class='text-white my-auto'>description	</a>
+																			</div>
+																			<div class='col-md-4'>
+																				<a class='btn btn-info border-0' style='background:#f1c40f;'><i class='fa-solid fa-pen-to-square'></i></a>
+																				<a class='btn btn-danger'><i class='fa-solid fa-trash-can'></i></a>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class='col-md'>
+																<h4 class='text-white my-2'>Channel's Statistics</h4>
+																
+															</div>
+														</div>
+													";
+												}
+											}
+											if($i == 0){
+												echo "
+												<div class='container p-2'>
+													<img class='d-block mx-auto w-25' src='http://localhost/Learnzia/assets/images/Invitation.gif' alt='Invitation.gif'>
+													<h4 style='font-style:italic; text-align:center; font-size:16px;'>You don't have access to this feature. Please contact your classroom's founder or co-founder</h4>
+												</div>";
+											}
+										echo"
 										</div>
 									</div>";
 								} else if($this->session->userdata('set_id_channel') == 0){
 									echo"
 									<!-- Main Channel -->
 									<div class='tab-pane active'>
-										<div class='imessage' style='max-height: calc(80vh - 160px); max-width:auto; overflow-y: auto; height:800px;' id='chat-box'>";
+										<div class='imessage' style='max-height: 480px; max-width:auto; overflow-y: auto; height:800px;' id='chat-box'>";
 											foreach($dataClassForumMsg as $chat){
 												if (($chat['sender'] != $this->session->userdata('userTrack'))&&($chat['classname']==$this->session->userdata('classTrack'))&&($chat['channel']== 'main')){
 												echo"<p class='from-them'>";
@@ -646,6 +708,33 @@
 		</div>";}	
 		?>
 
+		<?php 
+			if(isset($error_message)) { 
+				echo"
+				<div class='modal fade' id='errorModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+				<div class='modal-dialog' role='document'>
+					<div class='modal-content p-3' style='background-color:#313436;'>
+						<i class='fa-solid fa-xmark text-white float-right' type='button' data-dismiss='modal' aria-label='Close' onClick='refreshMessage()'></i>
+						<img src='http://localhost/Learnzia/assets/images/icon/Wrong.png' width='200' style='display:block; margin-left:auto; margin-right:auto;' class='img-fluid'>
+						<h7 class='text-white text-center'>".$error_message."</h7>
+					</div>
+				</div>
+				</div>";
+			}
+			if(isset($success_message)) { 
+				echo"
+				<div class='modal fade' id='successModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+				<div class='modal-dialog' role='document'>
+					<div class='modal-content p-3' style='background-color:#313436;'>
+						<i class='fa-solid fa-xmark text-white float-right' type='button' data-dismiss='modal' aria-label='Close' onClick='refreshMessage()'></i>
+						<img src='http://localhost/Learnzia/assets/images/storyset/Channel.png' width='200' style='display:block; margin-left:auto; margin-right:auto;' class='img-fluid'>
+						<h7 class='text-white text-center'>".$success_message."</h7>
+					</div>
+				</div>
+				</div>";
+			}
+		?>
+
 		<script>
 			//Side navbar private message
 			/* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
@@ -658,7 +747,7 @@
 				document.getElementById("mySidebar").style.width = "0";
 			}
 			function refreshMessage() {
-				window.location.href="http://localhost/Learnzia/globalCtrl";  
+				window.location.href="http://localhost/Learnzia/classCtrl";  
 			}
 		</script>
 
@@ -769,7 +858,21 @@
 			
 			$(window).on('load', function() {
 				$('#errorModalInvit').modal('show');
+				$('#errorModal').modal('show');
+				$('#successModal').modal('show');
 			});
+			$('#errorModal').modal({
+				backdrop: 'static', 
+				keyboard: false
+			}); 
+			$('#successModal').modal({
+				backdrop: 'static', 
+				keyboard: false
+			}); 
+			$('#errorModalInvit').modal({
+				backdrop: 'static', 
+				keyboard: false
+			}); 
 		</script>
 
 	</body>

@@ -29,6 +29,11 @@
 				$this->db->set('status', 'online');
 				$this->db->where('username', $data['username']);
 				$this->db->update('user');
+				foreach ($userCheck as $row)
+				{
+					$id = $row->id_user;
+				}
+				$this->session->set_userdata('userIdTrack',$id);
 				$this->session->set_userdata('userTrack',$username);	
 				$this->session->set_userdata('lastLogin', date("Y/m/d h:i:sa"));
 				redirect('homeCtrl');
@@ -38,6 +43,8 @@
 				$this->load->view('loginView', $data);
 			}
 		}
+
+		
 		public function createAcc(){
 			$condition = $this->input->post('username');
 			$initialize = $this->upload->initialize(array(
