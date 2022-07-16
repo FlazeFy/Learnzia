@@ -34,6 +34,14 @@
 			$this->classModel->posting($data, 'message');
 			redirect('classCtrl');
 		}
+		//Navigate channel
+		public function selectChannel()
+		{
+			$id = $this->input->post('id_channel');
+
+			$this->session->set_userdata('set_id_channel',$id);
+			redirect('classCtrl');	
+		}
 		//Reply discussion
 		public function sendReply(){
 			if($this->input->post('imageSwitchR') == 'on'){
