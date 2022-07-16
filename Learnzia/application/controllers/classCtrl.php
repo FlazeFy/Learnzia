@@ -15,6 +15,7 @@
 			$data['listChannel']= $this->classModel->get_list_channel();
 			$data['listClass']= $this->classModel->get_list_class();
 			$data['listRel']= $this->classModel->get_list_relation();
+			$data['listActivity']= $this->classModel->get_list_activity();
 			$data['dataClassForumMsg']= $this->classModel->get_all_classForumMessage();
 			$this->load->view('classView', $data);
 		}
@@ -37,7 +38,7 @@
 		{
 			$id = $this->input->post('id_channel');
 
-			$this->session->set_userdata('set_id_channel',$id);
+			$this->session->set_userdata('channelTrack',$id);
 			redirect('classCtrl');	
 		}
 
@@ -121,13 +122,13 @@
 			}
 		}
 
-		//Send chat in main channel
+		//Send chat in channel
 		public function sendMainChat(){
 			if($this->input->post('imageSwitchMain') == 'on'){
 				$date = date("Ymdhis");
 				$username = $this->session->userdata('userTrack');
 				$classname = $this->session->userdata('classTrack');
-				$channel = $this->input->post('channel');
+				$channel = $this->session->userdata('channelTrack');
 				$imageURL = $username. '' .$classname. '' .$channel. '' .$date;
 			} else {
 				$imageURL = 'null';
@@ -141,10 +142,10 @@
 			));
 			$data = array(
 				'id_message' => 'NULL',
-				'sender' => $this->session->userdata('userTrack'),
+				'id_user' => $this->session->userdata('userIdTrack'),
 				'text' => $this->input->post('messagetext'),
-				'classname' => $this->session->userdata('classTrack'),
-				'channel' => $this->input->post('channel'),
+				'id_classroom' => $this->session->userdata('classIdTrack'),
+				'id_channel' => $this->session->userdata('channelTrack'),
 				'imageURL' => $imageURL,
 				'datetime' => date("Y/m/d h:i:sa")
 			);

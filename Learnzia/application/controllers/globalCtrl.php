@@ -211,6 +211,7 @@
 
 			$this->session->set_userdata('classTrack', $this->input->post('visitClass'));
 			$this->session->set_userdata('classIdTrack', $id);
+			$this->session->set_userdata('channelTrack', 0);
 			redirect("classCtrl");
 		}
 

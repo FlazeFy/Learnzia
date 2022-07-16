@@ -39,6 +39,15 @@
 			$this->db->order_by('datetime','ASC');
 			return $data = $this->db->get()->result_array();
 		}
+		public function get_list_activity()
+		{
+			$this->db->select('*');
+			$this->db->from('classroom-activity');
+			$this->db->join('user','user.id_user = classroom-activity.id_user');
+			$this->db->where('id_classroom', $this->session->userdata("classIdTrack"));
+			$this->db->order_by('datetime','ASC');
+			return $data = $this->db->get()->result_array();
+		}
 		//For searching
 		public function get_list_user(){
 			$data = $this->db->get('user');
@@ -55,8 +64,13 @@
 		}
 		public function get_all_classForumMessage()
 		{
-			$data = $this->db->get('classforummessage');
-			return $data->result_array();
+			$this->db->select('*');
+			$this->db->from('classforummessage');
+			$this->db->join('user','user.id_user = classforummessage.id_user');
+			$this->db->where('id_classroom', $this->session->userdata("classIdTrack"));
+			$this->db->where('id_channel', $this->session->userdata("channelTrack"));
+			$this->db->order_by('datetime','ASC');
+			return $data = $this->db->get()->result_array();
 		}
 		public function posting($data){
 			$this->db->insert('message',$data);	

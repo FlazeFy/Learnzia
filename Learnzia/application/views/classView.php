@@ -167,7 +167,7 @@
 				?>
 			</ul>
 			<!-- Tab panes -->
-			<div class="tab-content">
+			<div class="tab-content" style='min-height:550px;'>
 				<div class="tab-pane active" id="forum" role="tabpanel">
 					<div class="row">
 						<div class="col-2">
@@ -183,7 +183,7 @@
 								</div>
 								<div class="container-fluid m-0">
 									<form action='classCtrl/selectChannel' method='POST'>
-										<input name='id_channel' value='0' hidden></input>
+										<input name='id_channel' value='main' hidden></input>
 										<button class="nav-link active w-100" type="submit">#Main</button>
 									</form>
 								</div>
@@ -192,7 +192,7 @@
 										echo"
 										<div class='container-fluid m-0'>
 											<form action='classCtrl/selectChannel' method='POST'>
-												<input name='id_channel' value='0' hidden></input>
+												<input name='id_channel' value='".$channel['id_channel']."' hidden></input>
 												<button class='nav-link active w-100' type='submit'>#".$channel['channel_name']."</button>
 											</form>
 										</div>";
@@ -208,7 +208,7 @@
 						<div class="tab-content" >
 							<!-- Manage Channel -->
 							<?php
-								if($this->session->userdata('set_id_channel') == "manage"){
+								if($this->session->userdata('channelTrack') == "manage"){
 									echo"
 									<div class='tab-pane active'>
 										<div class='container-fluid p-2'>";
@@ -265,13 +265,12 @@
 										echo"
 										</div>
 									</div>";
-								} else if($this->session->userdata('set_id_channel') == 0){
+								} else {
 									echo"
-									<!-- Main Channel -->
 									<div class='tab-pane active'>
 										<div class='imessage' style='max-height: 480px; max-width:auto; overflow-y: auto; height:800px;' id='chat-box'>";
 											foreach($dataClassForumMsg as $chat){
-												if (($chat['sender'] != $this->session->userdata('userTrack'))&&($chat['classname']==$this->session->userdata('classTrack'))&&($chat['channel']== 'main')){
+												if ($chat['id_user'] != $this->session->userdata('userIdTrack')){
 												echo"<p class='from-them'>";
 													if($chat['imageURL'] != 'null'){
 														echo"<img src='http://localhost/Learnzia/assets/uploads/channel/main_".$chat['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
@@ -280,7 +279,7 @@
 													echo"<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$chat['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; float:left;
 													margin-right:2%'>".$chat['text']."<br><a style='color:#e69627; font-size:13.5px; font-style:italic;'>~ ".$chat['sender']." on ".$chat['datetime']."</a>
 												</p>";
-												} else if(($chat['sender'] == $this->session->userdata('userTrack'))&&($chat['classname']==$this->session->userdata('classTrack'))&&($chat['channel']== 'main')){
+												} else if($chat['id_user'] == $this->session->userdata('userIdTrack')){
 												echo"<p class='from-me'>";
 													if($chat['imageURL'] != 'null'){
 														echo"<img src='http://localhost/Learnzia/assets/uploads/channel/main_".$chat['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
@@ -294,7 +293,6 @@
 										</div>
 										<div class='container' style='min-width:110%; margin-bottom:2%;'>
 										<form method='post' action='classCtrl/sendMainChat' class='form-inline' enctype='multipart/form-data'>
-											<input type='text' class='form-control' name='channel' value='main' hidden>
 											<div class='container'>
 												<label class='switch' style='float:left; margin-right:1%;'>
 												<input type='checkbox' name='imageSwitchMain'>
@@ -321,9 +319,7 @@
 										</form>
 										</div>
 									</div><!--End of channel-->";
-								} else {
-
-								}
+								} 
 							?>
 							
 
@@ -335,24 +331,53 @@
 
 				<div class="tab-pane" id="activity" role="tabpanel" style='overflow-y: initial;'>
 					<div class="container" style='max-height: calc(160vh - 120px); overflow-y: auto;'>
-						<h4>test activity</h4>
+						<h4 class="m-2">Activity</h4>
+						<?php 
+							foreach($listActivity as $activity){
+								echo"
+									<div class='card-header rounded mb-2' style='background:#313436; height:80px;'>
+									<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$activity['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+									style='width:50px; height:50px; float:left; margin-right:2%;'>";
+								if ($activity['username'] == $this->session->userdata('userTrack')){
+									echo"
+									<h5 style='font-size:15.5px; color:#F1C40F;'>You</h5>";
+								} else {
+									echo"
+									<h5 style='font-size:15.5px; color:#F1C40F;'>".$activity['username']."</h5>";
+								}
+								echo $activity['context']." <span class='text-secondary font-italic text-small' style='font-size:12px;'> ~ ".$activity['datetime']."</span>
+								</div>";
+							}
+						?>
 					</div>
 				</div>
 
 				<div class="tab-pane" id="member" role="tabpanel" style='overflow-y: initial;'>
 					<div class="container" style='max-height: calc(160vh - 120px); overflow-y: auto; margin-top:1%;'>
-						<?php foreach ($listRel  as $member){
-							if($member['classname'] == $this->session->userdata('classTrack')){
-						echo"<div class='card-header' style='background:#313436; border-radius:6px; margin-bottom:6px;'>
-								<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$member['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
-									style='width:50px; height:50px; float:left; margin-right:2%; margin-top:6px'>";
+						<?php 
+							foreach ($listRel  as $member){
+								if($member['classname'] == $this->session->userdata('classTrack')){
+									echo"
+										<div class='card-header' style='background:#313436; border-radius:6px; margin-bottom:6px;'>
+										<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$member['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+										style='width:50px; height:50px; float:left; margin-right:2%; margin-top:6px'>";
 									if ($member['username'] == $this->session->userdata('userTrack')){
-										echo "<h5 style='font-size:15.5px; color:#F1C40F;'>You</h5>";
+										echo"
+										<h5 style='font-size:15.5px; color:#F1C40F;'>You</h5>";
 									} else {
-										echo "<h5 style='font-size:15.5px; color:#F1C40F;'>".$member['username']."</h5>";}
-								if($member['typeRelation'] == 'founder'){echo"<p style='font-size:14px; color:#7289da; font-weight:bold;'>".$member['typeRelation']."</p>";}
-								else if($member['typeRelation'] == 'co-founder') {echo"<p style='font-size:14px; color:#00a13e;'>".$member['typeRelation']."</p>";}
-								else{echo"<p style='font-size:14px; color:whitesmoke;'>".$member['typeRelation']."</p>";}
+										echo"
+										<h5 style='font-size:15.5px; color:#F1C40F;'>".$member['username']."</h5>";
+									}
+									if($member['typeRelation'] == 'founder'){
+										echo"<p style='font-size:14px; color:#7289da; font-weight:bold;'>".$member['typeRelation']."</p>";
+									}
+									else if($member['typeRelation'] == 'co-founder') {
+										echo"
+										<p style='font-size:14px; color:#00a13e;'>".$member['typeRelation']."</p>";
+									}
+									else {
+										echo"<p style='font-size:14px; color:whitesmoke;'>".$member['typeRelation']."</p>";
+									}
 								echo"<button class='btn btn-success' type='submit' style='border:none; float:right; margin-right:2%; margin-top:-50px;'>View Profile</button>";
 								//Manage member
 								foreach($listRel as $search){
