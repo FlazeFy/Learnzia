@@ -101,6 +101,7 @@
 				
 				$this->classModel->insertChannel($data, 'channel');
 
+				//Class activity
 				$data2 = array(
 					'id_activity' => 'NULL',
 					'id_user' => $this->session->userdata('userIdTrack'),
@@ -160,6 +161,42 @@
 				}
 			} else {
 				$this->classModel->insertMainMsg($data, 'classforummessage');
+			}
+		}
+
+		//Delete channel
+		public function deleteChannel(){
+			$id_channel = $this->input->post('id_channel');
+			$channel_name = $this->input->post('channel_name');
+
+			$this->db->select('*');
+			$this->db->from('channel');
+			$condition = array('channel_name' => $channel_name, 'id_channel' => $id_channel);
+			$this->db->where($condition);
+			$channelCheck = $this->db->get()->result();
+			if(count($channelCheck) != 0){
+				$this->db->where('id_channel', $id_channel);
+				$this->db->delete('channel');
+
+				//Class activity
+				$data2 = array(
+					'id_activity' => 'NULL',
+					'id_user' => $this->session->userdata('userIdTrack'),
+					'id_classroom' => $this->session->userdata('classIdTrack'),
+					'context' => $this->session->userdata('userTrack')." deleted ".$channel_name." channel",
+					'datetime' => date("Y/m/d h:i:sa")
+				);
+
+				$this->classModel->insertActivity($data2, 'classroom-activity');
+
+				//Result.
+				$data['success_message'] = "Successfully deleted '".$channel_name."' channel";
+				$this->index();
+				$this->load->view('classView', $data);	
+			} else {
+				$data['error_message'] = "Delete failed. Please input same channel name!";
+				$this->index();
+				$this->load->view('classView', $data);	
 			}
 		}
 

@@ -1,6 +1,3 @@
-<!--Leonardho R. Sitanggang
-    1302194041  SE-43-03
--->
 <!DOCTYPE html>
 <html>
     <head>
@@ -232,24 +229,28 @@
 
 																<br><hr>
 																<div class='container-fluid p-0'>
-																	<h4 class='text-white my-2'>List Channel</h4>
-																	<div class='container-fluid m-2 p-3 rounded' style='background:#313436;'>
-																		<div class='row'>
-																			<div class='col-md-8'>
-																				<h7 class='text-white my-auto'>#lorem</h7><br>
-																				<a class='text-white my-auto'>description	</a>
-																			</div>
-																			<div class='col-md-4'>
-																				<a class='btn btn-info border-0' style='background:#f1c40f;'><i class='fa-solid fa-pen-to-square'></i></a>
-																				<a class='btn btn-danger'><i class='fa-solid fa-trash-can'></i></a>
-																			</div>
-																		</div>
-																	</div>
+																	<h4 class='text-white my-2'>Channel's Statistics</h4>
+																	
 																</div>
 															</div>
 															<div class='col-md'>
-																<h4 class='text-white my-2'>Channel's Statistics</h4>
-																
+																<h4 class='text-white my-2'>List Channel</h4>";
+																foreach($listChannel as $channel){
+																	echo"
+																	<div class='container-fluid m-2 p-3 rounded' style='background:#313436;'>
+																		<div class='row'>
+																			<div class='col-md-8'>
+																				<h7 class='text-white my-auto'>#".$channel['channel_name']."</h7><br>
+																				<a class='text-white my-auto'>".$channel['channel_description']."</a>
+																			</div>
+																			<div class='col-md-4'>
+																				<a class='btn btn-info border-0' style='background:#f1c40f;'><i class='fa-solid fa-pen-to-square'></i></a>
+																				<a class='btn btn-danger' data-toggle='modal' data-target='#deleteChannelModal-".$channel['id_channel']."'><i class='fa-solid fa-trash-can'></i></a>
+																			</div>
+																		</div>
+																	</div>";
+																}
+															echo"
 															</div>
 														</div>
 													";
@@ -499,7 +500,33 @@
 			</div>			
 			</div>
 		</div>
-		</div>				
+		</div>		
+		
+		<!-- Delete Channel Modal -->
+		<?php
+			foreach($listChannel as $channel){
+				echo"
+				<div class='modal fade' id='deleteChannelModal-".$channel['id_channel']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+				<div class='modal-dialog' role='document'>
+					<div class='modal-content' style='background-color:#313436;'>
+					<div class='modal-header'>
+						<h5 class='modal-title' id='exampleModalLabel'>Warning</h5>
+                        <button type='button' class='btn-close' data-dismiss='modal' aria-label='Close'></button>
+					</div>
+					<form method='POST' action='classCtrl/deleteChannel'>
+					<div class='modal-body p-4 text-center'>
+						<h6>Are you sure want to delete ".$channel['channel_name']." channel</h6>
+						<input hidden name='id_channel' value='".$channel['id_channel']."'>
+						<input type='text' name='channel_name' class='form-control w-75 d-block mx-auto' required>
+						<p class='mt-2' style='font-size:12px; color:#f1c40f;'><i class='fa-solid fa-circle-info'></i> Please type the same channel name for validation</p>
+						<button type='submit' class='btn btn-danger border-0 float-right mb-4'>Yes, Delete this</button>
+					</div>	
+					</form>		
+					</div>
+				</div>
+				</div>";
+			}		
+		?>
 
 		<!-- Modal Add Message -->
 		<div class='modal fade' id='messageModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>

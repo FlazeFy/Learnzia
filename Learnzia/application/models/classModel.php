@@ -45,7 +45,7 @@
 			$this->db->from('classroom-activity');
 			$this->db->join('user','user.id_user = classroom-activity.id_user');
 			$this->db->where('id_classroom', $this->session->userdata("classIdTrack"));
-			$this->db->order_by('datetime','ASC');
+			$this->db->order_by('datetime','DESC');
 			return $data = $this->db->get()->result_array();
 		}
 		//For searching
