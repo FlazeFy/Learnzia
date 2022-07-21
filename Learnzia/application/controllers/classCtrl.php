@@ -15,6 +15,7 @@
 			$data['listChannel']= $this->classModel->get_list_channel();
 			$data['listClass']= $this->classModel->get_list_class();
 			$data['listRel']= $this->classModel->get_list_relation();
+			$data['myRel']= $this->classModel->get_my_relation();
 			$data['listActivity']= $this->classModel->get_list_activity();
 			$data['dataClassForumMsg']= $this->classModel->get_all_classForumMessage();
 			$this->load->view('classView', $data);
@@ -229,6 +230,36 @@
 
 			//Result.
 			$data['success_message'] = "Successfully update '".$channel_name." channel";
+			$this->index();
+			$this->load->view('classView', $data);
+		}
+
+		//Update class profile
+		public function updateClassData(){
+			$classname = $this->input->post('classname');
+			$data = [
+				"classname" => $classname,
+				"category" => $this->input->post('category'),
+				"description" => $this->input->post('description'),
+				"type" => $this->input->post('type'),
+			];
+
+			$this->classModel->updateClass($data, 'classroom');
+			$this->session->set_userdata('classTrack', $classname);
+
+			//Class activity
+			$data2 = array(
+				'id_activity' => 'NULL',
+				'id_user' => $this->session->userdata('userIdTrack'),
+				'id_classroom' => $this->session->userdata('classIdTrack'),
+				'context' => $this->session->userdata('userTrack')." has changed ".$classname." profile",
+				'datetime' => date("Y/m/d h:i:sa")
+			);
+
+			$this->classModel->insertActivity($data2, 'classroom-activity');
+
+			//Result.
+			$data['success_message'] = "Successfully update ".$classname." class";
 			$this->index();
 			$this->load->view('classView', $data);
 		}

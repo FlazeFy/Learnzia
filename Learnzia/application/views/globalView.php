@@ -176,7 +176,7 @@
 						if (($data['classname'] == $data2['classname'])&& ($data2['username']== $this->session->userdata('userTrack'))){
 							echo "<button class='btn btn-primary' data-toggle='modal' data-target='#classModal".$data['classname']."' aria-expanded='false' 
 								aria-controls='multiCollapseExample2' style='background-color: #212121; border:none; margin-bottom:1%; max-width:120px; max-height:120px;'>
-								<img src='http://localhost/Learnzia/assets/uploads/classroom/classroom_".$data['imageURL'].".jpg' alt='Card image cap' style='width:60px; 
+								<img src='http://localhost/Learnzia/assets/uploads/classroom/".$data['imageURL'].".jpg' alt='Card image cap' style='width:60px; 
 									height:60px; border: 2.5px solid #F1C40F; border-radius:8px;'>
 								<h5 style='font-size:14px;'>/".$data['classname']."</h5>
 								<h6 style='font-size:14px; margin-top:-6%; color:#7289da;'>".$data['category']."</h6>
@@ -204,7 +204,7 @@
 					<div class='card m-3 p-2' style='width:30%; background:#212121; box-shadow: rgba(241, 196, 15, 0.24) 0px 3px 8px;'>
 						<div class='row'>
 							<div class='col-md-6'>
-								<img src='http://localhost/Learnzia/assets/uploads/classroom/classroom_".$data['imageURL'].".jpg' alt='Card image cap' class='img-fluid rounded w-75'>
+								<img src='http://localhost/Learnzia/assets/uploads/classroom/".$data['imageURL'].".jpg' alt='Card image cap' class='img-fluid rounded w-75'>
 							</div>
 							<div class='col-lg-6'>
 								<div class='container-fluid w-100' style='margin-left:-60px;'>
@@ -416,7 +416,7 @@
 					<div class='modal-body' style='max-height: calc(98vh - 160px); overflow-y: auto;'>
 					<div class='row'>
 						<div class='col-lg-4 col-xlg-3 col-md-5' style='overflow-y: initial;'>
-							<img src='http://localhost/Learnzia/assets/uploads/classroom/classroom_".$class['imageURL'].".jpg' alt='Card image cap' style='width:225px; 
+							<img src='http://localhost/Learnzia/assets/uploads/classroom/".$class['imageURL'].".jpg' alt='Card image cap' style='width:225px; 
 							height:225px; border: 2.5px solid #F1C40F; border-radius:8px; margin-bottom:2%;'>
 							<h5 style='color:#F1C40F;'>Member</h5>
 							<div class='card' style='border-radius:5px; border: 3px solid #F1C40F; background-color:#525252; margin-bottom:3%; width:225px; 

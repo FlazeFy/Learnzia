@@ -58,11 +58,27 @@
 			$data = $this->db->get('classroom');
 			return $data->result_array();
 		}
+
 		public function get_list_relation()
 		{
-			$data = $this->db->get('relation');
-			return $data->result_array();
+			$this->db->select('*');
+			$this->db->from('relation');
+			$this->db->join('user','user.id_user = relation.id_user');
+			$this->db->join('classroom','classroom.id_classroom = relation.id_classroom');
+			return $data = $this->db->get()->result_array();
 		}
+
+		public function get_my_relation()
+		{
+			$this->db->select('*');
+			$this->db->from('relation');
+			$this->db->join('user','user.id_user = relation.id_user');
+			$this->db->join('classroom','classroom.id_classroom = relation.id_classroom');
+			$this->db->where('relation.id_classroom', $this->session->userdata("classIdTrack"));
+			$this->db->where('relation.id_user', $this->session->userdata("userIdTrack"));
+			return $data = $this->db->get()->result_array();
+		}
+
 		public function get_all_classForumMessage()
 		{
 			$this->db->select('*');
@@ -116,5 +132,13 @@
 			$this->db->where('id_channel', $id);
 			$this->db->update('channel', $data);
 		}	
+
+		//Change class data
+		function updateClass($data)
+		{
+			$id = $this->input->post('id_classroom');
+			$this->db->where('id_classroom', $id);
+			$this->db->update('classroom', $data);
+		}
 	}
 ?>

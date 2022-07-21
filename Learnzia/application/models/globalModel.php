@@ -17,8 +17,6 @@
 			$condition = $this->session->userdata('userTrack');
 			$condition2 = array('username1' == $condition OR 'username2' == $condition);
 			$this->db->where($condition2);
-			//$this->db->group_by('username1','username2');
-			//$this->db->limit(1);
 			return $data = $this->db->get()->result_array();
 		}
 		public function get_all_message()
@@ -40,11 +38,27 @@
 			$data = $this->db->get('classroom');
 			return $data->result_array();
 		}
+
 		public function get_list_relation()
 		{
-			$data = $this->db->get('relation');
-			return $data->result_array();
+			$this->db->select('*');
+			$this->db->from('relation');
+			$this->db->join('user','user.id_user = relation.id_user');
+			$this->db->join('classroom','classroom.id_classroom = relation.id_classroom');
+			return $data = $this->db->get()->result_array();
 		}
+
+		public function get_my_relation()
+		{
+			$this->db->select('*');
+			$this->db->from('relation');
+			$this->db->join('user','user.id_user = relation.id_user');
+			$this->db->join('classroom','classroom.id_classroom = relation.id_classroom');
+			$this->db->where('relation.id_classroom', $this->session->userdata("classIdTrack"));
+			$this->db->where('relation.id_user', $this->session->userdata("userIdTrack"));
+			return $data = $this->db->get()->result_array();
+		}
+
 		public function posting($data){
 			$this->db->insert('message',$data);	
 			redirect('homeCtrl');
