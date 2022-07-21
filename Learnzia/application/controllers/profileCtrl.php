@@ -22,6 +22,7 @@
 			$data['dataReplyWCat']= $this->profileModel->get_all_replyWCat();
 			$this->load->view('profileView', $data);
 		}
+
 		//Send new message
 		public function sendMessage(){
 			$data = array(
@@ -34,6 +35,8 @@
 			$this->profileModel->posting($data, 'message');
 			redirect('profileCtrl');
 		}
+
+		//Send discussion
 		public function sendDisc(){
 			$data = array(
 				'id_discussion' => 'NULL',
@@ -46,6 +49,7 @@
 			$this->profileModel->uploadDisc($data, 'discussion');
 			redirect('profileCtrl');
 		}
+
 		//Reply discussion
 		public function sendReply(){
 			if($this->input->post('imageSwitchR') == 'on'){
@@ -86,6 +90,7 @@
 				$this->profileModel->reply($data, 'reply');
 			}
 		}
+
 		//Send reply message.
 		public function sendRMessage(){
 			if($this->input->post('imageSwitchMsg') == 'on'){
@@ -123,11 +128,13 @@
 				$this->profileModel->replyMessage($data, 'message');
 			}
 		}
+
 		//Reject Invitation.
 		public function rejectInvit(){
 			$id = $this->input->post('id_invitation');
 			$this->profileModel->deleteInvitation($id, 'invitation');
 		}
+
 		//Accept Invitation.
 		public function accInvit(){
 			$data = array(
@@ -141,6 +148,11 @@
 			$data['success_join'] =  $this->input->post('classname');
 			$this->index();
 			$this->load->view('profileView', $data);
+		}
+
+		//Update profile.
+		public function updateProfile(){
+			
 		}
 
 		//Sign out

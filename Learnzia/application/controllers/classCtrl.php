@@ -175,8 +175,13 @@
 			$this->db->where($condition);
 			$channelCheck = $this->db->get()->result();
 			if(count($channelCheck) != 0){
+				//Delete channel
 				$this->db->where('id_channel', $id_channel);
 				$this->db->delete('channel');
+
+				//Delete channel's message
+				$this->db->where('id_channel', $id_channel);
+				$this->db->delete('classforummessage');
 
 				//Class activity
 				$data2 = array(
@@ -198,6 +203,34 @@
 				$this->index();
 				$this->load->view('classView', $data);	
 			}
+		}
+
+		//Edit channel
+		public function editChannel(){
+			$channel_name = $this->input->post('channel_name');
+
+			$data = [
+				"channel_name" => $channel_name,
+				"channel_description" => $this->input->post('channel_description'),
+			];
+
+			$this->classModel->updateChannel($data, 'channel');
+
+			//Class activity
+			$data2 = array(
+				'id_activity' => 'NULL',
+				'id_user' => $this->session->userdata('userIdTrack'),
+				'id_classroom' => $this->session->userdata('classIdTrack'),
+				'context' => $this->session->userdata('userTrack')." has changed ".$channel_name." channel's profile",
+				'datetime' => date("Y/m/d h:i:sa")
+			);
+
+			$this->classModel->insertActivity($data2, 'classroom-activity');
+
+			//Result.
+			$data['success_message'] = "Successfully update '".$channel_name." channel";
+			$this->index();
+			$this->load->view('classView', $data);
 		}
 
 		//Sign out

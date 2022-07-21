@@ -472,19 +472,19 @@
 
                                 <div class="tab-pane" id="edit" role="tabpanel">
 									<div class="p-3 py-4">
-                                        <form method='post' action=''>
+                                        <form method='post' action='profileCtrl/updateProfile'>
 											<div class="form-group mb-3">
 											<label class="label" for="description" style="color:#F1C40F;">Description</label>
-												<textarea rows="5" cols="85" name="description" style="background:#212121; border-width: 0 0 3px; 
-												border-bottom: 3.5px solid #F1C40F; color:whitesmoke; border-radius:5px; text-align:left;" 
+												<textarea class='form-control w-75' rows="5" name="description" style="background:#212121; border-width: 0 0 3px; 
+												border-bottom: 3.5px solid #F1C40F; color:whitesmoke;" 
 												value='<?php foreach ($dataUser as $data) {echo $data['description'];} ?>'
 													required> <?php foreach ($dataUser as $data) {echo $data['description'];} ?></textarea>
 											</div>
 
 											<div class="form-group mb-3">
-											<label class="label" for="password" style="color:#F1C40F;">Password</label>
-											<input type="password" class="form-control" placeholder="Password" style="background:#212121; border-width: 0 0 3px; 
-													border-bottom: 3.5px solid #F1C40F; color:whitesmoke; width:88%;" value='<?php foreach ($dataUser as $data) {echo $data['password'];} ?>'
+												<label class="label" for="password" style="color:#F1C40F;">Password</label>
+												<input type="password" class="form-control w-75" placeholder="Password" style="background:#212121; border-width: 0 0 3px; 
+													border-bottom: 3.5px solid #F1C40F; color:whitesmoke;" value='<?php foreach ($dataUser as $data) {echo $data['password'];} ?>'
 													name="password" required>
 											</div>
 

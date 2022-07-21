@@ -48,6 +48,7 @@
 			$this->db->order_by('datetime','DESC');
 			return $data = $this->db->get()->result_array();
 		}
+
 		//For searching
 		public function get_list_user(){
 			$data = $this->db->get('user');
@@ -72,26 +73,31 @@
 			$this->db->order_by('datetime','ASC');
 			return $data = $this->db->get()->result_array();
 		}
+
+
 		public function posting($data){
 			$this->db->insert('message',$data);	
 			redirect('homeCtrl');
 		}
+
 		//reply message
 		public function replyMessage($data){
 			$this->db->insert('message',$data);	
 			redirect('classCtrl');
 		}
+
+		//Insert channel message
+		public function insertMainMsg($data){
+			$this->db->insert('classforummessage',$data);	
+			redirect('classCtrl');
+		}
+
 		//Sign out
 		public function offstatus(){
 			$this->db->set('status', 'offline');
 			$this->db->where('username', $this->session->userdata('userTrack'));
 			$this->db->update('user');
 			redirect('http://localhost/Learnzia');
-		}
-		//reply discussion
-		public function insertMainMsg($data){
-			$this->db->insert('classforummessage',$data);	
-			redirect('classCtrl');
 		}
 
 		//Create channel
@@ -102,5 +108,13 @@
 		public function insertActivity($data2){			
 			$this->db->insert('classroom-activity',$data2);
 		}
+
+		//Change user data.
+		function updateChannel($data)
+		{
+			$id = $this->input->post('id_channel');
+			$this->db->where('id_channel', $id);
+			$this->db->update('channel', $data);
+		}	
 	}
 ?>
