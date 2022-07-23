@@ -25,25 +25,118 @@
 							</div>
 							<div class='imessage' style='max-height: calc(80vh - 160px); max-width:auto; overflow-y: auto; height:800px; min-width:100%;'>";
 								foreach($dataMessage as $msg){
-									if(($msg['id_user_sender'] == $c['id_user_2'])&&($msg['id_social'] == $c['id_social'])){
-										echo "<p class='from-them'>";
-										if($msg['imageURL'] != 'null'){
-											echo"<img src='http://localhost/Learnzia/assets/uploads/message/".$msg['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
-											margin:1%; border-radius:6px;'>";
+									if($msg['imageURL'] != 'discussion'){
+										if(($msg['id_user_sender'] == $c['id_user_2'])&&($msg['id_social'] == $c['id_social'])){
+											echo "<p class='from-them'>";
+											if(($msg['imageURL'] != 'null')&&($msg['imageURL'] != 'discussion')){
+												echo"<img src='http://localhost/Learnzia/assets/uploads/message/".$msg['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
+												margin:1%; border-radius:6px;'>";
+											} 
+											echo "".$msg['message']."<br><a style='color:#e69627; font-size:13.5px; font-style:italic;'>~ on ".$msg['datetime']."</a>
+											</p>";
+											$count++;
+										} else if(($msg['id_user_sender'] == $this->session->userdata("userIdTrack"))&&($msg['id_social'] == $c['id_social'])){
+											echo "<p class='from-me'>";
+											if(($msg['imageURL'] != 'null')&&($msg['imageURL'] != 'discussion')){
+												echo"<img src='http://localhost/Learnzia/assets/uploads/message/".$msg['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
+												margin:1%; border-radius:6px;'>";
+											} 
+											echo "".$msg['message']."<br><a style='color:#212121; font-size:13.5px; font-style:italic;'>~ on ".$msg['datetime']."</a>
+											</p>";
+											$count++;
+										} 
+									} else if($msg['imageURL'] == 'discussion'){
+										$i = 0;
+										if(($msg['id_user_sender'] == $c['id_user_2'])&&($msg['id_social'] == $c['id_social'])){
+											foreach($allDisc as $dis){
+												if($msg['message'] == $dis['id_discussion']){
+													echo"
+													<div class='card p-2 m-2 border-0' style='background-color:#212121; border-top-right-radius: 35px'>
+														<div class='card-header' id='headingOne'>
+															<img src='http://localhost/Learnzia/assets/uploads/user_".$dis['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; margin-top: -1%; 
+																margin-right:1%; float:left;'>";
+															if($dis['sender'] == $this->session->userdata('userTrack')){
+																echo"<h5 style='font-size:20px; float:left;'>You</h5>";
+															} else {
+																echo"<h5 style='font-size:20px; float:left;'>".$dis['sender']."</h5>";
+															} echo "
+															<p style='font-size:10px; padding-top:10px; float:left; font-style:italic; color:whitesmoke;'>".$dis['datetime']."</p>
+															<a class='btn btn-transparent border-0' style='margin-top:-5px; float:right; color:#F1C40F;' data-toggle='modal' data-target='#shareDisc".$dis['id_discussion']."'><i class='fa-solid fa-share'></i></a>
+															<br><hr>";
+															//Image w/ question
+															if ($dis['image'] == 'yes'){
+																echo"
+																<div class='row' style='margin-bottom:1%;'>
+																	<div class='col-md-4 border-right'>
+																		<img src='http://localhost/Learnzia/assets/uploads/discussion_".$dis['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
+																		alt='' data-toggle='modal' data-target='#zoom".$dis['id_discussion']."'>
+																	</div>
+																	<div class='col-md-6' style=''>
+																		<p style='font-size:14px; color:whitesmoke;'><span style='color:#F1C40F; font-weight:500;'>".$dis['subject']." | </span> ".$dis['question']."</p>
+																	</div>
+																</div>";
+															} else { 
+																echo"
+																<p style='font-size:14px; color:whitesmoke;'><span style='color:#F1C40F; font-weight:500;'>".$dis['subject']." | </span> ".$dis['question']."</p>";
+															}
+															echo "<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$dis['view']."</h6>
+																<img src='http://localhost/Learnzia/assets/Images/icon/View.png' style='width:25px; height:25px; float:right; margin-top:-5px; padding-left:5px;'>
+															<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$dis['up']."</h6>
+																<img src='http://localhost/Learnzia/assets/Images/icon/Up.png' style='width:25px; height:22px; float:right; margin-top:-4px; padding-left:5px;'>
+															<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$dis['comment']."</h6>
+																<img src='http://localhost/Learnzia/assets/Images/icon/Comment.png' style='width:25px; height:20px; float:right; margin-top:-2px; padding-left:5px;'>
+															<h5 style='font-size:15px; float:left; text-decoration:underline;' type='button'>See Detail
+																<img src='http://localhost/Learnzia/assets/Images/icon/Down.png' style='width:25px; height:20px; float:left; padding-left:3px;'></h5>
+														</div>
+													</div>";
+												}
+											}
+										} else if(($msg['id_user_sender'] == $this->session->userdata("userIdTrack"))&&($msg['id_social'] == $c['id_social'])){
+											foreach($allDisc as $dis){
+												if($msg['message'] == $dis['id_discussion']){
+													echo"
+													<div class='card p-2 m-2 border-0' style='background-color:#212121; border-top-left-radius: 35px'>
+														<div class='card-header' id='headingOne'>
+															<img src='http://localhost/Learnzia/assets/uploads/user_".$dis['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; margin-top: -1%; 
+																margin-right:1%; float:left;'>";
+															if($dis['sender'] == $this->session->userdata('userTrack')){
+																echo"<h5 style='font-size:20px; float:left;'>You</h5>";
+															} else {
+																echo"<h5 style='font-size:20px; float:left;'>".$dis['sender']."</h5>";
+															} echo "
+															<p style='font-size:10px; padding-top:10px; float:left; font-style:italic; color:whitesmoke;'>".$dis['datetime']."</p>
+															<a class='btn btn-transparent border-0' style='margin-top:-5px; float:right; color:#F1C40F;' data-toggle='modal' data-target='#shareDisc".$dis['id_discussion']."'><i class='fa-solid fa-share'></i></a>
+															<br><hr>";
+															//Image w/ question
+															if ($dis['image'] == 'yes'){
+																echo"
+																<div class='row' style='margin-bottom:1%;'>
+																	<div class='col-md-4 border-right'>
+																		<img src='http://localhost/Learnzia/assets/uploads/discussion_".$dis['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
+																		alt='' data-toggle='modal' data-target='#zoom".$dis['id_discussion']."'>
+																	</div>
+																	<div class='col-md-6' style=''>
+																		<p style='font-size:14px; color:whitesmoke;'><span style='color:#F1C40F; font-weight:500;'>".$dis['subject']." | </span> ".$dis['question']."</p>
+																	</div>
+																</div>";
+															} else { 
+																echo"
+																<p style='font-size:14px; color:whitesmoke;'><span style='color:#F1C40F; font-weight:500;'>".$dis['subject']." | </span> ".$dis['question']."</p>";
+															}
+															echo "<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$dis['view']."</h6>
+																<img src='http://localhost/Learnzia/assets/Images/icon/View.png' style='width:25px; height:25px; float:right; margin-top:-5px; padding-left:5px;'>
+															<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$dis['up']."</h6>
+																<img src='http://localhost/Learnzia/assets/Images/icon/Up.png' style='width:25px; height:22px; float:right; margin-top:-4px; padding-left:5px;'>
+															<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$dis['comment']."</h6>
+																<img src='http://localhost/Learnzia/assets/Images/icon/Comment.png' style='width:25px; height:20px; float:right; margin-top:-2px; padding-left:5px;'>
+															<h5 style='font-size:15px; float:left; text-decoration:underline;' type='button'>See Detail
+																<img src='http://localhost/Learnzia/assets/Images/icon/Down.png' style='width:25px; height:20px; float:left; padding-left:3px;'></h5>
+														</div>
+													</div>";
+												}
+											}
 										}
-										echo "".$msg['message']."<br><a style='color:#e69627; font-size:13.5px; font-style:italic;'>~ on ".$msg['datetime']."</a>
-										</p>";
-										$count++;
-									} else if(($msg['id_user_sender'] == $this->session->userdata("userIdTrack"))&&($msg['id_social'] == $c['id_social'])){
-										echo "<p class='from-me'>";
-										if($msg['imageURL'] != 'null'){
-											echo"<img src='http://localhost/Learnzia/assets/uploads/message/".$msg['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
-											margin:1%; border-radius:6px;'>";
-										}
-										echo "".$msg['message']."<br><a style='color:#212121; font-size:13.5px; font-style:italic;'>~ on ".$msg['datetime']."</a>
-										</p>";
-										$count++;
-									} 
+									}
 								}
 								if ($count == 0){
 									echo"<h5 style='font-size:15px; font-style:italic; float:left;'>Chat is empty...</h5>";
@@ -104,25 +197,118 @@
 							</div>
 							<div class='imessage' style='max-height: calc(80vh - 160px); max-width:auto; overflow-y: auto; height:800px; min-width:100%;'>";
 								foreach($dataMessage as $msg){
-									if(($msg['id_user_sender'] == $c['id_user_1'])&&($msg['id_social'] == $c['id_social'])){
-										echo "<p class='from-them'>";
-										if($msg['imageURL'] != 'null'){
-											echo"<img src='http://localhost/Learnzia/assets/uploads/message/".$msg['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
-											margin:1%; border-radius:6px;'>";
+									if($msg['imageURL'] != 'discussion'){
+										if(($msg['id_user_sender'] == $c['id_user_1'])&&($msg['id_social'] == $c['id_social'])){
+											echo "<p class='from-them'>";
+											if(($msg['imageURL'] != 'null')&&($msg['imageURL'] != 'discussion')){
+												echo"<img src='http://localhost/Learnzia/assets/uploads/message/".$msg['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
+												margin:1%; border-radius:6px;'>";
+											}
+											echo "".$msg['message']."<br><a style='color:#e69627; font-size:13.5px; font-style:italic;'>~ on ".$msg['datetime']."</a>
+											</p>";
+											$count++;
+										} else if(($msg['id_user_sender'] == $this->session->userdata("userIdTrack"))&&($msg['id_social'] == $c['id_social'])){
+											echo "<p class='from-me'>";
+											if(($msg['imageURL'] != 'null')&&($msg['imageURL'] != 'discussion')){
+												echo"<img src='http://localhost/Learnzia/assets/uploads/message/".$msg['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
+												margin:1%; border-radius:6px;'>";
+											}
+											echo "".$msg['message']."<br><a style='color:#212121; font-size:13.5px; font-style:italic;'>~ on ".$msg['datetime']."</a>
+											</p>";
+											$count++;
+										} 
+									} else if($msg['imageURL'] == 'discussion'){
+										$i = 0;
+										if(($msg['id_user_sender'] == $c['id_user_2'])&&($msg['id_social'] == $c['id_social'])){
+											foreach($allDisc as $dis){
+												if($msg['message'] == $dis['id_discussion']){
+													echo"
+													<div class='card p-2 m-2 border-0' style='background-color:#212121; border-top-right-radius: 35px'>
+														<div class='card-header' id='headingOne'>
+															<img src='http://localhost/Learnzia/assets/uploads/user_".$dis['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; margin-top: -1%; 
+																margin-right:1%; float:left;'>";
+															if($dis['sender'] == $this->session->userdata('userTrack')){
+																echo"<h5 style='font-size:20px; float:left;'>You</h5>";
+															} else {
+																echo"<h5 style='font-size:20px; float:left;'>".$dis['sender']."</h5>";
+															} echo "
+															<p style='font-size:10px; padding-top:10px; float:left; font-style:italic; color:whitesmoke;'>".$dis['datetime']."</p>
+															<a class='btn btn-transparent border-0' style='margin-top:-5px; float:right; color:#F1C40F;' data-toggle='modal' data-target='#shareDisc".$dis['id_discussion']."'><i class='fa-solid fa-share'></i></a>
+															<br><hr>";
+															//Image w/ question
+															if ($dis['image'] == 'yes'){
+																echo"
+																<div class='row' style='margin-bottom:1%;'>
+																	<div class='col-md-4 border-right'>
+																		<img src='http://localhost/Learnzia/assets/uploads/discussion_".$dis['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
+																		alt='' data-toggle='modal' data-target='#zoom".$dis['id_discussion']."'>
+																	</div>
+																	<div class='col-md-6' style=''>
+																		<p style='font-size:14px; color:whitesmoke;'><span style='color:#F1C40F; font-weight:500;'>".$dis['subject']." | </span> ".$dis['question']."</p>
+																	</div>
+																</div>";
+															} else { 
+																echo"
+																<p style='font-size:14px; color:whitesmoke;'><span style='color:#F1C40F; font-weight:500;'>".$dis['subject']." | </span> ".$dis['question']."</p>";
+															}
+															echo "<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$dis['view']."</h6>
+																<img src='http://localhost/Learnzia/assets/Images/icon/View.png' style='width:25px; height:25px; float:right; margin-top:-5px; padding-left:5px;'>
+															<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$dis['up']."</h6>
+																<img src='http://localhost/Learnzia/assets/Images/icon/Up.png' style='width:25px; height:22px; float:right; margin-top:-4px; padding-left:5px;'>
+															<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$dis['comment']."</h6>
+																<img src='http://localhost/Learnzia/assets/Images/icon/Comment.png' style='width:25px; height:20px; float:right; margin-top:-2px; padding-left:5px;'>
+															<h5 style='font-size:15px; float:left; text-decoration:underline;' type='button'>See Detail
+																<img src='http://localhost/Learnzia/assets/Images/icon/Down.png' style='width:25px; height:20px; float:left; padding-left:3px;'></h5>
+														</div>
+													</div>";
+												}
+											}
+										} else if(($msg['id_user_sender'] == $this->session->userdata("userIdTrack"))&&($msg['id_social'] == $c['id_social'])){
+											foreach($allDisc as $dis){
+												if($msg['message'] == $dis['id_discussion']){
+													echo"
+													<div class='card p-2 m-2 border-0' style='background-color:#212121; border-top-left-radius: 35px'>
+														<div class='card-header' id='headingOne'>
+															<img src='http://localhost/Learnzia/assets/uploads/user_".$dis['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; margin-top: -1%; 
+																margin-right:1%; float:left;'>";
+															if($dis['sender'] == $this->session->userdata('userTrack')){
+																echo"<h5 style='font-size:20px; float:left;'>You</h5>";
+															} else {
+																echo"<h5 style='font-size:20px; float:left;'>".$dis['sender']."</h5>";
+															} echo "
+															<p style='font-size:10px; padding-top:10px; float:left; font-style:italic; color:whitesmoke;'>".$dis['datetime']."</p>
+															<a class='btn btn-transparent border-0' style='margin-top:-5px; float:right; color:#F1C40F;' data-toggle='modal' data-target='#shareDisc".$dis['id_discussion']."'><i class='fa-solid fa-share'></i></a>
+															<br><hr>";
+															//Image w/ question
+															if ($dis['image'] == 'yes'){
+																echo"
+																<div class='row' style='margin-bottom:1%;'>
+																	<div class='col-md-4 border-right'>
+																		<img src='http://localhost/Learnzia/assets/uploads/discussion_".$dis['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
+																		alt='' data-toggle='modal' data-target='#zoom".$dis['id_discussion']."'>
+																	</div>
+																	<div class='col-md-6' style=''>
+																		<p style='font-size:14px; color:whitesmoke;'><span style='color:#F1C40F; font-weight:500;'>".$dis['subject']." | </span> ".$dis['question']."</p>
+																	</div>
+																</div>";
+															} else { 
+																echo"
+																<p style='font-size:14px; color:whitesmoke;'><span style='color:#F1C40F; font-weight:500;'>".$dis['subject']." | </span> ".$dis['question']."</p>";
+															}
+															echo "<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$dis['view']."</h6>
+																<img src='http://localhost/Learnzia/assets/Images/icon/View.png' style='width:25px; height:25px; float:right; margin-top:-5px; padding-left:5px;'>
+															<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$dis['up']."</h6>
+																<img src='http://localhost/Learnzia/assets/Images/icon/Up.png' style='width:25px; height:22px; float:right; margin-top:-4px; padding-left:5px;'>
+															<h6 style='font-size:13px; float:right; padding-left:5px; color:whitesmoke;'>".$dis['comment']."</h6>
+																<img src='http://localhost/Learnzia/assets/Images/icon/Comment.png' style='width:25px; height:20px; float:right; margin-top:-2px; padding-left:5px;'>
+															<h5 style='font-size:15px; float:left; text-decoration:underline;' type='button'>See Detail
+																<img src='http://localhost/Learnzia/assets/Images/icon/Down.png' style='width:25px; height:20px; float:left; padding-left:3px;'></h5>
+														</div>
+													</div>";
+												}
+											}
 										}
-										echo "".$msg['message']."<br><a style='color:#e69627; font-size:13.5px; font-style:italic;'>~ on ".$msg['datetime']."</a>
-										</p>";
-										$count++;
-									} else if(($msg['id_user_sender'] == $this->session->userdata("userIdTrack"))&&($msg['id_social'] == $c['id_social'])){
-										echo "<p class='from-me'>";
-										if($msg['imageURL'] != 'null'){
-											echo"<img src='http://localhost/Learnzia/assets/uploads/message/".$msg['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
-											margin:1%; border-radius:6px;'>";
-										}
-										echo "".$msg['message']."<br><a style='color:#212121; font-size:13.5px; font-style:italic;'>~ on ".$msg['datetime']."</a>
-										</p>";
-										$count++;
-									} 
+									}
 								}
 								if ($count == 0){
 									echo"<h5 style='font-size:15px; font-style:italic; float:left;'>Chat is empty...</h5>";

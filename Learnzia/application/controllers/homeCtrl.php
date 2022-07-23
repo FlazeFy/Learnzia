@@ -10,13 +10,11 @@
 			$data = [];
 			$data['dataUser']= $this->homeModel->get_data_user();
 			$data['dataMessage']= $this->homeModel->get_all_message();
-			$data['dataDiscussion']= $this->homeModel->get_all_discussion();
 			$data['contacts']= $this->homeModel->get_only_contact();
 			$data['allUser']= $this->homeModel->get_all_user();
-			$data['discHistory']= $this->homeModel->get_all_history();
-			$data['discMath']= $this->homeModel->get_all_math();
+			$data['allDisc']= $this->homeModel->get_all_disc();
 			$data['dataReply']= $this->homeModel->get_all_reply();
-			$this->load->view('homeView', $data);
+			$this->load->view('home/index', $data);
 		}
 
 		//New discussion
@@ -131,13 +129,31 @@
 				if (!$this->upload->do_upload('uploadImageMsg')) {
 					$data['error_message'] = "Your image is to big or not jpg";
 					$this->index();
-					$this->load->view('homeView', $data);
+					$this->load->view('home/index', $data);
 				} else {
 					$this->homeModel->insertMessage($data, 'message');
 				}
 			} else {
 				$this->homeModel->insertMessage($data, 'message');
 			}
+			redirect('homeCtrl');
+		}
+
+		//Share discussion
+		public function shareDisc(){
+			$contact = $this->input->post('id_social[]');		
+			for($i = 0; $i < count($contact); $i++){	
+				$data = array(
+					'id_message' => 'NULL',
+					'id_social' => $contact[$i],
+					'id_user_sender' => $this->session->userdata('userIdTrack'),
+					'message' => $this->input->post('id_discussion'),
+					'imageURL' => 'discussion',
+					'datetime' => date("Y/m/d h:i:sa")
+				);
+				$this->homeModel->insertMessage($data, 'message');
+			}
+			redirect('homeCtrl');
 		}
 
 		//Sign out

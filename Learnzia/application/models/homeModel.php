@@ -43,21 +43,9 @@
 			$this->db->insert('discussion',$data);	
 			redirect('homeCtrl');
 		}
-		public function get_all_discussion(){
-			$data = $this->db->get('discussion');
-			return $data->result_array();
-		}
-		public function get_all_history(){
+		public function get_all_disc(){
 			$this->db->select('*');
 			$this->db->from('discussion');
-			$this->db->where('category', 'history');
-			$this->db->order_by('datetime','DESC');
-			return $data = $this->db->get()->result_array();
-		}
-		public function get_all_math(){
-			$this->db->select('*');
-			$this->db->from('discussion');
-			$this->db->where('category', 'math');
 			$this->db->order_by('datetime','DESC');
 			return $data = $this->db->get()->result_array();
 		}
@@ -76,7 +64,6 @@
 		//Send message.
 		public function insertMessage($data){
 			$this->db->insert('message',$data);	
-			redirect('homeCtrl');
 		}
 
 		//Sign out
