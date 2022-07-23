@@ -23,6 +23,7 @@
 		{
 			$this->db->select('*');
 			$this->db->from('message');
+			$this->db->join('social','message.id_social = social.id_social');
 			$condition = $this->session->userdata('userTrack');
 			$condition2 = array('sender' == $condition OR 'receiver' == $condition);
 			$this->db->where($condition2);
@@ -71,8 +72,9 @@
 			$this->db->insert('reply',$data);	
 			redirect('homeCtrl');
 		}
-		//reply message
-		public function replyMessage($data){
+
+		//Send message.
+		public function insertMessage($data){
 			$this->db->insert('message',$data);	
 			redirect('homeCtrl');
 		}

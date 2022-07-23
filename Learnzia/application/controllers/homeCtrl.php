@@ -18,18 +18,7 @@
 			$data['dataReply']= $this->homeModel->get_all_reply();
 			$this->load->view('homeView', $data);
 		}
-		//Send new message
-		public function sendMessage(){
-			$data = array(
-				'id_message' => 'NULL',
-				'sender' => $this->session->userdata('userTrack'),
-				'receiver' => $this->input->post('receiver'),
-				'message' => $this->input->post('message'),
-				'datetime' => date("Y/m/d h:i:sa")
-			);
-			$this->homeModel->posting($data, 'message');
-			redirect('homeCtrl');
-		}
+
 		//New discussion
 		public function sendDisc(){
 			if($this->input->post('imageSwitch') == 'on'){
@@ -71,6 +60,7 @@
 				$this->homeModel->uploadDisc($data, 'discussion');
 			} 
 		}
+
 		//Reply discussion
 		public function sendReply(){
 			if($this->input->post('imageSwitchR') == 'on'){
@@ -111,41 +101,42 @@
 				$this->homeModel->reply($data, 'reply');
 			}
 		}
-		//Send reply message
+
+		//Send message
 		public function sendRMessage(){
 			if($this->input->post('imageSwitchMsg') == 'on'){
-				$date = date("Ymdhis");
-				$username = $this->session->userdata('userTrack');
-				$imageURL = $username. '' .$date;
+				$imageURL = substr(md5(uniqid(mt_rand(), true)), 0, 30);
 			} else {
 				$imageURL = 'null';
 			}
+
 			$initialize = $this->upload->initialize(array(
 				"upload_path" => './assets/uploads/message',
 				"allowed_types" => 'jpg',
-				"max_size" => 2000,
+				"max_size" => 5000,
 				"remove_spaces" => TRUE,
-				"file_name" => 'message_' . $imageURL
+				"file_name" => 'message_'.$imageURL
 			));
+
 			$data = array(
 				'id_message' => 'NULL',
-				'sender' => $this->session->userdata('userTrack'),
-				'receiver' => $this->input->post('receiver'),
-				'message' => $this->input->post('replyMessage'),
+				'id_social' => $this->input->post('id_social'),
+				'id_user_sender' => $this->session->userdata('userIdTrack'),
+				'message' => $this->input->post('message'),
 				'imageURL' => $imageURL,
 				'datetime' => date("Y/m/d h:i:sa")
 			);
 			
 			if($this->input->post('imageSwitchMsg') == 'on'){
 				if (!$this->upload->do_upload('uploadImageMsg')) {
-					$error = array('error' => $this->upload->display_errors());
-					$data['error_message'] = "Error! your image is to big or not jpg";
-					redirect('homeCtrl');
+					$data['error_message'] = "Your image is to big or not jpg";
+					$this->index();
+					$this->load->view('homeView', $data);
 				} else {
-					$this->homeModel->replyMessage($data, 'message');
+					$this->homeModel->insertMessage($data, 'message');
 				}
 			} else {
-				$this->homeModel->replyMessage($data, 'message');
+				$this->homeModel->insertMessage($data, 'message');
 			}
 		}
 
