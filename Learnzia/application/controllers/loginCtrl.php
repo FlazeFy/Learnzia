@@ -80,6 +80,7 @@
 					$this->load->view('loginView', $data);
 				} else {
 					$this->db->insert('user',$data);
+					//Fix id not finished
 					$this->session->set_userdata('userTrack',$username);	
 					$this->session->set_userdata('lastLogin', date("Y/m/d h:i:sa"));
 					redirect('homeCtrl');

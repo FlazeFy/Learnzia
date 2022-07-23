@@ -12,7 +12,7 @@
 			$data['dataMessage']= $this->homeModel->get_all_message();
 			$data['dataDiscussion']= $this->homeModel->get_all_discussion();
 			$data['contacts']= $this->homeModel->get_only_contact();
-			$data['listUser']= $this->homeModel->get_list_user();
+			$data['allUser']= $this->homeModel->get_all_user();
 			$data['discHistory']= $this->homeModel->get_all_history();
 			$data['discMath']= $this->homeModel->get_all_math();
 			$data['dataReply']= $this->homeModel->get_all_reply();

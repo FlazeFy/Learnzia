@@ -14,11 +14,9 @@
 		{
 			$this->db->select('');
 			$this->db->from('social');
-			$condition = $this->session->userdata('userTrack');
-			$condition2 = array('username1' == $condition OR 'username2' == $condition);
+			$condition = $this->session->userdata('userIdTrack');
+			$condition2 = array('id_user_1' == $condition OR 'id_user_2' == $condition);
 			$this->db->where($condition2);
-			//$this->db->group_by('username1','username2');
-			//$this->db->limit(1);
 			return $data = $this->db->get()->result_array();
 		}
 		public function get_all_message()
@@ -31,7 +29,7 @@
 			$this->db->order_by('datetime','ASC');
 			return $data = $this->db->get()->result_array();
 		}
-		public function get_list_user(){
+		public function get_all_user(){
 			$data = $this->db->get('user');
 			return $data->result_array();
 		}

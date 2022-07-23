@@ -1,6 +1,3 @@
-<!--Leonardho R. Sitanggang
-    1302194041  SE-43-03
--->
 <!DOCTYPE html>
 <html>
     <head>
@@ -34,48 +31,49 @@
 			.dropdown-item:hover{color:whitesmoke; background-color:#7289da;}
 		</style>
     </head>
+
     <body>
 		<!--Main Navbar-->
 		<nav class="navbar navbar-expand-lg" style="background-color:#212121;">
-		<a class="nav-link" onclick="openNav()" type="button">
-		<img src="http://localhost/Learnzia/assets/images/icon/Message.png">Contact</a>
+			<a class="nav-link" onclick="openNav()" type="button">
+			<img src="http://localhost/Learnzia/assets/images/icon/Message.png">Contact</a>
 
-		<!--Side Navbar Message-->
-		<?php
-			$this->load->view('contact/message');
-		?>	
-	
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
-			aria-expanded="false" aria-label="Toggle navigation" style="color:#F1C40F;">
-			<a>Show</a>
-		</button>
+			<!--Side Navbar Message-->
+			<?php
+				$this->load->view('contact/contact');
+			?>	
+		
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+				aria-expanded="false" aria-label="Toggle navigation" style="color:#F1C40F;">
+				<a>Show</a>
+			</button>
 
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav mr-auto">
-			<li class="nav-item active">
-				<a class="nav-link" href="homeCtrl">Home<span class="sr-only">(current)</span></a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="globalCtrl">Global</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="profileCtrl">Profile</a>
-			</li>
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Setting
-				</a>
-				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-				<a class="dropdown-item" href="#">Help Center</a>
-				<a class="dropdown-item" href="#">Privacy & Condition</a>
-				<div class="dropdown-divider"></div>
-				<a class="dropdown-item" href="#">About us</a>
-				</div>
-			</li>
-			</ul>
-			<button class="btn btn-primary" style="color:whitesmoke; margin-left:1%; background-color:#e62d27; border:none;" 
-				data-toggle="modal" data-target="#signOutModal">Sign Out</button>
-		</div>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="homeCtrl">Home<span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="globalCtrl">Global</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="profileCtrl">Profile</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Setting
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" href="#">Help Center</a>
+					<a class="dropdown-item" href="#">Privacy & Condition</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="#">About us</a>
+					</div>
+				</li>
+				</ul>
+				<button class="btn btn-primary" style="color:whitesmoke; margin-left:1%; background-color:#e62d27; border:none;" 
+					data-toggle="modal" data-target="#signOutModal">Sign Out</button>
+			</div>
 		</nav>
 
 		<!--Content-->
@@ -96,23 +94,23 @@
 			$disFriendCount = 0;
 			foreach($contacts as $data){
 			foreach($dataDiscussion as $disFriend){
-				if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))
-					&&($data['username2'] == $disFriend['sender'])){
+				if (($data['id_user_2'] != $this->session->userdata('userTrack'))&&($data['id_user_1'] == $this->session->userdata('userTrack'))
+					&&($data['id_user_2'] == $disFriend['sender'])){
 					echo "
 						<button class='btn btn-primary' data-toggle='collapse' data-target='#disFriend".$disFriend['id_discussion']."' aria-expanded='false' 
 						aria-controls='multiCollapseExample2' style='background-color: #212121; border:none; margin-bottom:1%; max-width:120px; max-height:120px;'>
-							<img src='http://localhost/Learnzia/assets/uploads/user_".$data['username2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+							<img src='http://localhost/Learnzia/assets/uploads/user_".$data['id_user_2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
 								style='width:60px; height:60px; border: 2.5px solid #F1C40F;'>
 							<h5 style='font-size:14px;'>".$disFriend['subject']."</h5>
 						</button>
 					";
 					$disFriendCount++;
-				} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))
-					&&($data['username1'] == $disFriend['sender'])){
+				} else if (($data['id_user_1'] != $this->session->userdata('userTrack'))&&($data['id_user_2'] == $this->session->userdata('userTrack'))
+					&&($data['id_user_1'] == $disFriend['sender'])){
 					echo "
 						<button class='btn btn-primary' data-toggle='collapse' data-target='#disFriend".$disFriend['id_discussion']."' aria-expanded='false' 
 						aria-controls='multiCollapseExample2' style='background-color: #212121; border:none; margin-bottom:1%; max-width:120px; max-height:120px;'>
-							<img src='http://localhost/Learnzia/assets/uploads/user_".$data['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+							<img src='http://localhost/Learnzia/assets/uploads/user_".$data['id_user_1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
 								style='width:60px; height:60px; border: 2.5px solid #F1C40F;'>
 							<h5 style='font-size:14px;'>".$disFriend['subject']."</h5>
 						</button>
@@ -131,8 +129,8 @@
 				<?php
 				foreach($contacts as $data){
 				foreach($dataDiscussion as $disFriend){
-					if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))
-						&&($data['username2'] == $disFriend['sender'])){
+					if (($data['id_user_2'] != $this->session->userdata('userTrack'))&&($data['id_user_1'] == $this->session->userdata('userTrack'))
+						&&($data['id_user_2'] == $disFriend['sender'])){
 						echo"
 						<div class='col-md-12'>
 							<div class='collapse' id='disFriend".$disFriend['id_discussion']."' data-parent='#accordionF'>
@@ -240,8 +238,8 @@
 								echo "</div>
 							</div>
 						</div>";
-					} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))
-					&&($data['username1'] == $disFriend['sender'])){
+					} else if (($data['id_user_1'] != $this->session->userdata('userTrack'))&&($data['id_user_2'] == $this->session->userdata('userTrack'))
+					&&($data['id_user_1'] == $disFriend['sender'])){
 					echo"
 					<div class='col-md-12'>
 						<div class='collapse' id='disFriend".$disFriend['id_discussion']."' data-parent='#accordionF'>
@@ -805,21 +803,21 @@
 		<?php
 			$count = 0; 
 			foreach($contacts as $friend){
-				if (($friend['username2'] != $this->session->userdata('userTrack'))&&($friend['username1'] == $this->session->userdata('userTrack'))){
+				if (($friend['id_user_2'] != $this->session->userdata('userTrack'))&&($friend['id_user_1'] == $this->session->userdata('userTrack'))){
 					echo "
-					<div class='modal fade' id='message".$friend['username2']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+					<div class='modal fade' id='message".$friend['id_user_2']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
 					<div class='modal-dialog' role='document' style='overflow-y: initial;'>
 						<form method='POST' action='homeCtrl/sendRMessage' enctype='multipart/form-data'>
 						<div class='modal-content' style='background-color:#313436;'>
 						<div class='modal-header'>
 							<div class='container'>
-								<img src='http://localhost/Learnzia/assets/uploads/user_".$friend['username2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
+								<img src='http://localhost/Learnzia/assets/uploads/user_".$friend['id_user_2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
 								float:left; margin-right:2%;'>
-								<h5 style='font-size:20px;'>".$friend['username2']."</h5>";
+								<h5 style='font-size:20px;'>".$friend['id_user_2']."</h5>";
 								//User login status
 								foreach($listUser as $user){
-								if(($user['status'] == 'online')&&($user['username']==$friend['username2'])){echo "<p style='font-size:14px; color:#00a13e;'>".$user['status']."</p>";} 
-									else if(($user['status'] == 'offline')&&($user['username']==$friend['username2'])) {
+								if(($user['status'] == 'online')&&($user['username']==$friend['id_user_2'])){echo "<p style='font-size:14px; color:#00a13e;'>".$user['status']."</p>";} 
+									else if(($user['status'] == 'offline')&&($user['username']==$friend['id_user_2'])) {
 									echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
 								}}
 							echo "</div>
@@ -827,7 +825,7 @@
 						</div>
 						<div class='imessage' style='max-height: calc(80vh - 160px); max-width:auto; overflow-y: auto; height:800px; min-width:100%;'>";
 							foreach($dataMessage as $data2){
-								if(($data2['sender']  == $friend['username2'])&&($data2['receiver']  == $this->session->userdata('userTrack'))){
+								if(($data2['sender']  == $friend['id_user_2'])&&($data2['receiver']  == $this->session->userdata('userTrack'))){
 									echo "<p class='from-them'>";
 										if($data2['imageURL'] != 'null'){
 											echo"<img src='http://localhost/Learnzia/assets/uploads/message/message_".$data2['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
@@ -836,7 +834,7 @@
 										echo "".$data2['message']."<br><a style='color:#e69627; font-size:13.5px; font-style:italic;'>~ on ".$data2['datetime']."</a>
 										</p>";
 									$count++;
-								} else if(($data2['receiver']  == $friend['username2']) &&($data2['sender']  == $this->session->userdata('userTrack'))){
+								} else if(($data2['receiver']  == $friend['id_user_2']) &&($data2['sender']  == $this->session->userdata('userTrack'))){
 									echo "<p class='from-me'>";
 										if($data2['imageURL'] != 'null'){
 											echo"<img src='http://localhost/Learnzia/assets/uploads/message/message_".$data2['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
@@ -855,7 +853,7 @@
 						echo "</div>
 						<div class='modal-footer'>
 								<div class='container'>
-								<input type='text' class='form-control' name='receiver' value='".$friend['username2']."' hidden>
+								<input type='text' class='form-control' name='receiver' value='".$friend['id_user_2']."' hidden>
 								<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; margin-right:-5%; border:none;' type='submit'>Send</button>
 								<input class='form-control' type='text' placeholder='Type your message here...' style='width:80%; float:right; margin-right:1%;' name='replyMessage'>
 								<label class='switch' style='float:left; margin-left:-5%;'>
@@ -884,21 +882,21 @@
 					</div>
 					</div>";
 					//second condition
-					} else if (($friend['username1'] != $this->session->userdata('userTrack'))&&($friend['username2'] == $this->session->userdata('userTrack'))){
+					} else if (($friend['id_user_1'] != $this->session->userdata('userTrack'))&&($friend['id_user_2'] == $this->session->userdata('userTrack'))){
 						echo "
-					<div class='modal fade' id='message".$friend['username1']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+					<div class='modal fade' id='message".$friend['id_user_1']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
 					<div class='modal-dialog' role='document' style='overflow-y: initial;'>
 						<form method='POST' action='homeCtrl/sendRMessage' enctype='multipart/form-data'>
 						<div class='modal-content' style='background-color:#313436;'>
 						<div class='modal-header'>
 							<div class='container'>
-								<img src='http://localhost/Learnzia/assets/uploads/user_".$friend['username1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
+								<img src='http://localhost/Learnzia/assets/uploads/user_".$friend['id_user_1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
 								float:left; margin-right:2%;'>
-								<h5 style='font-size:20px;'>".$friend['username1']."</h5>";
+								<h5 style='font-size:20px;'>".$friend['id_user_1']."</h5>";
 								//User login status
 								foreach($listUser as $user){
-								if(($user['status'] == 'online')&&($user['username']==$friend['username1'])){echo "<p style='font-size:14px; color:#00a13e;'>".$user['status']."</p>";} 
-									else if(($user['status'] == 'offline')&&($user['username']==$friend['username1'])) {
+								if(($user['status'] == 'online')&&($user['username']==$friend['id_user_1'])){echo "<p style='font-size:14px; color:#00a13e;'>".$user['status']."</p>";} 
+									else if(($user['status'] == 'offline')&&($user['username']==$friend['id_user_1'])) {
 									echo "<p style='font-size:14px; color:#F14D0F;'>".$user['status']."</p>";
 								}}
 							echo "</div>
@@ -906,7 +904,7 @@
 						</div>
 						<div class='imessage' style='max-height: calc(80vh - 160px); max-width:auto; overflow-y: auto; height:800px; min-width:100%;'>";
 							foreach($dataMessage as $data2){
-								if(($data2['sender']  == $friend['username1'])&&($data2['receiver']  == $this->session->userdata('userTrack'))){
+								if(($data2['sender']  == $friend['id_user_1'])&&($data2['receiver']  == $this->session->userdata('userTrack'))){
 									echo "<p class='from-them'>";
 										if($data2['imageURL'] != 'null'){
 											echo"<img src='http://localhost/Learnzia/assets/uploads/message/message_".$data2['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
@@ -915,7 +913,7 @@
 										echo "".$data2['message']."<br><a style='color:#e69627; font-size:13.5px; font-style:italic;'>~ on ".$data2['datetime']."</a>
 										</p>";
 									$count++;
-								} else if(($data2['receiver']  == $friend['username1']) &&($data2['sender']  == $this->session->userdata('userTrack'))){
+								} else if(($data2['receiver']  == $friend['id_user_1']) &&($data2['sender']  == $this->session->userdata('userTrack'))){
 									echo "<p class='from-me'>";
 										if($data2['imageURL'] != 'null'){
 											echo"<img src='http://localhost/Learnzia/assets/uploads/message/message_".$data2['imageURL'].".jpg' alt='Card image cap' style='width:200px; height:200px;
@@ -934,7 +932,7 @@
 						echo "</div>
 						<div class='modal-footer'>
 								<div class='container'>
-								<input type='text' class='form-control' name='receiver' value='".$friend['username1']."' hidden>
+								<input type='text' class='form-control' name='receiver' value='".$friend['id_user_1']."' hidden>
 								<button class='btn btn-primary' style='color:whitesmoke; background-color:#00a13e; float:right; margin-right:-5%; border:none;' type='submit'>Send</button>
 								<input class='form-control' type='text' placeholder='Type your message here...' style='width:80%; float:right; margin-right:1%;' name='replyMessage'>
 								<label class='switch' style='float:left; margin-left:-5%;'>
@@ -1086,11 +1084,11 @@
 			}
 
 			var contacts = [<?php foreach($contacts as $data){
-				if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))){
-					echo "'"; echo $data['username2']; echo "',";
-				} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))){
-					echo "'"; echo $data['username1']; echo "',";
-				} else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] != $this->session->userdata('userTrack'))){
+				if (($data['id_user_2'] != $this->session->userdata('userTrack'))&&($data['id_user_1'] == $this->session->userdata('userTrack'))){
+					echo "'"; echo $data['id_user_2']; echo "',";
+				} else if (($data['id_user_1'] != $this->session->userdata('userTrack'))&&($data['id_user_2'] == $this->session->userdata('userTrack'))){
+					echo "'"; echo $data['id_user_1']; echo "',";
+				} else if (($data['id_user_1'] != $this->session->userdata('userTrack'))&&($data['id_user_2'] != $this->session->userdata('userTrack'))){
 					//do nothing
 				}
 			}?>]
