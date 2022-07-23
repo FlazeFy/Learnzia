@@ -8,7 +8,7 @@
 		 
 		public function index(){
 			$data = [];
-			$this->load->view('loginView', $data);
+			$this->load->view('landing/index', $data);
 		}
 		public function checkUser(){
 			$username = $this->input->post('username');
@@ -40,7 +40,7 @@
 			}else{
 				$data['error_message'] = "Username or Password Incorrect!";
 				$this->index();
-				$this->load->view('loginView', $data);
+				$this->load->view('landing/index', $data);
 			}
 		}
 
@@ -87,7 +87,7 @@
 			} else {
 				$data['error_message'] = "Username already been taken";
 				$this->index();
-				$this->load->view('loginView', $data);
+				$this->load->view('landing/index', $data);
 			}
 			
 		}
