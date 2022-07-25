@@ -422,7 +422,10 @@
 			$this->load->view('others/zoom');
 		?>
 
-		
+		<!--Modal validation.-->
+		<?php
+			$this->load->view('others/failed');
+		?>
 
 		<script>
 			function openNav() {
@@ -524,6 +527,11 @@
 			$('.custom-file-input').on('change', function() { 
 				let fileName = $(this).val().split('\\').pop(); 
 				$(this).next('.custom-file-label').addClass("selected").html(fileName); 
+			});
+			
+			//Modal setting.
+			$(window).on('load', function() {
+				$('#errorModal').modal('show');
 			});
 
 			$(document).ready(function(){

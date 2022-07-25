@@ -85,25 +85,25 @@
 	foreach($allDisc as $data){	
 		echo"
 		<div id='accordion-que' class='accordion'>
-			<div class='card p-2 border-0 rounded' style='background-color:#212121;'>
+			<div class='card p-2 my-3 border-0 rounded' style='background-color:#212121;'>
 				<div class='card-header' id='headingOne'>
-					<img src='http://localhost/Learnzia/assets/uploads/user_".$data['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid mx-2' style='width:45px; float:left;'>
+					<img src='http://localhost/Learnzia/assets/uploads/user_".$data['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid mx-2' style='width:45px; float:left;'>
 					<a class='btn btn-transparent border-0 mx-2 text-white' style='float:right;' data-toggle='modal' data-target='#'><i class='fa-solid fa-ellipsis-vertical'></i></a>";
 					//Discussion header.
-					if($data['sender'] == $this->session->userdata('userTrack')){
+					if($data['id_user'] == $this->session->userdata('userIdTrack')){
 						echo"
 						<h5 style='font-size:18px;'>You <span style='font-size:10px; padding-top:5px; font-style:italic; color:whitesmoke;'>".$data['datetime']."</span></h5>";
 					} else {
 						echo"
-						<h5 style='font-size:18px;'>".$data['sender']." <span style='font-size:10px; padding-top:5px; font-style:italic; color:whitesmoke;'>".$data['datetime']."</span></h5>";
+						<h5 style='font-size:18px;'>".$data['username']." <span style='font-size:10px; padding-top:5px; font-style:italic; color:whitesmoke;'>".$data['datetime']."</span></h5>";
 					} echo "
 					<h5 id='question_cat'>".$data['category']."</h5>";
 					//Question with image.
-					if ($data['imageURL'] != 'null'){
+					if ($data['discussion_image'] != 'null'){
 						echo"
 						<div class='row mb-3'>
 							<div class='col-md-4'>
-								<img src='http://localhost/Learnzia/assets/uploads/discussion_".$data['imageURL'].".jpg' id='question_img' 
+								<img src='http://localhost/Learnzia/assets/uploads/discussion_".$data['discussion_image'].".jpg' id='question_img' 
 									data-toggle='modal' data-target='#zoom".$data['id_discussion']."'>
 								<div id='question_alt'><i class='fa-solid fa-magnifying-glass'></i> Zoom Image</div>
 							</div>
@@ -116,9 +116,18 @@
 						<p style='font-size:14px; color:whitesmoke;'><span style='color:#F1C40F; font-weight:500;'>".$data['subject']." | </span> ".$data['question']."</p>";
 					}
 					echo "
-					<a class='btn btn-primary mx-2 border-0 rounded-pill' id='btn-up' title='up'><i class='fa-solid fa-arrow-up fa-lg'></i>  ".$data['up']."</a>
+					<a class='btn btn-primary mx-2 border-0 rounded-pill' id='btn-up' title='up'><i class='fa-solid fa-arrow-up fa-lg'></i>  10</a>
 					<a class='btn btn-transparent border-0 mx-2 text-white' style='float:right;' data-toggle='modal' data-target='#shareDisc".$data['id_discussion']."' title='forward'><i class='fa-solid fa-paper-plane'></i></a>
-					<a class='btn btn-transparent mx-2 border-0 rounded-pill' id='btn-reply' type='button' data-toggle='collapse' data-target='#collapse-".$i."' title='see replies'><i class='fa-regular fa-message'></i> 20</a>
+					<a class='btn btn-transparent mx-2 border-0 rounded-pill' id='btn-reply' type='button' data-toggle='collapse' data-target='#collapse-".$i."' title='see replies'><i class='fa-regular fa-message'></i> "; 
+						//Count reply.
+						$reply = 0;
+						foreach ($dataReply as $r2){
+							if ($r2['id_discussion'] == $data['id_discussion']){
+								$reply++;
+							}
+						}
+						echo $reply;
+					echo"</a>
 				</div>
 				<!--Extend-->
 				<div id='collapse-".$i."' class='collapse' aria-labelledby='headingOne' data-parent='#accordion-que'>
@@ -172,7 +181,10 @@
 								<img src='http://localhost/Learnzia/assets/images/Error404.png' alt='Error404.png' class='d-block mx-auto img img-fluid' style='width: 100px;'>
 								<p style='font-style:italic; color:#7289da;'>Let's be the first one.</p>
 							</div>";
-						} else if ($count > 0) {echo"<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." replies...</h5><br>";}
+						} else if ($count > 0){
+							echo"
+							<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." replies...</h5><br>";
+						}
 							echo"
 							<form method='post' action='homeCtrl/sendReply' class='form-inline' enctype='multipart/form-data'>
 							<input name='id_discussion' value='".$data['id_discussion']."' hidden>
@@ -203,7 +215,7 @@
 						</div>
 					</div>
 				</div>
-			</div><br>";
+			</div>";
 		$count = 0;
 	$i++;
 	}

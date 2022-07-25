@@ -46,6 +46,7 @@
 		public function get_all_disc(){
 			$this->db->select('*');
 			$this->db->from('discussion');
+			$this->db->join('user','user.id_user = discussion.id_user');
 			$this->db->order_by('datetime','DESC');
 			return $data = $this->db->get()->result_array();
 		}
@@ -56,6 +57,7 @@
 			$this->db->order_by('datetime','ASC');
 			return $data = $this->db->get()->result_array();
 		}
+		
 		//reply discussion
 		public function reply($data){
 			$this->db->insert('reply',$data);	

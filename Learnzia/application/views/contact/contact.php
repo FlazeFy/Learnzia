@@ -19,7 +19,7 @@
 						echo "
 						<li class='list-group-item mx-3 my-1 p-0' type='button' style='background-color:#212121;' 
 							data-toggle='modal' data-target='#message".$c['id_social']."'>
-							<div class='card-header' style='width: 25rem; height:5rem;'>
+							<div class='card-header' style='width: 20rem; height:5rem;'>
 								<img src='http://localhost/Learnzia/assets/uploads/user/".$au['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
 									margin-right:5%'>
 								<h5 style='font-size:15.5px; color:#F1C40F;'>".$au['username']."</h5>";
@@ -38,7 +38,7 @@
 						echo "
 						<li class='list-group-item mx-3 my-1 p-0' type='button' style='background-color:#212121;' 
 							data-toggle='modal' data-target='#message".$c['id_social']."'>
-							<div class='card-header' style='width: 25rem; height:5rem;'>
+							<div class='card-header' style='width: 20rem; height:5rem;'>
 								<img src='http://localhost/Learnzia/assets/uploads/user/".$au['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
 									margin-right:5%;'>
 								<h5 style='font-size:15.5px; color:#F1C40F;'>".$au['username']."</h5>";
