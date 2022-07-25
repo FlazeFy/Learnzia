@@ -422,26 +422,7 @@
 			$this->load->view('others/zoom');
 		?>
 
-		<?php 
-			foreach($dataReply as $data){
-				if ($data['image'] == 'yes'){
-					echo"<div class='modal fade' id='zoom".$data['imageURL']."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
-					<div class='modal-dialog modal-xl' role='document'>
-						<div class='modal-content' style='background-color:#313436;'>
-						<div class='modal-header'>
-							<p style='color:whitesmoke;'>".$data['replytext']."</p>
-							<img id='icon' type='button' data-dismiss='modal' aria-label='Close' src='http://localhost/Learnzia/assets/images/icon/Close.png'>
-						</div>
-						<div class='modal-footer'>
-							<img id='icon' src='http://localhost/Learnzia/assets/uploads/reply/reply_".$data['imageURL'].".jpg' style='border-radius:6px; width:100%; height:100%; cursor:pointer' 
-								alt='' data-toggle='modal' data-target='#zoom".$data['imageURL']."'>
-						</div>			
-						</div>
-					</div>
-					</div>";	
-				}
-			}
-		?>
+		
 
 		<script>
 			function openNav() {
@@ -531,14 +512,12 @@
 
 		</script>
 
-		<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+		<!--Others CDN.-->
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-		<!--Ajax for json-->
 		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>  
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-		<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>	
+		
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
 		<script>
 			//JQuery Upload
