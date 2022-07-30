@@ -69,6 +69,21 @@
 			$this->db->insert('message',$data);	
 		}
 
+		//Get question up & down vote
+		public function get_all_vote()
+		{
+			$this->db->select('up.id_up ,up.id_user as id_user, up.id_context');
+			$this->db->from('up');
+			$this->db->join('discussion','discussion.id_discussion = up.id_context');
+			$this->db->join('user','user.id_user = up.id_user');
+			return $data = $this->db->get()->result_array();
+		}
+
+		//Insert vote.
+		public function insertVote($data){
+			$this->db->insert('up',$data);	
+		}
+
 		//Sign out
 		public function offstatus(){
 			$this->db->set('status', 'offline');

@@ -13,6 +13,7 @@
 			$data['contacts']= $this->homeModel->get_only_contact();
 			$data['allUser']= $this->homeModel->get_all_user();
 			$data['allDisc']= $this->homeModel->get_all_disc();
+			$data['allVote']= $this->homeModel->get_all_vote();
 			$data['dataReply']= $this->homeModel->get_all_reply();
 			$this->load->view('home/index', $data);
 		}
@@ -142,11 +143,29 @@
 					'id_social' => $contact[$i],
 					'id_user_sender' => $this->session->userdata('userIdTrack'),
 					'message' => $this->input->post('id_discussion'),
-					'imageURL' => 'discussion',
+					'message_image' => 'discussion',
 					'datetime' => date("Y/m/d h:i:sa")
 				);
 				$this->homeModel->insertMessage($data, 'message');
 			}
+			redirect('homeCtrl');
+		}
+
+		//Upvote a discussion
+		public function upvote(){
+			$data = array(
+				'id_up' => 'NULL',
+				'id_context' => $this->input->post('id_discussion'),
+				'id_user' => $this->session->userdata('userIdTrack'),
+			);
+			$this->homeModel->insertVote($data, 'up');
+			redirect('homeCtrl');
+		}
+
+		//downvote a discussion
+		public function downvote(){
+			$this->db->where('id_up', $this->input->post('id_up'));
+			$this->db->delete('up');
 			redirect('homeCtrl');
 		}
 

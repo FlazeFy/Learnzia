@@ -27,7 +27,6 @@
 		border: 2px solid #f1c40f;
     }
 	#btn-up{
-		background:#f1c40f; 
 		float:left; 
 		color:whitesmoke; 
 		width:120px;
@@ -115,8 +114,35 @@
 						echo"
 						<p style='font-size:14px; color:whitesmoke;'><span style='color:#F1C40F; font-weight:500;'>".$data['subject']." | </span> ".$data['question']."</p>";
 					}
+
+					//Upvote and downvote.
+					$y = 0;
+					$found = 0;
+					$id_up = 0;
+					foreach($allVote as $vote){
+						if($vote['id_context'] == $data['id_discussion']){
+							$y++;
+							if($vote['id_user'] == $this->session->userdata('userIdTrack')){
+								$found++;
+								$id_up = $vote['id_up'];
+							}
+						}
+					}
+
+					if($found == 1){
+						echo "
+						<form action='homeCtrl/downvote' method='POST'>
+							<input hidden name='id_up' value='".$id_up."'>
+							<button type='submit' class='btn btn-success mx-2 border-0 rounded-pill' id='btn-up' title='up'><i class='fa-solid fa-arrow-up fa-lg'></i> ".$y."</button>
+						</form>";
+					} else {
+						echo "
+						<form action='homeCtrl/upvote' method='POST'>
+							<input hidden name='id_discussion' value='".$data['id_discussion']."'>
+							<button type='submit' class='btn btn-primary mx-2 border-0 rounded-pill' id='btn-up' title='up' style='background:#F1c40f;'><i class='fa-solid fa-arrow-up fa-lg'></i> ".$y."</button>
+						</form>";
+					}
 					echo "
-					<a class='btn btn-primary mx-2 border-0 rounded-pill' id='btn-up' title='up'><i class='fa-solid fa-arrow-up fa-lg'></i>  10</a>
 					<a class='btn btn-transparent border-0 mx-2 text-white' style='float:right;' data-toggle='modal' data-target='#shareDisc".$data['id_discussion']."' title='forward'><i class='fa-solid fa-paper-plane'></i></a>
 					<a class='btn btn-transparent mx-2 border-0 rounded-pill' id='btn-reply' type='button' data-toggle='collapse' data-target='#collapse-".$i."' title='see replies'><i class='fa-regular fa-message'></i> "; 
 						//Count reply.
