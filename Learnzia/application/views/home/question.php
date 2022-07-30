@@ -26,6 +26,17 @@
 		background: #212121;
 		border: 2px solid #f1c40f;
     }
+	.reply .reply-item.verified::before {
+		content: "";
+		position: absolute;
+		width: 16px;
+		height: 16px;
+		border-radius: 50px;
+		left: -9px;
+		top: 0;
+		background: green;
+		border: 2px solid #f1c40f;
+    }
 	#btn-up{
 		float:left; 
 		color:whitesmoke; 
@@ -158,11 +169,19 @@
 				<!--Extend-->
 				<div id='collapse-".$i."' class='collapse' aria-labelledby='headingOne' data-parent='#accordion-que'>
 					<div class='card-body reply rounded'>";
+						//Check if there's a verified reply on discussion
+						$verified = false;
+						foreach ($dataReply as $check){
+							if (($check['id_discussion'] == $data['id_discussion'])&&($check['reply_status'] == "verified")){
+								$verified = true;
+							}
+						}
 						//Discussion reply.
 						foreach ($dataReply as $data2){
 							if ($data2['id_discussion'] == $data['id_discussion']){
 								echo"
-								<div class='reply-item'>
+								<div "; if($data2['reply_status'] == 'verified'){echo "class='reply-item verified'";} else {echo "class='reply-item' ";} echo">
+									<div class='p-2 rounded' "; if($data2['reply_status'] == 'verified'){echo "style='border:2px solid green !important;'";} echo">
 									<img src='http://localhost/Learnzia/assets/uploads/user_".$data2['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
 										float:left; margin-right:1%;'>";
 									//Reply username.
@@ -189,34 +208,46 @@
 										echo"
 										<p style='font-size:14px; color:whitesmoke;'>".$data2['replytext']."</p>";
 									}
-									//Upvote and downvote.
-									$y = 0;
-									$found = 0;
-									$id_up = 0;
-									foreach($allVoteRep as $vote){
-										if($vote['id_context'] == $data2['id_reply']){
-											$y++;
-											if($vote['id_user'] == $this->session->userdata('userIdTrack')){
-												$found++;
-												$id_up = $vote['id_up'];
+									echo"<div class='row px-2'>";
+										//Upvote and downvote.
+										$y = 0;
+										$found = 0;
+										$id_up = 0;
+										foreach($allVoteRep as $vote){
+											if($vote['id_context'] == $data2['id_reply']){
+												$y++;
+												if($vote['id_user'] == $this->session->userdata('userIdTrack')){
+													$found++;
+													$id_up = $vote['id_up'];
+												}
 											}
 										}
-									}
 
-									if($found == 1){
+										if($found == 1){
+											echo "
+											<form action='homeCtrl/downvoteRep' method='POST'>
+												<input hidden name='id_up' value='".$id_up."'>
+												<button type='submit' class='btn btn-success mx-2 border-0 rounded-pill' title='up' style='width:100px;'><i class='fa-solid fa-arrow-up fa-lg'></i> ".$y."</button>
+											</form>";
+										} else {
+											echo "
+											<form action='homeCtrl/upvoteRep' method='POST'>
+												<input hidden name='id_discussion' value='".$data2['id_reply']."'>
+												<button type='submit' class='btn btn-primary mx-2 border-0 rounded-pill' title='up vote' style='background:#F1c40f; width:100px;'><i class='fa-solid fa-arrow-up fa-lg'></i> ".$y."</button>";
+												echo"
+											</form>";
+											if(($data['id_user'] == $this->session->userdata('userIdTrack'))&&($data2['reply_status'] != 'verified')&&($data2['id_user'] != $this->session->userdata('userIdTrack'))&&(!$verified)){
+												echo"
+												<form action='homeCtrl/verifyRep' method='POST'>
+													<input hidden name='id_reply' value='".$data2['id_reply']."'>
+													<button class='btn btn-success bg-transparent rounded-pill text-success' type='submit' title='verified this reply'><i class='fa-solid fa-check'></i> Verify</button>
+												</form>";
+											}
+										}
 										echo "
-										<form action='homeCtrl/downvoteRep' method='POST'>
-											<input hidden name='id_up' value='".$id_up."'>
-											<button type='submit' class='btn btn-success mx-2 border-0 rounded-pill' title='up' style='width:100px;'><i class='fa-solid fa-arrow-up fa-lg'></i> ".$y."</button>
-										</form>";
-									} else {
-										echo "
-										<form action='homeCtrl/upvoteRep' method='POST'>
-											<input hidden name='id_discussion' value='".$data2['id_reply']."'>
-											<button type='submit' class='btn btn-primary mx-2 border-0 rounded-pill' title='up' style='background:#F1c40f; width:100px;'><i class='fa-solid fa-arrow-up fa-lg'></i> ".$y."</button>
-										</form>";
-									}
-								echo "</div>"; 
+										</div>
+									</div>
+								</div>"; 
 								$count++;
 							}
 						} 
@@ -276,4 +307,3 @@
 	$i++;
 	}
 ?>
-

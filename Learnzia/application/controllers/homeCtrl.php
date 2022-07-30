@@ -80,7 +80,8 @@
 				'id_user' => $this->session->userdata('userIdTrack'),
 				'replytext' => $this->input->post('replytext'),
 				'datetime' => date("Y/m/d h:i:sa"),
-				'reply_image' => $imageURL
+				'reply_image' => $imageURL,
+				'reply_status' => 'null'
 			);
 			
 			if($this->input->post('imageSwitchR') == 'on'){
@@ -187,6 +188,14 @@
 		public function downvoteRep(){
 			$this->db->where('id_up', $this->input->post('id_up'));
 			$this->db->delete('up');
+			redirect('homeCtrl');
+		}
+
+		//Verify a reply
+		public function verifyRep(){
+			$this->db->set('reply_status', 'verified');
+			$this->db->where('id_reply', $this->input->post('id_reply'));
+			$this->db->update('reply');
 			redirect('homeCtrl');
 		}
 
