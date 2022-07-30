@@ -119,7 +119,7 @@
 					$y = 0;
 					$found = 0;
 					$id_up = 0;
-					foreach($allVote as $vote){
+					foreach($allVoteDis as $vote){
 						if($vote['id_context'] == $data['id_discussion']){
 							$y++;
 							if($vote['id_user'] == $this->session->userdata('userIdTrack')){
@@ -131,13 +131,13 @@
 
 					if($found == 1){
 						echo "
-						<form action='homeCtrl/downvote' method='POST'>
+						<form action='homeCtrl/downvoteDis' method='POST'>
 							<input hidden name='id_up' value='".$id_up."'>
 							<button type='submit' class='btn btn-success mx-2 border-0 rounded-pill' id='btn-up' title='up'><i class='fa-solid fa-arrow-up fa-lg'></i> ".$y."</button>
 						</form>";
 					} else {
 						echo "
-						<form action='homeCtrl/upvote' method='POST'>
+						<form action='homeCtrl/upvoteDis' method='POST'>
 							<input hidden name='id_discussion' value='".$data['id_discussion']."'>
 							<button type='submit' class='btn btn-primary mx-2 border-0 rounded-pill' id='btn-up' title='up' style='background:#F1c40f;'><i class='fa-solid fa-arrow-up fa-lg'></i> ".$y."</button>
 						</form>";
@@ -182,17 +182,45 @@
 												<div id='question_alt'><i class='fa-solid fa-magnifying-glass'></i> Zoom Image</div>
 											</div>
 											<div class='col-md-6' style=''>
-												<p style='font-size:14px; color:whitesmoke	;'>".$data2['replytext']."</p>
+												<p style='font-size:14px; color:whitesmoke;'>".$data2['replytext']."</p>
 											</div>
 										</div>";
 									} else { 
 										echo"
 										<p style='font-size:14px; color:whitesmoke;'>".$data2['replytext']."</p>";
 									}
+									//Upvote and downvote.
+									$y = 0;
+									$found = 0;
+									$id_up = 0;
+									foreach($allVoteRep as $vote){
+										if($vote['id_context'] == $data2['id_reply']){
+											$y++;
+											if($vote['id_user'] == $this->session->userdata('userIdTrack')){
+												$found++;
+												$id_up = $vote['id_up'];
+											}
+										}
+									}
+
+									if($found == 1){
+										echo "
+										<form action='homeCtrl/downvoteRep' method='POST'>
+											<input hidden name='id_up' value='".$id_up."'>
+											<button type='submit' class='btn btn-success mx-2 border-0 rounded-pill' title='up' style='width:100px;'><i class='fa-solid fa-arrow-up fa-lg'></i> ".$y."</button>
+										</form>";
+									} else {
+										echo "
+										<form action='homeCtrl/upvoteRep' method='POST'>
+											<input hidden name='id_discussion' value='".$data2['id_reply']."'>
+											<button type='submit' class='btn btn-primary mx-2 border-0 rounded-pill' title='up' style='background:#F1c40f; width:100px;'><i class='fa-solid fa-arrow-up fa-lg'></i> ".$y."</button>
+										</form>";
+									}
 								echo "</div>"; 
 								$count++;
 							}
 						} 
+						//If there's no reply for a question.
 						if(($count == 0) &&($data2['id_user'] == $this->session->userdata('userIdTrack'))) {
 							echo "
 							<div class='container m-2 text-center'>
@@ -207,10 +235,12 @@
 								<img src='http://localhost/Learnzia/assets/images/Error404.png' alt='Error404.png' class='d-block mx-auto img img-fluid' style='width: 100px;'>
 								<p style='font-style:italic; color:#7289da;'>Let's be the first one.</p>
 							</div>";
+						//If there's a reply
 						} else if ($count > 0){
 							echo"
 							<h5 style='font-size:15px; font-style:italic;'>Showing ".$count." replies...</h5><br>";
 						}
+						//Reply a question
 							echo"
 							<form method='post' action='homeCtrl/sendReply' class='form-inline' enctype='multipart/form-data'>
 							<input name='id_discussion' value='".$data['id_discussion']."' hidden>

@@ -13,7 +13,8 @@
 			$data['contacts']= $this->homeModel->get_only_contact();
 			$data['allUser']= $this->homeModel->get_all_user();
 			$data['allDisc']= $this->homeModel->get_all_disc();
-			$data['allVote']= $this->homeModel->get_all_vote();
+			$data['allVoteDis']= $this->homeModel->get_all_vote_dis();
+			$data['allVoteRep']= $this->homeModel->get_all_vote_rep();
 			$data['dataReply']= $this->homeModel->get_all_reply();
 			$this->load->view('home/index', $data);
 		}
@@ -152,18 +153,38 @@
 		}
 
 		//Upvote a discussion
-		public function upvote(){
+		public function upvoteDis(){
 			$data = array(
 				'id_up' => 'NULL',
 				'id_context' => $this->input->post('id_discussion'),
 				'id_user' => $this->session->userdata('userIdTrack'),
+				'up_type' => 'discussion',
 			);
 			$this->homeModel->insertVote($data, 'up');
 			redirect('homeCtrl');
 		}
 
 		//downvote a discussion
-		public function downvote(){
+		public function downvoteDis(){
+			$this->db->where('id_up', $this->input->post('id_up'));
+			$this->db->delete('up');
+			redirect('homeCtrl');
+		}
+
+		//Upvote a reply
+		public function upvoteRep(){
+			$data = array(
+				'id_up' => 'NULL',
+				'id_context' => $this->input->post('id_discussion'),
+				'id_user' => $this->session->userdata('userIdTrack'),
+				'up_type' => 'reply',
+			);
+			$this->homeModel->insertVote($data, 'up');
+			redirect('homeCtrl');
+		}
+
+		//downvote a reply
+		public function downvoteRep(){
 			$this->db->where('id_up', $this->input->post('id_up'));
 			$this->db->delete('up');
 			redirect('homeCtrl');
