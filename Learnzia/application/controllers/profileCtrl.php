@@ -10,50 +10,26 @@
 			$this->load->model('messageModel');
 			$this->load->model('replyModel');
 			$this->load->model('socialModel');
+			$this->load->model('relationModel');
 			$this->load->model('upModel');
 			$this->load->model('classModel');
 		}	 
 		public function index(){
 			$data = [];
 			$data['dataUser']= $this->userModel->get_data_user();
-			$data['dataMessage']= $this->messageModel->get_all_message();
-			$data['dataDiscussion']= $this->discussionModel->get_my_discussion();
 			$data['dataInvitation']= $this->invitationModel->get_my_invitation();
+			$data['dataMessage']= $this->messageModel->get_all_message();
 			$data['contacts']= $this->socialModel->get_only_contact();
-			$data['listUser']= $this->userModel->get_all_user();
+			$data['allUser']= $this->userModel->get_all_user();
 			$data['listClass']= $this->classModel->get_list_class();
-			$data['listRel']= $this->classModel->get_list_relation();
-			$data['discHistory']= $this->discussionModel->get_all_history();
-			$data['discMath']= $this->discussionModel->get_all_math();
+			$data['listRel']= $this->relationModel->get_list_relation();
+			$data['allDisc']= $this->discussionModel->get_all_disc();
+			$data['myReply']= $this->replyModel->get_my_reply();
+			$data['allVoteDis']= $this->upModel->get_all_vote_dis();
+			$data['allVoteRep']= $this->upModel->get_all_vote_rep();
 			$data['dataReply']= $this->replyModel->get_all_reply();
+			$data['myDiscussion']= $this->discussionModel->get_my_discussion();
 			$this->load->view('profile/index', $data);
-		}
-
-		//Send new message
-		public function sendMessage(){
-			$data = array(
-				'id_message' => 'NULL',
-				'sender' => $this->session->userdata('userTrack'),
-				'receiver' => $this->input->post('receiver'),
-				'message' => $this->input->post('message'),
-				'datetime' => date("Y/m/d h:i:sa")
-			);
-			$this->profileModel->posting($data, 'message');
-			redirect('profileCtrl');
-		}
-
-		//Send discussion
-		public function sendDisc(){
-			$data = array(
-				'id_discussion' => 'NULL',
-				'sender' => $this->session->userdata('userTrack'),
-				'category' => $this->input->post('category'),
-				'subject' => $this->input->post('subject'),
-				'question' => $this->input->post('question'),
-				'datetime' => date("Y/m/d h:i:sa")
-			);
-			$this->profileModel->uploadDisc($data, 'discussion');
-			redirect('profileCtrl');
 		}
 
 		//Reply discussion

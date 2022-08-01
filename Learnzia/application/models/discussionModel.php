@@ -17,7 +17,8 @@
 		public function get_my_discussion(){
 			$this->db->select('*');
 			$this->db->from('discussion');
-			$this->db->where('id_user', $this->session->userdata('userIdTrack'));
+			$this->db->join('user','user.id_user = discussion.id_user');
+			$this->db->where('discussion.id_user', $this->session->userdata('userIdTrack'));
 			$this->db->order_by('datetime','DESC');
 			return $data = $this->db->get()->result_array();
 		}

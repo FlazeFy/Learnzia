@@ -7,6 +7,7 @@
 		{
 			$this->db->select('');
 			$this->db->from('social');
+			//$this->db->join('user','user.id_user = social.id_user');
 			$condition = $this->session->userdata('userIdTrack');
 			$condition2 = array('id_user_1' == $condition OR 'id_user_2' == $condition);
 			$this->db->where($condition2);
