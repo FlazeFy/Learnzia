@@ -10,7 +10,7 @@
 						<div class='modal-content' style='background-color:#313436;'>
 							<div class='modal-header'>
 								<div class='container'>
-									<img src='http://localhost/Learnzia/assets/uploads/user/".$au['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
+									<img src='http://localhost/Learnzia/assets/uploads/user/user_".$au['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
 									float:left; margin-right:2%;'>
 									<h5 style='font-size:20px;'>".$au['username']."</h5>";
 									//User login status
@@ -53,7 +53,7 @@
 													echo"
 													<div class='card p-2 my-3 border-0 rounded' style='background-color:#212121; border-top-right-radius: 35px;'>
 														<div class='card-header' id='headingOne'>
-															<img src='http://localhost/Learnzia/assets/uploads/".$dis['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid mx-2' style='width:45px; float:left;'>
+															<img src='http://localhost/Learnzia/assets/uploads/user/user_".$dis['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid mx-2' style='width:45px; float:left;'>
 															<a class='btn btn-transparent border-0 mx-2 text-white' style='float:right;' data-toggle='modal' data-target='#'><i class='fa-solid fa-ellipsis-vertical'></i></a>";
 															//Discussion header.
 															if($dis['id_user'] == $this->session->userdata('userIdTrack')){
@@ -104,7 +104,7 @@
 													echo"
 													<div class='card p-2 my-3 border-0 ' style='background-color:#212121; border-top-left-radius: 35px;'>
 														<div class='card-header' id='headingOne'>
-															<img src='http://localhost/Learnzia/assets/uploads/".$dis['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid mx-2' style='width:45px; float:left;'>
+															<img src='http://localhost/Learnzia/assets/uploads/user/user_".$dis['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid mx-2' style='width:45px; float:left;'>
 															<a class='btn btn-transparent border-0 mx-2 text-white' style='float:right;' data-toggle='modal' data-target='#'><i class='fa-solid fa-ellipsis-vertical'></i></a>";
 															//Discussion header.
 															if($dis['id_user'] == $this->session->userdata('userIdTrack')){
@@ -196,7 +196,7 @@
 						<div class='modal-content' style='background-color:#313436;'>
 							<div class='modal-header'>
 								<div class='container'>
-									<img src='http://localhost/Learnzia/assets/uploads/user/".$au['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
+									<img src='http://localhost/Learnzia/assets/uploads/user/user_".$au['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
 									float:left; margin-right:2%;'>
 									<h5 style='font-size:20px;'>".$au['username']."</h5>";
 									//User login status
@@ -239,7 +239,7 @@
 													echo"
 													<div class='card p-2 my-3 border-0 ' style='background-color:#212121; border-top-left-radius: 35px;'>
 														<div class='card-header' id='headingOne'>
-															<img src='http://localhost/Learnzia/assets/uploads/".$dis['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid mx-2' style='width:45px; float:left;'>
+															<img src='http://localhost/Learnzia/assets/uploads/user/user_".$dis['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid mx-2' style='width:45px; float:left;'>
 															<a class='btn btn-transparent border-0 mx-2 text-white' style='float:right;' data-toggle='modal' data-target='#'><i class='fa-solid fa-ellipsis-vertical'></i></a>";
 															//Discussion header.
 															if($dis['id_user'] == $this->session->userdata('userIdTrack')){
@@ -290,7 +290,7 @@
 													echo"
 													<div class='card p-2 my-3 border-0 ' style='background-color:#212121; border-top-left-radius: 35px;'>
 														<div class='card-header' id='headingOne'>
-															<img src='http://localhost/Learnzia/assets/uploads/".$dis['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid mx-2' style='width:45px; float:left;'>
+															<img src='http://localhost/Learnzia/assets/uploads/user/user_".$dis['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid mx-2' style='width:45px; float:left;'>
 															<a class='btn btn-transparent border-0 mx-2 text-white' style='float:right;' data-toggle='modal' data-target='#'><i class='fa-solid fa-ellipsis-vertical'></i></a>";
 															//Discussion header.
 															if($dis['id_user'] == $this->session->userdata('userIdTrack')){

@@ -133,10 +133,10 @@
 					$this->index();
 					$this->load->view('home/index', $data);
 				} else {
-					$this->replyModel->insertMessage($data, 'message');
+					$this->messageModel->insertMessage($data, 'message');
 				}
 			} else {
-				$this->replyModel->insertMessage($data, 'message');
+				$this->messageModel->insertMessage($data, 'message');
 			}
 			redirect('homeCtrl');
 		}

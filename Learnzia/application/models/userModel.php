@@ -14,6 +14,11 @@
 			$data = $this->db->get('user');
 			return $data->result_array();
 		}
+		public function update_user($data){
+			$id = $this->input->post('id_user');
+			$this->db->where('id_user', $id);
+			$this->db->update('user', $data);
+		}
 		
 		//Sign out
 		public function offstatus(){

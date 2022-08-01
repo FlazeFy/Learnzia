@@ -1,6 +1,3 @@
-<!--Leonardho R. Sitanggang
-    1302194041  SE-43-03
--->
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,7 +16,7 @@
 		<!--Source file-->
 		<link rel="stylesheet" type="text/css" href="http://localhost/Learnzia/assets/css/mainStyle2.css"/>
 
-		 <!-- chartist CSS -->
+		<!-- chartist CSS -->
 		<link href="http://localhost/Learnzia/assets/css/chartist-js/dist/chartist.min.css" rel="stylesheet">
 		<link href="http://localhost/Learnzia/assets/css/chartist-js/dist/chartist-init.css" rel="stylesheet">
 		<link href="http://localhost/Learnzia/assets/css/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
@@ -30,7 +27,7 @@
 			.navbar {position: fixed; width:100%; z-index:1;}
 			a {color:#F1C40F;}
 			.active {border-radius: 4px; border-bottom: 4.5px solid rgb(40, 207, 54); position: relative;bottom: 5%;}
-			#icon {height: 30px;width: 30px;} .form-control{color:whitesmoke; background:#212121; border-width: 0 0 3px; 
+			img {height: 30px;width: 30px;} .form-control{color:whitesmoke; background:#212121; border-width: 0 0 3px; 
 				border-bottom: 3.5px solid #F1C40F;}
 			hr {background-color: whitesmoke;}
 			h4 {color:#F1C40F;} h5 {color:#F1C40F;}
@@ -42,6 +39,7 @@
 			.dropdown-item:hover{color:whitesmoke; background-color:#7289da;}
 		</style>
     </head>
+
     <body>
 		<!--Main Navbar-->
 		<nav class="navbar navbar-expand-lg" style="background-color:#212121;">
@@ -94,7 +92,7 @@
 				<div class="col-lg-4 col-xlg-3 col-md-5">
 					<div class="card" style='border-radius:5px; border: 3px solid #F1C40F; background-color:#525252; margin-bottom:5%;'>
 						<div class="card-block little-profile text-center">
-							<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_<?php foreach ($dataUser as $data) {echo $data['imageURL'];} ?>.jpg' alt='' class='rounded-circle img-fluid' 
+							<img id='icon' src='http://localhost/Learnzia/assets/uploads/user/user_<?php foreach ($dataUser as $data) {echo $data['imageURL'];} ?>.jpg' alt='' class='rounded-circle img-fluid' 
 							style='width:120px; height:120px; margin-top:5%;'>
 							<h4 style=''><?php foreach ($dataUser as $data) {echo $data['username'];} ?></h4>
 							<div class="row text-center m-t-20">
@@ -197,7 +195,7 @@
 								if(($rel2['username'] == $user['username']) &&($rel2['classname'] == $class['classname'])){
 								echo "<div class='card' type='button' style='border: none; background-color:#515151; margin:1%;'>
 									<div class='card-header' style='height:5rem;'>
-										<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+										<img id='icon' src='http://localhost/Learnzia/assets/uploads/user/user_".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
 											style='width:50px; height:50px; float:left; margin-right:5%'>";
 											if ($user['username'] == $this->session->userdata('userTrack')){
 												echo "<h5 style='font-size:15.5px; color:#F1C40F;'>You</h5>";
@@ -236,7 +234,7 @@
 								<div class='container'>
 									<h4 style='font-size:20px;'>Founded By</h4>";
 									foreach ($listRel as $rel2){foreach ($listUser as $user){if(($rel2['username'] == $user['username'])&&($rel2['classname'] == $class['classname'])){if($rel2['typeRelation'] == 'founder'){
-									echo "<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+									echo "<img id='icon' src='http://localhost/Learnzia/assets/uploads/user/user_".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
 										style='width:50px; height:50px; float:left; margin-right:5%'>";
 									if ($user['username'] == $this->session->userdata('userTrack')){
 										echo "<h5 style='font-size:15.5px; color:#7289da;'>You</h5>";
@@ -307,7 +305,7 @@
 								if(($rel2['username'] == $user['username']) &&($rel2['classname'] == $class['classname'])){
 								echo "<div class='card' type='button' style='border: none; background-color:#515151; margin:1%;'>
 									<div class='card-header' style='height:5rem;'>
-										<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+										<img id='icon' src='http://localhost/Learnzia/assets/uploads/user/user_".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
 											style='width:50px; height:50px; float:left; margin-right:5%'>";
 											if ($user['username'] == $this->session->userdata('userTrack')){
 												echo "<h5 style='font-size:15.5px; color:#F1C40F;'>You</h5>";
@@ -346,7 +344,7 @@
 								<div class='container'>
 									<h4 style='font-size:20px;'>Founded By</h4>";
 									foreach ($listRel as $rel2){foreach ($listUser as $user){if(($rel2['username'] == $user['username'])&&($rel2['classname'] == $class['classname'])){if($rel2['typeRelation'] == 'founder'){
-									echo "<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+									echo "<img id='icon' src='http://localhost/Learnzia/assets/uploads/user/user_".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
 										style='width:50px; height:50px; float:left; margin-right:5%'>";
 										echo "<h5 style='font-size:15.5px; color:#7289da;'>".$user['username']."</h5>
 										<p style='font-size:13px; color:whitesmoke; font-style:italic;'>".$class['date']."</p>";
@@ -444,154 +442,155 @@
 		<!-- chartist chart -->
 		<script src="assets/js/chartist-js/dist/chartist.min.js"></script>
 		<script src="assets/js/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
+		
 		<script type="text/javascript">
-	//Statistic
-	$(function() {
-	"use strict";
-	var chart2 = new Chartist.Bar('.amp-pxl', {
-	}, {
-		axisX: {
-			position: 'end',
-			showGrid: false
-		},
-		axisY: {
-			position: 'start'
-		},
-		high: '12',
-		low: '0',
-		plugins: [
-			Chartist.plugins.tooltip()
-		]
-	});
+		//Statistic
+			$(function() {
+			"use strict";
+			var chart2 = new Chartist.Bar('.amp-pxl', {
+			}, {
+				axisX: {
+					position: 'end',
+					showGrid: false
+				},
+				axisY: {
+					position: 'start'
+				},
+				high: '12',
+				low: '0',
+				plugins: [
+					Chartist.plugins.tooltip()
+				]
+			});
 
-	var chart = [chart2];
-	var replyChart = [chart2];
+			var chart = [chart2];
+			var replyChart = [chart2];
 
-	for (var i = 0; i < chart.length; i++) {
-		chart[i].on('draw', function(data) {
-			if (data.type === 'line' || data.type === 'area') {
-				data.element.animate({
-					d: {
-						begin: 500 * data.index,
-						dur: 500,
-						from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
-						to: data.path.clone().stringify(),
-						easing: Chartist.Svg.Easing.easeInOutElastic
+			for (var i = 0; i < chart.length; i++) {
+				chart[i].on('draw', function(data) {
+					if (data.type === 'line' || data.type === 'area') {
+						data.element.animate({
+							d: {
+								begin: 500 * data.index,
+								dur: 500,
+								from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+								to: data.path.clone().stringify(),
+								easing: Chartist.Svg.Easing.easeInOutElastic
+							}
+						});
+					}
+					if (data.type === 'bar') {
+						data.element.animate({
+							y2: {
+								dur: 500,
+								from: data.y1,
+								to: data.y2,
+								easing: Chartist.Svg.Easing.easeInOutElastic
+							},
+							opacity: {
+								dur: 500,
+								from: 0,
+								to: 1,
+								easing: Chartist.Svg.Easing.easeInOutElastic
+							}
+						});
 					}
 				});
 			}
-			if (data.type === 'bar') {
-				data.element.animate({
-					y2: {
-						dur: 500,
-						from: data.y1,
-						to: data.y2,
-						easing: Chartist.Svg.Easing.easeInOutElastic
+
+			var chart = c3.generate({
+				bindto: '#discussion',
+				data: {
+					columns: [
+						['Math', <?php $count = 0; foreach($myDiscussion as $data){ if($data['category'] == 'math'){$count++;}} echo $count;?>],
+						['Coding', <?php $count = 0; foreach($myDiscussion as $data){ if($data['category'] == 'coding'){$count++;}} echo $count;?>],
+						['Design', <?php $count = 0; foreach($myDiscussion as $data){ if($data['category'] == 'design'){$count++;}} echo $count;?>],
+						['Science', <?php $count = 0; foreach($myDiscussion as $data){ if($data['category'] == 'science'){$count++;}} echo $count;?>],
+						['History', <?php $count = 0; foreach($myDiscussion as $data){ if($data['category'] == 'history'){$count++;}} echo $count;?>],
+					],
+
+					type: 'donut',
+					onclick: function(d, i) { console.log("onclick", d, i); },
+					onmouseover: function(d, i) { console.log("onmouseover", d, i); },
+					onmouseout: function(d, i) { console.log("onmouseout", d, i); }
+				},
+				donut: {
+					label: {
+						show: false
 					},
-					opacity: {
-						dur: 500,
-						from: 0,
-						to: 1,
-						easing: Chartist.Svg.Easing.easeInOutElastic
+					width: 35,
+				},
+				legend: {
+					hide: true
+				},
+				color: {
+					pattern: ['#12c447', '#c49212', '#c43012', '#11bfbc', '#bf11a8']
+				}
+			});
+
+			for (var i = 0; i < replyChart.length; i++) {
+				replyChart[i].on('draw', function(data) {
+					if (data.type === 'line' || data.type === 'area') {
+						data.element.animate({
+							d: {
+								begin: 500 * data.index,
+								dur: 500,
+								from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+								to: data.path.clone().stringify(),
+								easing: Chartist.Svg.Easing.easeInOutElastic
+							}
+						});
+					}
+					if (data.type === 'bar') {
+						data.element.animate({
+							y2: {
+								dur: 500,
+								from: data.y1,
+								to: data.y2,
+								easing: Chartist.Svg.Easing.easeInOutElastic
+							},
+							opacity: {
+								dur: 500,
+								from: 0,
+								to: 1,
+								easing: Chartist.Svg.Easing.easeInOutElastic
+							}
+						});
 					}
 				});
 			}
-		});
-	}
 
-	var chart = c3.generate({
-		bindto: '#discussion',
-		data: {
-			columns: [
-				['Math', <?php $count = 0; foreach($myDiscussion as $data){ if($data['category'] == 'math'){$count++;}} echo $count;?>],
-				['Coding', <?php $count = 0; foreach($myDiscussion as $data){ if($data['category'] == 'coding'){$count++;}} echo $count;?>],
-				['Design', <?php $count = 0; foreach($myDiscussion as $data){ if($data['category'] == 'design'){$count++;}} echo $count;?>],
-				['Science', <?php $count = 0; foreach($myDiscussion as $data){ if($data['category'] == 'science'){$count++;}} echo $count;?>],
-				['History', <?php $count = 0; foreach($myDiscussion as $data){ if($data['category'] == 'history'){$count++;}} echo $count;?>],
-			],
+			var replyChart = c3.generate({
+				bindto: '#reply',
+				data: {
+					columns: [
+						['Math', <?php $count = 0; foreach($myReply as $data){ if($data['category'] == 'math'){$count++;}} echo $count;?>],
+						['Coding', <?php $count = 0; foreach($myReply as $data){ if($data['category'] == 'coding'){$count++;}} echo $count;?>],
+						['Design', <?php $count = 0; foreach($myReply as $data){ if($data['category'] == 'design'){$count++;}} echo $count;?>],
+						['Science', <?php $count = 0; foreach($myReply as $data){ if($data['category'] == 'science'){$count++;}} echo $count;?>],
+						['History', <?php $count = 0; foreach($myReply as $data){ if($data['category'] == 'history'){$count++;}} echo $count;?>],
+					],
 
-			type: 'donut',
-			onclick: function(d, i) { console.log("onclick", d, i); },
-			onmouseover: function(d, i) { console.log("onmouseover", d, i); },
-			onmouseout: function(d, i) { console.log("onmouseout", d, i); }
-		},
-		donut: {
-			label: {
-				show: false
-			},
-			width: 35,
-		},
-		legend: {
-			hide: true
-		},
-		color: {
-			pattern: ['#12c447', '#c49212', '#c43012', '#11bfbc', '#bf11a8']
-		}
-	});
-
-	for (var i = 0; i < replyChart.length; i++) {
-		replyChart[i].on('draw', function(data) {
-			if (data.type === 'line' || data.type === 'area') {
-				data.element.animate({
-					d: {
-						begin: 500 * data.index,
-						dur: 500,
-						from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
-						to: data.path.clone().stringify(),
-						easing: Chartist.Svg.Easing.easeInOutElastic
-					}
-				});
-			}
-			if (data.type === 'bar') {
-				data.element.animate({
-					y2: {
-						dur: 500,
-						from: data.y1,
-						to: data.y2,
-						easing: Chartist.Svg.Easing.easeInOutElastic
+					type: 'donut',
+					onclick: function(d, i) { console.log("onclick", d, i); },
+					onmouseover: function(d, i) { console.log("onmouseover", d, i); },
+					onmouseout: function(d, i) { console.log("onmouseout", d, i); }
+				},
+				donut: {
+					label: {
+						show: false
 					},
-					opacity: {
-						dur: 500,
-						from: 0,
-						to: 1,
-						easing: Chartist.Svg.Easing.easeInOutElastic
-					}
+					width: 35,
+				},
+				legend: {
+					hide: true
+				},
+				color: {
+					pattern: ['#12c447', '#c49212', '#c43012', '#11bfbc', '#bf11a8']
+				}
 				});
-			}
-		});
-	}
-
-	var replyChart = c3.generate({
-		bindto: '#reply',
-		data: {
-			columns: [
-				['Math', <?php $count = 0; foreach($myReply as $data){ if($data['category'] == 'math'){$count++;}} echo $count;?>],
-				['Coding', <?php $count = 0; foreach($myReply as $data){ if($data['category'] == 'coding'){$count++;}} echo $count;?>],
-				['Design', <?php $count = 0; foreach($myReply as $data){ if($data['category'] == 'design'){$count++;}} echo $count;?>],
-				['Science', <?php $count = 0; foreach($myReply as $data){ if($data['category'] == 'science'){$count++;}} echo $count;?>],
-				['History', <?php $count = 0; foreach($myReply as $data){ if($data['category'] == 'history'){$count++;}} echo $count;?>],
-			],
-
-			type: 'donut',
-			onclick: function(d, i) { console.log("onclick", d, i); },
-			onmouseover: function(d, i) { console.log("onmouseover", d, i); },
-			onmouseout: function(d, i) { console.log("onmouseout", d, i); }
-		},
-		donut: {
-			label: {
-				show: false
-			},
-			width: 35,
-		},
-		legend: {
-			hide: true
-		},
-		color: {
-			pattern: ['#12c447', '#c49212', '#c43012', '#11bfbc', '#bf11a8']
-		}
-	});
-});
-</script>	
+			});
+		</script>	
 
 		<!--JQuery Upload-->
 		<script>
@@ -601,9 +600,14 @@
 				$(this).next('.custom-file-label').addClass("selected").html(fileName); 
 			});
 
+			//Modal setting.
 			$(window).on('load', function() {
-				$('#errorModalInvit').modal('show');
+				$('#successModal').modal('show');
 			});
+			$('#successModal').modal({
+				backdrop: 'static', 
+				keyboard: false
+			});  
 		</script>
 
 	</body>

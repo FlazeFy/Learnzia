@@ -47,12 +47,14 @@
 		
 		public function createAcc(){
 			$condition = $this->input->post('username');
+			$imageURL = substr(md5(uniqid(mt_rand(), true)), 0, 30);
+			
 			$initialize = $this->upload->initialize(array(
 				"upload_path" => './assets/uploads',
 				"allowed_types" => 'jpg',
 				"max_size" => 5000,
 				"remove_spaces" => TRUE,
-				"file_name" => 'user_' . $condition
+				"file_name" => 'user_' . $imageURL
 			));
 			$data = array(
 				'username' => $this->input->post('username'),
@@ -63,7 +65,8 @@
 				'description' => $this->input->post('description'),
 				'country' => $this->input->post('country'),
 				'datejoin' => date("Y/m/d"),
-				'status' => 'online'
+				'status' => 'online',
+				'imageURL' => $imageURL
 			);
 
 			//Acc validation.

@@ -87,7 +87,7 @@
 		<!--Add post-->
 		<button class='btn btn-primary' data-toggle="modal" data-target="#discModal" aria-expanded='false' 
 		aria-controls='multiCollapseExample2' style='background-color: #00a13e; border:none; margin-bottom:1%; max-width:120px; max-height:120px;'>
-			<img src='http://localhost/Learnzia/assets/uploads/user_<?= $data = $this->session->userdata('userTrack'); ?>.jpg' alt='New Post' class='rounded-circle img-fluid' 
+			<img src='http://localhost/Learnzia/assets/uploads/user/user_<?= $data = $this->session->userdata('userTrack'); ?>.jpg' alt='New Post' class='rounded-circle img-fluid' 
 				style='width:60px; height:60px;'>
 			<h5 style='font-size:14px; color:whitesmoke;'>New Post</h5>
 		</button>
@@ -100,7 +100,7 @@
 					echo "
 						<button class='btn btn-primary' data-toggle='collapse' data-target='#disFriend".$disFriend['id_discussion']."' aria-expanded='false' 
 						aria-controls='multiCollapseExample2' style='background-color: #212121; border:none; margin-bottom:1%; max-width:120px; max-height:120px;'>
-							<img src='http://localhost/Learnzia/assets/uploads/user_".$data['id_user_2'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+							<img src='http://localhost/Learnzia/assets/uploads/user/user_".$data['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
 								style='width:60px; height:60px; border: 2.5px solid #F1C40F;'>
 							<h5 style='font-size:14px;'>".$disFriend['subject']."</h5>
 						</button>
@@ -111,7 +111,7 @@
 					echo "
 						<button class='btn btn-primary' data-toggle='collapse' data-target='#disFriend".$disFriend['id_discussion']."' aria-expanded='false' 
 						aria-controls='multiCollapseExample2' style='background-color: #212121; border:none; margin-bottom:1%; max-width:120px; max-height:120px;'>
-							<img src='http://localhost/Learnzia/assets/uploads/user_".$data['id_user_1'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+							<img src='http://localhost/Learnzia/assets/uploads/user/user_".$data['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
 								style='width:60px; height:60px; border: 2.5px solid #F1C40F;'>
 							<h5 style='font-size:14px;'>".$disFriend['subject']."</h5>
 						</button>
@@ -141,7 +141,7 @@
 									echo"<div id='accordion2'>
 										<div class='card' style='border-radius:5px; border-bottom: 3.5px solid #F1C40F; background-color:#525252;'>
 										<div class='card-header' id='headingOne' style='border-bottom: 1px solid #858585;'>
-											<img src='http://localhost/Learnzia/assets/uploads/user_".$disFriend['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; margin-top: -1%; 
+											<img src='http://localhost/Learnzia/assets/uploads/user/user_".$disFriend['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; margin-top: -1%; 
 												margin-right:1%; float:left;'>
 											<h5 style='font-size:20px; float:left;'>".$disFriend['id_user']."</h5>
 											<p style='font-size:10px; padding-top:10px; float:left; font-style:italic; color:whitesmoke;'>".$disFriend['datetime']."</p>
@@ -174,7 +174,7 @@
 												foreach ($dataReply as $data2){
 												if ($data2['id_discussion'] == $disFriend['id_discussion']){
 												echo"<div class='container'>
-													<img src='http://localhost/Learnzia/assets/uploads/user_".$data2['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
+													<img src='http://localhost/Learnzia/assets/uploads/user/user_".$data2['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
 														float:left; margin-right:1%;'>
 														<h5 style='font-size:20px; margin-left:15px;'>".$data2['id_user']."</h5>";
 														if ($data2['image'] == 'yes'){
@@ -250,7 +250,7 @@
 								echo"<div id='accordion2'>
 									<div class='card' style='border-radius:5px; border-bottom: 3.5px solid #F1C40F; background-color:#525252;'>
 									<div class='card-header' id='headingOne' style='border-bottom: 1px solid #858585;'>
-										<img src='http://localhost/Learnzia/assets/uploads/user_".$disFriend['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; margin-top: -1%; 
+										<img src='http://localhost/Learnzia/assets/uploads/user/user_".$disFriend['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; margin-top: -1%; 
 											margin-right:1%; float:left;'>
 										<h5 style='font-size:20px; float:left;'>".$disFriend['id_user']."</h5>
 										<p style='font-size:10px; padding-top:10px; float:left; font-style:italic; color:whitesmoke;'>".$disFriend['datetime']."</p>
@@ -283,7 +283,7 @@
 											foreach ($dataReply as $data2){
 											if ($data2['id_discussion'] == $disFriend['id_discussion']){
 											echo"<div class='container'>
-												<img src='http://localhost/Learnzia/assets/uploads/user_".$data2['sender'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
+												<img src='http://localhost/Learnzia/assets/uploads/user/user_".$data2['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
 													float:left; margin-right:1%;'>
 													<h5 style='font-size:20px; margin-left:15px;'>".$data2['id_user']."</h5>";
 													if ($data2['image'] == 'yes'){
