@@ -1,0 +1,27 @@
+<?php 
+	defined('BASEPATH') OR exit('No direct script access alowed');
+
+	class invitationModel extends CI_Model 
+	{
+		//Get friend and class invitation.
+		public function get_my_invitation(){
+			$this->db->select('*');
+			$this->db->from('invitation');
+			$this->db->where('id_user_receiver', $this->session->userdata('userIdTrack'));
+			$this->db->order_by('datetime','DESC');
+			return $data = $this->db->get()->result_array();
+		}
+		public function deleteInvitation($id){
+			$this->db->where('id_invitation', $id);
+			$this->db->delete('invitation');
+			redirect('profileCtrl');
+		}
+		//accept invitation
+		public function acceptInvitation($data, $id){
+			$this->db->where('id_invitation', $id);
+			$this->db->delete('invitation');
+
+			$this->db->insert('relation',$data);
+		}
+	}
+?>

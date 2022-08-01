@@ -4,23 +4,29 @@
 	class profileCtrl extends CI_Controller {
 		function __construct(){
 			parent::__construct();
-			$this->load->model('profileModel');
+			$this->load->model('userModel');
+			$this->load->model('discussionModel');
+			$this->load->model('invitationModel');
+			$this->load->model('messageModel');
+			$this->load->model('replyModel');
+			$this->load->model('socialModel');
+			$this->load->model('upModel');
+			$this->load->model('classModel');
 		}	 
 		public function index(){
 			$data = [];
-			$data['dataUser']= $this->profileModel->get_data_user();
-			$data['dataMessage']= $this->profileModel->get_all_message();
-			$data['dataDiscussion']= $this->profileModel->get_my_discussion();
-			$data['dataInvitation']= $this->profileModel->get_my_invitation();
-			$data['contacts']= $this->profileModel->get_only_contact();
-			$data['listUser']= $this->profileModel->get_list_user();
-			$data['listClass']= $this->profileModel->get_list_class();
-			$data['listRel']= $this->profileModel->get_list_relation();
-			$data['discHistory']= $this->profileModel->get_all_history();
-			$data['discMath']= $this->profileModel->get_all_math();
-			$data['dataReply']= $this->profileModel->get_all_reply();
-			$data['dataReplyWCat']= $this->profileModel->get_all_replyWCat();
-			$this->load->view('profileView', $data);
+			$data['dataUser']= $this->userModel->get_data_user();
+			$data['dataMessage']= $this->messageModel->get_all_message();
+			$data['dataDiscussion']= $this->discussionModel->get_my_discussion();
+			$data['dataInvitation']= $this->invitationModel->get_my_invitation();
+			$data['contacts']= $this->socialModel->get_only_contact();
+			$data['listUser']= $this->userModel->get_all_user();
+			$data['listClass']= $this->classModel->get_list_class();
+			$data['listRel']= $this->classModel->get_list_relation();
+			$data['discHistory']= $this->discussionModel->get_all_history();
+			$data['discMath']= $this->discussionModel->get_all_math();
+			$data['dataReply']= $this->replyModel->get_all_reply();
+			$this->load->view('profile/index', $data);
 		}
 
 		//Send new message
@@ -147,7 +153,7 @@
 			$this->profileModel->acceptInvitation($data, $id);
 			$data['success_join'] =  $this->input->post('classname');
 			$this->index();
-			$this->load->view('profileView', $data);
+			$this->load->view('profile/index', $data);
 		}
 
 		//Update profile.

@@ -4,18 +4,23 @@
 	class homeCtrl extends CI_Controller {
 		function __construct(){
 			parent::__construct();
-			$this->load->model('homeModel');
+			$this->load->model('userModel');
+			$this->load->model('discussionModel');
+			$this->load->model('messageModel');
+			$this->load->model('replyModel');
+			$this->load->model('socialModel');
+			$this->load->model('upModel');
 		}	 
 		public function index(){
 			$data = [];
-			$data['dataUser']= $this->homeModel->get_data_user();
-			$data['dataMessage']= $this->homeModel->get_all_message();
-			$data['contacts']= $this->homeModel->get_only_contact();
-			$data['allUser']= $this->homeModel->get_all_user();
-			$data['allDisc']= $this->homeModel->get_all_disc();
-			$data['allVoteDis']= $this->homeModel->get_all_vote_dis();
-			$data['allVoteRep']= $this->homeModel->get_all_vote_rep();
-			$data['dataReply']= $this->homeModel->get_all_reply();
+			$data['dataUser']= $this->userModel->get_data_user();
+			$data['dataMessage']= $this->messageModel->get_all_message();
+			$data['contacts']= $this->socialModel->get_only_contact();
+			$data['allUser']= $this->userModel->get_all_user();
+			$data['allDisc']= $this->discussionModel->get_all_disc();
+			$data['allVoteDis']= $this->upModel->get_all_vote_dis();
+			$data['allVoteRep']= $this->upModel->get_all_vote_rep();
+			$data['dataReply']= $this->replyModel->get_all_reply();
 			$this->load->view('home/index', $data);
 		}
 
@@ -51,10 +56,10 @@
 					$this->index();
 					$this->load->view('home/index', $data);
 				} else {
-					$this->homeModel->uploadDisc($data, 'discussion');
+					$this->discussionModel->uploadDisc($data, 'discussion');
 				}
 			} else {
-				$this->homeModel->uploadDisc($data, 'discussion');
+				$this->discussionModel->uploadDisc($data, 'discussion');
 			} 
 		}
 
@@ -90,10 +95,10 @@
 					$this->index();
 					$this->load->view('home/index', $data);
 				} else {
-					$this->homeModel->reply($data, 'reply');
+					$this->replyModel->reply($data, 'reply');
 				}
 			} else {
-				$this->homeModel->reply($data, 'reply');
+				$this->replyModel->reply($data, 'reply');
 			}
 		}
 
@@ -128,10 +133,10 @@
 					$this->index();
 					$this->load->view('home/index', $data);
 				} else {
-					$this->homeModel->insertMessage($data, 'message');
+					$this->replyModel->insertMessage($data, 'message');
 				}
 			} else {
-				$this->homeModel->insertMessage($data, 'message');
+				$this->replyModel->insertMessage($data, 'message');
 			}
 			redirect('homeCtrl');
 		}
@@ -148,7 +153,7 @@
 					'message_image' => 'discussion',
 					'datetime' => date("Y/m/d h:i:sa")
 				);
-				$this->homeModel->insertMessage($data, 'message');
+				$this->messageModel->insertMessage($data, 'message');
 			}
 			redirect('homeCtrl');
 		}
@@ -161,7 +166,7 @@
 				'id_user' => $this->session->userdata('userIdTrack'),
 				'up_type' => 'discussion',
 			);
-			$this->homeModel->insertVote($data, 'up');
+			$this->upModel->insertVote($data, 'up');
 			redirect('homeCtrl');
 		}
 
@@ -180,7 +185,7 @@
 				'id_user' => $this->session->userdata('userIdTrack'),
 				'up_type' => 'reply',
 			);
-			$this->homeModel->insertVote($data, 'up');
+			$this->upModel->insertVote($data, 'up');
 			redirect('homeCtrl');
 		}
 
@@ -201,7 +206,7 @@
 
 		//Sign out
 		public function signOut(){
-			$this->homeModel->offstatus('user');
+			$this->userModel->offstatus('user');
 		}
 	}
 ?>
