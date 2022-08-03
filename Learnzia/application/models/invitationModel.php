@@ -23,5 +23,9 @@
 
 			$this->db->insert('relation',$data);
 		}
+		//send invitation
+		public function insertInvitation($data){			
+			$this->db->insert('invitation',$data);
+		}
 	}
 ?>

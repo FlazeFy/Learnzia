@@ -28,5 +28,12 @@
 			$this->db->order_by('datetime','ASC');
 			return $data = $this->db->get()->result_array();
 		}
+
+		//New class
+		public function insertClass($data, $data2){
+			$this->db->insert('classroom',$data);
+			$this->db->insert('relation',$data2);	
+			redirect('globalCtrl');
+		}
 	}
 ?>

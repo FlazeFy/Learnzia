@@ -1,3 +1,13 @@
+<style>
+	footer  {
+		background-color: #212121; 
+		color:whitesmoke; 
+		position: relative; 
+		bottom: 0; 
+		padding: 2rem;
+	}
+</style>
+
 <footer class="page-footer font-small teal pt-4 relative-bottom">
 	<div class="container-fluid text-center text-md-left">
 	<div class="row">

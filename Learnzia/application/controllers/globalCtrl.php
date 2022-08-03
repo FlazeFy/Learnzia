@@ -4,124 +4,171 @@
 	class globalCtrl extends CI_Controller {
 		function __construct(){
 			parent::__construct();
-			$this->load->model('globalModel');
+			$this->load->model('userModel');
+			$this->load->model('discussionModel');
+			$this->load->model('messageModel');
+			$this->load->model('replyModel');
+			$this->load->model('socialModel');
+			$this->load->model('upModel');
+			$this->load->model('classModel');
+			$this->load->model('relationModel');
 		}	 
+
 		public function index(){
 			$data = [];
-			$data['dataUser']= $this->globalModel->get_data_user();
-			$data['dataMessage']= $this->globalModel->get_all_message();
-			$data['dataDiscussion']= $this->globalModel->get_my_discussion();
-			$data['contacts']= $this->globalModel->get_only_contact();
-			$data['listUser']= $this->globalModel->get_list_user();
-			$data['listClass']= $this->globalModel->get_list_class();
-			$data['listRel']= $this->globalModel->get_list_relation();
-			$data['discHistory']= $this->globalModel->get_all_history();
-			$data['discMath']= $this->globalModel->get_all_math();
-			$data['dataReply']= $this->globalModel->get_all_reply();
-			$data['dataReplyWCat']= $this->globalModel->get_all_replyWCat();
-			$this->load->view('globalView', $data);
+			$data['dataUser']= $this->userModel->get_data_user();
+			$data['dataMessage']= $this->messageModel->get_all_message();
+			$data['allDisc']= $this->discussionModel->get_all_disc();
+			$data['contacts']= $this->socialModel->get_only_contact();
+			$data['allUser']= $this->userModel->get_all_user();
+			$data['listClass']= $this->classModel->get_list_class();
+			$data['listRel']= $this->relationModel->get_list_relation();
+			$data['dataReply']= $this->replyModel->get_all_reply();
+			//$data['dataReplyWCat']= $this->globalModel->get_all_replyWCat();
+			$this->load->view('global/index', $data);
 		}
-		//Send new message
-		public function sendMessage(){
-			$data = array(
-				'id_message' => 'NULL',
-				'sender' => $this->session->userdata('userTrack'),
-				'receiver' => $this->input->post('receiver'),
-				'message' => $this->input->post('message'),
-				'datetime' => date("Y/m/d h:i:sa")
-			);
-			$this->globalModel->posting($data, 'message');
-			redirect('globalCtrl');
-		}
-		public function sendDisc(){
-			$data = array(
-				'id_discussion' => 'NULL',
-				'sender' => $this->session->userdata('userTrack'),
-				'category' => $this->input->post('category'),
-				'subject' => $this->input->post('subject'),
-				'question' => $this->input->post('question'),
-				'datetime' => date("Y/m/d h:i:sa")
-			);
-			$this->globalModel->uploadDisc($data, 'discussion');
-			redirect('globalCtrl');
-		}
+
 		//Reply discussion
 		public function sendReply(){
 			if($this->input->post('imageSwitchR') == 'on'){
-				$switch = 'yes';
 				$date = date("Ymdhis");
 				$username = $this->session->userdata('userTrack');
-				$imageURL = $username. '' .$date;
+				$imageURL = substr(md5(uniqid(mt_rand(), true)), 0, 30);
 			} else {
-				$switch = 'no'; 
 				$imageURL = 'null';
 			}
 			$initialize = $this->upload->initialize(array(
 				"upload_path" => './assets/uploads/reply',
 				"allowed_types" => 'jpg',
-				"max_size" => 2000,
+				"max_size" => 5000,
 				"remove_spaces" => TRUE,
 				"file_name" => 'reply_' . $imageURL
 			));
 			$data = array(
 				'id_reply' => 'NULL',
 				'id_discussion' => $this->input->post('id_discussion'),
-				'sender' => $this->session->userdata('userTrack'),
+				'id_user' => $this->session->userdata('userIdTrack'),
 				'replytext' => $this->input->post('replytext'),
 				'datetime' => date("Y/m/d h:i:sa"),
-				'image' => $switch,
-				'imageURL' => $imageURL
+				'reply_image' => $imageURL,
+				'reply_status' => 'null'
 			);
 			
 			if($this->input->post('imageSwitchR') == 'on'){
 				if (!$this->upload->do_upload('uploadImageR')) {
-					$error = array('error' => $this->upload->display_errors());
-					$data['error_message'] = "Error! your image is to big or not jpg";
-					redirect('homeCtrl');
+					$data['error_message'] = "Your image is too big or not jpg!";
+					$this->index();
+					$this->load->view('global/index', $data);
 				} else {
-					$this->globalModel->reply($data, 'reply');
+					$this->replyModel->reply($data, 'reply');
 				}
 			} else {
-				$this->globalModel->reply($data, 'reply');
+				$this->replyModel->reply($data, 'reply');
 			}
 		}
-		//Send reply message
+
+		//Send message
 		public function sendRMessage(){
 			if($this->input->post('imageSwitchMsg') == 'on'){
-				$date = date("Ymdhis");
-				$username = $this->session->userdata('userTrack');
-				$imageURL = $username. '' .$date;
+				$imageURL = substr(md5(uniqid(mt_rand(), true)), 0, 30);
 			} else {
 				$imageURL = 'null';
 			}
+
 			$initialize = $this->upload->initialize(array(
 				"upload_path" => './assets/uploads/message',
 				"allowed_types" => 'jpg',
-				"max_size" => 2000,
+				"max_size" => 5000,
 				"remove_spaces" => TRUE,
-				"file_name" => 'message_' . $imageURL
+				"file_name" => 'message_'.$imageURL
 			));
+
 			$data = array(
 				'id_message' => 'NULL',
-				'sender' => $this->session->userdata('userTrack'),
-				'receiver' => $this->input->post('receiver'),
-				'message' => $this->input->post('replyMessage'),
-				'imageURL' => $imageURL,
+				'id_social' => $this->input->post('id_social'),
+				'id_user_sender' => $this->session->userdata('userIdTrack'),
+				'message' => $this->input->post('message'),
+				'message_image' => $imageURL,
 				'datetime' => date("Y/m/d h:i:sa")
 			);
 			
 			if($this->input->post('imageSwitchMsg') == 'on'){
 				if (!$this->upload->do_upload('uploadImageMsg')) {
-					$error = array('error' => $this->upload->display_errors());
-					$data['error_message'] = "Error! your image is to big or not jpg";
-					redirect('globalCtrl');
+					$data['error_message'] = "Your image is to big or not jpg";
+					$this->index();
+					$this->load->view('global/index', $data);
 				} else {
-					$this->globalModel->replyMessage($data, 'message');
+					$this->messageModel->insertMessage($data, 'message');
 				}
 			} else {
-				$this->globalModel->replyMessage($data, 'message');
+				$this->messageModel->insertMessage($data, 'message');
 			}
+			redirect('globalCtrl');
 		}
+
+		//Share discussion
+		public function shareDisc(){
+			$contact = $this->input->post('id_social[]');		
+			for($i = 0; $i < count($contact); $i++){	
+				$data = array(
+					'id_message' => 'NULL',
+					'id_social' => $contact[$i],
+					'id_user_sender' => $this->session->userdata('userIdTrack'),
+					'message' => $this->input->post('id_discussion'),
+					'message_image' => 'discussion',
+					'datetime' => date("Y/m/d h:i:sa")
+				);
+				$this->messageModel->insertMessage($data, 'message');
+			}
+			redirect('globalCtrl');
+		}
+
+		//Upvote a discussion
+		public function upvoteDis(){
+			$data = array(
+				'id_up' => 'NULL',
+				'id_context' => $this->input->post('id_discussion'),
+				'id_user' => $this->session->userdata('userIdTrack'),
+				'up_type' => 'discussion',
+			);
+			$this->upModel->insertVote($data, 'up');
+			redirect('globalCtrl');
+		}
+
+		//downvote a discussion
+		public function downvoteDis(){
+			$this->db->where('id_up', $this->input->post('id_up'));
+			$this->db->delete('up');
+			redirect('globalCtrl');
+		}
+
+		//Upvote a reply
+		public function upvoteRep(){
+			$data = array(
+				'id_up' => 'NULL',
+				'id_context' => $this->input->post('id_discussion'),
+				'id_user' => $this->session->userdata('userIdTrack'),
+				'up_type' => 'reply',
+			);
+			$this->upModel->insertVote($data, 'up');
+			redirect('globalCtrl');
+		}
+
+		//downvote a reply
+		public function downvoteRep(){
+			$this->db->where('id_up', $this->input->post('id_up'));
+			$this->db->delete('up');
+			redirect('globalCtrl');
+		}
+
+		//Verify a reply
+		public function verifyRep(){
+			$this->db->set('reply_status', 'verified');
+			$this->db->where('id_reply', $this->input->post('id_reply'));
+			$this->db->update('reply');
+			redirect('globalCtrl');
+		}
+
 		//New class
 		public function newClass(){
 			if($this->input->post('typeSwitch') == 'on'){
@@ -162,41 +209,45 @@
 			
 			if($this->input->post('imageSwitchC') == 'on'){
 				if (!$this->upload->do_upload('uploadClassProfil')) {
-					$error = array('error' => $this->upload->display_errors());
-					$data['error_message'] = "Error! your image is to big or not jpg";
-					redirect('globalCtrl');
+					$data['error_message'] = "Your image is to big or not jpg";
+					$this->index();
+					$this->load->view('home/index', $data);
 				} else {
-					$this->globalModel->insertClass($data, $data2);
+					$this->classModel->insertClass($data, $data2);
 				}
 			} else {
-				$this->globalModel->insertClass($data, $data2);
+				$this->classModel->insertClass($data, $data2);
 			}
 		}
+
 		//Send Invitation
 		public function sendInvitation(){
 			$data = array(
 				'id_invitation' => 'NULL',
-				'sender' => $this->session->userdata('userTrack'),
-				'receiver' => $this->input->post('receiver'),
+				'id_user_sender' => $this->session->userdata('userIdTrack'),
+				'id_user_receiver' => $this->input->post('receiverId'),
 				'type' => $this->input->post('typeInvitation'),
 				'datetime' => date("Y/m/d h:i:sa")
 			);
+
 			$this->db->select('*');
 			$this->db->from('relation');
 			$this->db->where('classname', $this->input->post('typeInvitation'));
-			$this->db->where('username', $this->input->post('receiver'));
+			$this->db->where('username', $this->input->post('receiverId'));
 			$userCheck = $this->db->get()->result();
+
 			if(count($userCheck) == 0){
-				$this->globalModel->insertInvitation($data, 'invitation');
-				$data['success_messageInvitation1'] =  $this->input->post('receiver');
+				$this->classModel->insertInvitation($data, 'invitation');
+				$data['success_message'] = "Invitation has been sended";
 				$this->index();
-				$this->load->view('globalView', $data);
+				$this->load->view('global/index', $data);
 			} else {
-				$data['error_messageInvitation1'] =  $this->input->post('receiver');
+				$data['error_message'] =  "This user already been invited";
 				$this->index();
-				$this->load->view('globalView', $data);
+				$this->load->view('global/index', $data);
 			}
 		}
+
 		//Open class.
 		public function openClass(){
 			$this->db->select('id_classroom');
@@ -215,9 +266,9 @@
 			redirect("classCtrl");
 		}
 
-		//Sign out.
+		//Sign out
 		public function signOut(){
-			$this->globalModel->offstatus('user');
+			$this->userModel->offstatus('user');
 		}
 	}
 ?>
