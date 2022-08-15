@@ -19,23 +19,30 @@
 										<div class='card' style='border-radius:5px; border: 3px solid #F1C40F; background-color:#525252; margin-bottom:3%; width:225px; 
 										height:225px; max-height: calc(80vh - 120px); max-width:auto; overflow-y: auto;'>";
 										foreach ($listRel as $rel2){
-										foreach ($listUser as $user){
-											if(($rel2['username'] == $user['username']) &&($rel2['classname'] == $class['classname'])){
-											echo "<div class='card' type='button' style='border: none; background-color:#515151; margin:1%;'>
-												<div class='card-header' style='height:5rem;'>
-													<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
-														style='width:50px; height:50px; float:left; margin-right:5%'>";
-														if ($user['username'] == $this->session->userdata('userTrack')){
-															echo "<h5 style='font-size:15.5px; color:#F1C40F;'>You</h5>";
+											foreach ($allUser as $user){
+												if(($rel2['username'] == $user['username']) &&($rel2['classname'] == $class['classname'])){
+												echo "<div class='card' type='button' style='border: none; background-color:#515151; margin:1%;'>
+													<div class='card-header' style='height:5rem;'>
+														<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+															style='width:50px; height:50px; float:left; margin-right:5%'>";
+															//Username.
+															if ($user['username'] == $this->session->userdata('userTrack')){
+																echo "<h5 style='font-size:15.5px; color:#F1C40F;'>You</h5>";
+															} else {
+																echo "<h5 style='font-size:15.5px; color:#F1C40F;'>".$user['username']."</h5>";
+															}
+														if($rel2['typeRelation'] == 'founder'){
+															echo"<p style='font-size:14px; color:#7289da; font-weight:bold;'>".$rel2['typeRelation']."</p>";
+														} else if($rel2['typeRelation'] == 'co-founder') {
+															echo"<p style='font-size:14px; color:#00a13e;'>".$rel2['typeRelation']."</p>";
 														} else {
-															echo "<h5 style='font-size:15.5px; color:#F1C40F;'>".$user['username']."</h5>";}
-													if($rel2['typeRelation'] == 'founder'){echo"<p style='font-size:14px; color:#7289da; font-weight:bold;'>".$rel2['typeRelation']."</p>";}
-													else if($rel2['typeRelation'] == 'co-founder') {echo"<p style='font-size:14px; color:#00a13e;'>".$rel2['typeRelation']."</p>";}
-													else{echo"<p style='font-size:14px; color:whitesmoke;'>".$rel2['typeRelation']."</p>";}
-												echo"</div>
-											</div>";
-											} 
-										}}
+															echo"<p style='font-size:14px; color:whitesmoke;'>".$rel2['typeRelation']."</p>";
+														}
+													echo"</div>
+												</div>";
+												} 
+											}
+										}
 									echo"</div>
 									</div>
 									
@@ -45,30 +52,45 @@
 											<p>".$class['description']."</p>
 											<div class='row text-center m-t-20' style='margin-top:1%;'>
 												<div class='col-lg-4 col-md-4 m-t-20'>
-													<h4 style='font-size:20px;'>"; $count =0; foreach ($listRel as $rel2){foreach ($listUser as $user){
-													if(($rel2['username'] == $user['username'])&&($rel2['classname'] == $class['classname'])){$count++;}}} echo $count; echo" </h4>
+													<h4 style='font-size:20px;'>"; 
+													//Count member.
+													$count =0; 
+													foreach ($listRel as $rel2){
+														if($rel2['classname'] == $class['classname']){
+															$count++;
+														}
+													} 
+													echo $count; 
+													echo" 
+													</h4>
 													<small style='color:whitesmoke;'>Member</small>
 												</div>
 												<div class='col-lg-4 col-md-4 m-t-20'>
-													<h4 style='font-size:20px;'>";echo $class['category'];
-													echo "</h4><small style='color:whitesmoke;'>Category</small>
+													<h4 style='font-size:20px;'>".$class['category']."</h4><small style='color:whitesmoke;'>Category</small>
 												</div>
 												<div class='col-lg-4 col-md-4 m-t-20'>
-													<h4 style='font-size:20px;'>";echo $class['type'];
-													echo "</h4><small style='color:whitesmoke;'>Type</small>
+													<h4 style='font-size:20px;'>".$class['type']."</h4><small style='color:whitesmoke;'>Type</small>
 												</div>
 											</div>
 											<div class='container'>
 												<h4 style='font-size:20px;'>Founded By</h4>";
-												foreach ($listRel as $rel2){foreach ($listUser as $user){if(($rel2['username'] == $user['username'])&&($rel2['classname'] == $class['classname'])){if($rel2['typeRelation'] == 'founder'){
-												echo "<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
-													style='width:50px; height:50px; float:left; margin-right:5%'>";
-												if ($user['username'] == $this->session->userdata('userTrack')){
-													echo "<h5 style='font-size:15.5px; color:#7289da;'>You</h5>";
-												} else {
-													echo "<h5 style='font-size:15.5px; color:#7289da;'>".$user['username']."</h5>";}
-												echo "<p style='font-size:13px; color:whitesmoke; font-style:italic;'>".$class['date']."</p>";
-												}}}}
+												foreach ($listRel as $rel2){
+													foreach ($allUser as $user){
+														if(($rel2['username'] == $user['username'])&&($rel2['classname'] == $class['classname'])){
+															if($rel2['typeRelation'] == 'founder'){
+																echo "<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+																	style='width:50px; height:50px; float:left; margin-right:5%'>";
+																//Username.
+																if ($user['username'] == $this->session->userdata('userTrack')){
+																	echo "<h5 style='font-size:15.5px; color:#7289da;'>You</h5>";
+																} else {
+																	echo "<h5 style='font-size:15.5px; color:#7289da;'>".$user['username']."</h5>";
+																}
+																echo "<p style='font-size:13px; color:whitesmoke; font-style:italic;'>".$class['date']."</p>";
+															}
+														}
+													}
+												}
 										echo "</div>
 										</div>";
 										if ((($rel['typeRelation'] == 'founder')||($rel['typeRelation'] == 'co-founder'))&&($class['type']=='private')){

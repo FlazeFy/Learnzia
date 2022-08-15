@@ -5,33 +5,26 @@
 		function __construct(){
 			parent::__construct();
 			$this->load->model('classModel');
+			$this->load->model('userModel');
+			$this->load->model('discussionModel');
+			$this->load->model('channelModel');
+			$this->load->model('messageModel');
+			$this->load->model('socialModel');
+			$this->load->model('relationModel');
+			$this->load->model('classModel');
 		}	 
 		public function index(){
 			$data = [];
-			$data['dataUser']= $this->classModel->get_data_user();
-			$data['dataMessage']= $this->classModel->get_all_message();
-			$data['contacts']= $this->classModel->get_only_contact();
-			$data['listUser']= $this->classModel->get_list_user();
-			$data['listChannel']= $this->classModel->get_list_channel();
+			$data['allUser']= $this->userModel->get_data_user();
+			$data['dataMessage']= $this->messageModel->get_all_message();
+			$data['contacts']= $this->socialModel->get_only_contact();
+			$data['listChannel']= $this->channelModel->get_list_channel();
 			$data['listClass']= $this->classModel->get_list_class();
-			$data['listRel']= $this->classModel->get_list_relation();
-			$data['myRel']= $this->classModel->get_my_relation();
+			$data['listRel']= $this->relationModel->get_list_relation();
+			$data['myRel']= $this->relationModel->get_my_relation();
 			$data['listActivity']= $this->classModel->get_list_activity();
 			$data['dataClassForumMsg']= $this->classModel->get_all_classForumMessage();
-			$this->load->view('classView', $data);
-		}
-
-		//Send new message
-		public function sendMessage(){
-			$data = array(
-				'id_message' => 'NULL',
-				'sender' => $this->session->userdata('userTrack'),
-				'receiver' => $this->input->post('receiver'),
-				'message' => $this->input->post('message'),
-				'datetime' => date("Y/m/d h:i:sa")
-			);
-			$this->classModel->posting($data, 'message');
-			redirect('classCtrl');
+			$this->load->view('class/index', $data);
 		}
 		
 		//Navigate channel
@@ -41,44 +34,6 @@
 
 			$this->session->set_userdata('channelTrack',$id);
 			redirect('classCtrl');	
-		}
-
-		//Send reply message
-		public function sendRMessage(){
-			if($this->input->post('imageSwitchMsg') == 'on'){
-				$date = date("Ymdhis");
-				$username = $this->session->userdata('userTrack');
-				$imageURL = $username. '' .$date;
-			} else {
-				$imageURL = 'null';
-			}
-			$initialize = $this->upload->initialize(array(
-				"upload_path" => './assets/uploads/message',
-				"allowed_types" => 'jpg',
-				"max_size" => 2000,
-				"remove_spaces" => TRUE,
-				"file_name" => 'message_' . $imageURL
-			));
-			$data = array(
-				'id_message' => 'NULL',
-				'sender' => $this->session->userdata('userTrack'),
-				'receiver' => $this->input->post('receiver'),
-				'message' => $this->input->post('replyMessage'),
-				'imageURL' => $imageURL,
-				'datetime' => date("Y/m/d h:i:sa")
-			);
-			
-			if($this->input->post('imageSwitchMsg') == 'on'){
-				if (!$this->upload->do_upload('uploadImageMsg')) {
-					$error = array('error' => $this->upload->display_errors());
-					$data['error_message'] = "Error! your image is to big or not jpg";
-					redirect('classCtrl');
-				} else {
-					$this->classModel->replyMessage($data, 'message');
-				}
-			} else {
-				$this->classModel->replyMessage($data, 'message');
-			}
 		}
 
 		//Create class's channel
@@ -158,10 +113,10 @@
 					$data['error_message'] = "Error! your image is to big or not jpg";
 					redirect('classCtrl');
 				} else {
-					$this->classModel->insertMainMsg($data, 'classforummessage');
+					$this->messageModel->insertMainMsg($data, 'classforummessage');
 				}
 			} else {
-				$this->classModel->insertMainMsg($data, 'classforummessage');
+				$this->messageModel->insertMainMsg($data, 'classforummessage');
 			}
 		}
 
@@ -215,7 +170,7 @@
 				"channel_description" => $this->input->post('channel_description'),
 			];
 
-			$this->classModel->updateChannel($data, 'channel');
+			$this->channelModel->updateChannel($data, 'channel');
 
 			//Class activity
 			$data2 = array(

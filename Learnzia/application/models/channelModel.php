@@ -15,10 +15,6 @@
 		public function insertChannel($data){			
 			$this->db->insert('channel',$data);
 		}
-		//Create classroom activity
-		public function insertActivity($data2){			
-			$this->db->insert('classroom-activity',$data2);
-		}
 
 		//Change user data.
 		function updateChannel($data)

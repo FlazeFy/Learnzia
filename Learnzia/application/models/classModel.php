@@ -29,6 +29,11 @@
 			return $data = $this->db->get()->result_array();
 		}
 
+		//Create classroom activity
+		public function insertActivity($data2){			
+			$this->db->insert('classroom-activity',$data2);
+		}
+
 		//New class
 		public function insertClass($data, $data2){
 			$this->db->insert('classroom',$data);

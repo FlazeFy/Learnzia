@@ -18,10 +18,12 @@
 			$this->db->insert('message',$data);	
 			redirect('homeCtrl');
 		}
+		
 		//Send message.
 		public function insertMessage($data){
 			$this->db->insert('message',$data);	
 		}
+
 		//Insert channel message
 		public function insertMainMsg($data){
 			$this->db->insert('classforummessage',$data);	
