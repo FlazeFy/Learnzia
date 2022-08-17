@@ -24,6 +24,7 @@
 			$data['listClass']= $this->classModel->get_list_class();
 			$data['listRel']= $this->relationModel->get_list_relation();
 			$data['dataReply']= $this->replyModel->get_all_reply();
+			$data['content']= $this->browseContent();
 			//$data['dataReplyWCat']= $this->globalModel->get_all_replyWCat();
 			$this->load->view('global/index', $data);
 		}
@@ -65,6 +66,31 @@
 			} else {
 				$this->replyModel->reply($data, 'reply');
 			}
+		}
+
+		public function browseContent(){
+			return $data = $this->db->query('SELECT 
+					discussion.id_discussion as id,
+					discussion.id_user as id_user,
+					discussion.datetime as created_at,
+					discussion.category as category,
+					discussion.subject as description,
+					discussion.question as body,
+					discussion.discussion_image as image_url,
+					user.username as username,
+					user.imageURL as image_user,
+					1 as cat 
+				FROM discussion JOIN user ON user.id_user = discussion.id_user 
+				UNION SELECT classroom.id_classroom as id,
+					null as id_user,
+					classroom.date as created_at,
+					classroom.category as category,	
+					classroom.description as description,
+					classroom.type as body,
+					classroom.imageURL as image_url,
+					classroom.classname as username,
+					null as image_user,
+					2 as cat FROM classroom');
 		}
 
 		//Send message

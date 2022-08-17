@@ -115,10 +115,12 @@
 			</div>
 		</div>
 
-		<!--All classroom.-->
 		<div class="container p-3" id="menu">
 			<h4>All Class & Post</h4>
-			
+			<!--All classroom.-->
+			<?php
+				$this->load->view('global/all');
+			?>
 		</div>
 
 		<!--Footer.-->
