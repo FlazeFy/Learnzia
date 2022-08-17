@@ -158,6 +158,23 @@
 			redirect('homeCtrl');
 		}
 
+		//Share reply
+		public function shareRep(){
+			$contact = $this->input->post('id_social[]');		
+			for($i = 0; $i < count($contact); $i++){	
+				$data = array(
+					'id_message' => 'NULL',
+					'id_social' => $contact[$i],
+					'id_user_sender' => $this->session->userdata('userIdTrack'),
+					'message' => $this->input->post('id_reply'),
+					'message_image' => 'reply',
+					'datetime' => date("Y/m/d h:i:sa")
+				);
+				$this->messageModel->insertMessage($data, 'message');
+			}
+			redirect('homeCtrl');
+		}
+
 		//Upvote a discussion
 		public function upvoteDis(){
 			$data = array(

@@ -245,6 +245,7 @@
 											}
 										}
 										echo "
+										<a class='btn btn-transparent border-0 mx-2 text-white' data-toggle='modal' data-target='#shareRep".$data2['id_reply']."' title='forward'><i class='fa-solid fa-paper-plane'></i></a>
 										</div>
 									</div>
 								</div>"; 

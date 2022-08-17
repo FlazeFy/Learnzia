@@ -404,6 +404,11 @@
 			$this->load->view('home/form/shareQuestion');
 		?>
 
+		<!-- Modal Share reply-->
+		<?php
+			$this->load->view('home/form/shareReply');
+		?>
+
 		<!-- Zoom discussion image Modal -->
 		<?php
 			$this->load->view('others/zoom');
