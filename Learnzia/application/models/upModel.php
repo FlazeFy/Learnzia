@@ -1,7 +1,7 @@
 <?php 
 	defined('BASEPATH') OR exit('No direct script access alowed');
 
-	class upModel extends CI_Model 
+	class UpModel extends CI_Model 
 	{
 		//Get question up & down vote
 		public function get_all_vote_dis()

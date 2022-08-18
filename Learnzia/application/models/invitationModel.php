@@ -1,7 +1,7 @@
 <?php 
 	defined('BASEPATH') OR exit('No direct script access alowed');
 
-	class invitationModel extends CI_Model 
+	class InvitationModel extends CI_Model 
 	{
 		//Get friend and class invitation.
 		public function get_my_invitation(){
@@ -14,7 +14,7 @@
 		public function deleteInvitation($id){
 			$this->db->where('id_invitation', $id);
 			$this->db->delete('invitation');
-			redirect('profileCtrl');
+			redirect('ProfileCtrl');
 		}
 		//accept invitation
 		public function acceptInvitation($data, $id){

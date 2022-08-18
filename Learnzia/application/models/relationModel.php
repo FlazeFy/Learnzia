@@ -1,7 +1,7 @@
 <?php 
 	defined('BASEPATH') OR exit('No direct script access alowed');
 
-	class relationModel extends CI_Model 
+	class RelationModel extends CI_Model 
 	{
 		public function get_list_relation()
 		{

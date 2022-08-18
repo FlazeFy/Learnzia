@@ -1,7 +1,7 @@
 <?php 
 	defined('BASEPATH') OR exit('No direct script access alowed');
 
-	class replyModel extends CI_Model 
+	class ReplyModel extends CI_Model 
 	{
 		public function get_all_reply(){
 			$this->db->select('*');
@@ -23,7 +23,7 @@
 		//reply discussion
 		public function reply($data){
 			$this->db->insert('reply',$data);	
-			redirect('homeCtrl');
+			redirect('HomeCtrl');
 		}
 	}
 ?>

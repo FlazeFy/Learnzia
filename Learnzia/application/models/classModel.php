@@ -1,7 +1,7 @@
 <?php 
 	defined('BASEPATH') OR exit('No direct script access alowed');
 
-	class classModel extends CI_Model 
+	class ClassModel extends CI_Model 
 	{
 		public function get_list_class(){
 			$data = $this->db->get('classroom');
@@ -38,7 +38,7 @@
 		public function insertClass($data, $data2){
 			$this->db->insert('classroom',$data);
 			$this->db->insert('relation',$data2);	
-			redirect('globalCtrl');
+			redirect('GlobalCtrl');
 		}
 
 		//Change class data

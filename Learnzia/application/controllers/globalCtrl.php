@@ -1,29 +1,29 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access alowed');
 
-	class globalCtrl extends CI_Controller {
+	class GlobalCtrl extends CI_Controller {
 		function __construct(){
 			parent::__construct();
-			$this->load->model('userModel');
-			$this->load->model('discussionModel');
-			$this->load->model('messageModel');
-			$this->load->model('replyModel');
-			$this->load->model('socialModel');
-			$this->load->model('upModel');
-			$this->load->model('classModel');
-			$this->load->model('relationModel');
+			$this->load->model('UserModel');
+			$this->load->model('DiscussionModel');
+			$this->load->model('MessageModel');
+			$this->load->model('ReplyModel');
+			$this->load->model('SocialModel');
+			$this->load->model('UpModel');
+			$this->load->model('ClassModel');
+			$this->load->model('RelationModel');
 		}	 
 
 		public function index(){
 			$data = [];
-			$data['dataUser']= $this->userModel->get_data_user();
-			$data['dataMessage']= $this->messageModel->get_all_message();
-			$data['allDisc']= $this->discussionModel->get_all_disc();
-			$data['contacts']= $this->socialModel->get_only_contact();
-			$data['allUser']= $this->userModel->get_all_user();
-			$data['listClass']= $this->classModel->get_list_class();
-			$data['listRel']= $this->relationModel->get_list_relation();
-			$data['dataReply']= $this->replyModel->get_all_reply();
+			$data['dataUser']= $this->UserModel->get_data_user();
+			$data['dataMessage']= $this->MessageModel->get_all_message();
+			$data['allDisc']= $this->DiscussionModel->get_all_disc();
+			$data['contacts']= $this->SocialModel->get_only_contact();
+			$data['allUser']= $this->UserModel->get_all_user();
+			$data['listClass']= $this->ClassModel->get_list_class();
+			$data['listRel']= $this->RelationModel->get_list_relation();
+			$data['dataReply']= $this->ReplyModel->get_all_reply();
 			$data['content']= $this->browseContent();
 			//$data['dataReplyWCat']= $this->globalModel->get_all_replyWCat();
 			$this->load->view('global/index', $data);
@@ -61,10 +61,10 @@
 					$this->index();
 					$this->load->view('global/index', $data);
 				} else {
-					$this->replyModel->reply($data, 'reply');
+					$this->ReplyModel->reply($data, 'reply');
 				}
 			} else {
-				$this->replyModel->reply($data, 'reply');
+				$this->ReplyModel->reply($data, 'reply');
 			}
 		}
 
@@ -124,12 +124,12 @@
 					$this->index();
 					$this->load->view('global/index', $data);
 				} else {
-					$this->messageModel->insertMessage($data, 'message');
+					$this->MessageModel->insertMessage($data, 'message');
 				}
 			} else {
-				$this->messageModel->insertMessage($data, 'message');
+				$this->MessageModel->insertMessage($data, 'message');
 			}
-			redirect('globalCtrl');
+			redirect('GlobalCtrl');
 		}
 
 		//Share discussion
@@ -144,9 +144,9 @@
 					'message_image' => 'discussion',
 					'datetime' => date("Y/m/d h:i:sa")
 				);
-				$this->messageModel->insertMessage($data, 'message');
+				$this->MessageModel->insertMessage($data, 'message');
 			}
-			redirect('globalCtrl');
+			redirect('GlobalCtrl');
 		}
 
 		//Upvote a discussion
@@ -157,15 +157,15 @@
 				'id_user' => $this->session->userdata('userIdTrack'),
 				'up_type' => 'discussion',
 			);
-			$this->upModel->insertVote($data, 'up');
-			redirect('globalCtrl');
+			$this->UpModel->insertVote($data, 'up');
+			redirect('GlobalCtrl');
 		}
 
 		//downvote a discussion
 		public function downvoteDis(){
 			$this->db->where('id_up', $this->input->post('id_up'));
 			$this->db->delete('up');
-			redirect('globalCtrl');
+			redirect('GlobalCtrl');
 		}
 
 		//Upvote a reply
@@ -176,15 +176,15 @@
 				'id_user' => $this->session->userdata('userIdTrack'),
 				'up_type' => 'reply',
 			);
-			$this->upModel->insertVote($data, 'up');
-			redirect('globalCtrl');
+			$this->UpModel->insertVote($data, 'up');
+			redirect('GlobalCtrl');
 		}
 
 		//downvote a reply
 		public function downvoteRep(){
 			$this->db->where('id_up', $this->input->post('id_up'));
 			$this->db->delete('up');
-			redirect('globalCtrl');
+			redirect('GlobalCtrl');
 		}
 
 		//Verify a reply
@@ -192,7 +192,7 @@
 			$this->db->set('reply_status', 'verified');
 			$this->db->where('id_reply', $this->input->post('id_reply'));
 			$this->db->update('reply');
-			redirect('globalCtrl');
+			redirect('GlobalCtrl');
 		}
 
 		//New class
@@ -239,10 +239,10 @@
 					$this->index();
 					$this->load->view('home/index', $data);
 				} else {
-					$this->classModel->insertClass($data, $data2);
+					$this->ClassModel->insertClass($data, $data2);
 				}
 			} else {
-				$this->classModel->insertClass($data, $data2);
+				$this->ClassModel->insertClass($data, $data2);
 			}
 		}
 
@@ -263,7 +263,7 @@
 			$userCheck = $this->db->get()->result();
 
 			if(count($userCheck) == 0){
-				$this->classModel->insertInvitation($data, 'invitation');
+				$this->ClassModel->insertInvitation($data, 'invitation');
 				$data['success_message'] = "Invitation has been sended";
 				$this->index();
 				$this->load->view('global/index', $data);
@@ -289,12 +289,12 @@
 			$this->session->set_userdata('classTrack', $this->input->post('visitClass'));
 			$this->session->set_userdata('classIdTrack', $id);
 			$this->session->set_userdata('channelTrack', 0);
-			redirect("classCtrl");
+			redirect("ClassCtrl");
 		}
 
 		//Sign out
 		public function signOut(){
-			$this->userModel->offstatus('user');
+			$this->UserModel->offstatus('user');
 		}
 	}
 ?>

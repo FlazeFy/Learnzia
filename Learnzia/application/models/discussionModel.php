@@ -1,11 +1,11 @@
 <?php 
 	defined('BASEPATH') OR exit('No direct script access alowed');
 
-	class discussionModel extends CI_Model 
+	class DiscussionModel extends CI_Model 
 	{
 		public function uploadDisc($data){
 			$this->db->insert('discussion',$data);	
-			redirect('homeCtrl');
+			redirect('HomeCtrl');
 		}
 		public function get_all_disc(){
 			$this->db->select('*');

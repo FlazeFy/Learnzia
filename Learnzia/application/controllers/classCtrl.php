@@ -1,29 +1,29 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access alowed');
 
-	class classCtrl extends CI_Controller {
+	class ClassCtrl extends CI_Controller {
 		function __construct(){
 			parent::__construct();
-			$this->load->model('classModel');
-			$this->load->model('userModel');
-			$this->load->model('discussionModel');
-			$this->load->model('channelModel');
-			$this->load->model('messageModel');
-			$this->load->model('socialModel');
-			$this->load->model('relationModel');
-			$this->load->model('classModel');
+			$this->load->model('ClassModel');
+			$this->load->model('UserModel');
+			$this->load->model('DiscussionModel');
+			$this->load->model('ChannelModel');
+			$this->load->model('MessageModel');
+			$this->load->model('SocialModel');
+			$this->load->model('RelationModel');
+			$this->load->model('ClassModel');
 		}	 
 		public function index(){
 			$data = [];
-			$data['allUser']= $this->userModel->get_data_user();
-			$data['dataMessage']= $this->messageModel->get_all_message();
-			$data['contacts']= $this->socialModel->get_only_contact();
-			$data['listChannel']= $this->channelModel->get_list_channel();
-			$data['listClass']= $this->classModel->get_list_class();
-			$data['listRel']= $this->relationModel->get_list_relation();
-			$data['myRel']= $this->relationModel->get_my_relation();
-			$data['listActivity']= $this->classModel->get_list_activity();
-			$data['dataClassForumMsg']= $this->classModel->get_all_classForumMessage();
+			$data['allUser']= $this->UserModel->get_data_user();
+			$data['dataMessage']= $this->MessageModel->get_all_message();
+			$data['contacts']= $this->SocialModel->get_only_contact();
+			$data['listChannel']= $this->ChannelModel->get_list_channel();
+			$data['listClass']= $this->ClassModel->get_list_class();
+			$data['listRel']= $this->RelationModel->get_list_relation();
+			$data['myRel']= $this->RelationModel->get_my_relation();
+			$data['listActivity']= $this->ClassModel->get_list_activity();
+			$data['dataClassForumMsg']= $this->ClassModel->get_all_classForumMessage();
 			$this->load->view('class/index', $data);
 		}
 		
@@ -33,7 +33,7 @@
 			$id = $this->input->post('id_channel');
 
 			$this->session->set_userdata('channelTrack',$id);
-			redirect('classCtrl');	
+			redirect('ClassCtrl');	
 		}
 
 		//Create class's channel
@@ -55,7 +55,7 @@
 					'datetime' => date("Y/m/d h:i:sa")
 				);
 				
-				$this->classModel->insertChannel($data, 'channel');
+				$this->ClassModel->insertChannel($data, 'channel');
 
 				//Class activity
 				$data2 = array(
@@ -66,7 +66,7 @@
 					'datetime' => date("Y/m/d h:i:sa")
 				);
 
-				$this->classModel->insertActivity($data2, 'classroom-activity');
+				$this->ClassModel->insertActivity($data2, 'classroom-activity');
 
 				//Result.
 				$data['success_message'] = "Successfully created '".$this->input->post('channel_name')."' channel";
@@ -111,12 +111,12 @@
 				if (!$this->upload->do_upload('uploadImageMainChat')) {
 					$error = array('error' => $this->upload->display_errors());
 					$data['error_message'] = "Error! your image is to big or not jpg";
-					redirect('classCtrl');
+					redirect('ClassCtrl');
 				} else {
-					$this->messageModel->insertMainMsg($data, 'classforummessage');
+					$this->MessageModel->insertMainMsg($data, 'classforummessage');
 				}
 			} else {
-				$this->messageModel->insertMainMsg($data, 'classforummessage');
+				$this->MessageModel->insertMainMsg($data, 'classforummessage');
 			}
 		}
 
@@ -148,7 +148,7 @@
 					'datetime' => date("Y/m/d h:i:sa")
 				);
 
-				$this->classModel->insertActivity($data2, 'classroom-activity');
+				$this->ClassModel->insertActivity($data2, 'classroom-activity');
 
 				//Result.
 				$data['success_message'] = "Successfully deleted '".$channel_name."' channel";
@@ -170,7 +170,7 @@
 				"channel_description" => $this->input->post('channel_description'),
 			];
 
-			$this->channelModel->updateChannel($data, 'channel');
+			$this->ChannelModel->updateChannel($data, 'channel');
 
 			//Class activity
 			$data2 = array(
@@ -181,7 +181,7 @@
 				'datetime' => date("Y/m/d h:i:sa")
 			);
 
-			$this->classModel->insertActivity($data2, 'classroom-activity');
+			$this->ClassModel->insertActivity($data2, 'classroom-activity');
 
 			//Result.
 			$data['success_message'] = "Successfully update '".$channel_name." channel";
@@ -199,7 +199,7 @@
 				"type" => $this->input->post('type'),
 			];
 
-			$this->classModel->updateClass($data, 'classroom');
+			$this->ClassModel->updateClass($data, 'classroom');
 			$this->session->set_userdata('classTrack', $classname);
 
 			//Class activity
@@ -211,7 +211,7 @@
 				'datetime' => date("Y/m/d h:i:sa")
 			);
 
-			$this->classModel->insertActivity($data2, 'classroom-activity');
+			$this->ClassModel->insertActivity($data2, 'classroom-activity');
 
 			//Result.
 			$data['success_message'] = "Successfully update ".$classname." class";
@@ -221,7 +221,7 @@
 
 		//Sign out
 		public function signOut(){
-			$this->classModel->offstatus('user');
+			$this->ClassModel->offstatus('user');
 		}
 	}
 ?>

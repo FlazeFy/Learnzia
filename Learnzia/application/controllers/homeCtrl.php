@@ -1,26 +1,26 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access alowed');
 
-	class homeCtrl extends CI_Controller {
+	class HomeCtrl extends CI_Controller {
 		function __construct(){
 			parent::__construct();
-			$this->load->model('userModel');
-			$this->load->model('discussionModel');
-			$this->load->model('messageModel');
-			$this->load->model('replyModel');
-			$this->load->model('socialModel');
-			$this->load->model('upModel');
+			$this->load->model('UserModel');
+			$this->load->model('DiscussionModel');
+			$this->load->model('MessageModel');
+			$this->load->model('ReplyModel');
+			$this->load->model('SocialModel');
+			$this->load->model('UpModel');
 		}	 
 		public function index(){
 			$data = [];
-			$data['dataUser']= $this->userModel->get_data_user();
-			$data['dataMessage']= $this->messageModel->get_all_message();
-			$data['contacts']= $this->socialModel->get_only_contact();
-			$data['allUser']= $this->userModel->get_all_user();
-			$data['allDisc']= $this->discussionModel->get_all_disc();
-			$data['allVoteDis']= $this->upModel->get_all_vote_dis();
-			$data['allVoteRep']= $this->upModel->get_all_vote_rep();
-			$data['dataReply']= $this->replyModel->get_all_reply();
+			$data['dataUser']= $this->UserModel->get_data_user();
+			$data['dataMessage']= $this->MessageModel->get_all_message();
+			$data['contacts']= $this->SocialModel->get_only_contact();
+			$data['allUser']= $this->UserModel->get_all_user();
+			$data['allDisc']= $this->DiscussionModel->get_all_disc();
+			$data['allVoteDis']= $this->UpModel->get_all_vote_dis();
+			$data['allVoteRep']= $this->UpModel->get_all_vote_rep();
+			$data['dataReply']= $this->ReplyModel->get_all_reply();
 			$this->load->view('home/index', $data);
 		}
 
@@ -56,10 +56,10 @@
 					$this->index();
 					$this->load->view('home/index', $data);
 				} else {
-					$this->discussionModel->uploadDisc($data, 'discussion');
+					$this->DiscussionModel->uploadDisc($data, 'discussion');
 				}
 			} else {
-				$this->discussionModel->uploadDisc($data, 'discussion');
+				$this->DiscussionModel->uploadDisc($data, 'discussion');
 			} 
 		}
 
@@ -95,10 +95,10 @@
 					$this->index();
 					$this->load->view('home/index', $data);
 				} else {
-					$this->replyModel->reply($data, 'reply');
+					$this->ReplyModel->reply($data, 'reply');
 				}
 			} else {
-				$this->replyModel->reply($data, 'reply');
+				$this->ReplyModel->reply($data, 'reply');
 			}
 		}
 
@@ -133,12 +133,12 @@
 					$this->index();
 					$this->load->view('home/index', $data);
 				} else {
-					$this->messageModel->insertMessage($data, 'message');
+					$this->MessageModel->insertMessage($data, 'message');
 				}
 			} else {
-				$this->messageModel->insertMessage($data, 'message');
+				$this->MessageModel->insertMessage($data, 'message');
 			}
-			redirect('homeCtrl');
+			redirect('HomeCtrl');
 		}
 
 		//Share discussion
@@ -153,9 +153,9 @@
 					'message_image' => 'discussion',
 					'datetime' => date("Y/m/d h:i:sa")
 				);
-				$this->messageModel->insertMessage($data, 'message');
+				$this->MessageModel->insertMessage($data, 'message');
 			}
-			redirect('homeCtrl');
+			redirect('HomeCtrl');
 		}
 
 		//Share reply
@@ -170,9 +170,9 @@
 					'message_image' => 'reply',
 					'datetime' => date("Y/m/d h:i:sa")
 				);
-				$this->messageModel->insertMessage($data, 'message');
+				$this->MessageModel->insertMessage($data, 'message');
 			}
-			redirect('homeCtrl');
+			redirect('HomeCtrl');
 		}
 
 		//Upvote a discussion
@@ -183,15 +183,15 @@
 				'id_user' => $this->session->userdata('userIdTrack'),
 				'up_type' => 'discussion',
 			);
-			$this->upModel->insertVote($data, 'up');
-			redirect('homeCtrl');
+			$this->UpModel->insertVote($data, 'up');
+			redirect('HomeCtrl');
 		}
 
 		//downvote a discussion
 		public function downvoteDis(){
 			$this->db->where('id_up', $this->input->post('id_up'));
 			$this->db->delete('up');
-			redirect('homeCtrl');
+			redirect('HomeCtrl');
 		}
 
 		//Upvote a reply
@@ -202,15 +202,15 @@
 				'id_user' => $this->session->userdata('userIdTrack'),
 				'up_type' => 'reply',
 			);
-			$this->upModel->insertVote($data, 'up');
-			redirect('homeCtrl');
+			$this->UpModel->insertVote($data, 'up');
+			redirect('HomeCtrl');
 		}
 
 		//downvote a reply
 		public function downvoteRep(){
 			$this->db->where('id_up', $this->input->post('id_up'));
 			$this->db->delete('up');
-			redirect('homeCtrl');
+			redirect('HomeCtrl');
 		}
 
 		//Verify a reply
@@ -218,12 +218,12 @@
 			$this->db->set('reply_status', 'verified');
 			$this->db->where('id_reply', $this->input->post('id_reply'));
 			$this->db->update('reply');
-			redirect('homeCtrl');
+			redirect('HomeCtrl');
 		}
 
 		//Sign out
 		public function signOut(){
-			$this->userModel->offstatus('user');
+			$this->UserModel->offstatus('user');
 		}
 	}
 ?>

@@ -1,7 +1,7 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access alowed');
 
-	class loginCtrl extends CI_Controller {
+	class LoginCtrl extends CI_Controller {
 		function __construct(){
 			parent::__construct();
 		}
@@ -36,7 +36,7 @@
 				$this->session->set_userdata('userIdTrack',$id);
 				$this->session->set_userdata('userTrack',$username);	
 				$this->session->set_userdata('lastLogin', date("Y/m/d h:i:sa"));
-				redirect('homeCtrl');
+				redirect('HomeCtrl');
 			}else{
 				$data['error_message'] = "Username or Password Incorrect!";
 				$this->index();
@@ -86,7 +86,7 @@
 					//Fix id not finished
 					$this->session->set_userdata('userTrack',$username);	
 					$this->session->set_userdata('lastLogin', date("Y/m/d h:i:sa"));
-					redirect('homeCtrl');
+					redirect('HomeCtrl');
 				}
 			} else {
 				$data['error_message'] = "Username already been taken";

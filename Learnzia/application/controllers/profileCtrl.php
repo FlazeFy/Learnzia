@@ -1,34 +1,34 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access alowed');
 
-	class profileCtrl extends CI_Controller {
+	class ProfileCtrl extends CI_Controller {
 		function __construct(){
 			parent::__construct();
-			$this->load->model('userModel');
-			$this->load->model('discussionModel');
-			$this->load->model('invitationModel');
-			$this->load->model('messageModel');
-			$this->load->model('replyModel');
-			$this->load->model('socialModel');
-			$this->load->model('relationModel');
-			$this->load->model('upModel');
-			$this->load->model('classModel');
+			$this->load->model('UserModel');
+			$this->load->model('DiscussionModel');
+			$this->load->model('InvitationModel');
+			$this->load->model('MessageModel');
+			$this->load->model('ReplyModel');
+			$this->load->model('SocialModel');
+			$this->load->model('RelationModel');
+			$this->load->model('UpModel');
+			$this->load->model('ClassModel');
 		}	 
 		public function index(){
 			$data = [];
-			$data['dataUser']= $this->userModel->get_data_user();
-			$data['dataInvitation']= $this->invitationModel->get_my_invitation();
-			$data['dataMessage']= $this->messageModel->get_all_message();
-			$data['contacts']= $this->socialModel->get_only_contact();
-			$data['allUser']= $this->userModel->get_all_user();
-			$data['listClass']= $this->classModel->get_list_class();
-			$data['listRel']= $this->relationModel->get_list_relation();
-			$data['allDisc']= $this->discussionModel->get_all_disc();
-			$data['myReply']= $this->replyModel->get_my_reply();
-			$data['allVoteDis']= $this->upModel->get_all_vote_dis();
-			$data['allVoteRep']= $this->upModel->get_all_vote_rep();
-			$data['dataReply']= $this->replyModel->get_all_reply();
-			$data['myDiscussion']= $this->discussionModel->get_my_discussion();
+			$data['dataUser']= $this->UserModel->get_data_user();
+			$data['dataInvitation']= $this->InvitationModel->get_my_invitation();
+			$data['dataMessage']= $this->MessageModel->get_all_message();
+			$data['contacts']= $this->SocialModel->get_only_contact();
+			$data['allUser']= $this->UserModel->get_all_user();
+			$data['listClass']= $this->ClassModel->get_list_class();
+			$data['listRel']= $this->RelationModel->get_list_relation();
+			$data['allDisc']= $this->DiscussionModel->get_all_disc();
+			$data['myReply']= $this->ReplyModel->get_my_reply();
+			$data['allVoteDis']= $this->UpModel->get_all_vote_dis();
+			$data['allVoteRep']= $this->UpModel->get_all_vote_rep();
+			$data['dataReply']= $this->ReplyModel->get_all_reply();
+			$data['myDiscussion']= $this->DiscussionModel->get_my_discussion();
 			$this->load->view('profile/index', $data);
 		}
 
@@ -66,17 +66,17 @@
 					$data['error_message'] = "Error! your image is to big or not jpg";
 					redirect('homeCtrl');
 				} else {
-					$this->profileModel->reply($data, 'reply');
+					$this->ProfileModel->reply($data, 'reply');
 				}
 			} else {
-				$this->profileModel->reply($data, 'reply');
+				$this->ProfileModel->reply($data, 'reply');
 			}
 		}
 
 		//Reject Invitation.
 		public function rejectInvit(){
 			$id = $this->input->post('id_invitation');
-			$this->profileModel->deleteInvitation($id, 'invitation');
+			$this->ProfileModel->deleteInvitation($id, 'invitation');
 		}
 
 		//Accept Invitation.
@@ -88,7 +88,7 @@
 				'typeRelation' => 'member'
 			);
 			$id = $this->input->post('id_invitation');
-			$this->profileModel->acceptInvitation($data, $id);
+			$this->ProfileModel->acceptInvitation($data, $id);
 			$data['success_join'] =  $this->input->post('classname');
 			$this->index();
 			$this->load->view('profile/index', $data);
@@ -101,7 +101,7 @@
 				"description" => $this->input->post('description'),
 				"password" => $this->input->post('password'),
 			];
-			$this->userModel->update_user($data, 'user');
+			$this->UserModel->update_user($data, 'user');
 			$data['success_message'] = "Account has been updated"; 
 			$this->index();
 			$this->load->view('profile/index', $data);
@@ -109,7 +109,7 @@
 
 		//Sign out
 		public function signOut(){
-			$this->profileModel->offstatus('user');
+			$this->ProfileModel->offstatus('user');
 		}
 	}
 ?>

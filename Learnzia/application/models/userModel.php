@@ -1,7 +1,7 @@
 <?php 
 	defined('BASEPATH') OR exit('No direct script access alowed');
 
-	class userModel extends CI_Model 
+	class UserModel extends CI_Model 
 	{
 		public function get_data_user(){
 			$this->db->select('*');

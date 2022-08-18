@@ -1,7 +1,7 @@
 <?php 
 	defined('BASEPATH') OR exit('No direct script access alowed');
 
-	class messageModel extends CI_Model 
+	class MessageModel extends CI_Model 
 	{
 		public function get_all_message()
 		{
@@ -16,7 +16,7 @@
 		}
 		public function posting($data){
 			$this->db->insert('message',$data);	
-			redirect('homeCtrl');
+			redirect('HomeCtrl');
 		}
 		
 		//Send message.
@@ -27,7 +27,7 @@
 		//Insert channel message
 		public function insertMainMsg($data){
 			$this->db->insert('classforummessage',$data);	
-			redirect('classCtrl');
+			redirect('ClassCtrl');
 		}
 	}
 ?>

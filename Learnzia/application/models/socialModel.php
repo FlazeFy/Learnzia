@@ -1,7 +1,7 @@
 <?php 
 	defined('BASEPATH') OR exit('No direct script access alowed');
 
-	class socialModel extends CI_Model 
+	class SocialModel extends CI_Model 
 	{
 		public function get_only_contact()
 		{
