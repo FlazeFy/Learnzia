@@ -56,7 +56,7 @@
 													//Count member.
 													$count =0; 
 													foreach ($listRel as $rel2){
-														if($rel2['classname'] == $class['classname']){
+														if($rel2['id_classroom'] == $class['id_classroom']){
 															$count++;
 														}
 													} 
@@ -76,18 +76,16 @@
 												<h4 style='font-size:20px;'>Founded By</h4>";
 												foreach ($listRel as $rel2){
 													foreach ($allUser as $user){
-														if(($rel2['username'] == $user['username'])&&($rel2['classname'] == $class['classname'])){
-															if($rel2['typeRelation'] == 'founder'){
-																echo "<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
-																	style='width:50px; height:50px; float:left; margin-right:5%'>";
-																//Username.
-																if ($user['username'] == $this->session->userdata('userTrack')){
-																	echo "<h5 style='font-size:15.5px; color:#7289da;'>You</h5>";
-																} else {
-																	echo "<h5 style='font-size:15.5px; color:#7289da;'>".$user['username']."</h5>";
-																}
-																echo "<p style='font-size:13px; color:whitesmoke; font-style:italic;'>".$class['date']."</p>";
+														if(($rel2['username'] == $user['username'])&&($rel2['classname'] == $class['classname'])&&($rel2['typeRelation'] == 'founder')){
+															echo "<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+																style='width:50px; height:50px; float:left; margin-right:5%'>";
+															//Username.
+															if ($user['username'] == $this->session->userdata('userTrack')){
+																echo "<h5 style='font-size:15.5px; color:#7289da;'>You</h5>";
+															} else {
+																echo "<h5 style='font-size:15.5px; color:#7289da;'>".$user['username']."</h5>";
 															}
+															echo "<p style='font-size:13px; color:whitesmoke; font-style:italic;'>".$class['date']."</p>";
 														}
 													}
 												}

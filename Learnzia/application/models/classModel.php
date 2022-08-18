@@ -40,5 +40,13 @@
 			$this->db->insert('relation',$data2);	
 			redirect('globalCtrl');
 		}
+
+		//Change class data
+		function updateClass($data)
+		{
+			$id = $this->input->post('id_classroom');
+			$this->db->where('id_classroom', $id);
+			$this->db->update('classroom', $data);
+		}
 	}
 ?>

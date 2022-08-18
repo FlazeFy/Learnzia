@@ -21,10 +21,44 @@
 							<div class='container-fluid p-3 rounded shadow apps' style='background:#262626;'>
 								<img  src='http://localhost/Learnzia/assets/uploads/classroom/".$ct['image_url'].".jpg' alt='Card image cap' class='rounded img-fluid mx-2' style='width:45px; float:left;'>
 								<a class='btn btn-transparent border-0 mx-2 text-white' style='float:right;' data-toggle='modal' data-target='#'><i class='fa-solid fa-ellipsis-vertical'></i></a>
-								<h5 style='font-size:18px;'>/".$ct['username']."</h5>
+								<h5 style='font-size:18px;'>/".$ct['username']." "; 
+									if($ct['body'] == 'private'){
+										echo "<i class='fa-solid fa-lock fa-sm'></i>";
+									} else {
+										echo "<i class='fa-solid fa-lock-open fa-sm'></i>";
+									}
+								echo"</h5>
 								<h5 style='color:#7289DA; font-size:14px;'>".$ct['category']."</h5><br>
-								<p>".$ct['description']."</p>
-								<a class='float-left'><i class='fa-solid fa-user'></i> 3</a><br>
+								<p style='margin-top:-20px;'>".$ct['description']."</p>
+								<a class='float-left'><i class='fa-solid fa-user'></i> "; 
+									//Count member.
+									$count =0; 
+									foreach ($listRel as $rel2){
+										if($rel2['id_classroom'] == $ct['id']){
+											$count++;
+										}
+									} 
+									echo $count; 
+								echo"</a>
+								<a class='float-right'> "; 
+									//Founder.
+									foreach ($listRel as $rel2){
+										foreach ($allUser as $user){
+											if(($rel2['username'] == $user['username'])&&($rel2['classname'] == $ct['username'])&&($rel2['typeRelation'] == 'founder')){
+												echo "<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+													style='width:50px; height:50px; float:left; margin-right:5%'>";
+												//Username.
+												if ($user['username'] == $this->session->userdata('userTrack')){
+													echo "<h5 style='font-size:15.5px; color:#7289da;'>You</h5>";
+												} else {
+													echo "<h5 style='font-size:15.5px; color:#7289da;'>".$user['username']."</h5>";
+												}
+												echo "<p style='font-size:11px; color:whitesmoke; font-style:italic;'>".date('Y-m-d', strtotime($ct['created_at']))."</p>";
+											}
+										}
+									}
+								echo"</a>
+								<br>
 							</div>
 						</div>";
 					} else {
@@ -46,16 +80,9 @@
 								//Question with image.
 								if ($ct['image_url'] != 'null'){
 									echo"
-									<div class='row mb-3'>
-										<div class='col-md-4'>
-											<img src='http://localhost/Learnzia/assets/uploads/discussion_".$ct['image_url'].".jpg' style='width:100px;' id='question_img' 
-												data-toggle='modal' data-target='#zoom".$ct['id']."'>
-											<div id='question_alt'><i class='fa-solid fa-magnifying-glass'></i> Zoom Image</div>
-										</div>
-										<div class='col-md-6' style=''>
-											<p style='font-size:14px; color:whitesmoke;'><span style='color:#F1C40F; font-weight:500;'>".$ct['description']." | </span> ".$ct['body']."</p>
-										</div>
-									</div>";
+									<img src='http://localhost/Learnzia/assets/uploads/discussion_".$ct['image_url'].".jpg' style='width:100px;' id='question_img' 
+										data-toggle='modal' data-target='#zoom".$ct['id']."'>
+									<p style='font-size:14px; color:whitesmoke;'><span style='color:#F1C40F; font-weight:500;'>".$ct['description']." | </span> ".$ct['body']."</p>";
 								} else { 
 									echo"
 									<p style='font-size:14px; color:whitesmoke;'><span style='color:#F1C40F; font-weight:500;'>".$ct['description']." | </span> ".$ct['body']."</p>";

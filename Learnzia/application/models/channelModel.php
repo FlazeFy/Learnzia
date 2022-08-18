@@ -23,13 +23,5 @@
 			$this->db->where('id_channel', $id);
 			$this->db->update('channel', $data);
 		}	
-
-		//Change class data
-		function updateClass($data)
-		{
-			$id = $this->input->post('id_classroom');
-			$this->db->where('id_classroom', $id);
-			$this->db->update('classroom', $data);
-		}
 	}
 ?>

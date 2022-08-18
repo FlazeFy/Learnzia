@@ -296,6 +296,20 @@
 			<?php
 				$this->load->view('landing/faq');
 			?>
+		</section>
+		
+		<section id="feedback">
+			<!--Frequently asked question.-->
+			<?php
+				$this->load->view('landing/feedback');
+			?>
+		</section>
+		
+		<section id="version">
+			<!--Frequently asked question.-->
+			<?php
+				$this->load->view('landing/version');
+			?>
 		</section><br>
 
 		<!--Footer.-->
