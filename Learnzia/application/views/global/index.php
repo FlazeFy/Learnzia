@@ -39,6 +39,87 @@
 			.tab-pane.active{border:none;}
 			a.nav-link:hover{color:#7289da;}
 			.dropdown-item:hover{color:whitesmoke; background-color:#7289da;}
+
+			/*content*/
+			.content #content-flters {
+				list-style: none;
+				margin-bottom: 10px;
+			}
+			.content #content-flters li {
+				cursor: pointer;
+				display: inline-block;
+				margin: 0 5px 5px 5px;
+				font-size: 15px;
+				font-weight: 600;
+				line-height: 1;
+				padding: 7px 10px;
+				text-transform: uppercase;
+				text-align: center;
+				transition: all 0.3s ease-in-out;
+			}
+			.content #content-flters li:hover, .content #content-flters li.filter-active {
+				color: #F1C40F;
+			}
+			.content .content-item {
+				margin-bottom: 15px;
+			}
+			.content .content-item .content-img {
+				overflow: hidden;
+			}
+			.content .content-item .content-img img {
+				transition: all 0.8s ease-in-out;
+			}
+			.content .content-item .content-info {
+				opacity: 0;
+				position: absolute;
+				left: 15px;
+				bottom: 0;
+				z-index: 3;
+				right: 15px;
+				color:white;
+				transition: all ease-in-out 0.3s;
+				background: rgba(0, 0, 0, 0.5);
+				padding: 10px 15px;
+			}
+			.content .content-item .content-date {
+				opacity: 0;
+				position: absolute;
+				top: 0;
+				z-index: 3;
+				right: 15px;
+				transition: all ease-in-out 0.3s;
+				background: rgba(0, 0, 0, 0.5);
+				padding: 10px 15px;
+			}
+			.content .content-item .content-info h4 {
+				font-size: 18px;
+				color: #fff;
+				font-weight: 600;
+				color: #fff;
+				margin-bottom: 0px;
+			}
+			.content .content-item .content-info p, .content-date p {
+				color: rgba(255, 255, 255, 0.8);
+				font-size: 14px;
+				margin-bottom: 0;
+			}
+			.content .content-item .content-info .preview-link, .content .content-item .content-info .details-link {
+				position: absolute;
+				right: 15px;
+				font-size: 24px;
+				top: calc(50% - 18px);
+				color: #fff;
+				transition: 0.3s;
+			}
+			.content .content-item .content-info .preview-link:hover, .content .content-item .content-info .details-link:hover {
+				color: #F1C40F;
+			}
+			.content .content-item .content-info .details-link {
+				right: 10px;
+			}
+			.content .content-item:hover .content-img img {
+				transform: scale(1.2);
+			}
 		</style>
     </head>
     <body>
@@ -183,133 +264,207 @@
 		</script>
 
 		<script>
-		function autocomplete(inp, arr) {
-				var currentFocus;
-				inp.addEventListener("input", function(e) {
-				var a, b, i, val = this.value;
-				closeAllLists();
-				if (!val) { return false;}
-				currentFocus = -1;
-				a = document.createElement("DIV");
-				a.setAttribute("id", this.id + "autocomplete-list");
-				a.setAttribute("class", "autocomplete-items");
-				this.parentNode.appendChild(a);
-				for (i = 0; i < arr.length; i++) {
-					if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-					b = document.createElement("DIV");
-					b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-					b.innerHTML += arr[i].substr(val.length);
-					b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-					b.addEventListener("click", function(e) {
-						inp.value = this.getElementsByTagName("input")[0].value;
-						closeAllLists();
-					});
-					a.appendChild(b);
-					}
-				}
-			});
-			inp.addEventListener("keydown", function(e) {
-				var x = document.getElementById(this.id + "autocomplete-list");
-				if (x) x = x.getElementsByTagName("div");
-				if (e.keyCode == 40) {
-					currentFocus++;
-					addActive(x);
-				} else if (e.keyCode == 38) {
-					currentFocus--;
-					addActive(x);
-				} else if (e.keyCode == 13) {
-					e.preventDefault();
-					if (currentFocus > -1) {
-					if (x) x[currentFocus].click();
-					}
-				}
-			});
-			function addActive(x) {
-				if (!x) return false;
-				removeActive(x);
-				if (currentFocus >= x.length) currentFocus = 0;
-				if (currentFocus < 0) currentFocus = (x.length - 1);
-				x[currentFocus].classList.add("autocomplete-active");
-			}
-			function removeActive(x) {
-				for (var i = 0; i < x.length; i++) {
-				x[i].classList.remove("autocomplete-active");
-				}
-			}
-			function closeAllLists(elmnt) {
-				var x = document.getElementsByClassName("autocomplete-items");
-				for (var i = 0; i < x.length; i++) {
-				if (elmnt != x[i] && elmnt != inp) {
-					x[i].parentNode.removeChild(x[i]);
-				}
-				}
-			}
-			document.addEventListener("click", function (e) {
-				closeAllLists(e.target);
-			});
-			}
+			/**
+* Template Name: Laura - v4.7.0
+* Template URL: https://bootstrapmade.com/laura-free-creative-bootstrap-theme/
+* Author: BootstrapMade.com
+* License: https://bootstrapmade.com/license/
+*/
+(function() {
+  "use strict";
 
-		//List friends.
-		var contacts = [<?php foreach($contacts as $data){
-			if (($data['id_user_2'] != $this->session->userdata('userTrack'))&&($data['id_user_1'] == $this->session->userdata('userTrack'))){
-				echo "'"; echo $data['id_user_2']; echo "',";
-			} else if (($data['id_user_1'] != $this->session->userdata('userTrack'))&&($data['id_user_2'] == $this->session->userdata('userTrack'))){
-				echo "'"; echo $data['id_user_1']; echo "',";
-			} else if (($data['id_user_1'] != $this->session->userdata('userTrack'))&&($data['id_user_2'] != $this->session->userdata('userTrack'))){
-				//do nothing
-			}
-		}?>]
+  /**
+   * Easy selector helper function
+   */
+  const select = (el, all = false) => {
+    el = el.trim()
+    if (all) {
+      return [...document.querySelectorAll(el)]
+    } else {
+      return document.querySelector(el)
+    }
+  }
 
-		//List friends who doesnt join specific classroom.
-		<?php 
-			foreach ($listRel as $rel){foreach ($listClass as $class) {
-				if (($class['classname'] == $rel['classname'])&& ($rel['username']== $this->session->userdata('userTrack'))){
-					echo "var list".$class['classname']." = [";
-					$i = 0; $j = 0;
-					foreach($contacts as $data){
-					if (($data['username2'] != $this->session->userdata('userTrack'))&&($data['username1'] == $this->session->userdata('userTrack'))){
-						foreach ($listRel as $rel2){
-							if (($rel2['username'] == $data['username2'])&&($rel2['classname'] == $class['classname'])){
-							$i++;
-							
-						}}
-						//break;
-						if ($i == 0){echo "'"; echo $data['username2']; echo "',";} 
-					} 
-					else if (($data['username1'] != $this->session->userdata('userTrack'))&&($data['username2'] == $this->session->userdata('userTrack'))){
-						foreach ($listRel as $rel2){
-							if (($rel2['username'] == $data['username1'])&&($rel2['classname'] == $class['classname'])){
-								$j++;
-						}}
-						//break;
-						if ($j == 0){echo "'"; echo $data['username1']; echo "',";} 
-					}  
-				}
-				echo"];";
-			}	
-			}}	
-		?>
+  /**
+   * Easy event listener function
+   */
+  const on = (type, el, listener, all = false) => {
+    let selectEl = select(el, all)
+    if (selectEl) {
+      if (all) {
+        selectEl.forEach(e => e.addEventListener(type, listener))
+      } else {
+        selectEl.addEventListener(type, listener)
+      }
+    }
+  }
 
-		//List All user and class.
-		var classAndUser = [<?php foreach($listUser as $data){
-			echo "'"; echo $data['username']; echo "',";
-		} foreach($listClass as $data2){ 
-			echo "'/"; echo $data2['classname']; echo "',";
-		}?>]
+  /**
+   * Easy on scroll event listener 
+   */
+  const onscroll = (el, listener) => {
+    el.addEventListener('scroll', listener)
+  }
 
-		/*initiate the autocomplete function on the "mycontacts" element, and pass along the contacts array as possible autocomplete values:*/
-		autocomplete(document.getElementById("mycontacts"), contacts);
-		autocomplete(document.getElementById("allClassAndUser"), classAndUser);
-		<?php 
-			foreach ($listClass as $class){foreach ($listRel as $rel) {
-				if (($rel['classname'] == $class['classname'])&& ($rel['username']== $this->session->userdata('userTrack'))){
-					echo"autocomplete(document.getElementById('available4".$class['classname']."'), list".$class['classname'].");";
-			}}}
-		?>
+  /**
+   * Navbar links active state on scroll
+   */
+  let navbarlinks = select('#navbar .scrollto', true)
+  const navbarlinksActive = () => {
+    let position = window.scrollY + 200
+    navbarlinks.forEach(navbarlink => {
+      if (!navbarlink.hash) return
+      let section = select(navbarlink.hash)
+      if (!section) return
+      if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
+        navbarlink.classList.add('active')
+      } else {
+        navbarlink.classList.remove('active')
+      }
+    })
+  }
+  window.addEventListener('load', navbarlinksActive)
+  onscroll(document, navbarlinksActive)
+
+  /**
+   * Scrolls to an element with header offset
+   */
+  const scrollto = (el) => {
+    let header = select('#header')
+    let offset = header.offsetHeight
+
+    if (!header.classList.contains('header-scrolled')) {
+      offset -= 20
+    }
+
+    let elementPos = select(el).offsetTop
+    window.scrollTo({
+      top: elementPos - offset,
+      behavior: 'smooth'
+    })
+  }
+
+  /**
+   * Toggle .header-scrolled class to #header when page is scrolled
+   */
+  let selectHeader = select('#header')
+  if (selectHeader) {
+    const headerScrolled = () => {
+      if (window.scrollY > 100) {
+        selectHeader.classList.add('header-scrolled')
+      } else {
+        selectHeader.classList.remove('header-scrolled')
+      }
+    }
+    window.addEventListener('load', headerScrolled)
+    onscroll(document, headerScrolled)
+  }
+
+  /**
+   * Back to top button
+   */
+  let backtotop = select('.back-to-top')
+  if (backtotop) {
+    const toggleBacktotop = () => {
+      if (window.scrollY > 100) {
+        backtotop.classList.add('active')
+      } else {
+        backtotop.classList.remove('active')
+      }
+    }
+    window.addEventListener('load', toggleBacktotop)
+    onscroll(document, toggleBacktotop)
+  }
+
+  /**
+   * Mobile nav toggle
+   */
+  on('click', '.mobile-nav-toggle', function(e) {
+    select('#navbar').classList.toggle('navbar-mobile')
+    this.classList.toggle('bi-list')
+    this.classList.toggle('bi-x')
+  })
+
+  /**
+   * Mobile nav dropdowns activate
+   */
+  on('click', '.navbar .dropdown > a', function(e) {
+    if (select('#navbar').classList.contains('navbar-mobile')) {
+      e.preventDefault()
+      this.nextElementSibling.classList.toggle('dropdown-active')
+    }
+  }, true)
+
+  /**
+   * Scrool with ofset on links with a class name .scrollto
+   */
+  on('click', '.scrollto', function(e) {
+    if (select(this.hash)) {
+      e.preventDefault()
+
+      let navbar = select('#navbar')
+      if (navbar.classList.contains('navbar-mobile')) {
+        navbar.classList.remove('navbar-mobile')
+        let navbarToggle = select('.mobile-nav-toggle')
+        navbarToggle.classList.toggle('bi-list')
+        navbarToggle.classList.toggle('bi-x')
+      }
+      scrollto(this.hash)
+    }
+  }, true)
+
+  /**
+   * Scroll with ofset on page load with hash links in the url
+   */
+  window.addEventListener('load', () => {
+    if (window.location.hash) {
+      if (select(window.location.hash)) {
+        scrollto(window.location.hash)
+      }
+    }
+  });
+
+  /**
+   * Porfolio isotope and filter
+   */
+  window.addEventListener('load', () => {
+    let contentContainer = select('.content-container');
+    if (contentContainer) {
+      let contentIsotope = new Isotope(contentContainer, {
+        itemSelector: '.content-item'
+      });
+
+      let contentFilters = select('#content-flters li', true);
+
+      on('click', '#content-flters li', function(e) {
+        e.preventDefault();
+        contentFilters.forEach(function(el) {
+          el.classList.remove('filter-active');
+        });
+        this.classList.add('filter-active');
+
+        contentIsotope.arrange({
+          filter: this.getAttribute('data-filter')
+        });
+
+      }, true);
+    }
+
+  });
+
+  /**
+   * Initiate content lightbox 
+   */
+  const contentLightbox = GLightbox({
+    selector: '.content-lightbox'
+  });
+
+})()
 		</script>
 
 		<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		
 		<!--Ajax for json-->
 		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>  
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
@@ -317,6 +472,16 @@
 		<!-- chartist chart -->
 		<script src="assets/js/chartist-js/dist/chartist.min.js"></script>
 		<script src="assets/js/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
+
+			<!-- Vendor JS Files -->
+	<script src="assets/js/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="assets/js/vendor/glightbox/js/glightbox.min.js"></script>
+		<script src="assets/js/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+		<script src="assets/js/vendor/swiper/swiper-bundle.min.js"></script>
+		<script src="assets/js/vendor/waypoints/noframework.waypoints.js"></script>
+		
+	
+		
 		<!--c3 JavaScript -->
 		<script src="assets/js/d3/d3.min.js"></script>
 		<script src="assets/js/c3-master/c3.min.js"></script>
