@@ -82,10 +82,10 @@
 		color:#f1c40f;
 	}
 	.card-footer, .card-header{
-		background:#202020;
+		background:#212121;
 	}
 	.card-body{
-		background:#262626;
+		background:#282828;
 	}
 </style>
 
@@ -97,7 +97,7 @@
 		<div id='accordion-que' class='accordion'>
 			<div class='card p-2 my-3 border-0 rounded' style='background-color:#212121;'>
 				<div class='card-header' id='headingOne'>
-					<img src='http://localhost/Learnzia/assets/uploads/user/user_".$data['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid mx-2' style='width:45px; float:left;'>
+					<img src='http://localhost/Learnzia/assets/uploads/user/".$data['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid mx-2' style='width:45px; float:left;'>
 					<a class='btn btn-transparent border-0 mx-2 text-white' style='float:right;' data-toggle='modal' data-target='#'><i class='fa-solid fa-ellipsis-vertical'></i></a>";
 					//Discussion header.
 					if($data['id_user'] == $this->session->userdata('userIdTrack')){
@@ -112,12 +112,12 @@
 					if ($data['discussion_image'] != 'null'){
 						echo"
 						<div class='row mb-3'>
-							<div class='col-md-4'>
+							<div class='col-md'>
 								<img src='http://localhost/Learnzia/assets/uploads/discussion_".$data['discussion_image'].".jpg' id='question_img' 
 									data-toggle='modal' data-target='#zoom".$data['id_discussion']."'>
 								<div id='question_alt'><i class='fa-solid fa-magnifying-glass'></i> Zoom Image</div>
 							</div>
-							<div class='col-md-6' style=''>
+							<div class='col-md' style=''>
 								<p style='font-size:14px; color:whitesmoke;'><span style='color:#F1C40F; font-weight:500;'>".$data['subject']." | </span> ".$data['question']."</p>
 							</div>
 						</div>";
@@ -182,7 +182,7 @@
 								echo"
 								<div "; if($data2['reply_status'] == 'verified'){echo "class='reply-item verified'";} else {echo "class='reply-item' ";} echo">
 									<div class='p-2 rounded' "; if($data2['reply_status'] == 'verified'){echo "style='border:2px solid green !important;'";} echo">
-									<img src='http://localhost/Learnzia/assets/uploads/user/user_".$data2['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
+									<img src='http://localhost/Learnzia/assets/uploads/user/".$data2['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:45px; height:45px; 
 										float:left; margin-right:1%;'>";
 									//Reply username.
 									if($data2['id_user'] == $this->session->userdata('userIdTrack')){
@@ -195,12 +195,12 @@
 									} if ($data2['reply_image'] != 'null'){
 										echo"
 										<div class='row mb-2'>
-											<div class='col-md-4'>
+											<div class='col-md'>
 												<img src='http://localhost/Learnzia/assets/uploads/reply/reply_".$data2['reply_image'].".jpg' id='question_img' 
 													data-toggle='modal' data-target='#zoom".$data2['reply_image']."'>
 												<div id='question_alt'><i class='fa-solid fa-magnifying-glass'></i> Zoom Image</div>
 											</div>
-											<div class='col-md-6' style=''>
+											<div class='col-md' style=''>
 												<p style='font-size:14px; color:whitesmoke;'>".$data2['replytext']."</p>
 											</div>
 										</div>";

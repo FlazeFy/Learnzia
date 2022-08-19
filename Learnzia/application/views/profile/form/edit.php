@@ -1,4 +1,4 @@
-<div class="p-3 py-4">
+<div class="p-4">
 	<form method='post' action='profileCtrl/updateProfile'>
 		<input hidden value='<?php foreach ($dataUser as $data) {echo $data['id_user'];} ?>' name='id_user'>
 		<div class="form-group mb-3">

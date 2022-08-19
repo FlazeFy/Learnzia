@@ -1,30 +1,36 @@
-<div class="container">
-	<div class="row">
-		<div class="col-md-3 col-xs-6 b-r"> <strong style='color:#F1C40F;'>Full Name</strong>
-			<br>
-			<p style='color:whitesmoke;'><?php foreach ($dataUser as $data) {echo $data['fullname'];} ?></p>
-		</div>
-		<div class="col-md-3 col-xs-6 b-r"> <strong style='color:#F1C40F;'>Country</strong>
-			<br>
-			<p style='color:whitesmoke;'><?php foreach ($dataUser as $data) {echo $data['country'];} ?></p>
-		</div>
-		<div class="col-md-3 col-xs-6 b-r"> <strong style='color:#F1C40F;'>Email</strong>
-			<br>
-			<p style='color:whitesmoke;'><?php foreach ($dataUser as $data) {echo $data['email'];} ?></p>
-		</div>
-		<div class="col-md-3 col-xs-6"> <strong style='color:#F1C40F;'>Date Join</strong>
-			<br>
-			<p style='color:whitesmoke;'><?php foreach ($dataUser as $data) {echo $data['datejoin'];} ?></p>
-		</div>
-	</div>
-	
-	<hr>
-	<p style='color:whitesmoke;'><?php foreach ($dataUser as $data) {echo $data['description'];} ?></p>
+<div class="container p-4">
+	<?php
+		foreach ($dataUser as $data){
+			echo"
+			<div class='row'>
+				<div class='col-md-3 col-xs-6 b-r'> <strong style='color:#F1C40F;'>Full Name</strong>
+					<br>
+					<p style='color:whitesmoke;'>".$data['fullname']."</p>
+				</div>
+				<div class='col-md-3 col-xs-6 b-r'> <strong style='color:#F1C40F;'>Country</strong>
+					<br>
+					<p style='color:whitesmoke;'>".$data['country']."</p>
+				</div>
+				<div class='col-md-3 col-xs-6 b-r'> <strong style='color:#F1C40F;'>Email</strong>
+					<br>
+					<p style='color:whitesmoke;'>".$data['email']."</p>
+				</div>
+				<div class='col-md-3 col-xs-6'> <strong style='color:#F1C40F;'>Date Join</strong>
+					<br>
+					<p style='color:whitesmoke;'>".$data['datejoin']."</p>
+				</div>
+			</div>
+			
+			<hr>
+			<p style='color:whitesmoke;'>".$data['description']."</p>";
+		}
+	?>
+
 	<h4 class="font-medium m-t-30">Specialization</h4>
 	
 	<!--Chart-->
 	<div class="container-fluid">
-		<div class="row" style='background-color:#525252; border:none;'>
+		<div class="row">
 			<div class="col-md-9 border-right">
 				<h4 class="card-title" style='text-align:center;'>Discussion</h4>
 				<div id="discussion" style="height:290px; width:100%;"></div>

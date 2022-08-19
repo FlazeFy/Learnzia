@@ -5,6 +5,8 @@
 		<ul id="content-flters" class="d-flex justify-content-center">
 			<li data-filter="*" class="filter-active">All</li>
 			<li data-filter=".filter-class">Classroom</li>
+			<li data-filter=".filter-quizes">Quizes</li>
+			<li data-filter=".filter-article">Articles</li>
 			<li data-filter=".filter-history">History</li>
 			<li data-filter=".filter-coding">Coding</li>
 			<li data-filter=".filter-science">Science</li>
@@ -45,7 +47,7 @@
 									foreach ($listRel as $rel2){
 										foreach ($allUser as $user){
 											if(($rel2['username'] == $user['username'])&&($rel2['classname'] == $ct['username'])&&($rel2['typeRelation'] == 'founder')){
-												echo "<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+												echo "<img id='icon' src='http://localhost/Learnzia/assets/uploads/user/".$user['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
 													style='width:50px; height:50px; float:left; margin-right:5%'>";
 												//Username.
 												if ($user['username'] == $this->session->userdata('userTrack')){
@@ -66,7 +68,7 @@
 						echo"
 						<div class='col-lg-4 col-md-6 px-2 content-item filter-".$ct['category']."'>
 							<div class='card-header shadow' id='headingOne' style='background-color:#262626;'>
-								<img src='http://localhost/Learnzia/assets/uploads/user/user_".$ct['image_user'].".jpg' alt='Card image cap' class='rounded-circle img-fluid mx-2' style='width:45px; float:left;'>
+								<img src='http://localhost/Learnzia/assets/uploads/user/".$ct['image_user'].".jpg' alt='Card image cap' class='rounded-circle img-fluid mx-2' style='width:45px; float:left;'>
 								<a class='btn btn-transparent border-0 mx-2 text-white' style='float:right;' data-toggle='modal' data-target='#'><i class='fa-solid fa-ellipsis-vertical'></i></a>";
 								//Discussion header.
 								if($ct['id_user'] == $this->session->userdata('userIdTrack')){

@@ -1,7 +1,7 @@
 <div class="container" style="margin-top:10rem;">
 	<header class="section-header"><h2 class="text-white text-center mt-5">FREQUENTLY ASKED QUESTIONS</h2></header>
 	<div class="row">
-		<div class="col-lg-6">
+		<div class="col-lg-6 faq-first">
 			<div id="accordionFAQ">
 				<div class="card bg-transparent border-0">
 					<div class="card-header" id="headingOne" style='border:none;'>
@@ -45,7 +45,7 @@
 			</div>
 		</div>
 
-		<div class="col-lg-6">
+		<div class="col-lg-6 faq-second">
 			<div id="accordion2">
 				<div class="card bg-transparent border-0">
 					<div class="card-header" id="headingOne" style='border:none;'>

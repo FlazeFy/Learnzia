@@ -7,7 +7,7 @@
 			<div class='card' type='button' style='border: none; background-color:#3b3b3b; margin:1%;' 
 				data-toggle='modal' data-target='#classModal".$data['classname']."'>
 				<div class='card-header' style='height:5rem;'>
-					<img id='icon' src='http://localhost/Learnzia/assets/uploads/classroom/classroom_".$data['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
+					<img id='icon' src='http://localhost/Learnzia/assets/uploads/classroom/".$data['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
 						margin-right:5%'>
 					<h5 style='font-size:15.5px; color:#F1C40F;'>/".$data['classname']."</h5>
 					<h5 style='font-size:14px; color:#7289da;'>".$data['category']."</h5>

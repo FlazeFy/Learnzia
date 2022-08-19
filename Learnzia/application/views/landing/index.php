@@ -16,6 +16,12 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<script src="https://kit.fontawesome.com/12801238e9.js" crossorigin="anonymous"></script>
 
+		<!--Scroll reveal-->
+        <script src="https://unpkg.com/scrollreveal"></script>
+        <script>
+            ScrollReveal({ reset: true });
+        </script>
+
         <!--Source file-->
 		<link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>		
 		<link rel="stylesheet" type="text/css" href="http://localhost/Learnzia/assets/css/mainStyle2.css"/>
@@ -259,7 +265,7 @@
 		<section id="landing">
 			<div class="container bg-transparent">
 				<div class="row mt-5">			
-					<div class="col-md">
+					<div class="col-md welcome">
 						<img src="http://localhost/Learnzia/assets/images/Logo1.png" width="450" class="img-fluid">
 						<p class="text-center text-white">Not a member? <button class="btn btn-info" data-toggle="collapse" data-target="#createAccForm">Get Started</button></p>
 					</div>
@@ -331,6 +337,18 @@
                 document.getElementById('formFileCreateAcc').value = null;
                 frame.src = "http://localhost/Learnzia/assets/images/icon/NoImage.png";
             }
+
+			//Scroll reveal
+			ScrollReveal().reveal('.welcome', { delay: 500, distance: '80px', origin: 'left', easing: 'ease-in-out' });
+			ScrollReveal().reveal('.faq-first', { delay: 500, distance: '80px', origin: 'left', easing: 'ease-in-out' });
+			ScrollReveal().reveal('.faq-second', { delay: 500, distance: '80px', origin: 'right', easing: 'ease-in-out' });
+			ScrollReveal().reveal('.feature-first', { delay: 500, distance: '80px', origin: 'left', easing: 'ease-in-out' });
+			ScrollReveal().reveal('.feature-middle-top', { delay: 500, distance: '80px', origin: 'top', easing: 'ease-in-out' });
+			ScrollReveal().reveal('.feature-middle-bottom', { delay: 500, distance: '80px', origin: 'bottom', easing: 'ease-in-out' });
+			ScrollReveal().reveal('.feature-last', { delay: 500, distance: '80px', origin: 'right', easing: 'ease-in-out' });
+			ScrollReveal().reveal('.feedback-first', { delay: 500, distance: '80px', origin: 'left', easing: 'ease-in-out' });
+			ScrollReveal().reveal('.feedback-second', { delay: 1000, distance: '80px', origin: 'top', easing: 'ease-in-out' });
+			ScrollReveal().reveal('.feedback-last', { delay: 1500, distance: '80px', origin: 'right', easing: 'ease-in-out' });			
 
 			//Stepper.
 			const stepButtons = document.querySelectorAll('.step-button');

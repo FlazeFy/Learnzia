@@ -4,7 +4,7 @@
 			if($member['classname'] == $this->session->userdata('classTrack')){
 				echo"
 					<div class='card-header' style='background:#313436; border-radius:6px; margin-bottom:6px;'>
-					<img id='icon' src='http://localhost/Learnzia/assets/uploads/user_".$member['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+					<img id='icon' src='http://localhost/Learnzia/assets/uploads/user/".$member['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
 					style='width:50px; height:50px; float:left; margin-right:2%; margin-top:6px'>";
 				if ($member['username'] == $this->session->userdata('userTrack')){
 					echo"

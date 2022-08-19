@@ -24,7 +24,7 @@
 				</div>
 				<div id='collapse".$count."'  class='collapse'>
 					<div class='card-body' style='background-color:#424242; border-radius:5px;'>
-						<img id='icon' src='http://localhost/Learnzia/assets/uploads/classroom/classroom_".$class['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
+						<img id='icon' src='http://localhost/Learnzia/assets/uploads/classroom/".$class['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
 							margin-right:5%'>
 						<h5 style='font-size:15.5px; color:#F1C40F;'>/".$invitation['type']."</h5>
 						<h5 style='font-size:15.5px; color:#7289da;'>".$class['category']."</h5>

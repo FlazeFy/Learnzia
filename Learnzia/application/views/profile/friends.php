@@ -6,7 +6,7 @@
 			echo "
 			<div class='card' type='button' style='border: none; background-color:#3b3b3b; margin:1%;'>
 				<div class='card-header' style='height:5rem;'>
-					<img id='icon' src='http://localhost/Learnzia/assets/uploads/user/user_".$u['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
+					<img id='icon' src='http://localhost/Learnzia/assets/uploads/user/".$u['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
 						margin-right:5%'>
 					<h5 style='font-size:15.5px; color:#F1C40F;'>".$u['username']."</h5>";
 					//User login status
@@ -22,7 +22,7 @@
 			echo "
 			<div class='card' type='button' style='border:none; background-color:#3b3b3b; margin:1%;'>
 				<div class='card-header' style='height:5rem;'>
-					<img id='icon' src='http://localhost/Learnzia/assets/uploads/user/user_".$u['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
+					<img id='icon' src='http://localhost/Learnzia/assets/uploads/user/".$u['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' style='width:50px; height:50px; float:left;
 						margin-right:5%;'>
 					<h5 style='font-size:15.5px; color:#F1C40F;'>".$u['username']."</h5>";
 					//User login status
