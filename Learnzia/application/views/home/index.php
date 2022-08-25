@@ -29,6 +29,20 @@
 			.dropdown-menu{background-color: #212121; border-color:#F1C40F;} .dropdown-item{color:#F1C40F;}
 			a.nav-link:hover{color:#7289da;}
 			.dropdown-item:hover{color:whitesmoke; background-color:#7289da;}
+
+			/*Scrollbar*/
+			::-webkit-scrollbar {
+				width: 10px;
+				height: 10px;
+			}
+			::-webkit-scrollbar-track {
+				border-radius: 10px;
+				background: #212121; 
+			}		
+			::-webkit-scrollbar-thumb {
+				background: #f1c40f; 
+				border-radius: 10px;
+			}
 		</style>
     </head>
 
@@ -81,36 +95,24 @@
 		<!--Friend's post.-->
         <br><h2 style="margin-left: 13%; color:whitesmoke; font-size:20px;">Welcome, <?= $data = $this->session->userdata('userTrack'); ?></h2>
 		<div class="container p-3 bg-transparent">
-			<div class="row mb-3">			
-				<h4 class="ml-3">Stories</h4>
-
-				<!--Add post-->
-				<button class='btn btn-primary' data-toggle="modal" data-target="#discModal" aria-expanded='false' style='background-color: #00a13e; border:none; margin-bottom:1%; max-width:120px; max-height:120px;'>
-					<img src='http://localhost/Learnzia/assets/uploads/user/<?= $data = $this->session->userdata('userTrack'); ?>.jpg' alt='New Post' class='rounded-circle img-fluid' 
-						style='width:60px; height:60px;'>
-					<h5 style='font-size:14px; color:whitesmoke;'>New Stories</h5>
-				</button>
-			
-				<div class="row">
-					
-				</div>
-
-			</div>
+			<?php
+				$this->load->view('home/story');
+			?>
 		</div>
 
-		<div class="container p-3 bg-transparent">
+		<div class="container px-3 bg-transparent position-relative">
 			<div id="accordion">
 				<div class="row">
 					<div class="col-md-9">
-						<div class="row mb-3">			
-							<h4 class="ml-3">All Post</h4>
-							<div class="dropdown ml-5">
-								<button class="btn btn-secondary dropdown-toggle" style="color:whitesmoke; background-color:#e69627; border:none;" 
-									data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort By</button>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									<a class="dropdown-item" href="#">Recently</a>
-									<a class="dropdown-item" href="#">Most Liked</a>
-								</div>
+						<h4 class="ml-3">All Post</h4>
+						<button class="btn btn-success position-absolute" data-toggle="modal" data-target="#discModal" 
+							aria-expanded='false' style="top:0px; right:120px;"><i class="fa-solid fa-plus"></i> Create Post</button>
+						<div class="dropdown float-right position-absolute" style="top:0px; right:15px;">
+							<button class="btn btn-secondary dropdown-toggle" style="color:whitesmoke; background-color:#e69627; border:none;" 
+								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort By</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<a class="dropdown-item" href="#">Recently</a>
+								<a class="dropdown-item" href="#">Most Liked</a>
 							</div>
 						</div>
 						<!--Question.-->

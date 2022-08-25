@@ -10,6 +10,7 @@
 			$this->load->model('ReplyModel');
 			$this->load->model('SocialModel');
 			$this->load->model('UpModel');
+			$this->load->model('StoryModel');
 		}	 
 		public function index(){
 			$data = [];
@@ -21,6 +22,7 @@
 			$data['allVoteDis']= $this->UpModel->get_all_vote_dis();
 			$data['allVoteRep']= $this->UpModel->get_all_vote_rep();
 			$data['dataReply']= $this->ReplyModel->get_all_reply();
+			$data['allStory']= $this->StoryModel->get_all_story();
 			$this->load->view('home/index', $data);
 		}
 
