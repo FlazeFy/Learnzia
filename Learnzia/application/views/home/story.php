@@ -47,8 +47,6 @@
                             if($sty['story_interact'] == "yes"){
                                 echo "
                                 <a class='btn btn-transparent border-0 mx-2 position-absolute' data-toggle='modal' data-target='#shareStory".$sty['id_story']."' 
-                                    title='forward' style='right:30px; top:0px; color:#f1c40f;'><i class='fa-solid fa-message'></i></a>
-                                <a class='btn btn-transparent border-0 mx-2 position-absolute' data-toggle='modal' data-target='#shareStory".$sty['id_story']."' 
                                     title='forward' style='right:0px; top:0px; color:#f1c40f;'><i class='fa-solid fa-paper-plane'></i></a>";
                             }   
                             echo"
@@ -60,33 +58,32 @@
                 } else if($sty['story_type'] == "voting") {
                     echo"
                     <div class='rounded p-2 ms-2 position-relative' id='storyBox'
-                        style='width:250px; margin-top:-45px; background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.6)) , url(http://localhost/Learnzia/assets/uploads/story/".$sty['story_url'].".jpg);'>
+                        style='width:250px; top:-20px; background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.6)) , url(http://localhost/Learnzia/assets/uploads/story/".$sty['story_url'].".jpg);'>
                         <button type='submit' class='w-100 h-100 border-0 bg-transparent'>";
                             if($sty['story_interact'] == "yes"){
                                 echo "
-                                <a class='btn btn-transparent border-0 mx-2 position-absolute' data-toggle='modal' data-target='#shareStory".$sty['id_story']."' 
-                                    title='forward' style='right:30px; top:0px; color:#f1c40f;'><i class='fa-solid fa-message'></i></a>
                                 <a class='btn btn-transparent border-0 mx-2 position-absolute' data-toggle='modal' data-target='#shareStory".$sty['id_story']."' 
                                     title='forward' style='right:0px; top:0px; color:#f1c40f;'><i class='fa-solid fa-paper-plane'></i></a>";
                             }   
                             echo"
                             <img src='http://localhost/Learnzia/assets/uploads/user/".$sty['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid position-absolute shadow' 
                                 style='width:35px; left:10px; top:10px;'>
-                            <table class='mt-3'>
+                            <a class='text-white' id='storyTitle'>".$sty['story_caption']."</a>
+                            <table class='mb-1 position-absolute' style='bottom:5px;'>
                                 <tr>
                                     <th width='50%'></th>
                                     <th width='50%'></th>
                                 </tr>
                                 <tr>
                                     <td>";
-                                        //Upvote and downvote.
+                                        //Upvote and downvote option 1.
                                         $y = 0;
                                         $found = 0;
                                         $id_up = 0;
                                         foreach($allVoteStory as $vote){
                                             if($vote['id_context'] == $sty['id_story']){
                                                 $y++;
-                                                if($vote['id_user'] == $this->session->userdata('userIdTrack')){
+                                                if(($vote['id_user'] == $this->session->userdata('userIdTrack'))&&($vote['up_type'] == 'story_1')){
                                                     $found++;
                                                     $id_up = $vote['id_up'];
                                                 }
@@ -95,28 +92,29 @@
                     
                                         if($found == 1){
                                             echo "
-                                            <form action='homeCtrl/downvoteStory' method='POST'>
+                                            <form action='homeCtrl/downvote' method='POST'>
                                                 <input hidden name='id_up' value='".$id_up."'>
-                                                <button type='submit' class='btn btn-success mx-2 rounded-pill' id='btn-up-story' title='up'> ".$sty['story_option_1']."</button>
+                                                <button type='submit' class='btn btn-success mx-2 rounded-pill' id='btn-up-story' title='down vote'> ".$sty['story_option_1']."</button>
                                             </form>";
                                         } else {
                                             echo "
                                             <form action='homeCtrl/upvoteStory' method='POST'>
                                                 <input hidden name='id_story' value='".$sty['id_story']."'>
-                                                <button type='submit' class='btn btn-primary mx-2 rounded-pill' id='btn-up-story' title='up' style='background:#F1c40f;'> ".$sty['story_option_1']."</button>
+                                                <input hidden name='opt' value='1'>
+                                                <button type='submit' class='btn btn-primary mx-2 rounded-pill' id='btn-up-story' title='up vote' style='background:#F1c40f;'> ".$sty['story_option_1']."</button>
                                             </form>";
                                         }
                                     echo "
                                     </td>
                                     <td>";
-                                    //Upvote and downvote.
+                                    //Upvote and downvote option 2.
                                     $y = 0;
                                     $found = 0;
                                     $id_up = 0;
                                     foreach($allVoteStory as $vote){
                                         if($vote['id_context'] == $sty['id_story']){
                                             $y++;
-                                            if($vote['id_user'] == $this->session->userdata('userIdTrack')){
+                                            if(($vote['id_user'] == $this->session->userdata('userIdTrack'))&&($vote['up_type'] == 'story_2')){
                                                 $found++;
                                                 $id_up = $vote['id_up'];
                                             }
@@ -125,15 +123,16 @@
                 
                                     if($found == 1){
                                         echo "
-                                        <form action='homeCtrl/downvoteStory' method='POST'>
+                                        <form action='homeCtrl/downvote' method='POST'>
                                             <input hidden name='id_up' value='".$id_up."'>
-                                            <button type='submit' class='btn btn-success mx-2 rounded-pill' id='btn-up-story' title='up'> ".$sty['story_option_2']."</button>
+                                            <button type='submit' class='btn btn-success mx-2 rounded-pill' id='btn-up-story' title='down vote'> ".$sty['story_option_2']."</button>
                                         </form>";
                                     } else {
                                         echo "
                                         <form action='homeCtrl/upvoteStory' method='POST'>
                                             <input hidden name='id_story' value='".$sty['id_story']."'>
-                                            <button type='submit' class='btn btn-primary mx-2 rounded-pill' id='btn-up-story' title='up' style='background:#F1c40f;'> ".$sty['story_option_2']."</button>
+                                            <input hidden name='opt' value='2'>
+                                            <button type='submit' class='btn btn-primary mx-2 rounded-pill' id='btn-up-story' title='up vote' style='background:#F1c40f;'> ".$sty['story_option_2']."</button>
                                         </form>";
                                     }
                                     echo "

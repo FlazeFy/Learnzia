@@ -207,13 +207,6 @@
 			redirect('HomeCtrl');
 		}
 
-		//downvote a discussion
-		public function downvoteDis(){
-			$this->db->where('id_up', $this->input->post('id_up'));
-			$this->db->delete('up');
-			redirect('HomeCtrl');
-		}
-
 		//Upvote a reply
 		public function upvoteRep(){
 			$data = array(
@@ -226,10 +219,43 @@
 			redirect('HomeCtrl');
 		}
 
-		//downvote a reply
-		public function downvoteRep(){
+		//downvote a reply, story, discussion
+		public function downvote(){
 			$this->db->where('id_up', $this->input->post('id_up'));
 			$this->db->delete('up');
+			redirect('HomeCtrl');
+		}
+
+		//Upvote a story
+		public function upvoteStory(){
+			//Check other option vote.
+			$this->db->select('*');
+			$this->db->from('up');
+			$condition = array(
+				'id_user' => $this->session->userdata('userIdTrack'), 
+				'id_context' =>  $this->input->post('id_story'),
+			);
+			$this->db->where($condition);
+			$this->db->like('up_type', 'story', 'after');
+			$userCheck = $this->db->get()->result();
+
+			//Downvote previous vote in other option.
+			if(count($userCheck) == 1){
+				foreach ($userCheck as $row)
+				{
+					$id = $row->id_up;
+				}
+				$this->db->where('id_up', $id);
+				$this->db->delete('up');
+			}
+			$data = array(
+				'id_up' => 'NULL',
+				'id_context' => $this->input->post('id_story'),
+				'id_user' => $this->session->userdata('userIdTrack'),
+				'up_type' => 'story_'.$this->input->post('opt'),
+			);
+			$this->UpModel->insertVote($data, 'up');
+			
 			redirect('HomeCtrl');
 		}
 
