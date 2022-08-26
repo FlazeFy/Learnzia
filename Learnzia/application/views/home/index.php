@@ -165,6 +165,11 @@
 			$this->load->view('home/form/shareReply');
 		?>
 
+		<!-- Modal Share story-->
+		<?php
+			$this->load->view('home/form/shareStory');
+		?>
+
 		<!-- Zoom discussion image Modal -->
 		<?php
 			$this->load->view('others/zoom');

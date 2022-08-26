@@ -160,6 +160,23 @@
 			redirect('HomeCtrl');
 		}
 
+		//Share story
+		public function shareStory(){
+			$contact = $this->input->post('id_social[]');		
+			for($i = 0; $i < count($contact); $i++){	
+				$data = array(
+					'id_message' => 'NULL',
+					'id_social' => $contact[$i],
+					'id_user_sender' => $this->session->userdata('userIdTrack'),
+					'message' => $this->input->post('id_story'),
+					'message_image' => 'story',
+					'datetime' => date("Y/m/d h:i:sa")
+				);
+				$this->MessageModel->insertMessage($data, 'message');
+			}
+			redirect('HomeCtrl');
+		}
+
 		//Share reply
 		public function shareRep(){
 			$contact = $this->input->post('id_social[]');		

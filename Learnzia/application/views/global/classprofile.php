@@ -23,7 +23,7 @@
 												if(($rel2['username'] == $user['username']) &&($rel2['classname'] == $class['classname'])){
 												echo "<div class='card' type='button' style='border: none; background-color:#515151; margin:1%;'>
 													<div class='card-header' style='height:5rem;'>
-														<img id='icon' src='http://localhost/Learnzia/assets/uploads/user/".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+														<img id='icon' src='http://localhost/Learnzia/assets/uploads/user/".$user['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
 															style='width:50px; height:50px; float:left; margin-right:5%'>";
 															//Username.
 															if ($user['username'] == $this->session->userdata('userTrack')){
@@ -77,7 +77,7 @@
 												foreach ($listRel as $rel2){
 													foreach ($allUser as $user){
 														if(($rel2['username'] == $user['username'])&&($rel2['classname'] == $class['classname'])&&($rel2['typeRelation'] == 'founder')){
-															echo "<img id='icon' src='http://localhost/Learnzia/assets/uploads/user/".$user['username'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
+															echo "<img id='icon' src='http://localhost/Learnzia/assets/uploads/user/".$user['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid' 
 																style='width:50px; height:50px; float:left; margin-right:5%'>";
 															//Username.
 															if ($user['username'] == $this->session->userdata('userTrack')){

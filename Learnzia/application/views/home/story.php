@@ -41,10 +41,12 @@
             foreach($allStory as $sty){
                 echo"
                 <div class='rounded p-2 ms-2 position-relative' id='storyBox'
-                    style='width:250px; background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.3)) , url(http://localhost/Learnzia/assets/uploads/story/".$sty['story_url'].".jpg);'>
+                    style='width:250px; background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.4)) , url(http://localhost/Learnzia/assets/uploads/story/".$sty['story_url'].".jpg);'>
                     <button type='submit' class='w-100 h-100 border-0 bg-transparent' title='See Story'>
                         <img src='http://localhost/Learnzia/assets/uploads/user/".$sty['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid position-absolute shadow' 
                             style='width:40px; right:10px; top:10px;'>
+                        <a class='btn btn-transparent border-0 mx-2 position-absolute shadow' data-toggle='modal' data-target='#shareStory".$sty['id_story']."' 
+                            title='forward' style='right:0px; bottom:0px; color:#f1c40f;'><i class='fa-solid fa-paper-plane'></i></a>
                         <div class='d-flex justify-content-between mt-4'>
                             <h6 class='mb-0' id='storyTitle' style='color:#f1c40f;'>".$sty['username']."</h6><br>
                         </div>
