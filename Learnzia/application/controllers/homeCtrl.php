@@ -21,6 +21,7 @@
 			$data['allDisc']= $this->DiscussionModel->get_all_disc();
 			$data['allVoteDis']= $this->UpModel->get_all_vote_dis();
 			$data['allVoteRep']= $this->UpModel->get_all_vote_rep();
+			$data['allVoteStory']= $this->UpModel->get_all_vote_story();
 			$data['dataReply']= $this->ReplyModel->get_all_reply();
 			$data['allStory']= $this->StoryModel->get_all_story();
 			$this->load->view('home/index', $data);

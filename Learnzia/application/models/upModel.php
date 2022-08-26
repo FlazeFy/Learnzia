@@ -14,7 +14,7 @@
 			return $data = $this->db->get()->result_array();
 		}
 
-		//Get question up & down vote
+		//Get reply up & down vote
 		public function get_all_vote_rep()
 		{
 			$this->db->select('up.id_up ,up.id_user as id_user, up.id_context');
@@ -22,6 +22,17 @@
 			$this->db->join('reply','reply.id_reply = up.id_context');
 			$this->db->join('user','user.id_user = up.id_user');
 			$this->db->where('up.up_type', 'reply');
+			return $data = $this->db->get()->result_array();
+		}
+
+		//Get story up & down vote
+		public function get_all_vote_story()
+		{
+			$this->db->select('up.id_up ,up.id_user as id_user, up.id_context');
+			$this->db->from('up');
+			$this->db->join('story','story.id_story = up.id_context');
+			$this->db->join('user','user.id_user = up.id_user');
+			$this->db->where('up.up_type', 'story');
 			return $data = $this->db->get()->result_array();
 		}
 

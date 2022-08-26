@@ -43,6 +43,11 @@
 				background: #f1c40f; 
 				border-radius: 10px;
 			}
+
+			#btn-up-story{
+				border:none;
+				font-size:14.5px;
+			}
 		</style>
     </head>
 
