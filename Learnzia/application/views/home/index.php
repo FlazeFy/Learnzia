@@ -48,6 +48,10 @@
 				border:none;
 				font-size:14.5px;
 			}
+
+			.text-primary{
+				color: #f1c40f !important; 
+			}
 		</style>
     </head>
 
@@ -155,6 +159,11 @@
 			$this->load->view('home/form/addQuestion');
 		?>
 
+		<!-- Modal Add Story -->
+		<?php
+			$this->load->view('home/form/addStory');
+		?>
+
 		<!-- Modal Message-->
 		<?php
 			$this->load->view('contact/chat');
@@ -192,6 +201,15 @@
 
 			function closeNav() {
 				document.getElementById("mySidebar").style.width = "0";
+			}
+
+			//Upload & preview story image
+			function preview() {
+				frame.src = URL.createObjectURL(event.target.files[0]);
+			}
+			function clearImage() {
+				document.getElementById('formFile').value = null;
+				frame.src = "http://localhost/Learnzia/assets/images/icon/NoImage.png";
 			}
 
 			function autocomplete(inp, arr) {

@@ -66,6 +66,38 @@
 			} 
 		}
 
+		//New story
+		public function sendStory(){
+			$story_url = substr(md5(uniqid(mt_rand(), true)), 0, 20);
+			
+			$initialize = $this->upload->initialize(array(
+				"upload_path" => './assets/uploads/story',
+				"allowed_types" => 'jpg',
+				"max_size" => 5000,
+				"remove_spaces" => TRUE,
+				"file_name" => $story_url
+			));
+			$data = array(
+				'id_story' => 'NULL',
+				'id_user' => $this->session->userdata('userIdTrack'),
+				'story_caption' => $this->input->post('story_caption'),
+				'story_type' => $this->input->post('story_type'),
+				'story_url' => $story_url,
+				'story_option_1' => 'null',
+				'story_option_2' => 'null',
+				'story_interact' => $this->input->post('story_interact'),
+				'datetime' => date("Y/m/d h:i:sa"),
+			);
+			
+			if (!$this->upload->do_upload('story_url')) {
+				$data['error_message'] = "Your image is too big or not jpg!";
+				$this->index();
+				$this->load->view('home/index', $data);
+			} else {
+				$this->StoryModel->uploadStory($data, 'story');
+			}
+		}
+
 		//Reply discussion
 		public function sendReply(){
 			if($this->input->post('imageSwitchR') == 'on'){

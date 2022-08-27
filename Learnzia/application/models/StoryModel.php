@@ -11,5 +11,10 @@
 			$this->db->order_by('story.datetime','DESC');
 			return $data = $this->db->get()->result_array();
 		}
+
+		public function uploadStory($data){
+			$this->db->insert('story',$data);	
+			redirect('HomeCtrl');
+		}
 	}
 ?>

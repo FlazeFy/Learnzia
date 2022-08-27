@@ -142,7 +142,7 @@
 
 					if($found == 1){
 						echo "
-						<form action='homeCtrl/downvoteDis' method='POST'>
+						<form action='homeCtrl/downvote' method='POST'>
 							<input hidden name='id_up' value='".$id_up."'>
 							<button type='submit' class='btn btn-success mx-2 border-0 rounded-pill' id='btn-up' title='up'><i class='fa-solid fa-arrow-up fa-lg'></i> ".$y."</button>
 						</form>";
@@ -225,7 +225,7 @@
 
 										if($found == 1){
 											echo "
-											<form action='homeCtrl/downvoteRep' method='POST'>
+											<form action='homeCtrl/downvote' method='POST'>
 												<input hidden name='id_up' value='".$id_up."'>
 												<button type='submit' class='btn btn-success mx-2 border-0 rounded-pill' title='up' style='width:100px;'><i class='fa-solid fa-arrow-up fa-lg'></i> ".$y."</button>
 											</form>";

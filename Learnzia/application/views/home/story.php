@@ -30,7 +30,7 @@
     <h4>Stories</h4>
     <div id="story-holder">
         <!--Add post-->
-        <button class='btn btn-primary border-0 py-3' style='margin-top:-45px; background-color: #00a13e; max-width:120px; max-height:120px;'>
+        <button class='btn btn-primary border-0 py-3' data-toggle="modal" data-target="#storyModal" style='margin-top:-45px; background-color: #00a13e; max-width:120px; max-height:120px;'>
             <img src='http://localhost/Learnzia/assets/uploads/user/<?php foreach($dataUser as $u){ echo $u['imageURL']; }?>.jpg' alt='New Post' class='rounded-circle img-fluid' 
                 style='width:60px; height:60px;'>
             <h5 class="mt-2" style='font-size:14px; color:whitesmoke;'>New Stories</h5>
@@ -41,7 +41,7 @@
             foreach($allStory as $sty){
                 if($sty['story_type'] == "image"){
                     echo"
-                    <div class='rounded p-2 ms-2 position-relative' id='storyBox'
+                    <div class='rounded p-2 ms-2 position-relative' id='storyBox' title='".$sty['story_caption']."'
                         style='width:250px; background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.6)) , url(http://localhost/Learnzia/assets/uploads/story/".$sty['story_url'].".jpg);'>
                         <button type='submit' class='w-100 h-100 border-0 bg-transparent'>";
                             if($sty['story_interact'] == "yes"){
@@ -57,7 +57,7 @@
                     </div>";
                 } else if($sty['story_type'] == "voting") {
                     echo"
-                    <div class='rounded p-2 ms-2 position-relative' id='storyBox'
+                    <div class='rounded p-2 ms-2 position-relative' id='storyBox' title='".$sty['story_caption']."'
                         style='width:250px; top:-20px; background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.6)) , url(http://localhost/Learnzia/assets/uploads/story/".$sty['story_url'].".jpg);'>
                         <button type='submit' class='w-100 h-100 border-0 bg-transparent'>";
                             if($sty['story_interact'] == "yes"){

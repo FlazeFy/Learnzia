@@ -22,7 +22,7 @@
 					</div>
 					<div class="form-group mb-3">
 						<label class="label" for="text" style="color:#F1C40F;">Question</label>
-						<textarea rows="5" cols="60" name="question" class='form-control' required>Enter text here...</textarea>
+						<textarea rows="5" cols="60" name="question" class='form-control' required>Type text here...</textarea>
 					</div>
 					<!-- Rounded switch -->
 					<label class="switch" style='float:left; margin-right:2%;'>
