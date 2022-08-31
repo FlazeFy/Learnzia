@@ -11,6 +11,7 @@
 			$this->load->model('SocialModel');
 			$this->load->model('UpModel');
 			$this->load->model('StoryModel');
+			$this->load->model('QuizModel');
 		}	 
 		public function index(){
 			$data = [];
@@ -24,6 +25,8 @@
 			$data['allVoteStory']= $this->UpModel->get_all_vote_story();
 			$data['dataReply']= $this->ReplyModel->get_all_reply();
 			$data['allStory']= $this->StoryModel->get_all_story();
+			$data['allQuiz']= $this->QuizModel->get_all_quiz();
+			$data['allQQuestion']= $this->QuizModel->get_all_quiz_question();
 			$this->load->view('home/index', $data);
 		}
 

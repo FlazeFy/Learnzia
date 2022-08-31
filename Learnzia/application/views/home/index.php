@@ -112,7 +112,7 @@
 		<div class="container px-3 bg-transparent position-relative">
 			<div id="accordion">
 				<div class="row">
-					<div class="col-md-9">
+					<div class="col-md-8">
 						<h4 class="ml-3">All Post</h4>
 						<button class="btn btn-success position-absolute" data-toggle="modal" data-target="#discModal" 
 							aria-expanded='false' style="top:0px; right:120px;"><i class="fa-solid fa-plus"></i> Create Post</button>
@@ -129,11 +129,12 @@
 							$this->load->view('home/question');
 						?>
 					</div>
-					<div class="col-md-3">
-						<div class="row mb-3">			
-							<h4 class="ml-3">Top Quizes</h4>
-								
-						</div>
+					<div class="col-md-4">
+						<h4 class="ml-3">Quizes</h4>
+						<!--Quiz.-->
+						<?php
+							$this->load->view('home/quiz');
+						?>
 					</div>
 				</div>
 			</div>

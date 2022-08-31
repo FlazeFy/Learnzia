@@ -97,7 +97,7 @@
 		<div id='accordion-que' class='accordion'>
 			<div class='card p-2 my-3 border-0 rounded' style='background-color:#212121;'>
 				<div class='card-header' id='headingOne'>
-					<img src='http://localhost/Learnzia/assets/uploads/user/".$data['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid mx-2' style='width:45px; float:left;'>
+					<img src='http://localhost/Learnzia/assets/uploads/user/".$data['imageURL'].".jpg' alt='Card image cap' class='rounded-circle img-fluid mr-2' style='width:45px; float:left;'>
 					<a class='btn btn-transparent border-0 mx-2 text-white' style='float:right;' data-toggle='modal' data-target='#'><i class='fa-solid fa-ellipsis-vertical'></i></a>";
 					//Discussion header.
 					if($data['id_user'] == $this->session->userdata('userIdTrack')){
