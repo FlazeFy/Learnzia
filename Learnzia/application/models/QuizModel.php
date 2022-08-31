@@ -18,5 +18,17 @@
 			$this->db->order_by('id_quiz','ASC');
 			return $data = $this->db->get()->result_array();
 		}
+
+		public function get_current_question(){
+			if($this->session->userdata('quiz_numberTrack') == null){
+				$number = 1;
+			} else {
+				$number = $this->session->userdata('quiz_numberTrack');
+			}
+			$this->db->select('*');
+			$this->db->from('quiz_question');
+			$this->db->where('quiz_no', $number);
+			return $data = $this->db->get()->result_array();
+		}
 	}
 ?>

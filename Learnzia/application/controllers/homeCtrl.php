@@ -302,6 +302,12 @@
 			redirect('HomeCtrl');
 		}
 
+		//Open quiz
+		public function playquiz(){
+			$this->session->set_userdata('quizIdTrack', $this->input->post('id_quiz'));
+			redirect('QuizCtrl');
+		}
+
 		//Sign out
 		public function signOut(){
 			$this->UserModel->offstatus('user');
