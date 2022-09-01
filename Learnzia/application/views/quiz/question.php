@@ -15,15 +15,18 @@
 </style>
 
 <?php 
+    //Initial variable.
 	$i = 1; 
 	$count = 0;
+    $total = count($quizNav);
+
 	foreach($currentQuestion as $quiz){	
         $id_qas ="";
         echo"
         <div id='accordion-quiz' class='accordion'>
             <div class='card p-1 my-3 border-0 rounded' style='background-color:#212121;'>
                 <div class='card-header' id='headingOne'>
-                    <form action='quizCtrl/answer' method='POST'>";
+                    <form action='quizCtrl/answer' method='POST'>"; 
                         if($quiz['question_url'] != "null"){
                             echo"
                             <img src='http://localhost/Learnzia/assets/uploads/quiz/".$quiz['question_url'].".jpg'  
@@ -34,12 +37,17 @@
                         echo
                         "<p class='text-white'>".$quiz['question_body']."</p>
                         <h5>Answer: </h5>";
+                        //Intial variable.
                         $no = 1;
                         $id_qq ="";
+                        $id_qas ="";
                         $slct_opt ="";
+
+                        //Check if there's an option has been selected.
                         foreach($currentAnswer as $ans){	
                             $slct_opt = $ans['quiz_opt'];
                             $id_qq = $ans['id_qq'];
+                            $id_qas = $ans['id_qas'];
                         }
 
                         for($no = 1; $no <= 4; $no++){
@@ -47,7 +55,7 @@
                             if($quiz['question_opt_'.$no] != "null"){
                                 if(($quiz['id_qq'] == $id_qq)&&($no == $slct_opt)){
                                     $status = "checked";
-                                    // echo "<input hidden name='id_qas' value='".$id_qas."'>";
+                                    echo "<input hidden name='id_qas' value='".$id_qas."'>";
                                 }       
                                 echo"
                                 <li class='input-group mt-2'>
@@ -69,14 +77,20 @@
                                 <button class='btn btn-transparent quiz-nav float-left' value='prev' name='route_quiz' type='submit'>
                                 <i class='fa-solid fa-arrow-left'></i> Previous</button>";
                             }
-                            echo"
-                            <button class='btn btn-transparent quiz-nav float-right' value='next' name='route_quiz' type='submit'>
-                                Next <i class='fa-solid fa-arrow-right'></i></button>
+                            if($quiz['quiz_no'] != $total){
+                                echo"
+                                <button class='btn btn-transparent quiz-nav float-right' value='next' name='route_quiz' type='submit'>
+                                    Next <i class='fa-solid fa-arrow-right'></i></button>";
+                            } else {
+                                echo"
+                                <a class='btn btn-success float-right' style='width: 120px;'><i class='fa-solid fa-check'></i> Finish</a>";
+                            }
+                            echo "
+                            <br>
                         </div>
                     </form>
                 </div>
             </div>
         </div>";
-        
     }
 ?>

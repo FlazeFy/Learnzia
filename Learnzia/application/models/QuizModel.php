@@ -30,7 +30,15 @@
         public function get_all_quiz_question(){
 			$this->db->select('*');
 			$this->db->from('quiz_question');
-			$this->db->order_by('id_quiz','ASC');
+			$this->db->order_by('quiz_question.quiz_no','ASC');
+			return $data = $this->db->get()->result_array();
+		}
+
+		public function get_all_quiz_nav(){
+			$this->db->select('*');
+			$this->db->from('quiz_question');
+			$this->db->join('quiz_answer','quiz_answer.id_qq = quiz_question.id_qq', 'left outer');
+			$this->db->order_by('quiz_question.quiz_no','ASC');
 			return $data = $this->db->get()->result_array();
 		}
 
@@ -53,7 +61,7 @@
 		}
 
 		public function updateAnswer($data, $id){
-			$this->db->where('id_qas', 1);
+			$this->db->where('id_qas', $id);
 			$this->db->update('quiz_answer', $data);	
 		}
 	}

@@ -120,7 +120,7 @@
                         $this->load->view('quiz/question');
                     ?>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 mb-3">
                     <!--Navigation-->
                     <?php
                         $this->load->view('quiz/nav');

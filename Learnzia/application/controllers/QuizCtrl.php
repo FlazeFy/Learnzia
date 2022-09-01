@@ -12,6 +12,7 @@
 			$data['dataUser']= $this->UserModel->get_data_user();
 			$data['allQuiz']= $this->QuizModel->get_all_quiz();
 			$data['allQQuestion']= $this->QuizModel->get_all_quiz_question();
+			$data['quizNav']= $this->QuizModel->get_all_quiz_nav();
 			$data['currentQuestion']= $this->QuizModel->get_current_question();
 			$data['currentAnswer']= $this->QuizModel->get_current_answer();
 			$data['allAnswer']= $this->QuizModel->get_all_answer();
@@ -46,13 +47,6 @@
 					);
 					$this->QuizModel->insertAnswer($data, 'quiz_answer');
 				}
-			} else {
-				//If user hasn't answered the question.
-				// $data = array(
-				// 	'quiz_opt' => "0",
-				// 	'updated_at' => date("Y/m/d h:i:sa")
-				// );
-				// $this->QuizModel->updateAnswer($data, $this->input->post('id_qas'), 'quiz_answer');
 			}
 
 			//Route question number based on submit button.
