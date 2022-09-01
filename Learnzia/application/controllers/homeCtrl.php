@@ -305,6 +305,7 @@
 		//Open quiz
 		public function playquiz(){
 			$this->session->set_userdata('quizIdTrack', $this->input->post('id_quiz'));
+			$this->session->set_userdata('quiz_numberTrack', 1);
 			redirect('QuizCtrl');
 		}
 

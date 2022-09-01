@@ -101,7 +101,18 @@
 
 		<!--Content-->
 		<br><br>
-        <div class="container mt-3">
+        <div class="container mt-3 pt-1">
+            <h2 style='color:whitesmoke; font-size:20px;'><a style='color:whitesmoke; font-size:20px;' href='homeCtrl'>Quiz </a> 
+                >> <a>
+                <?php 
+                    foreach($allQuiz as $quiz){	
+                        if($quiz['id_quiz'] == $this->session->userdata('quizIdTrack')){
+                            echo $quiz['quiz_title'];
+                        }
+                    }
+                ?>
+                </a>
+            </h2>
             <div class="row">
                 <div class="col-md-9">
                     <!--Question-->

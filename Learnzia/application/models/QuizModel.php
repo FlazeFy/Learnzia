@@ -12,6 +12,21 @@
 			return $data = $this->db->get()->result_array();
 		}
 
+		public function get_current_answer(){
+			$this->db->select('*');
+			$this->db->from('quiz_answer');
+            $this->db->where('id_quiz', $this->session->userdata('quizIdTrack'));
+			$this->db->where('id_qq', $this->session->userdata('quiz_numberTrack'));
+			return $data = $this->db->get()->result_array();
+		}
+
+		public function get_all_answer(){
+			$this->db->select('*');
+			$this->db->from('quiz_answer');
+            $this->db->where('id_quiz', $this->session->userdata('quizIdTrack'));
+			return $data = $this->db->get()->result_array();
+		}
+
         public function get_all_quiz_question(){
 			$this->db->select('*');
 			$this->db->from('quiz_question');
@@ -28,7 +43,18 @@
 			$this->db->select('*');
 			$this->db->from('quiz_question');
 			$this->db->where('quiz_no', $number);
+			$this->db->where('id_quiz', $this->session->userdata('quizIdTrack'));
 			return $data = $this->db->get()->result_array();
+		}
+
+		//answer question
+		public function insertAnswer($data){
+			$this->db->insert('quiz_answer', $data);	
+		}
+
+		public function updateAnswer($data, $id){
+			$this->db->where('id_qas', 1);
+			$this->db->update('quiz_answer', $data);	
 		}
 	}
 ?>
