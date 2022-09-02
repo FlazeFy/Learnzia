@@ -27,6 +27,14 @@
 			return $data = $this->db->get()->result_array();
 		}
 
+		public function get_my_attempt(){
+			$this->db->select('*');
+			$this->db->from('quiz_attempt');
+            $this->db->where('id_quiz', $this->session->userdata('quizIdTrack'));
+			$this->db->where('id_user', $this->session->userdata('userIdTrack'));
+			return $data = $this->db->get()->result_array();
+		}
+
         public function get_all_quiz_question(){
 			$this->db->select('*');
 			$this->db->from('quiz_question');
@@ -63,6 +71,12 @@
 		public function updateAnswer($data, $id){
 			$this->db->where('id_qas', $id);
 			$this->db->update('quiz_answer', $data);	
+		}
+
+		
+		public function updateResult($data, $id){
+			$this->db->where('id_quiz_attempt', $id);
+			$this->db->update('quiz_attempt', $data);	
 		}
 	}
 ?>

@@ -16,6 +16,7 @@
 			$data['currentQuestion']= $this->QuizModel->get_current_question();
 			$data['currentAnswer']= $this->QuizModel->get_current_answer();
 			$data['allAnswer']= $this->QuizModel->get_all_answer();
+			$data['allAttempt']= $this->QuizModel->get_my_attempt();
 			$this->load->view('quiz/index', $data);
 		}
 
@@ -59,6 +60,52 @@
 				$this->session->set_userdata('quiz_numberTrack', $this->input->post('quiz_no'));
 			}
 			redirect('QuizCtrl');
+		}
+
+		//Submit question
+		public function submitQuiz(){
+			$quizNav = $this->QuizModel->get_all_quiz_nav();
+			$correct = 0;
+			$wrong = 0;
+			
+			//Count correct and wrong answers
+			foreach($quizNav as $quiz){
+				if($quiz['quiz_opt'] == $quiz['question_key']){
+					$correct++;
+				} else {
+					$wrong++;
+				}
+			}
+
+			//Count final score
+			$score = $correct / count($quizNav) * 100;
+			$score = number_format((float)$score, 2, '.', '');
+
+			//Get last active attempt
+			$this->db->select('*');
+			$this->db->from('quiz_attempt');
+			$condition = array(
+				'id_quiz' => $this->session->userdata('quizIdTrack'), 
+				'id_user' => $this->session->userdata('userIdTrack'), 
+				'quiz_finish' => 'in-progress'
+			);
+			$this->db->where($condition);
+			$quizCheck = $this->db->get()->result();
+			foreach ($quizCheck as $row)
+			{
+				$id = $row->id_quiz_attempt;
+			}
+
+			//Submit result
+			$result = $correct."/".$wrong."/".$score;
+			$data = array(
+				'quiz_finish' => 'finished',
+				'result' => $result,
+				'finished_at' => date("Y/m/d h:i:sa")
+			);
+			$this->QuizModel->updateResult($data, $id, 'quiz_attempt');
+
+			//redirect('SummaryCtrl');
 		}
 
 		//Sign out

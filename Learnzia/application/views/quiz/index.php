@@ -117,7 +117,7 @@
                 <div class="col-md-9">
                     <!--Question-->
                     <?php
-                        $this->load->view('quiz/question');
+                        $this->load->view('quiz/form/question');
                     ?>
                 </div>
                 <div class="col-md-3 mb-3">
@@ -132,6 +132,11 @@
 		<!--Footer.-->
 		<?php
 			$this->load->view('others/footer');
+		?>
+
+		<!--Modal-->
+		<?php
+			$this->load->view('quiz/form/submit');
 		?>
 
 		<script>
