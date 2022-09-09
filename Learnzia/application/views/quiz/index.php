@@ -57,47 +57,9 @@
 
     <body>
 		<!--Main Navbar-->
-		<nav class="navbar navbar-expand-lg" style="background-color:#212121;">
-			<a class="nav-link" onclick="openNav()" type="button">
-			<img src="http://localhost/Learnzia/assets/images/icon/Message.png">Contact</a>
-
-			<!--Side Navbar Message-->
-			<?php
-				$this->load->view('contact/contact');
-			?>	
-		
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
-				aria-expanded="false" aria-label="Toggle navigation" style="color:#F1C40F;">
-				<a>Show</a>
-			</button>
-
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="homeCtrl">Home<span class="sr-only">(current)</span></a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="globalCtrl">Global</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="profileCtrl">Profile</a>
-				</li>
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Setting
-					</a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="#">Help Center</a>
-					<a class="dropdown-item" href="#">Privacy & Condition</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">About us</a>
-					</div>
-				</li>
-				</ul>
-				<button class="btn btn-primary" style="color:whitesmoke; margin-left:1%; background-color:#e62d27; border:none;" 
-					data-toggle="modal" data-target="#signOutModal">Sign Out</button>
-			</div>
-		</nav>
+		<?php
+			$this->load->view('others/navbar');
+		?>
 
 		<!--Content-->
 		<br><br>

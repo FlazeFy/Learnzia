@@ -63,40 +63,22 @@
 
 		<!--Content-->
 		<br><br>
-		<!--Friend's post.-->
-        <br><h2 style="margin-left: 13%; color:whitesmoke; font-size:20px;">Welcome, <?= $data = $this->session->userdata('userTrack'); ?></h2>
-		<div class="container p-3 bg-transparent">
-			<?php
-				$this->load->view('home/story');
-			?>
-		</div>
+        <br><h2 style="margin-left: 13%; color:whitesmoke; font-size:20px;">Welcome, <?= $data = $this->session->userdata('userTrack'); ?></h2>63
 
 		<div class="container px-3 bg-transparent position-relative">
 			<div id="accordion">
 				<div class="row">
-					<div class="col-md-8">
-						<h4 class="ml-3">All Post</h4>
-						<button class="btn btn-success position-absolute" data-toggle="modal" data-target="#discModal" 
-							aria-expanded='false' style="top:0px; right:120px;"><i class="fa-solid fa-plus"></i> Create Post</button>
-						<div class="dropdown float-right position-absolute" style="top:0px; right:15px;">
-							<button class="btn btn-secondary dropdown-toggle" style="color:whitesmoke; background-color:#e69627; border:none;" 
-								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort By</button>
-							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-								<a class="dropdown-item" href="#">Recently</a>
-								<a class="dropdown-item" href="#">Most Liked</a>
-							</div>
-						</div>
-						<!--Question.-->
-						<?php
-							$this->load->view('home/question');
-						?>
+					<div class="col-lg-3 col-md-5 col-sm-12 mb-3">
+						<!--Contact.-->
+                        <?php
+                            $this->load->view('contact/contact');
+                        ?>
 					</div>
-					<div class="col-md-4">
-						<h4 class="ml-3">Quizes</h4>
-						<!--Quiz.-->
-						<?php
-							$this->load->view('home/quiz');
-						?>
+					<div class="col-lg-9 col-md-7 col-sm-12 mb-3">
+						<!--Chat.-->
+                        <?php
+                            $this->load->view('contact/chat');
+                        ?>
 					</div>
 				</div>
 			</div>
@@ -112,46 +94,6 @@
 			$this->load->view('others/signout');
 		?>			
 
-		<!-- Modal Add Message -->
-		<?php
-			$this->load->view('home/form/addMessage');
-		?>
-
-		<!-- Modal Add Discussion -->
-		<?php
-			$this->load->view('home/form/addQuestion');
-		?>
-
-		<!-- Modal Add Story -->
-		<?php
-			$this->load->view('home/form/addStory');
-		?>
-
-		<!-- Modal Message-->
-		<?php
-			$this->load->view('contact/chat');
-		?>
-
-		<!-- Modal Share question-->
-		<?php
-			$this->load->view('home/form/shareQuestion');
-		?>
-
-		<!-- Modal Share reply-->
-		<?php
-			$this->load->view('home/form/shareReply');
-		?>
-
-		<!-- Modal Share story-->
-		<?php
-			$this->load->view('home/form/shareStory');
-		?>
-
-		<!-- Zoom discussion image Modal -->
-		<?php
-			$this->load->view('others/zoom');
-		?>
-
 		<!--Modal validation.-->
 		<?php
 			$this->load->view('others/failed');
@@ -164,15 +106,6 @@
 
 			function closeNav() {
 				document.getElementById("mySidebar").style.width = "0";
-			}
-
-			//Upload & preview story image
-			function preview() {
-				frame.src = URL.createObjectURL(event.target.files[0]);
-			}
-			function clearImage() {
-				document.getElementById('formFile').value = null;
-				frame.src = "http://localhost/Learnzia/assets/images/icon/NoImage.png";
 			}
 
 			function autocomplete(inp, arr) {
@@ -253,8 +186,6 @@
 			autocomplete(document.getElementById("mycontacts"), contacts);
 
 		</script>
-
-		
 
 		<!--Others CDN.-->
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
