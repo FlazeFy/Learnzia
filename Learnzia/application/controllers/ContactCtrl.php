@@ -24,12 +24,45 @@
 			$this->load->view('contact/index', $data);
 		}
 
+		//Get selected contact profile
+		public function getSelectedCntc()
+		{
+			return $data = $this->db->query('SELECT 
+					user.id_user as id,
+					user.username,
+					user.status,
+					user.imageURL
+				FROM social JOIN user ON user.id_user = social.id_user_1 
+				UNION SELECT
+					user.id_user as id,
+					user.username,
+					user.status,
+					user.imageURL
+					FROM social JOIN user ON user.id_user = social.id_user_2');
+
+			echo json_encode($data);
+			exit;	
+		}
+
+		//Get message by selected contact
+		public function getSelectedMsg()
+		{
+			$this->db->select('*');
+			$this->db->from('message');
+			$this->db->where('id_social', $this->session->userdata('set_id_social'));
+			$this->db->order_by('datetime','ASC');
+			$data = $this->db->get()->result_array();
+
+			echo json_encode($data);
+			exit;	
+		}
+
 		//Open chat by contact
 		public function selectContact()
 		{
-			$id = $this->input->post('id_contact');
+			$id = $this->input->post('id_social');
 
-			$this->session->set_userdata('set_id_contact', $id);
+			$this->session->set_userdata('set_id_social', $id);
 			redirect('ContactCtrl');	
 		}
 
@@ -51,7 +84,7 @@
 
 			$data = array(
 				'id_message' => 'NULL',
-				'id_social' => $this->input->post('id_social'),
+				'id_social' => $this->session->userdata('set_id_social'),
 				'id_user_sender' => $this->session->userdata('userIdTrack'),
 				'message' => $this->input->post('message'),
 				'message_image' => $imageURL,

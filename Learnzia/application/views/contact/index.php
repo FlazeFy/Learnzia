@@ -83,11 +83,6 @@
 				</div>
 			</div>
 		</div>
-
-		<!--Footer.-->
-		<?php
-			$this->load->view('others/footer');
-		?>
 		
 		<!-- Sign out Modal -->
 		<?php
